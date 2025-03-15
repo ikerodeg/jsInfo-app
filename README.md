@@ -1,4 +1,4 @@
-# JavaScriptInfo Astro App
+# JavaScript.info Astro App
 
 Este proyecto es una forma personal de **aprender JavaScript** mediante la creación de un sitio web con **Astro**. Contiene varias lecciones y ejemplos prácticos de JavaScript organizados de manera intuitiva.
 
