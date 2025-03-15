@@ -1,0 +1,440 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+const ruta = '../../src/assets/img/'
+---
+<MainLayout>
+  <LssnArt artClass="lssn__04b" h2Title="Formularios y controles" slot="mainContent">
+    <ChaptrSect h3Title="Propiedades y métodos" codeText="">
+      <ChaptrSubSect h4Title="Formularios y elementos" codeText="">
+        <p class="chaptrSubSect__p">En <span class="bttn">HTML</span>, los formularios se definen con la etiqueta <code>&lt;form&gt;</code>. En el documento, todos los formularios se agrupan en una especie de "armario" llamado <code>document.forms</code>. Se pueden acceder a ellos de dos maneras</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* por nombre de formulario */
+          let ·newsletterForm = document.çforms.·newsletterForm;
+
+          /* por índice */
+          let ·newsletterForm = document.çforms[¬0];</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Elementos del formulario" codeText="">
+        <p class="chaptrSubSect__p">Dentro de cada formulario, todos los controles (como &lt;input&gt;, &lt;textarea&gt;, etc.) se encuentran en la colección <code>form.elements</code>. Esta colección te permite acceder a cada herramienta (elemento) por su nombre o posición</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;form name="newsletterForm"&gt; º/
+            /º &lt;input type="text" name="nombre" placeholder="Nombre" value="Éder"&gt; º/
+            /º &lt;input type="email" name="email" placeholder="Email"&gt; º/
+            /º &lt;button type="submit"&gt;Suscribirse&lt;/button&gt; º/
+          /º &lt;/form&gt; º/
+          
+          /* js */
+          /* Accedemos al formulario newsletter */
+          let ·newsletterForm = document.çforms.•newsletterForm;
+          
+          /*  Accedemos al input llamado "nombre" */
+          let ·inputNombre = ·newsletterForm.çelements.•nombre;
+          /* ó tambien con la notación corta */
+          let ·inputNombre = ·newsletterForm.•nombre;
+          
+           /*  Muestra el contenido */
+          console.log(·inputNombre.•value);
+          ⋗ Éder</pre>
+        <p class="chaptrSubSect__p">En algunos casos (como botones de radio o checkboxes), varios elementos pueden compartir el mismo nombre. En ese caso, <code>form.elements[nombre]</code> te devuelve una colección de elementos, no un único objeto</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;form name="newsletterForm"&gt; º/
+            /º &lt;input type="radio" name="sexo" value="M" checked&gt; Hombre º/
+            /º &lt;input type="radio" name="sexo" value="F"&gt; Mujer º/
+          /º &lt;/form&gt; º/
+          
+          /* js */
+          /* Accedemos al formulario newsletter */
+          let ·newsletterForm = document.çforms.•newsletterForm;
+          
+          /*  Accedemos al input llamado "sexo" */
+          let ·inputSexo = ·newsletterForm.çelements.•sexo;
+          
+          /*  Muestra el contenido */
+          console.log(·inputSexo);
+          ⋗ /º HTMLCollection(2) [input, input] º/
+          console.log(·inputSexo[¬0].•value);
+          ⋗ /º M º/</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Agrupando secciones con" codeText="fieldset">
+        <p class="chaptrSubSect__p">El elemento &lt;fieldset&gt; se usa para agrupar controles relacionados dentro de un formulario. Este grupo también tiene su propia colección elements</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;form name="newsletterForm"&gt; º/
+            /º &lt;fieldset name="userData"&gt; º/
+              /º &lt;legend&gt;Datos personales&lt;/legend&gt; º/
+              /º &lt;input type="text" name="nombre" placeholder="Nombre" value="Éder"&gt; º/
+              /º &lt;input type="email" name="email" placeholder="Email"&gt; º/
+            /º &lt;/fieldset&gt; º/
+            /º &lt;button type="submit"&gt;Suscribirse&lt;/button&gt; º/
+          /º &lt;/form&gt; º/
+          
+          /* js */
+          /* Accedemos al formulario newsletter */
+          let ·newsletterForm = document.çforms.•newsletterForm;
+          
+          /*  Accedemos al fieldset */
+          let ·fieldset = ·newsletterForm.çelements.•userData;
+          
+          /*  Muestra el contenido */
+          console.log(·fieldset);
+          ⋗ /º HTMLCollection(2) [input, input] º/
+          console.log(·fieldset.çelements.•nombre.•value);
+          ⋗ /º Éder º/</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Referencia inversa" codeText=".form">
+        <p class="chaptrSubSect__p">Cada elemento (como un <code>&lt;input&gt;</code>) tiene una propiedad <code>form</code> que hace referencia al formulario al que pertenece. Es una relación bidireccional</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;form name="newsletterForm"&gt; º/
+            /º &lt;input type="text" name="nombre" placeholder="Nombre" value="Éder"&gt; º/
+            /º &lt;input type="email" name="email" placeholder="Email"&gt; º/
+            /º &lt;button type="submit"&gt;Suscribirse&lt;/button&gt; º/
+          /º &lt;/form&gt; º/
+          
+          /* js */
+          /* Accedemos al formulario newsletter */
+          let ·newsletterForm = document.çforms.•newsletterForm;
+          
+          /*  Accedemos al input llamado "nombre" */
+          let ·inputNombre = ·newsletterForm.çelements.•nombre;
+          
+          /*  Muestra el contenido */
+          console.log(·inputNombre.ºform);
+          ⋗ /º HTMLFormElement º/</pre>
+        </pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Enfocado: enfoque/desenfoque" codeText="">
+      <ChaptrSubSect h4Title="Enventos" codeText="focus/blur">
+        <p class="chaptrSubSect__p"><mark>Enfocar (focus):</mark></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Ocurre cuando haces clic sobre un elemento o navegas con la tecla <span class="bttn">TAB</span> para seleccionarlo</li>
+          <li class="chaptrSubSectUl__li">Es como decirle al elemento: “¡Prepárate! Ahora vas a recibir datos o interacciones”</li>
+          <li class="chaptrSubSectUl__li">Existe el atributo <span class="bttn">HTML</span> <code>autofocus</code>, que hace que un elemento se enfoque automáticamente al cargar la página</li>
+        </ul>
+        <p class="chaptrSubSect__p"><mark>Desenfocar (blur):</mark></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Ocurre cuando haces clic fuera de un elemento o navegas con la tecla <span class="bttn">TAB</span> para seleccionar otro</li>
+          <li class="chaptrSubSectUl__li">Es como decirle al elemento: “¡Ya terminé! Ahora puedes procesar los datos o interacciones”</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;form name="newsletterForm"&gt; º/
+            /º &lt;input type="text" name="nombre" placeholder="Nombre" value="Éder" autofocus&gt; º/
+            /º &lt;input type="email" name="email" placeholder="Email"&gt; º/
+            /º &lt;button type="submit"&gt;Suscribirse&lt;/button&gt; º/
+          /º &lt;/form&gt; º/
+          
+          /* js */
+          /* Accedemos al formulario newsletter */
+          let ·newsletterForm = document.çforms.•newsletterForm;
+          
+          /*  Accedemos al input llamado "nombre" */
+          let ·inputNombre = ·newsletterForm.çelements.•nombre;
+          
+          /*  Evento focus */
+          ·inputNombre.addEventListener('focus', () =&gt; &#123;
+            console.log('/º ¡Estás enfocado! º/');
+          &#125;);
+          
+          /*  Evento blur */
+          ·inputNombre.addEventListener('blur', () =&gt; &#123;
+            console.log('/º ¡Estás desenfocado! º/');
+          &#125;);</pre>
+        </pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Métodos" codeText="focus/blur">
+        <p class="chaptrSubSect__p">Puedes controlar el enfoque de un elemento desde JavaScript, sin esperar a la acción del usuario</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;form name="newsletterForm"&gt; º/
+            /º &lt;input type="text" name="nombre" placeholder="Nombre" value="Éder" autofocus&gt; º/
+            /º &lt;input type="email" name="email" placeholder="Email"&gt; º/
+            /º &lt;button type="submit"&gt;Suscribirse&lt;/button&gt; º/
+          /º &lt;/form&gt; º/
+          
+          /* js */
+          /* Accedemos al formulario newsletter */
+          let ·newsletterForm = document.çforms.•newsletterForm;
+          
+          /*  Accedemos al input llamado "email" */
+          let ·inputEmail = ·newsletterForm.çelements.•email;
+          
+          ·inputEmail.addEventListener('blur', () =&gt; &#123;
+            if (!this.•value.ªincludes('@')) &#123; /* No es un correo válido */
+              this.classList.add('error');
+              /* Vuelve a enfocar el input si el valor es inválido */
+              this.ªfocus();
+            &#125; else &#123;
+              this.classList.ªremove('error');
+            &#125;
+          &#125;);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Permitir foco sobre todo" codeText="tabindex">
+        <p class="chaptrSubSect__p">Por defecto, algunos elementos pueden recibir el foco. Pero con <code>tabindex</code> puedes hacer que otros elementos, como &lt;div&gt; o &lt;li&gt;, sean “enfocables”</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>tabindex = '0'</code> Incluye el elemento en el orden natural del Tab, sin alterar el flujo.</li>
+          <li class="chaptrSubSectUl__li"><code>tabindex = '&gt;0'</code> Establece un orden específico de enfoque.</li>
+          <li class="chaptrSubSectUl__li"><code>tabindex = '-1'</code> Permite enfocar el elemento solo mediante código (no se alcanza con Tab).</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;div tabindex="0"&gt; ¡Soy enfocable! º/</div>
+          /º &lt;div&gt; ¡No soy enfocable! º/</div>
+          
+          /* js */
+          let ·div = document.querySelector('div');
+          ·div.addEventListener('focus', () =&gt; &#123;
+            console.log('/º ¡Estás enfocado! º/');
+          &#125;);</pre>
+        </pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Delegación" codeText="focusin/focusout">
+        <p class="chaptrSubSect__p">Los eventos <code>focus</code> y <code>blur</code> tienen una peculiaridad importante: no se propagan (no “burbujean”) por el <span class="bttn">DOM</span>. Esto significa que si quieres detectar el enfoque o desenfoque en un grupo de elementos (por ejemplo, todo un formulario), no podrás hacerlo asignando un manejador al contenedor directamente. Para solucionarlo existen dos alternativas</p>
+        <p class="chaptrSubSect__p"><mark>Opción 1:</mark> Usar la fase de captura. Puedes añadir el manejador de eventos en la fase de captura para “atrapar” el evento antes de que llegue al elemento</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;form id="formulario"&gt; º/
+            /º &lt;input type="text" name="name" value="Name"&gt; º/
+            /º &lt;input type="text" name="surname" value="Surname"&gt; º/
+          /º &lt;/form&gt; º/
+          
+          /* js */
+          /* Accedemos al formulario */
+          let ·formulario = document.çforms.•formulario;
+          
+          /*  Evento focus */
+          ·formulario.addEventListener('focus', () =&gt; &#123;
+            ·formulario.classList.add('focused');
+          &#125;, true);
+
+          /*  Evento blur */
+          ·formulario.addEventListener('blur', () =&gt; &#123;
+            ·formulario.classList.ªremove('focused');
+          &#125;, true);</pre>
+        <p class="chaptrSubSect__p"><mark>Opción 2:</mark> Usar los eventos <code>focusin</code> y <code>focusout</code>. Estos eventos sí se propagan, por lo que puedes asignar un manejador al contenedor y detectar el enfoque o desenfoque de cualquier elemento hijo</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;form id="formulario"&gt; º/
+            /º &lt;input type="text" name="name" value="Name"&gt; º/
+            /º &lt;input type="text" name="surname" value="Surname"&gt; º/
+          /º &lt;/form&gt; º/
+          
+          /* js */
+          /* Accedemos al formulario */
+          let ·formulario = document.çforms.•formulario;
+          
+          /*  Evento focusin */
+          ·formulario.addEventListener('focusin', () =&gt; &#123;
+            ·formulario.classList.add('focused');
+          &#125;);
+
+          /*  Evento focusout */
+          ·formulario.addEventListener('focusout', () =&gt; &#123;
+            ·formulario.classList.ªremove('focused');
+          &#125;);</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Eventos:" codeText="change, input, cut, copy, paste">
+      <ChaptrSubSect h4Title="Evento:" codeText="change">
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Se activa cuando el valor de un elemento ha sido modificado y, en el caso de campos de texto, cuando se pierde el foco (es decir, cuando el usuario finaliza la edición y se desplaza a otro elemento).</li>
+          <li class="chaptrSubSectUl__li">Para elementos como <code>&lt;select&gt;</code>, o inputs tipo <code>checkbox</code>/<code>radio</code>, el evento se dispara en el momento en que se cambia la opción seleccionada.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;form name="newsletterForm"&gt; º/
+            /º &lt;input type="text" name="nombre" placeholder="Nombre" value="Éder"&gt; º/
+            /º &lt;input type="email" name="email" placeholder="Email"&gt; º/
+            /º &lt;button type="submit"&gt;Suscribirse&lt;/button&gt; º/
+          /º &lt;/form&gt; º/
+          
+          /* js */
+          /* Accedemos al formulario newsletter */
+          let ·newsletterForm = document.çforms.•newsletterForm;
+          
+          /*  Accedemos al input llamado "nombre" */
+          let ·inputNombre = ·newsletterForm.çelements.•nombre;
+          
+          /*  Evento change */
+          ·inputNombre.addEventListener('change', () =&gt; &#123;
+            console.log('/º ¡El valor ha cambiado! º/');
+          &#125;);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Evento:" codeText="input">
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Se activa cuando el valor de un elemento de formulario cambia, pero antes de que el contenido se actualice en la interfaz.</li>
+          <li class="chaptrSubSectUl__li">A diferencia de <code>change</code>, el evento <code>input</code> ocurre inmediatamente con cada modificación, ya sea al teclear, al pegar contenido, o incluso al usar el reconocimiento de voz para dictar texto.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;form name="newsletterForm"&gt; º/
+            /º &lt;input type="text" name="nombre" placeholder="Nombre" value="Éder"&gt; º/
+            /º &lt;input type="email" name="email" placeholder="Email"&gt; º/
+            /º &lt;button type="submit"&gt;Suscribirse&lt;/button&gt; º/
+          /º &lt;/form&gt; º/
+          
+          /* js */
+          /* Accedemos al formulario newsletter */
+          let ·newsletterForm = document.çforms.•newsletterForm;
+          
+          /*  Accedemos al input llamado "nombre" */
+          let ·inputNombre = ·newsletterForm.çelements.•nombre;
+          
+          /*  Evento input */
+          ·inputNombre.addEventListener('input', () =&gt; &#123;
+            console.log('/º ¡Estás escribiendo! º/');
+          &#125;);</pre>
+          <p class="chaptrSubSect__p">El evento <code>input</code> se dispara después de que se ha modificado el valor, por lo que llamar a <code>event.preventDefault()</code> no tendrá efecto para revertir la acción</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Eventos:" codeText="cut, copy, paste">
+        <p class="chaptrSubSect__p">El evento <code>cut</code> se activa cuando se corta un contenido seleccionado. Para obtener el texto cortado usar <code>document.getSelection()</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;form name="passGenerator"&gt; º/
+              /º &lt;legend&gt;Password Generada&lt;/legend&gt; º/
+              /º &lt;input type="text" name="password" value="D1DSG2EGs324"&gt; º/
+          /º &lt;/form&gt; º/
+
+          /* js */
+          /* Accedemos al formulario passGenerator */
+          let ·passGenerator = document.çforms.•passGenerator;
+          
+          /*  Accedemos al input name */
+          let ·inputPass = ·passGenerator.çelements.•password;
+
+          /*  Evento cut */
+          ·inputPass.addEventListener('cut', () =&gt; &#123;
+            let ·textoCortado = document.ªgetSelection();
+            console.log(`/º Cortaste el texto: $ º/&#123;·textoCortado&#125;`);
+          &#125;);</pre>
+        <p class="chaptrSubSect__p">El evento <code>copy</code> se activa cuando se copia un contenido seleccionado. Para obtener el texto copiado usar <code>document.getSelection()</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;form name="passGenerator"&gt; º/
+              /º &lt;legend&gt;Password Generada&lt;/legend&gt; º/
+              /º &lt;input type="text" name="password" value="D1DSG2EGs324"&gt; º/
+          /º &lt;/form&gt; º/
+
+          /* js */
+          /* Accedemos al formulario passGenerator */
+          let ·passGenerator = document.çforms.•passGenerator;
+          
+          /*  Accedemos al input name */
+          let ·inputPass = ·passGenerator.çelements.•password;
+
+          /*  Evento copy */
+          ·inputPass.addEventListener('copy', () =&gt; &#123;
+            let ·textoCopiado = document.ªgetSelection();
+            console.log(`/º Copiaste el texto: $ º/&#123;·textoCopiado&#125;`);
+          &#125;);</pre>
+        <p class="chaptrSubSect__p">El evento <code>paste</code> se activa cuando se pega un contenido en un elemento. Para obtener el texto pegado usar <code>event.clipboardData.getData('text/plain')</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;form name="passGenerator"&gt; º/
+              /º &lt;legend&gt;Introduce tu password&lt;/legend&gt; º/
+              /º &lt;input type="text" name="password" placeholder="Pega aquí tu password"&gt; º/
+          /º &lt;/form&gt; º/
+
+          /* js */
+          /* Accedemos al formulario passGenerator */
+          let ·passGenerator = document.çforms.•passGenerator;
+          
+          /*  Accedemos al input name */
+          let ·inputPass = ·passGenerator.çelements.•password;
+
+          /*  Evento paste */
+          ·inputPass.addEventListener('paste', (event) =&gt; &#123;
+            let ·textoPegado = çevent.çclipboardData.ªgetData('text/plain');
+            console.log(`/º Pegaste el texto: $ º/&#123;·textoPegado&#125;`);
+          &#125;);</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Formularios: evento y método" codeText="submit">
+      <ChaptrSubSect h4Title="Evento:" codeText="submit">
+        <p class="chaptrSubSect__p">El evento submit se activa cuando se envía un formulario. Generalmente se dispara de dos maneras</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Cuando el usuario hace clic en un botón de tipo <span class="bttn">submit</span></li>
+          <li class="chaptrSubSectUl__li">Cuando el usuario presiona <span class="bttn">Enter</span> en un campo de texto</li>
+        </ul>
+        <p class="chaptrSubSect__p">Ambas acciones provocan que se dispare el evento <code>submit</code> en el formulario. Esto te permite, por ejemplo, validar los datos ingresados antes de que sean enviados al servidor. Si la validación falla, puedes usar <code>event.preventDefault()</code> (o <code>return false</code> en ejemplos sencillos) para cancelar el envío</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;form name="newsletterForm"&gt; º/
+            /º &lt;input type="text" name="nombre" placeholder="Nombre" value="Éder"&gt; º/
+            /º &lt;input type="email" name="email" placeholder="Email"&gt; º/
+            /º &lt;button type="submit"&gt;Suscribirse&lt;/button&gt; º/
+          /º &lt;/form&gt; º/
+          
+          /* js */
+          /* Accedemos al formulario newsletter */
+          let ·newsletterForm = document.çforms.•newsletterForm;
+          
+          /*  Evento submit */
+          ·newsletterForm.addEventListener('submit', (çevent) =&gt; &#123;
+            çevent.ªpreventDefault();
+            console.log('/º ¡Formulario enviado! º/');
+          &#125;);</pre>
+        <pre class="chaptrSubSect__console wScript"></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Método:" codeText="submit">
+        <p class="chaptrSubSect__p">El método <code>form.submit()</code> permite enviar el formulario mediante JavaScript sin necesidad de que el usuario interactúe con el botón de envío. Es muy útil cuando quieres generar y enviar formularios de forma dinámica o cuando ya has validado los datos y deseas proceder automáticamente</p>
+        <p class="chaptrSubSect__p">Cuando se usa <code>form.submit()</code> para enviar el formulario, no se dispara el evento <code>submit</code>. Esto quiere decir que, al llamar a este método, se asume que el programador ya ha realizado cualquier validación o procesamiento previo y que se quiere enviar el formulario sin intervenciones adicionales</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;form name="newsletterForm"&gt; º/
+            /º &lt;input type="text" name="nombre" placeholder="Nombre" value="Éder"&gt; º/
+            /º &lt;input type="email" name="email" placeholder="Email"&gt; º/
+            /º &lt;button type="submit"&gt;Suscribirse&lt;/button&gt; º/
+          /º &lt;/form&gt; º/
+          
+          /* js */
+          /* Accedemos al formulario newsletter */
+          let ·newsletterForm = document.çforms.•newsletterForm;
+          
+          /*  Evento submit */
+          ·newsletterForm.addEventListener('submit', (çevent) =&gt; &#123;
+            çevent.ªpreventDefault();
+            console.log('/º ¡Formulario enviado! º/');
+          &#125;);
+
+          /*  Enviamos el formulario */
+          ·newsletterForm.ªsubmit();</pre>
+        </pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>
+
+<!-- 
+&lt;&gt;
+&#123;&#125;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<img class="chaptrSubSect__img" src=`${ruta}img13.webp` alt="captura del evento">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li"></li>
+＃
+-->

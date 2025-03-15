@@ -1,0 +1,328 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__17" h2Title="Maps" slot="mainContent">
+    <ChaptrSect h3Title="Creación de un Map" codeText="">
+      <ChaptrSubSect h4Title="Utilizando su constructor" codeText="new Map()">
+        <p class="chaptrSubSect__p">Es la única forma de crearlo, <mark>no existe la forma literal</mark> como en los objetos</p>
+        <p class="chaptrSubSect__p">Las claves de un <code>Map</code> <mark>pueden ser de cualquier tipo</mark> como en los objetos</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">myMap</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Map</span><span class="warp">()</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">myMap</span>)</span>;
+          <span class="result">Map(0) &#123;size: 0&#125;</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Agregar elementos" codeText="">
+      <ChaptrSubSect h4Title="Utilizando su constructor" codeText="new Map()">
+        <p class="chaptrSubSect__p">Cuando lo estamos creando podemos pasarle también unos valores iniciales</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">myMap</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Map</span><span class="warp">([
+            [<span class="args">'name', 'Éder'</span>],
+            [<span class="args">'age'</span>, <span class="nums">4</span>],
+            [<span class="key">true</span>, <span class="args">'booleano'</span>],
+            [<span class="nums">404</span>, <span class="key">false</span>]
+          ])</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">myMap</span>)</span>;
+          <span class="result">Map(4)
+            [[Entries]]
+            0: &#123;'name' =&gt; 'Éder'&#125;
+            1: &#123;'age' =&gt; 4&#125;
+            2: &#123;true =&gt; booleano&#125;
+            3: &#123;404 =&gt; false&#125;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Utilizando el método" codeText=".set()">
+        <p class="chaptrSubSect__p">Cómo argumento le pasaremos clave/valor</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">jugador_050</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Map</span><span class="warp">()</span>;
+          
+          <span class="obj">jugador_050</span><span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="args">'name', 'Éder'</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">myMap</span>)</span>;
+          <span class="result">Map(1)
+            [[Entries]]
+            0: &#123;'name' =&gt; 'Éder'&#125;</pre>
+          <p class="chaptrSubSect__p">Podemos usar el encadenamiento para añadir varios valores a la vez</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">const</span> <span class="var">jugador_050</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Map</span><span class="warp">()</span>;
+            
+            <span class="obj">jugador_050</span><span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="args">'name', 'Éder'</span>)</span> <span class="commnt">ojo con poner ;</span>
+            <span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="args">'age'</span>, <span class="nums">4</span>)</span>
+            <span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="args">'foot', 'left'</span>)</span>;  <span class="commnt">ahora si se pone</span>
+  
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">myMap</span>)</span>;
+            <span class="result">Map(4)
+              [[Entries]]
+              0: &#123;'name' =&gt; 'Éder'&#125;
+              1: &#123;'age' =&gt; 4&#125;
+              2: &#123;'foot' =&gt; 'left'&#125;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Array como argumento a" codeText="new Map()">
+        <p class="chaptrSubSect__p">Podemos pasar un array de arrays con pares clave/valor al constructor <code>new Map()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">ederArr</span> <span class="opera">=</span> <span class="warp">[<span class="warp2">[<span class="args">'name', 'Éder'</span>]</span>, <span class="warp2">[<span class="args">'age',</span> <span class="nums">4</span>]</span>, <span class="warp2">[<span class="args">'foot', 'left'</span>]</span>]</span>;
+
+          <span class="key">const</span> <span class="var">myMap</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Map</span><span class="warp">(<span class="obj">ederArr</span>)</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">myMap</span>)</span>;
+          <span class="result">Map(3)
+            [[Entries]]
+            0: &#123;'name' =&gt; 'Éder'&#125;
+            1: &#123;'age' =&gt; 4&#125;
+            2: &#123;'foot' =&gt; 'left'&#125;</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Acceso a elementos" codeText="">
+      <ChaptrSubSect h4Title="Devuelve el value de key con" codeText=".get()">
+          <p class="chaptrSubSect__p">A diferencia de los objetos, las claves no se convierten en strings. Cualquier tipo de clave es posible en un Map</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">const</span> <span class="var">jugador_050</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Map</span><span class="warp">()</span>;
+            
+            <span class="obj">jugador_050</span><span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="args">'name', 'Éder'</span>)</span>
+            <span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="key">true</span>, <span class="nums">1</span>)</span>
+            <span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="nums">404</span>, <span class="key">false</span>)</span>;
+  
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="key">typeof</span> <span class="obj">jugador_050</span><span class="dot">.</span><span class="meth">get</span><span class="warp">(<span class="args">'name'</span>)</span>)</span>;
+            <span class="result">Éder
+              string</span>
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="key">typeof</span> <span class="obj">jugador_050</span><span class="dot">.</span><span class="meth">get</span><span class="warp">(<span class="key">true</span>)</span>)</span>;
+            <span class="result">1
+              number</span>
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="key">typeof</span> <span class="obj">jugador_050</span><span class="dot">.</span><span class="meth">get</span><span class="warp">(<span class="nums">404</span>)</span>)</span>;
+            <span class="result">false
+              boolean</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Existencia claves" codeText="">
+      <ChaptrSubSect h4Title="Verifica si existe una clave con" codeText=".has()">
+          <p class="chaptrSubSect__p">Devuelve un booleano</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">const</span> <span class="var">jugador_050</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Map</span><span class="warp">()</span>;
+            
+            <span class="obj">jugador_050</span><span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="args">'name', 'Éder'</span>)</span>
+            <span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="key">true</span>, <span class="nums">1</span>)</span>
+            <span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="nums">404</span>, <span class="key">false</span>)</span>;
+  
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">jugador_050</span><span class="dot">.</span><span class="meth">has</span><span class="warp">(<span class="nums">404</span>)</span>)</span>;
+            <span class="result">true</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Eliminar elementos" codeText="">
+      <ChaptrSubSect h4Title="Elimina elemento con clave con" codeText=".delete()">
+          <p class="chaptrSubSect__p">Elmina el elemento que contiene esa clave</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">const</span> <span class="var">jugador_050</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Map</span><span class="warp">()</span>;
+            
+            <span class="obj">jugador_050</span><span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="args">'name', 'Éder'</span>)</span>
+            <span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="key">true</span>, <span class="nums">1</span>)</span>
+            <span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="nums">404</span>, <span class="key">false</span>)</span>;
+  
+            <span class="obj">jugador_050</span><span class="dot">.</span><span class="meth">delete</span><span class="warp">(<span class="nums">404</span>)</span>;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">jugador_050</span><span class="dot">.</span><span class="meth">has</span><span class="warp">(<span class="nums">404</span>)</span>)</span>;
+            <span class="result">false</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Vaciar el Map" codeText="">
+      <ChaptrSubSect h4Title="Vacia completamente con" codeText=".clear()">
+          <p class="chaptrSubSect__p">Vacía por completo el Map de elementos</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">const</span> <span class="var">jugador_050</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Map</span><span class="warp">()</span>;
+            
+            <span class="obj">jugador_050</span><span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="args">'name', 'Éder'</span>)</span>
+            <span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="key">true</span>, <span class="nums">1</span>)</span>
+            <span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="nums">404</span>, <span class="key">false</span>)</span>;
+  
+            <span class="obj">jugador_050</span><span class="dot">.</span><span class="meth">clear</span><span class="warp">()</span>;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">jugador_050</span>)</span>;
+            <span class="result">Map(0) &#123;&#125;</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Verificar tamaño" codeText="">
+      <ChaptrSubSect h4Title="El método" codeText="size">
+        <p class="chaptrSubSect__p">Aunque al hacer un <code>console.log()</code> lo primero que nos muestra la consola es la palabra <code>Map</code> seguido de entre paréntesis el tamaño de este</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">jugador_08</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Map</span><span class="warp">([
+            [<span class="args">'name', 'Éder'</span>],
+            [<span class="args">'age'</span>, <span class="nums">4</span>],
+            [<span class="key">true</span>, <span class="args">'booleano'</span>],
+            [<span class="nums">404</span>, <span class="key">false</span>]
+          ])</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">jugador_08</span><span class="dot">.</span><span class="meth">size</span>)</span>;
+          <span class="result">4</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Iterando un Map" codeText="">
+      <ChaptrSubSect h4Title="El método" codeText=".keys()">
+        <p class="chaptrSubSect__p">Devuelve un objeto iterable con las claves de cada elemento del <code>Map</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">bagShop</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Map</span><span class="warp">([
+            [<span class="args">'uvas'</span>, <span class="nums">1</span>],
+            [<span class="args">'kiwis'</span>, <span class="nums">2</span>],
+            [<span class="args">'peras'</span>, <span class="nums">3</span>],
+            [<span class="args">'manzanas'</span>, <span class="nums">4</span>]
+          ])</span>;
+          
+          <span class="commnt">con el ciclo for(of)</span>
+          <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="params">key</span> <span class="key">of</span> <span class="obj">bagShop</span><span class="dot">.</span><span class="meth">keys</span><span class="warp2">()</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">key</span>)</span>;
+          &#125;</span>
+          <span class="result">uvas kiwis peras manzanas</span>
+
+          <span class="commnt">con forEach()</span>
+          <span class="obj">bagShop</span><span class="dot">.</span><span class="meth">keys</span><span class="warp2">()</span><span class="dot">.</span><span class="meth">forEach</span><span class="warp2">((<span class="params">key</span>) <span class="opera">=&gt;</span> &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">key</span>)</span>
+          &#125;)</span>
+          <span class="result">uvas kiwis peras manzanas</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".values()">
+        <p class="chaptrSubSect__p">Devuelve un objeto iterable con los valores de cada elemento del <code>Map</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">bagShop</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Map</span><span class="warp">([
+            [<span class="args">'uvas'</span>, <span class="nums">1</span>],
+            [<span class="args">'kiwis'</span>, <span class="nums">2</span>],
+            [<span class="args">'peras'</span>, <span class="nums">3</span>],
+            [<span class="args">'manzanas'</span>, <span class="nums">4</span>]
+          ])</span>;
+          
+          <span class="commnt">con el ciclo for(of)</span>
+          <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="params">value</span> <span class="key">of</span> <span class="obj">bagShop</span><span class="dot">.</span><span class="meth">values</span><span class="warp2">()</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">value</span>)</span>;
+          &#125;</span>
+          <span class="result">12 3 2 5</span>
+
+          <span class="commnt">con forEach()</span>
+          <span class="obj">bagShop</span><span class="dot">.</span><span class="meth">values</span><span class="warp2">()</span><span class="dot">.</span><span class="meth">forEach</span><span class="warp2">((<span class="params">value</span>) <span class="opera">=&gt;</span> &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">value</span>)</span>
+          &#125;)</span>
+          <span class="result">12 3 2 5</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".entries()">
+        <p class="chaptrSubSect__p">Devuelve un objeto iterable con los pares claves/valores de cada elemento del <code>Map</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">bagShop</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Map</span><span class="warp">([
+            [<span class="args">'uvas'</span>, <span class="nums">1</span>],
+            [<span class="args">'kiwis'</span>, <span class="nums">2</span>],
+            [<span class="args">'peras'</span>, <span class="nums">3</span>],
+            [<span class="args">'manzanas'</span>, <span class="nums">4</span>]
+          ])</span>;
+          
+          <span class="commnt">con el ciclo for(of)</span>
+          <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="params">entry</span> <span class="key">of</span> <span class="obj">bagShop</span><span class="dot">.</span><span class="meth">entries</span><span class="warp2">()</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">entry</span>)</span>;
+          &#125;</span>
+          <span class="result">['uvas', 12]
+            ['kiwis', 3]
+            ['peras', 2]
+            ['manzanas', 5]</span>
+
+          <span class="commnt">con forEach()</span>
+          <span class="obj">bagShop</span><span class="dot">.</span><span class="meth">entries</span><span class="warp2">()</span><span class="dot">.</span><span class="meth">forEach</span><span class="warp2">((<span class="params">entry</span>) <span class="opera">=&gt;</span> &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">entry</span>)</span>
+          &#125;)</span>
+          <span class="result">['uvas', 12]
+            ['kiwis', 3]
+            ['peras', 2]
+            ['manzanas', 5]</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Usando directamente" codeText=".forEach()">
+        <p class="chaptrSubSect__p">Devuelve  los pares claves/valores de cada elemento del <code>Map</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">bagShop</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Map</span><span class="warp">([
+            [<span class="args">'uvas'</span>, <span class="nums">1</span>],
+            [<span class="args">'kiwis'</span>, <span class="nums">2</span>],
+            [<span class="args">'peras'</span>, <span class="nums">3</span>],
+            [<span class="args">'manzanas'</span>, <span class="nums">4</span>]
+          ])</span>;
+          
+          <span class="commnt">con forEach()</span>
+          <span class="obj">bagShop</span><span class="dot">.</span><span class="meth">forEach</span><span class="warp2">((<span class="params">value, key</span>) <span class="opera">=&gt;</span> &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">key, value</span>)</span>
+          &#125;)</span>
+          <span class="result">'uvas', 12
+            'kiwis', 3
+            'peras', 2
+            'manzanas', 5</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Conversiones" codeText="">
+      <ChaptrSubSect h4Title="De Objeto a Map con" codeText=".Object.entries()">
+        <p class="chaptrSubSect__p">Usando el método <code>.Object.entries()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">bagShop</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">uvas</span>: <span class="nums">1</span>,
+            <span class="objProp">kiwis</span>: <span class="nums">2</span>,
+            <span class="objProp">peras</span>: <span class="nums">3</span>,
+            <span class="objProp">manzanas</span>: <span class="nums">4</span>
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">bagShopMap</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Map</span><span class="warp">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">entries</span><span class="warp2">(<span class="obj">bagShop</span>)</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">bagShopMap</span>)</span>;
+          <span class="result">Map(4)
+            [[Entries]]
+            0: &#123;'uvas' =&gt; 1&#125;
+            1: &#123;'kiwis' =&gt; 2&#125;
+            2: &#123;'peras' =&gt; 3&#125;
+            3: &#123;'manzanas' =&gt; 4&#125;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="De Map a Objeto con" codeText=".Object.fromEntries()">
+        <p class="chaptrSubSect__p">Usando el método <code>.Object.fromEntries()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">bagShopMap</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Map</span><span class="warp">([
+            [<span class="args">'uvas'</span>, <span class="nums">1</span>],
+            [<span class="args">'kiwis'</span>, <span class="nums">2</span>],
+            [<span class="args">'peras'</span>, <span class="nums">3</span>],
+            [<span class="args">'manzanas'</span>, <span class="nums">4</span>]
+          ])</span>;
+
+          <span class="key">const</span> <span class="var">bagShopObj</span> <span class="opera">=</span> <span class="obj">Object</span><span class="dot">.</span><span class="meth">fromEntries</span><span class="warp2">(<span class="obj">bagShopMap</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">bagShopObj</span>)</span>;
+          <span class="result">&#123;uvas: 1, kiwis: 2, peras: 3, manzanas: 4&#125;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="De Map a Array con" codeText="Array.from()">
+        <p class="chaptrSubSect__p">Usando el método <code>Array.from()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">bagShopMap</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Map</span><span class="warp">([
+            [<span class="args">'uvas'</span>, <span class="nums">1</span>],
+            [<span class="args">'kiwis'</span>, <span class="nums">2</span>],
+            [<span class="args">'peras'</span>, <span class="nums">3</span>],
+            [<span class="args">'manzanas'</span>, <span class="nums">4</span>]
+          ])</span>;
+
+          <span class="key">const</span> <span class="var">bagShopArr</span> <span class="opera">=</span> <span class="obj">Array</span><span class="dot">.</span><span class="meth">from</span><span class="warp">(<span class="obj">bagShopMap</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">bagShopArr</span>)</span>;
+          <span class="result">[['uvas', 1], ['kiwis', 2], ['peras', 3], ['manzanas', 4]]</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="De Array a Map con" codeText="new Map()">
+        <p class="chaptrSubSect__p">Podemos pasar un array de arrays con pares clave/valor al constructor <code>new Map()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">bagShopArr</span> <span class="opera">=</span> <span class="warp">[
+            <span class="warp2">[<span class="args">'uvas',</span> <span class="nums">1</span>]</span>,
+            <span class="warp2">[<span class="args">'kiwis',</span> <span class="nums">2</span>]</span>,
+            <span class="warp2">[<span class="args">'peras',</span> <span class="nums">3</span>]</span>,
+            <span class="warp2">[<span class="args">'manzanas',</span> <span class="nums">4</span>]</span>
+          ]</span>;
+
+          <span class="key">const</span> <span class="var">bagShopMap</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Map</span><span class="warp">(<span class="obj">bagShopArr</span>)</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">bagShopMap</span>)</span>;
+          <span class="result">Map(4)
+            [[Entries]]
+            0: &#123;'uvas' =&gt; 1&#125;
+            1: &#123;'kiwia' =&gt; 2&#125;
+            2: &#123;'peras' =&gt; 3&#125;
+            3: &#123;'manzanas' =&gt; 4&#125;</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>

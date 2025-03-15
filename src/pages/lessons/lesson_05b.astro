@@ -1,0 +1,178 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+const ruta = '../../src/assets/img/'
+---
+<MainLayout>
+  <LssnArt artClass="lssn__05b" h2Title="El documento y carga de recursos" slot="mainContent">
+    <ChaptrSect h3Title="Carga de página" codeText="">
+      <ChaptrSubSect h4Title="Ciclo de vida de una página" codeText="">
+        <p class="chaptrSubSect__p">El ciclo de vida de una página web comienza cuando el navegador recibe la respuesta del servidor con el código <span class="bttn">HTML</span> y termina cuando el usuario cierra la pestaña o el navegador. Durante este ciclo, se ejecutan eventos que nos permiten interactuar con la página en diferentes momentos.</p>
+        <p class="chaptrSubSect__p">Estos son los eventos más comunes</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code><strong>DOMContentLoaded</strong>:</code> Cuando el <span class="bttn">DOM</span> está listo.</li>
+            <li class="chaptrSubSectUl__li--sub">Ocurre en el objeto <code>document</code></li>
+            <li class="chaptrSubSectUl__li--sub">Es ideal para iniciar JavaScript que necesita acceder a los elementos de la página para hacerlos interactivos</li>
+          <li class="chaptrSubSectUl__li"><code><strong>load</strong>:</code> Cuando todo está cargado, incluyendo recursos externos.</li>
+            <li class="chaptrSubSectUl__li--sub">Ocurre en el objeto <code>window</code></li>
+            <li class="chaptrSubSectUl__li--sub">Es útil cuando necesitas asegurarte de que todos los elementos visuales están presentes para realizar alguna acción en JavaScript.</li>
+          <li class="chaptrSubSectUl__li"><code><strong>beforeunload</strong>:</code> Antes de salir de la página.</li>
+            <li class="chaptrSubSectUl__li--sub">Ocurre en el objeto <code>window</code></li>
+            <li class="chaptrSubSectUl__li--sub">Es útil para mostrar un mensaje de advertencia al usuario antes de que abandone la página.</li>
+            <li class="chaptrSubSectUl__li--sub">Si la función <code>beforeunload</code> devuelve <code>false</code> o una cadena de texto, el navegador entenderá que quieres cancelar la salida y mostrará la confirmación al usuario</li>
+          <li class="chaptrSubSectUl__li"><code><strong>unload</strong>:</code> Al salir de la página.</li>
+            <li class="chaptrSubSectUl__li--sub">Ocurre en el objeto <code>window</code></li>
+            <li class="chaptrSubSectUl__li--sub">Es útil para limpiar recursos o guardar información antes de que el usuario abandone la página.</li>
+            <li class="chaptrSubSectUl__li--sub">NO puedes pedir confirmación ni detener la navegación.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="DOMContentLoaded">
+        <p class="chaptrSubSect__p">El evento <code>DOMContentLoaded</code> ocurre cuando el navegador termina de leer el <span class="bttn">HTML</span> y construye el "árbol <span class="bttn">DOM</span>". Sin embargo, cosas como imágenes o estilos aún podrían estar cargándose</p>
+        <pre class="chaptrSubSect__console wScript">
+          document.addEventListener('DOMContentLoaded', () =&gt; &#123;
+            const ·title = document.querySelector('h1');
+            ·title.•textContent = 'DOM cargado';
+          &#125;);</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Scripts bloqueantes:</strong> Si hay un <code>&lt;script&gt;</code>, el navegador espera a que termine antes de lanzar <code>DOMContentLoaded</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>Scripts async o defer:</strong> No bloquean este evento.</li>
+          <li class="chaptrSubSectUl__li"><strong>Estilos primero:</strong> Si un estilo <span class="bttn">CSS</span> está antes de un <code>&lt;script&gt;</code> , este debe esperar a que el <span class="bttn">CSS</span> se cargue.</li>
+          <li class="chaptrSubSectUl__li"><strong>Imágenes y otros:</strong> No bloquean <code>DOMContentLoaded</code> porque no espera a que se carguen.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="load">
+        <p class="chaptrSubSect__p">Se dispara cuando la página y todos sus recursos externos (imágenes, CSS, fuentes, etc.) están completamente cargados</p>
+        <pre class="chaptrSubSect__console wScript">
+          çwindow.addEventListener('load', () =&gt; &#123;
+            const ·img = document.getElementById('my-image');
+            console.log(`La imagen tiene un ancho de $&#123;·img.•width&#125;px.`);
+          &#125;);</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Es el evento más tardío. Suele ser innecesario usarlo porque <span class="bttn">DOMContentLoaded</span> suele ser suficiente.</li>
+          <li class="chaptrSubSectUl__li">Sólo se usa en casos específicos donde los recursos externos son críticos (ej: aplicar estilos dinámicos basados en imágenes cargadas).</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="beforeunload">
+        <p class="chaptrSubSect__p">Se dispara cuando el usuario intenta abandonar la página (ej: cerrar la pestaña, navegar a otra URL, recargar la página)</p>
+        <pre class="chaptrSubSect__console wScript">
+          çwindow.addEventListener('beforeunload', (çevent) =&gt; &#123;
+            /* Verificar si hay cambios sin guardar */
+            if (·hasUnsavedChanges) &#123;
+              /* Personalizar el mensaje (no funciona en todos los navegadores) */
+              çevent.•returnValue = '/º ¡Hay cambios sin guardar! ¿Estás seguro? º/';
+              return çevent.•returnValue; /* Para navegadores antiguos */
+            &#125;
+          &#125;);</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">No uses <code>event.preventDefault()</code> , ya que la mayoría de los navegadores lo ignoran.</li>
+          <li class="chaptrSubSectUl__li">Sólo se debe usar para confirmar acciones críticas , no para otras operaciones (ej: no enviar datos al servidor aquí).</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="unload">
+        <p class="chaptrSubSect__p">Se dispara cuando el usuario abandona la página definitivamente (ej: cierra la pestaña, navega a otra URL)</p>
+        <pre class="chaptrSubSect__console wScript">
+          çwindow.addEventListener('unload', () &#123;
+            /* Enviar datos de análisis */
+            çnavigator.ªsendBeacon('/analytics', çJSON.ªstringify(&#123;
+              page: 'home',
+              timeSpent: ¬120 /* segundos */
+            &#125;));
+          &#125;);</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">No uses esto para acciones que requieren respuesta del servidor , ya que la página ya está cerrándose.</li>
+          <li class="chaptrSubSectUl__li">Usa <code>navigator.sendBeacon()</code> para solicitudes asíncronas que no bloqueen la salida (ej: envío de datos de uso).</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="readyState">
+        <p class="chaptrSubSect__p">Verifica si el <span class="bttn">DOM</span> está listo antes de ejecutar código e indica el estado actual de carga del documento que tiene tres valores</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>loading</code>: El documento aún se está cargando.</li>
+          <li class="chaptrSubSectUl__li"><code>interactive</code>: El documento se ha cargado, el <span class="bttn">DOM</span> está listo y <code>DOMContentLoaded</code> se ha disparado.</li>
+          <li class="chaptrSubSectUl__li"><code>complete</code>: El documento y todos los recursos están cargados, <code>load</code> se ha disparado.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          if (document.•readyState === 'loading') &#123;
+              document.addEventListener('DOMContentLoaded', () =&gt; &#123;
+                console.log('DOM cargado');
+              &#125;);
+          &#125; else if (document.•readyState === 'interactive') &#123;
+              console.log('DOM listo');
+          &#125; else if (document.•readyState === 'complete') &#123;
+              console.log('DOM y recursos cargados');
+          &#125;</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Flujo de eventos en una página" codeText="">
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>1.</strong> <code><strong>readystatechange</strong></code> cambia a <code><strong>interactive</strong></code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>2.</strong> <code><strong>DOMContentLoaded</strong></code> se dispara.</li>
+          <li class="chaptrSubSectUl__li"><strong>3.</strong> El navegador carga recursos externos (imágenes, CSS, etc.).</li>
+          <li class="chaptrSubSectUl__li"><strong>4.</strong> <code><strong>readystatechange</strong></code> cambia a <code><strong>complete</strong></code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>5.</strong> <code><strong>load</strong></code> se dispara en <code><strong>window</strong></code>.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Resumen tabular" codeText="">
+        <table class="chaptrSubSect__table">
+          <thead>
+            <tr>
+              <th>EVENTO</th>
+              <th>¿QUÉ OCURRE?</th>
+              <th>USO TÍPICO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>DOMContentLoaded</code></td>
+              <td>DOM listo, recursos externos no cargados</td>
+              <td>Inicializar scripts, validar formularios</td>
+            </tr>
+            <tr>
+              <td><code>load</code></td>
+              <td>Todo cargado (HTML, CSS, imágenes, etc.)</td>
+              <td>Animaciones basadas en tamaños, galerías</td>
+            </tr>
+            <tr>
+              <td><code>beforeunload</code></td>
+              <td>Usuario intenta abandonar la página</td>
+              <td>Confirmar cambios no guardados</td>
+            </tr>
+            <tr>
+              <td><code>unload</code></td>
+              <td>Usuario sale de la página</td>
+              <td>Enviar datos de análisis, cerrar conexiones</td>
+            </tr>
+          </tbody>
+        </table>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>
+
+<!-- 
+&lt;&gt;
+&#123;&#125;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<img class="chaptrSubSect__img" src=`${ruta}img13.webp` alt="captura del evento">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li"></li>
+＃
+-->

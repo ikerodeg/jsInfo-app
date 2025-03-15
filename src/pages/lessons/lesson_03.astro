@@ -1,0 +1,522 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__03" h2Title="Tipos de datos" slot="mainContent">
+    <ChaptrSect h3Title="El tipo" codeText="Number">
+      <ChaptrSubSect h4Title="Otras formas de escribir número">
+        <p class="chaptrSubSect__p">Agregando la letra <code>e</code> y especificando la cantidad de ceros</p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="nums">1e9</span>)</span>;
+          <span class="result">1000000000</span>
+  
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="nums">1e-6</span>)</span>;
+          <span class="result">0.000001</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Redondeo con" codeText="Math">
+        <p class="chaptrSubSect__p">Redondea hacia abajo con <code>Math.floor</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Math</span><span class="dot">.</span><span class="meth">floor</span><span class="warp">(<span class="nums">5.8</span>)</span>)</span>;
+          <span class="result">5</span></pre>
+        <p class="chaptrSubSect__p">Redondea hacia arriba con <code>Math.ceil</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Math</span><span class="dot">.</span><span class="meth">ceil</span><span class="warp">(<span class="nums">5.3</span>)</span>)</span>;
+          <span class="result">6</span></pre>
+        <p class="chaptrSubSect__p">Redondea hacia el entero más cercano con <code>Math.round</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Math</span><span class="dot">.</span><span class="meth">round</span><span class="warp">(<span class="nums">-5.4</span>)</span>)</span>;
+          <span class="result">-5</span></pre>
+        <p class="chaptrSubSect__p">Quita lo que hay detrás del punto sin redondear con <code>Math.trunc</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Math</span><span class="dot">.</span><span class="meth">trunc</span><span class="warp">(<span class="nums">5.96674</span>)</span>)</span>;
+          <span class="result">5</span></pre>
+        <p class="chaptrSubSect__p">Redondea a dos dígitos tras el punto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Math</span><span class="dot">.</span><span class="meth">round</span><span class="warp">(<span class="nums">1.23456</span> <span class="dot">*</span> <span class="nums">100</span>)</span> <span class="dot">/</span> <span class="nums">100</span>)</span>;
+          <span class="result">1.23</span>
+  
+          <span class="commnt">1.23456 * 100 = 123.456</span>
+          <span class="commnt">Math.round(123.456) = 123.00</span>
+          <span class="commnt">123.00 / 100 = 1.23</span></pre>
+        <p class="chaptrSubSect__p">Redondea a "n" digitos y lo convierte en un <span class="bttn">string</span> con <code>toFixed(n)</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="nums">5.895641</span><span class="dot">.</span><span class="meth">toFixed</span><span class="warp">(<span class="nums">2</span>)</span>)</span>;
+          <span class="result">'5.90'</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Verificando si NO es del tipo" codeText="Number">
+        <p class="chaptrSubSect__p">Convierte el argumento que se le pasa a tipo <span class="bttn">number</span> con <code>isNaN(arg)</code> y después verifica si <mark><b>NO</b></mark> es <code>NaN</code> y devuelve <span class="bttn">boolean</span></p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="func">isNaN</span><span class="warp">(<span class="nums">5.90</span>)</span>)</span>;
+          <span class="result">false</span>
+  
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="func">isNaN</span><span class="warp">(<span class="nums">'5.90'</span>)</span>)</span>;
+          <span class="result">true</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Verificando si es un número regular con" codeText="isFinite()">
+        <p class="chaptrSubSect__p">Convierte a tipo <span class="bttn">number</span> y devuelve <span class="bttn">boolean</span></p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="func">isFinite</span><span class="warp">(<span class="nums">'15'</span>)</span>)</span>;
+          <span class="result">true</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="La objeto matemático" codeText="Math">
+        <p class="chaptrSubSect__p">Devuelve un número decimal aleatorio entre 0 y 1 con <code>Math.random()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Math</span><span class="dot">.</span><span class="meth">random</span><span class="warp">( )</span>)</span>;
+          <span class="result">0.34622279801161526</span></pre>
+        <p class="chaptrSubSect__p">Devuelve el número mayor de entre los dados con <code>Math.max()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Math</span><span class="dot">.</span><span class="meth">max</span><span class="warp">(<span class="nums">3, 5, -10, 0, 1</span>)</span>)</span>;
+          <span class="result">5</span></pre>
+        <p class="chaptrSubSect__p">Devuelve el número mayor de entre los dados con <code>Math.min()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Math</span><span class="dot">.</span><span class="meth">min</span><span class="warp">(<span class="nums">3, 5, -10, 0, 1</span>)</span>)</span>;
+          <span class="result">1</span></pre>
+        <p class="chaptrSubSect__p">Devuelve un número elevado a otro con <code>Math.pow()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Math</span><span class="dot">.</span><span class="meth">pow</span><span class="warp">(<span class="nums">2, 10</span>)</span>)</span>;
+          <span class="result">1024</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="El tipo" codeText="bigInt">
+      <ChaptrSubSect h4Title="Valores enteros mayores que" codeText="253^-1">
+        <p class="chaptrSubSect__p">Agregando la letra <code>n</code> al final del número entero</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">myBigInt1</span> <span class="ope">=</span> <span class="nums">12345678901234567890134567890n</span>;</pre>
+        <p class="chaptrSubSect__p">Usando el constructor <code>BigInt</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">myBigInt2</span> <span class="ope">=</span> <span class="func">BigInt</span><span class="warp">("<span class="nums">123456789012345678907890n</span>")</span>;</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="El tipo" codeText="Infinity">
+      <ChaptrSubSect h4Title="Cómo obtenerlo">
+        <p class="chaptrSubSect__p">Podemos obtenerlo como resultado de la división por cero o hacemos referencia a él directamente</p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(</span><span class="nums">1</span> <span class="opera">/</span> <span class="nums">0</span><span class="warp">)</span>;
+          <span class="result">Infinity</span>
+  
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(</span><span class="opera">Infinity</span><span class="warp">)</span>;
+          <span class="result">Infinity</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="El tipo" codeText="NaN">
+      <ChaptrSubSect h4Title="Cómo obtenerlo">
+        <p class="chaptrSubSect__p">Es la represantación de un error de cálculo, es el resultado de una operación matemática incorrecta o indefinida</p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(</span><span class="nums">1</span> <span class="opera">/</span> <span class="args">'cero'</span><span class="warp">)</span>;
+          <span class="result">NaN</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="El tipo" codeText="String">
+      <ChaptrSubSect h4Title="Tipos de comillas">
+        <p class="chaptrSubSect__p">Comillas simples</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">single</span> <span class="opera">=</span> <span class="args">'comillas simples'</span>;</pre>
+        <p class="chaptrSubSect__p">Comillas dobles</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">dobles</span> <span class="opera">=</span> <span class="args">"comillas dobles"</span>;</pre>
+        <p class="chaptrSubSect__p">Comillas backticks</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">backticks</span> <span class="opera">=</span> <span class="args">`comillas backticks`</span>;</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Otros caracteres especiales">
+        <p class="chaptrSubSect__p">El caracter de escape <code>\</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(</span><span class="args">'El nene se llama</span> <span class="opera">\</span><span class="args">'Eder</span><span class="opera">\</span><span class="args">' '</span><span class="warp">)</span>;
+          <span class="result">El nene se llama 'Eder'</span>
+  
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(</span><span class="args">'El caracter de escape</span> <span class="opera">\\</span><span class="args">'</span><span class="warp">)</span>;
+          <span class="result">El caracter de escape \</span>
+  
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(</span><span class="args">'Hola</span> <span class="opera">\t</span> <span class="args">Iker'</span><span class="warp">)</span>;
+          <span class="result">Hola   Iker</span>
+  
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(</span><span class="args">'Hola</span> <span class="opera">\n</span> <span class="args">Iker'</span><span class="warp">)</span>;
+          <span class="result">Hola
+              Iker</span>
+  
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">('<span class="opera">\</span><span class="nums">x7A'</span><span class="warp">)</span>;
+          <span class="result">z</span>
+  
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">('<span class="opera">\</span><span class="nums">u&#123;1F60D&#125;</span>'<span class="warp">)</span>;
+          <span class="result">😍</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Métodos de" codeText="String">
+      <ChaptrSubSect h4Title="El método" codeText=".startsWith()">
+        <p class="chaptrSubSect__p">Determina si una cadena de texto comienza con los caracteres de otra cadena especificada, devolviendo <code>true</code> o <code>false</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">"Me llamo Iker"</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">startsWith<span class="warp">(<span class="args">'Me'</span>)</span></span>)</span>;
+          <span class="result">true</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".endsWith()">
+        <p class="chaptrSubSect__p">Determina si una cadena de texto termina con los caracteres de otra cadena especificada, devolviendo <code>true</code> o <code>false</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">"Me llamo Iker"</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">endsWith<span class="warp">(<span class="args">'Iker'</span>)</span></span>)</span>;
+          <span class="result">true</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".includes()">
+        <p class="chaptrSubSect__p">Determina si una cadena de texto contiene otra cadena especificada, devolviendo <code>true</code> o <code>false</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">"Se llama Éder"</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">includes<span class="warp">(<span class="args">'Éder'</span>)</span></span>)</span>;
+          <span class="result">true</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".repeat()">
+        <p class="chaptrSubSect__p">Es usado para repetir una cadena de texto un número específico de veces. Devuelve una cadena que contiene las copias especificadas de la cadena original</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Eder'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">repeat<span class="warp">(<span class="nums">3</span>)</span></span>)</span>;
+          <span class="result">EderEderEder</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".split()">
+        <p class="chaptrSubSect__p">Divide una cadena de texto en un <mark>array</mark> de subcadenas, basandose en un separador definido. Este separador puede ser una cadena de texto, un carácter o una expresión regular</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Hola mi nombre es Eder.'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">split<span class="warp">(<span class="args">" "</span>)</span></span>)</span>;
+          <span class="result">['Hola', 'mi', 'nombre', 'es', 'Eder']</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".slice()">
+        <p class="chaptrSubSect__p">Se utiliza para extraer una sección de una cadena de texto y devuelve una nueva cadena de texto. No modifica la cadena original</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Hola mi nombre es Eder.'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">slice<span class="warp">(<span class="nums">14, 18</span>)</span></span>)</span>;
+          <span class="result">Eder</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".indexOf()">
+        <p class="chaptrSubSect__p">Se utiliza para buscar la primera aparición de un substring específico dentro de una cadena y devuelve el índice de esa primera aparición</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'dos ojos tres tigres cuatro dedos'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">indexOf<span class="warp">(<span class="args">'tres'</span>)</span></span>)</span>;
+          <span class="result">9</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".lastIndexOf()">
+        <p class="chaptrSubSect__p">Se utiliza para obtener la posición de la última ocurrencia de un valor específico en una cadena de texto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'dos ojos tres tigres tres dedos'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">lastIndexOf<span class="warp">(<span class="args">'tres'</span>)</span></span>)</span>;
+          <span class="result">21</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".substring()">
+        <p class="chaptrSubSect__p">Se utiliza para extraer una subcadena de una cadena existente. La subcadena se crea a partir de los índices proporcionados como argumentos al método y se devuelve como una nueva cadena</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'dos ojos tres tigres tres dedos'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">substring<span class="warp">(<span class="nums">9, 20</span>)</span></span>)</span>;
+          <span class="result">tres tigres</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".at()">
+        <p class="chaptrSubSect__p">Accede a un elemento específico en una cadena basado en su índice. Permite el uso de índices negativos, puede acceder a elementos desde el final</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Mi nombre es Eder'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">at<span class="warp">(<span class="nums">13</span>)</span></span>)</span>;
+          <span class="result">E</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".match()">
+        <p class="chaptrSubSect__p">Se utiliza para buscar una coincidencia entre una cadena y una expresión regular. Este método <mark>devuelve un array</mark> que contiene todas las coincidencias encontradas</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'tres uno tres dos tres cuatro'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">match<span class="warp">(<span class="opera">/</span><span class="args">tres</span><span class="opera">/</span><span class="args">gi</span>)</span></span>)</span>;
+          <span class="result">E</span></pre>
+        <p class="chaptrSubSect__p">El indicador <code>g</code> (de "global") se utiliza para buscar todas las coincidencias en lugar de detenerse en la primera. Si no se utiliza, el método <code>match()</code>  solo devuelve la primera coincidencia encontrada</p>
+        <p class="chaptrSubSect__p">El indicador <code>i</code> (de "insensitive") hace que la búsqueda de coincidencias sea insensible a mayúsculas y minúsculas, lo que significa que no diferencia entre letras mayúsculas y minúsculas. Si no se utiliza, la búsqueda será sensible a mayúsculas y minúsculas</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".matchAll()">
+        <p class="chaptrSubSect__p">Se utiliza para obtener un <mark>iterador</mark> que contiene todas las coincidencias de una expresión regular en una cadena de texto. Cada coincidencia es un objeto que proporciona información detallada sobre la coincidencia, como el texto coincidente y las capturas de grupos</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Yo tengo 48 años y Eder 4'</span>;
+          <span class="key">let</span> <span class="var">patron</span> <span class="opera">=</span> <span class="nums">/\d+/g</span>;
+          <span class="key">const</span> <span class="var">resultado</span> <span class="opera">=</span> <span class="obj">myString</span><span class="dot">.</span><span class="meth">matchAll</span><span class="warp">(<span class="var">patron</span>)</span>;
+  
+          <span class="obj">Array</span><span class="dot">.</span><span class="meth">from</span><span class="warp">(<span class="var">resultado</span>)</span><span class="dot">.</span><span class="meth">forEach</span><span class="warp">(</span><span class="args">elem</span> <span class="opera">=></span> <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">elem</span><span class="warp">[<span class="nums">0</span>]</span>)</span>;
+          <span class="result">48</span>
+          <span class="result">4</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".replaceAll()">
+        <p class="chaptrSubSect__p">Se utiliza para reemplazar todas las apariciones de un substring o una expresión regular en una cadena de texto con otro substring. Este método no modifica la cadena original</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Soy Iker, viva Iker'</span>;
+          <span class="key">let</span> <span class="var">patron</span> <span class="opera">=</span> <span class="args">'Iker'</span>;
+          <span class="key">let</span> <span class="var">reemplazo</span> <span class="opera">=</span> <span class="args">'Eder'</span>;
+  
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">replaceAll<span class="warp">(<span class="var">patron</span>, <span class="var">reemplazo</span>)</span></span>)</span>;
+          <span class="result">Soy Eder, viva Eder</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".trim()">
+        <p class="chaptrSubSect__p">Es usado para eliminar los espacios en blanco al inicio y al final de un string.<mark>No modifica</mark> el string original, devuelve una nueva cadena</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">' Hola soy Eder '</span>;
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="var">myString</span><span class="dot">.</span><span class="meth">trim</span><span class="warp">()</span>;
+          <span class="result">Hola soy Eder</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".trimStart()">
+        <p class="chaptrSubSect__p">Se utiliza para eliminar los espacios en blanco al inicio de una cadena de texto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">' Hola soy Eder'</span>;
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="var">myString</span><span class="dot">.</span><span class="meth">trimStart</span><span class="warp">()</span>;
+          <span class="result">Hola soy Eder</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".trimEnd()">
+        <p class="chaptrSubSect__p">Se utiliza para eliminar los espacios en blanco al final de una cadena de texto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Hola soy Eder '</span>;
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="var">myString</span><span class="dot">.</span><span class="meth">trimEnd</span><span class="warp">()</span>;
+          <span class="result">Hola soy Eder</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".padStart()">
+        <p class="chaptrSubSect__p">Se utiliza para rellenar una cadena con otra cadena (una o más veces, si es necesario) hasta que la cadena resultante alcance una longitud especificada. El relleno se aplica desde el principio de la cadena actual</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Eder'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">padStart<span class="warp">(<span class="nums">15</span>, <span class="args">'Hola q ase'</span>)</span></span>)</span>;
+          <span class="result">Hola q ase Eder</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".padEnd()">
+        <p class="chaptrSubSect__p">Se utiliza para rellenar una cadena con otra cadena (una o más veces, si es necesario) hasta que la cadena resultante alcance una longitud especificada. El relleno se aplica desde el final de la cadena actual</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Eder'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">padEnd<span class="warp">(<span class="nums">14</span>, <span class="args">'😸'</span>)</span></span>)</span>;
+          <span class="result">Eder😸😸😸😸😸</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".codePointAt()">
+        <p class="chaptrSubSect__p">Devuelve un número entero no negativo que representa el valor de punto de código Unicode del carácter en la posición especificada en una cadena</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Eder'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">codePointAt<span class="warp">(<span class="nums">0</span>)</span></span>)</span>;
+          <span class="result">100</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".fromCodePoint()">
+        <p class="chaptrSubSect__p">Convierte una secuencia de puntos de código Unicode en una cadena de texto. Este método es estático, lo que significa que se llama en el constructor de la clase String</p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">String</span><span class="dot">.</span><span class="meth">fromCodePoint<span class="warp">(<span class="nums">0x1F300</span>)</span></span>)</span>;
+          <span class="result">🌀</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".concat()">
+        <p class="chaptrSubSect__p">Se utiliza para unir dos o más cadenas de texto sin cambiar las cadenas originales y devuelve una nueva cadena de texto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">name1</span> <span class="opera">=</span> <span class="args">'Eder'</span>;
+          <span class="key">let</span> <span class="var">name2</span> <span class="opera">=</span> <span class="args">'Iker'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">name1</span><span class="dot">.</span><span class="meth">concat<span class="warp">(`, <span class="opera">$&#123;<span class="var">name2</span>&#125;</span>`)</span></span>)</span>;
+          <span class="result">Eder, Iker</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".search()">
+        <p class="chaptrSubSect__p">Se utiliza para buscar una coincidencia entre una expresión regular y la cadena de texto desde la que se llama. Este método devuelve el índice de la primera coincidencia que encuentra</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Hola me llamo Eder y, ¿tu?'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">search</span>(<span class="args">'Eder'</span>)</span>;
+          <span class="result">14</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".charAt()">
+        <p class="chaptrSubSect__p">Devuelve un carácter de una cadena de texto en una posición específica. Los caracteres se indexan desde la izquierda hacia la derecha, comenzando con 0</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Hola me llamo Eder y, ¿tu?'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">charAt</span>(<span class="nums">14</span>)</span>;
+          <span class="result">E</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".charCodeAt()">
+        <p class="chaptrSubSect__p">Devuelve un entero entre 0 y 65535 que representa la unidad de código UTF-16 en el índice proporcionado. Este método se utiliza para obtener el valor Unicode de un carácter en una cadena de texto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Hola me llamo Eder y, ¿tu?'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">charCodeAt</span>(<span class="nums">14</span>)</span>;
+          <span class="result">69</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".toLowerCase()">
+        <p class="chaptrSubSect__p">Convierte todos los caracteres de una cadena a minúsculas</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'OLA Q ASE'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">toLowerCase</span>()</span>;
+          <span class="result">ola q ase</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".toUpperCase()">
+        <p class="chaptrSubSect__p">Convierte todos los caracteres de una cadena a mayúsculas</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'ola q ase'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">toUpperCase</span>()</span>;
+          <span class="result">OLA Q ASE</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".localeCompare()">
+        <p class="chaptrSubSect__p">Compara la cadena de texto actual con otra cadena de texto y devuelve un número que indica si la cadena de texto actual va antes, después o es igual a la cadena de texto de comparación en el orden alfabético</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString1</span> <span class="opera">=</span> <span class="args">'manzana'</span>;
+          <span class="key">let</span> <span class="var">myString1</span> <span class="opera">=</span> <span class="args">'Manzana'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString1</span><span class="dot">.</span><span class="meth">localeCompare</span>(<span class="var">myString2</span>)</span>;
+          <span class="result">-1</span>
+  
+          <span class="commnt">Posibles retornos:</span>
+          <span class="commnt">Negativos = myString1 está antes que myString2</span>
+          <span class="commnt">Cero = son equivalentes en orden</span>
+          <span class="commnt">Positivos = myString1 está después que myString2</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".valueOf()">
+        <p class="chaptrSubSect__p">Se utiliza para obtener el valor primitivo de un objeto de cadena. No toma ningún parámetro y devuelve la cadena en sí</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="key">new</span> <span class="obj">String</span><span class="warp">(<span class="args">'ola q ase'</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">valueOf</span>()</span>;
+          <span class="result">ola q ase</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".length()">
+        <p class="chaptrSubSect__p">Devuelve el número de caracteres en una cadena de texto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Hola me llamo Eder, y, ¿tu?'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="dot">.</span><span class="meth">length</span>)</span>;
+          <span class="result">27</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText="[pos]">
+        <p class="chaptrSubSect__p">Para acceder a un carácter, se puede usar paréntesis cuadrados <code>[pos]</code> . Este método es el recomendado en vez de <code>.charAt()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Hola me llamo Eder y, ¿tu?'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="opera">[<span class="nums">0</span>]</span>)</span>;
+          <span class="result">H</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Iteración sobre" codeText="String">
+      <ChaptrSubSect h4Title="El bucle" codeText="for...">
+        <p class="chaptrSubSect__p">El clásico de siempre</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Eder'</span>;
+  
+          <span class="key">for</span><span class="warp">(<span class="key">let</span> <span class="var">i</span> <span class="opera">=</span> <span class="nums">0</span>; <span class="var">i</span> <span class="opera">&lt;</span> <span class="var">myString</span><span class="dot">.</span><span class="key">length</span>; <span class="var">i</span><span class="opera">++</span>)&#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="warp">[<span class="var">i</span>]</span>)</span>;
+          &#125;</span>
+          <span class="result">E</span>
+          <span class="result">d</span>
+          <span class="result">e</span>
+          <span class="result">r</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El bucle" codeText="for...of">
+        <p class="chaptrSubSect__p">Fácil y sencillo de usar, uno de los recomendados</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Eder'</span>;
+  
+          <span class="key">for</span><span class="warp">(<span class="key">let</span> <span class="var">char</span> <span class="key">of</span> <span class="var">myString</span>)&#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">char</span>)</span>;
+          &#125;</span>
+          <span class="result">E</span>
+          <span class="result">d</span>
+          <span class="result">e</span>
+          <span class="result">r</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El bucle" codeText="for...in">
+        <p class="chaptrSubSect__p">Fácil y sencillo de usar, uno de los recomendados</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Eder'</span>;
+  
+          <span class="key">for</span><span class="warp">(<span class="key">let</span> <span class="var">char</span> <span class="key">in</span> <span class="var">myString</span>)&#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="warp">[<span class="var">char</span>]</span>)</span>;
+          &#125;</span>
+          <span class="result">E</span>
+          <span class="result">d</span>
+          <span class="result">e</span>
+          <span class="result">r</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El bucle" codeText="while">
+        <p class="chaptrSubSect__p">Fácil y sencillo de usar, y muy eficiente</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myString</span> <span class="opera">=</span> <span class="args">'Eder'</span>;
+          <span class="key">let</span> <span class="var">char</span> <span class="opera">=</span> <span class="nums">0</span>;
+  
+          <span class="key">while</span><span class="warp">(<span class="var">char</span> <span class="opera">&lt;</span> <span class="var">myString</span><span class="dot">.</span><span class="meth">length</span>)&#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myString</span><span class="warp">[<span class="var">char</span>]</span>)</span>;
+            <span class="var">char</span><span class="opera">++</span>;
+          &#125;</span>
+          <span class="result">E</span>
+          <span class="result">d</span>
+          <span class="result">e</span>
+          <span class="result">r</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="El tipo" codeText="Boolean">
+      <ChaptrSubSect h4Title="Sus valores">
+        <p class="chaptrSubSect__p">El tipo booleano también llamado lógico, tiene sólo dos valores: <code>true</code> o <code>false</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">nameFieldChecked</span> <span class="opera">=</span> <span class="key">true</span>;
+  
+          <span class="key">let</span> <span class="var">ageFieldChecked</span> <span class="opera">=</span> <span class="key">false</span>;</pre>
+        <p class="chaptrSubSect__p">Los valores booleanos también son el resultado de comparaciones</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">esMayor</span> <span class="opera">=</span> <span class="nums">4</span> <span class="opera">&gt;</span> <span class="nums">1</span>;
+  
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">esMayor</span>)</span>;
+        
+          <span class="result">true</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="El tipo" codeText="null">
+      <ChaptrSubSect h4Title="El valor que representa 'nada'">
+        <p class="chaptrSubSect__p">No pertenece a ninguno de los tipos descritos anteriormente. En JavaScript, <code>null</code> no es una “referencia a un objeto inexistente” o un “puntero nulo” como en otros lenguajes. Es sólo un valor especial que representa “nada”, “vacío” o “valor desconocido”. Este valor es intencional 100%</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">valorVacio</span> <span class="opera">=</span> <span class="key">null</span>;
+  
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">valorVacio</span>)</span>;
+        
+          <span class="result">null</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="El tipo" codeText="undefined">
+      <ChaptrSubSect h4Title="Un tipo 'propio'">
+        <p class="chaptrSubSect__p">El valor especial <code>undefined</code> también se distingue hacia un tipo propio, igual que <code>null</code>. El significado de <code>undefined</code> es “valor no asignado”. Si una variable es declarada pero no asignada, entonces su valor es <code>undefined</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">edad</span>;
+  
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">edad</span>)</span>;
+        
+          <span class="result">undefined</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="El tipo" codeText="Object">
+      <ChaptrSubSect h4Title="Un tipo 'especial'">
+        <p class="chaptrSubSect__p">El tipo <code>object</code> (objeto) es especial. Todos los demás tipos se llaman “primitivos” porque sus valores pueden contener una sola cosa (ya sea una cadena, un número o lo que sea). Por el contrario, los objetos se utilizan para almacenar colecciones de datos y entidades más complejas</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="args">"name"</span>: <span class="args">"Eder"</span>,
+            <span class="args">"age"</span>: <span class="nums">4</span>
+            &#125;</span>;</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="El tipo" codeText="Symbol">
+      <ChaptrSubSect h4Title="Un identificador único">
+        <p class="chaptrSubSect__p">El tipo <code>Symbol</code> (símbolo) son únicos e inmutableslo que significa que cada símbolo es distinto de otro, incluso si tienen la misma descripción. Los símbolos se utilizan comúnmente como claves de propiedades de objetos para evitar conflictos con otras claves. Tenemos que mencionarlo aquí para una mayor integridad, pero es mejor estudiar este tipo después de los objetos</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">mySymbol</span> <span class="opera">=</span> <span class="func">Symbol</span><span class="warp">(<span class="args">'descripcion opcional'</span>)</span>;</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="El operador" codeText="typeof">
+      <ChaptrSubSect h4Title="Determinando el tipo">
+        <p class="chaptrSubSect__p">Se utiliza para determinar el tipo de un valor o expresión. Es un operador unario, lo que significa que se aplica a un único operando, y devuelve un <code>String</code> que indica el tipo del operando. Soporta 2 tipos de sintaxis</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Como operador</span>
+          <span class="key">typeof</span> <span class="var">myVariable</span>;
+        
+          <span class="commnt">Como funcion</span>
+          <span class="func">typeof</span><span class="warp">(<span class="var">myVariable</span>)</span>;</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>
+
+<!-- 
+<script>
+  const $ = element => document.querySelector(element);
+  const $$ = element => document.querySelectorAll(element);
+
+  const lessonsArr = [
+    {"header": $('.lssn__01 > h2'), "sections": $$('.chaptrSubSect > section')},
+    {"header": $('.lssn__02 > h2'), "sections": $$('.lssn__02 > section')},
+    {"header": $('.lssn__03 > h2'), "sections": $$('.lssn__03 > section')}
+  ];
+
+  const toggleSections = (sections) => {
+    sections.forEach(section => {
+      const display = getComputedStyle(section).display;
+      section.style.display = (display === 'none') ? 'block' : 'none';
+    });
+  };
+
+  lessonsArr.forEach(lesson => {
+    lesson.header.addEventListener('click', () => toggleSections(lesson.sections));
+  });
+</script> -->

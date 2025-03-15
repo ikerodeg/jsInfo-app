@@ -1,0 +1,1481 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+const ruta = '../../src/assets/img/'
+---
+<MainLayout>
+  <LssnArt artClass="lssn__01b" h2Title="Document" slot="mainContent">
+    <ChaptrSect h3Title="Entorno del navegador" codeText="">
+      <ChaptrSubSect h4Title="Definición" codeText="">
+        <p class="chaptrSubSect__p">Aquí tienes una vista general de lo que tenemos cuando JavaScript se ejecuta en un navegador web</p>
+        <img class="chaptrSubSect__img" src=`${ruta}img0.webp` alt="Imagen del arbol DOM">
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Primero, es un objeto global para el código JavaScript, como se describe en el capítulo Objeto Global.</li>
+          <li class="chaptrSubSectUl__li">Segundo, representa la “ventana del navegador” y proporciona métodos para controlarla.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="DOM">
+        <p class="chaptrSubSect__p">Document Object Model, o <span class="bttn">DOM</span>, representa todo el contenido de la página como objetos que pueden ser modificados. El objeto document es el punto de entrada a la página. Con él podemos cambiar o crear cualquier cosa en la página</p>
+        <p class="chaptrSubSect__p"><strong>🛈</strong> <span class="bttn">DOM</span> <strong>no es solo para navegadores:</strong> La especificación <span class="bttn">DOM</span> explica la estructura de un documento y proporciona objetos para manipularlo. Hay instrumentos que no son del navegador que también usan <span class="bttn">DOM</span></p>
+        <p class="chaptrSubSect__p"><strong>🛈</strong> <span class="bttn">CSSOM</span> <strong>para los estilos:</strong> También hay una especificación separada, CSS Object Model o <span class="bttn">CSSOM</span> para las reglas y hojas de estilo CSS, que explica cómo se representan como objetos y cómo leerlos y escribirlos. <span class="bttn">CSSOM</span> se usa junto con <span class="bttn">DOM</span> cuando modificamos las reglas de estilo para el documento</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="BOM">
+        <p class="chaptrSubSect__p">El Modelo de Objetos del Navegador (Browser Object Model, BOM) son objetos adicionales proporcionados por el navegador (entorno host) para trabajar con todo excepto el documento</p>
+        <p class="chaptrSubSect__p"><strong>🛈 Especificaciones:</strong> <span class="bttn">BOM</span> es la parte general de la especificación de HTML specification.</p>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="El árbol de nodos 🌲" codeText="DOM">
+      <ChaptrSubSect h4Title="Definición" codeText="">
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Cada documento HTML se representa internamente como un <mark>árbol de nodos</mark>.</li>
+          <li class="chaptrSubSectUl__li">Las etiquetas HTML se convierten en <mark>nodos de elementos</mark>, mientras que el texto dentro de ellas se convierte en <mark>nodos de texto</mark>.</li>
+          <li class="chaptrSubSectUl__li">Otros elementos como los comentarios también forman parte del <span class="bttn">DOM</span>.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Estructura básica del" codeText="DOM">
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Raíz del documento:</strong> Siempre comienza con el nodo <code>&lt;html&gt;</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>Nodos hijos:</strong> <code>&lt;html&gt;</code> tiene como hijos a <code>&lt;head&gt;</code> y <code>&lt;body&gt;</code></li>
+          <li class="chaptrSubSectUl__li"><strong>Nodos de texto:</strong> Contienen cadenas de texto y no tienen hijos.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          &lt;html&gt;
+              𑗅-&lt;head&gt;
+              ⎢      ∟&lt;title&gt;My Title&lt;/title&gt;
+              ∟&lt;body&gt;</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Nodos especiales" codeText="">
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Los espacios en blanco y las líneas nuevas también se convierten en nodos de texto, pero los navegadores suelen ocultarlos en las herramientas de desarrollo para simplificar la visualización.</li>
+          <li class="chaptrSubSectUl__li">Los comentarios se convierten en nodos de tipo <mark>#comment</mark> dentro del <span class="bttn">DOM</span>.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Correcciones automáticas del navegador" codeText="">
+        <p class="chaptrSubSect__p">Los navegadores ajustan el <span class="bttn">DOM</span> automáticamente si el HTML tiene errores</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Agregan etiquetas faltantes como <code>&lt;html&gt;</code>, <code>&lt;body&gt;</code> o <code>&lt;tbody&gt;</code> en tablas.</li>
+          <li class="chaptrSubSectUl__li">Cierran etiquetas mal formateadas.</li>
+        </ul>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Recorriendo el" codeText="DOM">
+      <ChaptrSubSect h4Title="Punto de entrada al" codeText="DOM">
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>document</code>: El objeto raíz para todas las operaciones del <span class="bttn">DOM</span>. Desde él, accedemos a nodos específicos del documento.</li>
+        </ul>
+        <img class="chaptrSubSect__img" src=`${ruta}img1.webp` alt="Imagen del arbol DOM">
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Acceso a nodos principales" codeText="">
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>document.documentElement</code>: Nodo <code>&lt;html&gt;</code>.</li>
+          <li class="chaptrSubSectUl__li"><code>document.body</code>: Nodo <code>&lt;body&gt;</code>.</li>
+          <li class="chaptrSubSectUl__li"><code>document.head</code>: Nodo <code>&lt;head&gt;</code>.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>Nota:</strong> Si el script se ejecuta antes de que el navegador lea el <code>&lt;body&gt;</code>, <code>document.body</code> será <code>null</code>. Esto suele ocurrir cuando el script está en el <code>&lt;head&gt;</code> y no usa el evento <code>DOMContentLoaded</code>.</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Propiedades de navegación básica" codeText="">
+        <p class="chaptrSubSect__p"><strong>Nodos hijos</strong></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>childNodes</code>: Lista de todos los nodos hijos (incluidos nodos de texto y comentarios).</li>
+          <li class="chaptrSubSectUl__li"><code>fistChild</code>: Primer nodo hijo.</li>
+          <li class="chaptrSubSectUl__li"><code>lastChild</code>: Último nodo hijo.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>Nodos hermanos</strong></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>nextSibling</code>: Nodo hermano siguiente.</li>
+          <li class="chaptrSubSectUl__li"><code>previousSibling</code>: Nodo hermano anterior.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>Nodo padre</strong></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>parentNode</code>: Nodo padre del elemento.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Navegación sólo por elementos" codeText="">
+        <p class="chaptrSubSect__p">Para ignorar nodos de texto y comentarios, usamos estas propiedades específicas de nodos elemento</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>children</code>: Lista de hijos que son elementos.</li>
+          <li class="chaptrSubSectUl__li"><code>fistElementChild</code>: Primer hijo elemento.</li>
+          <li class="chaptrSubSectUl__li"><code>lastElementChild</code>: Último hijo elemento.</li>
+          <li class="chaptrSubSectUl__li"><code>nextElementSibling</code>: Elemento hermano siguiente.</li>
+          <li class="chaptrSubSectUl__li"><code>previousElementSibling</code>: Elemento hermano anterior.</li>
+          <li class="chaptrSubSectUl__li"><code>parentElement</code>: Padre que es elemento.</li>
+        </ul>
+        <img class="chaptrSubSect__img" src=`${ruta}img2.webp` alt="Imagen del arbol DOM">
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Características de las colecciones" codeText="DOM">
+        <p class="chaptrSubSect__p">Similitudes con <span class="bttn">Arrays</span></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Son los conocidos como <span class="bttn">array-like</span>.</li>
+          <li class="chaptrSubSectUl__li">Tienen la propiedad <code>length</code>.</li>
+          <li class="chaptrSubSectUl__li">Tienen índices numéricos.</li>
+          <li class="chaptrSubSectUl__li">Son <mark>iterables</mark>, por lo que podemos usar <code>for..of</code>.</li>
+          <li class="chaptrSubSectUl__li">No tienen métodos de array como <code>filter</code> o <code>map</code>.</li>
+          <li class="chaptrSubSectUl__li">Para usar métodos de array, hay que convertirlos con <code>Array.from</code>.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Son de sólo lectura</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">No podemos modificar directamente las colecciones, solo reflejan el estado actual del DOM.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Colecciones vivas</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Los cambios en el DOM se reflejan automáticamente en las colecciones.</li>
+        </ul>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Propiedades del nodo" codeText="DOM">
+      <ChaptrSubSect h4Title="Clases de nodo" codeText="DOM">
+        <p class="chaptrSubSect__p">Cada nodo <span class="bttn">DOM</span> pertenece a la clase nativa correspondiente. La raíz de la jerarquía es <code>EventTarget</code>, que es heredada por <code>Node</code>, y otros nodos <span class="bttn">DOM</span> heredan de él</p>
+        <img class="chaptrSubSect__img" src=`${ruta}img3.webp` alt="Imagen del arbol DOM">
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>EventTarget</code>: es la clase raíz “abstracta”. Los objetos de esta clase nunca se crean. Sirve como base, es por la que todos los nodos DOM soportan los llamados “eventos” que estudiaremos más adelante.</li>
+          <li class="chaptrSubSectUl__li"><code>Node</code>: también es una clase “abstracta”, sirve como base para los nodos DOM.</li>
+          <li class="chaptrSubSectUl__li"><code>Document</code>: por razones históricas, heredado a menudo por HTMLDocument, es el documento como un todo.</li>
+          <li class="chaptrSubSectUl__li"><code>CharacterData</code>: una clase “abstract” heredada por:</li>
+          <ul class="chaptrSubSect__ul">
+            <li class="chaptrSubSectUl__li"><code>Text</code>: la clase correspondiente a texto dentro de los elementos.</li>
+            <li class="chaptrSubSectUl__li"><code>Comment</code>: la clase para los “comentarios”. No se muestran, pero cada comentario se vuelve un miembro del DOM.</li>
+          </ul>
+          <li class="chaptrSubSectUl__li"><code>Element</code>: es una clase base para elementos DOM. Proporciona navegación a nivel de elemento.</li>
+          <li class="chaptrSubSectUl__li"><code>HTMLElement</code>: es la clase básica para todos los elementos HTML. Trabajaremos con ella la mayor parte del tiempo.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Los nodos DOM son objetos regulares de JavaScript. Usan clases basadas en prototipos para la herencia y podemos ver el nombre de la clase del nodo DOM</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(document.body.constructor.ºname);
+          ⋗ ∞HTMLBodyElement
+
+          alert(document.body);
+          ⋗ /º[ object HTMLBodyElement ]º/
+
+          console.log(document.body instanceof HTMLBodyElement);
+          ⋗ ∞true
+        </pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Propiedades comunes" codeText="">
+        <p class="chaptrSubSect__p"><code>nodeType</code>, tipo de nodo que nos indica el tipo de nodo con un número</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>1</code>: Nodo de elemento (HTML/XML).</li>
+          <li class="chaptrSubSectUl__li"><code>3</code>: Nodo de texto.</li>
+          <li class="chaptrSubSectUl__li"><code>8</code>: Nodo de comentario.</li>
+          <li class="chaptrSubSectUl__li"><code>9</code>: Nodo de documento.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          let ·elem = document.body;
+          console.log(·elem.ºnodeType);  ⋗ ∞1         /* Elemento */
+          console.log(document.ºnodeType);  ⋗ ∞9      /* Documento */</pre>
+
+        <p class="chaptrSubSect__p"><code>nodeName</code> nombre de nodo (aplica a cualquier tipo de nodo) y <code>tagName</code> nombre de etiqueta (solo para nodos de tipo <code>Element</code>)</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(document.body.ºtagName);  ⋗ ∞BODY
+          console.log(document.body.ºnodeName);  ⋗ ∞BODY</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Propiedades de contenido" codeText="">
+        <p class="chaptrSubSect__p">✴️ <code>innerHTML</code>: Contenido HTML del Nodo que permite leer o modificar el contenido HTML dentro de un elemento</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·myDiv = document.querySelector('div');
+          console.log(·myDiv.ºinnerHTML);  ⋗ /º&lt;p&gt;Texto mio&lt;/p&gt;º/
+          ·myDiv.ºinnerHTML = '/º&lt;b&gt;Nuevo texto&lt;/b&gt;º/'</pre>
+        <p class="chaptrSubSect__p">⚠️ Advertencia: Usar <code>+=</code> con innerHTML sobrescribe el contenido completo y puede recargar recursos innecesariamente</p>
+        <p class="chaptrSubSect__p">✴️ <code>outerHTML</code>: HTML Completo del Nodo que incluye el nodo en sí mismo más su contenido</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·myDiv = document.querySelector('div');
+          console.log(·myDiv.ºouterHTML);  ⋗ /º&lt;div&gt;&lt;p&gt;Texto mio&lt;/p&gt;&lt;/div&gt;º/</pre>
+
+        <p class="chaptrSubSect__p">✴️ <code>textContent</code>: Texto Puro devuelve el texto dentro del nodo, ignorando las etiquetas HTML</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·news = document.querySelector('#news');
+          console.log(·news.ºtextContent);  ⋗ /º¡Baja el IVA!º/</pre>
+
+        <p class="chaptrSubSect__p">✴️ <code>nodeValue</code> y <code>data</code>: Aplica solo a nodos de texto y comentarios. Devuelven o establecen el contenido directamente</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·textNode = document.body.ºfirstChild;
+          console.log(·textNode.ºdata);  ⋗ /º Texto dentro del nodo º/</pre>
+
+        <p class="chaptrSubSect__p">✴️ <code>hidden</code> para ocultar o mostrar elementos</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·elem = document.querySelector('div');
+          ·elem.ºhidden = true;
+          ·elem.ºhidden = false;
+        </pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Trabajando con Nodos" codeText="">
+        <p class="chaptrSubSect__p">Uso de <code>instanceof</code> con el que podemos verificar el tipo de nodo </p>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(document.body instanceof HTMLElement);  ⋗ /ºtrueº/
+          console.log(document.body instanceof Node);  ⋗ /ºtrueº/</pre>
+        <p class="chaptrSubSect__p">✴️ Inspección en consola</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(·elem);  ⋗ /º Muestra el elemento en el árbol DOM º/
+          console.@dir(·elem);  ⋗ /º Muestra el elemento como un objeto º/</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Resumen visual" codeText="">
+        <img class="chaptrSubSect__img" src=`${ruta}domTree.jpg` alt="Imagen del arbol DOM">
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Métodos del objeto" codeText="window">
+      <ChaptrSubSect h4Title="Manipulacion de tiempo" codeText="">
+        <p class="chaptrSubSect__p"><code>setTimeout():</code> Ejecuta una función después de un retraso especificado</p>
+        <pre class="chaptrSubSect__console wScript">
+          @setTimeout(() =&gt; console.log('Hola'), ¬1000); 
+          ⋗ ∞Hola</pre>
+        <p class="chaptrSubSect__p"><code>clearTimeout():</code> Cancela un temporizador creado con <code>setTimeout():</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·timer = @setTimeout(() =&gt; console.log('Hola'), ¬1000);
+          @clearTimeout(·timer);</pre>
+        <p class="chaptrSubSect__p"><code>setInterval():</code> Ejecuta repetidamente una función con un intervalo de tiempo</p>
+        <pre class="chaptrSubSect__console wScript">
+          @setInterval(() =&gt; console.log('Tick'), ¬1000);
+          ⋗ ∞Tick   ⋗ ∞Tick   ⋗ ∞Tick   ⋗ ∞Tick...</pre>
+        <p class="chaptrSubSect__p"><code>clearInterval():</code> Detiene la ejecución repetida iniciada con <code>setInterval()</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·interval = @setInterval(() =&gt; console.log('Tick'), ¬1000);
+          @clearInterval(·interval);</pre>
+        <p class="chaptrSubSect__p"><code>requestAnimationFrame():</code> Solicita una animación y llama a una función antes del siguiente redibujo</p>
+        <pre class="chaptrSubSect__console wScript">
+          function @animate() &#123;
+            console.log('Frame');
+            @requestAnimationFrame(•animate);
+          &#125;;
+          @requestAnimationFrame(•animate);</pre>
+        <p class="chaptrSubSect__p"><code>cancelAnimationFrame():</code> Cancela una animación programada con <code>requestAnimationFrame()</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·animation = @requestAnimationFrame(() =&gt; console.log('Frame'));
+          @cancelAnimationFrame(·animation);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Navegación y localización" codeText="">
+        <p class="chaptrSubSect__p"><code>open():</code> Abre una nueva ventana o pestaña</p>
+        <pre class="chaptrSubSect__console wScript">
+          çwindow.@open('https://google.es', '_blank');</pre>
+        <p class="chaptrSubSect__p"><code>close():</code> Cierra la ventana actual si fue abierta con <code>window.open()</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          çwindow.@close();</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Element">🙏🏻</span><code>scrollTo():</code> Desplaza la ventana al punto especificado</p>
+        <pre class="chaptrSubSect__console wScript">
+          çwindow.@scrollTo(¬0, ¬100);</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Element">🙏🏻</span><code>scrollBy():</code> Desplaza la ventana relativo a su posición actual</p>
+        <pre class="chaptrSubSect__console wScript">
+          çwindow.@scrollBy(¬0, ¬50);</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Element">🙏🏻</span><code>focus():</code> Da enfoque a la ventana</p>
+        <pre class="chaptrSubSect__console wScript">
+          çwindow.@focus();</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Element">🙏🏻</span><code>blur():</code> Quita el enfoque de la ventana</p>
+        <pre class="chaptrSubSect__console wScript">
+          çwindow.@blur();</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Almacenamiento y navegador" codeText="">
+        <p class="chaptrSubSect__p"><code>localStorage:</code> Almacena datos persistentes en el navegador</p>
+        <pre class="chaptrSubSect__console wScript">
+          çlocalStorage.@setItem('nombre', 'Éder');
+          console.log(çlocalStorage.@getItem('nombre'))
+          ⋗ Éder</pre>
+        <p class="chaptrSubSect__p"><code>sessionStorage:</code> Almacena datos solo durante la sesión actual</p>
+        <pre class="chaptrSubSect__console wScript">
+          çsessionStorage.@setItem('edad', ¬4);
+          console.log(çsessionStorage.@getItem('edad'))
+          ⋗ 4</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Mensajes y diálogos" codeText="">
+        <p class="chaptrSubSect__p"><code>alert():</code> Muestra un cuadro de diálogo con un mensaje y un botón "Aceptar"</p>
+        <pre class="chaptrSubSect__console wScript">
+          alert('Hola Éder');</pre>
+        <p class="chaptrSubSect__p"><code>confirm():</code> Muestra un cuadro de diálogo con opciones "Aceptar" y "Cancelar". Devuelve <span class="bttn">boolean</span></p>
+        <pre class="chaptrSubSect__console wScript">
+          confirm('/º ¿Aceptas? º/');</pre>
+        <p class="chaptrSubSect__p"><code>prompt():</code> Muestra un cuadro de diálogo que permite al usuario ingresar texto</p>
+        <pre class="chaptrSubSect__console wScript">
+          prompt('Introduce tu nombre');</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Consola" codeText="">
+        <p class="chaptrSubSect__p"><code>console.log():</code> Imprime un mensaje en la consola</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.log('/º Hola, Éder! º/');
+          ⋗ /º Hola Éder! º/</pre>
+        <p class="chaptrSubSect__p"><code>console.error():</code> Imprime un mensaje de error en la consola</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.ªerror('/º error: algo salió mal º/');
+          🅧 ⋗ /º error: algo salió mal º/</pre>
+        <p class="chaptrSubSect__p"><code>console.warn():</code> Imprime un mensaje de advertencia en la consola</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.warn('slow network detected');
+          ⚠️ ⋗ slow network detected</pre>
+        <p class="chaptrSubSect__p"><code>console.info():</code> Imprime un mensaje informativo en la consola</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.ªinfo('/º Compilación exitosa! º/');
+          ⓘ ⋗ /º Compilación exitosa! º/</pre>
+        <p class="chaptrSubSect__p"><code>console.debug():</code> Imprime un mensaje de depuración en la consola</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.debug('/º depurando... º/');
+          /º depurando... º/</pre>
+        <p class="chaptrSubSect__p"><code>console.clear():</code> Limpia la consola</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.ªclear();</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Red y Datos" codeText="">
+        <p class="chaptrSubSect__p"><code>fetch():</code> Realiza solicitudes HTTP</p>
+        <pre class="chaptrSubSect__console wScript">
+          fetch('https://api.example.com/data')
+              .then(çresponse =&gt; çresponse.ªjson())
+              .then(çdata =&gt; console.log(çdata));</pre>
+        <p class="chaptrSubSect__p"><code>XMLHRequest():</code> Realiza solicitudes HTTP (deprecado)</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·xhr = new XMLHttpRequest();
+          ·xhr.ªopen('GET', 'https://api.example.com/data', true);
+          ·xhr.ªonload = () =&gt; console.log(·xhr.•responseText);
+          ·xhr.ªsend();</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Imágenes y Multimedia" codeText="">
+        <p class="chaptrSubSect__p"><code>createImageBitmap():</code> Crea un mapa de bits a partir de una imagen para su uso en canvas</p>
+        <pre class="chaptrSubSect__console wScript">
+          fetch('imagen.png')
+              .then(çresponse =&gt; çresponse.ªblob())
+              .then(çblob =&gt; @createImageBitmap(çblob))
+              .then(çbitmap =&gt; console.log(çbitmap));</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Medios de consulta" codeText="">
+        <p class="chaptrSubSect__p"><code>matchMedia():</code> Evalúa una consulta de medios (útil para diseño responsivo)</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·mediaQuery = çwindow.ªmatchMedia('/º (max-width: 600px) º/');
+          console.log(·mediaQuery.matches);
+          ⋗ /º true º/</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Codificación/Decodificación" codeText="">
+        <p class="chaptrSubSect__p"><code>btoa():</code> Codifica una cadena en Base64</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(@btoa('Hola'));
+          ⋗ /º SG9sYQ== º/</pre>
+        <p class="chaptrSubSect__p"><code>atob():</code> Decodifica una cadena codificada en Base64</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(@atob('/º SG9sYQ== º/'));
+          ⋗ Hola</pre>
+        <p class="chaptrSubSect__p"><code>encodeURI():</code> Codifica una URI completa</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·uriEncoded = @encodeURI('/º https://example.com/?q=Hola mundo' º/));
+          // Codifica espacios</pre>
+        <p class="chaptrSubSect__p"><code>encodeURIComponent():</code> Codifica una parte de una URI (como parámetros)</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(@encodeURIComponent('Hola mundo'));
+          ⋗ Hola%20mundo</pre>
+        <p class="chaptrSubSect__p"><code>decodeURI():</code> Decodifica una URI completa</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(@decodeURI('/º https://example.com/?q=Hola%20mundo º/'));
+          ⋗ Hola mundo</pre>
+        <p class="chaptrSubSect__p"><code>decodeURIComponent:</code> Decodifica una parte de una URI</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(@decodeURIComponent('Hola%20mundo'));
+          ⋗ Hola mundo</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Conversiones Numéricas" codeText="">
+        <p class="chaptrSubSect__p"><code>parseFloat():</code> Convierte una cadena en un número de punto flotante</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(parseFloat('123.45'));
+          ⋗ /º 123.45 º/</pre>
+        <p class="chaptrSubSect__p"><code>parseInt():</code> Convierte una cadena en un número entero</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(parseInt('123'));
+          ⋗ 123</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Geolocalización" codeText="">
+        <p class="chaptrSubSect__p"><code>navigator.geolocation.getCurrentPosition():</code> </p>
+        <pre class="chaptrSubSect__console wScript">
+          çnavigator.•geolocation.ªgetCurrentPosition(·pos =&gt; console.log(·pos.•coords));
+          ⋗ GeolocationCoordinates /º &#123;...&#125; º/</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Notificaciones" codeText="">
+        <p class="chaptrSubSect__p"><code>Notification.requestPermission():</code> Solicita permiso para mostrar notificaciones</p>
+        <pre class="chaptrSubSect__console wScript">
+          çNotification.ªrequestPermission()
+            .then(·permission =&gt; console.log(·permission));</pre>
+        <p class="chaptrSubSect__p"><code>new Notification():</code> Crea y muestra una notificación</p>
+        <pre class="chaptrSubSect__console wScript">
+          new @Notification('Título', &#123; body: 'Este es el cuerpo' &#125;);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Historial del Navegador" codeText="">
+        <p class="chaptrSubSect__p"><code>history.pushState():</code> Agrega un nuevo estado al historial sin recargar la página</p>
+        <pre class="chaptrSubSect__console wScript">
+          çhistory.ªpushState(&#123; page: ¬1&#125;, 'Título', '/º /nueva-pagina º/');</pre>
+        <p class="chaptrSubSect__p"><code>history.back():</code> Retrocede en el historial del navegador</p>
+        <pre class="chaptrSubSect__console wScript">
+          çhistory.ªback();</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Información del Navegador" codeText="">
+        <p class="chaptrSubSect__p"><code>navigator.userAgent():</code> Devuelve información sobre el navegador.</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(çnavigator.•userAgent);
+          ⋗ Chrome</pre>
+        <p class="chaptrSubSect__p"><code>navigator.onLine():</code> Indica si el dispositivo está conectado a internet</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(çnavigator.•onLine);
+          ⋗ /º true º/</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Información de la Pantalla" codeText="">
+        <p class="chaptrSubSect__p"><code>screen.width():</code> DAncho de la pantalla en píxeles</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(çscreen.•width);
+          ⋗ 1280</pre>
+        <p class="chaptrSubSect__p"><code>screen.height():</code> Alto de la pantalla en píxeles</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(çscreen.•height);
+          ⋗ 1024</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Web Storage Avanzado" codeText="">
+        <p class="chaptrSubSect__p"><code>indexedDB:</code> API para almacenamiento de datos estructurados en el navegador</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·request = çindexedDB.ªopen('miDB', ¬1);
+          çrequest.•onsuccess = () =&gt; console.log('Base de datos abierta');</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Ubicación" codeText="">
+        <p class="chaptrSubSect__p"><code>location.href:</code> Obtiene o establece la URL actual</p>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(çlocation.•href); /*URL actual */
+          çlocation.•href = '/º https://example.com º/'; /* Cambia la página */</pre>
+        <p class="chaptrSubSect__p"><code>location.assign():</code> Carga una nueva página</p>
+        <pre class="chaptrSubSect__console wScript">
+          çlocation.ªassign('/º https://example.com º/');</pre>
+        <p class="chaptrSubSect__p"><code>location.reload():</code> Recarga la página actual</p>
+        <pre class="chaptrSubSect__console wScript">
+          çlocation.ªreload();</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Depuración" codeText="">
+        <p class="chaptrSubSect__p"><code>debugger:</code> Interrumpe la ejecución del código para depuración</p>
+        <pre class="chaptrSubSect__console wScript">
+          debugger; /* Pausa aquí en modo desarrollo */</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Métodos del objeto" codeText="document">
+      <ChaptrSubSect h4Title="Captura de elementos" codeText="">
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Element">🙏🏻</span><span class="tooltip" title="Aconsejado por su flexibilidad con selectores CSS">🟢</span><code>.querySelector()</code> Busca el <mark>primer elemento</mark> que coincida con un <strong>selector CSS</strong></p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·elem = document.querySelector('/º .main_tittle º/');
+          ·elem.ºstyle.ºcolor = 'red';</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Element">🙏🏻</span><span class="tooltip" title="Aconsejado por su flexibilidad con selectores CSS">🟢</span><code>.querySelectorAll()</code> Devuelve <mark>todos</mark> los elementos que coincidan con un <strong>selector CSS</strong>, en una colección estática (NO refleja cambios en el DOM después de su llamada)</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·elems = document.querySelectorAll('/º .lesson_h2 º/');
+          ·elems.forEach( ·elem =&gt; &#123;
+            ·elem.ºstyle.ºcolor = 'blue';
+          &#125;);</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="válido, pero no recomendado para proyectos complejos, solo funciona con id únicos">🟡</span> <code>.getElementById()</code> Busca un <mark><strong>único</strong></mark> elemento en el documento por su atributo <strong>id</strong></p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·elem = document.getElementById('/º main_tittle º/');
+          ·elem.ºstyle.ºcolor = 'red';</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Obsoleto pero funcional. Usar .querySelectorAll es más moderno y potente.">🔴</span><code>.getElementByTagName(tagName)</code> Devuelve <mark>todos</mark> los elementos con una etiqueta específica, en una colección viva (refleja cambios en el DOM automáticamente)</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·paragraphs = document.getElementByTagName('p');
+          for (let #para of ·paragraphs) &#123;
+            #para.ºstyle.ºfontSize = '1rem';
+          &#125;;</pre>
+          <p class="chaptrSubSect__p"><span class="tooltip" title="Funcional, pero desaconsejado. Mejor usar .querySelectorAll">🔴</span><code>getElementsByTagNameNS()</code> Devuelve una colección en vivo (HTMLCollection) de elementos que coincidan con una etiqueta específica en un espacio de nombres determinado</p>
+          <pre class="chaptrSubSect__console wScript">
+            const svgElements = document.
+                getElementsByTagNameNS('http://www.w3.org/2000/svg', 'circle');
+            svgElements[0].setAttribute('fill', 'red'); 
+            /* Cambia el relleno del primer &lt;circle&gt; en SVG */</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Funcional, pero desaconsejado. Mejor usar .querySelectorAll">🔴</span> <code>.getElementByClassName(className)</code> Busca <mark>todos</mark> los elementos que tengan una clase específica, devolviendo una colección viva</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·elems = document.getElementByClassName('/º .article_h2 º/');
+          for (let #elem of ·elems) &#123;
+            #elem.ºstyle.ºfontSize = '2rem';
+          &#125;;</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Poco usado, se considera antiguo">🔴</span> <code>.getElementsByName(name)</code> Devuelve elementos con un atributo name específico</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·inputs = document.getElementsByName('username');
+            ·inputs[¬0].ºvalue = 'Iker';
+          &#125;;</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Creación de elementos" codeText="">
+        <p class="chaptrSubSect__p"><code>.createElement(tagName, [options])</code> Crea un nuevo nodo de texto. Este método puede ser usado para escapar caracteres HTML</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·elem = document.createElement('div');</pre>
+        <p class="chaptrSubSect__p"><code>.createTextNode(text)</code> crea un elemento HTML especificado por su tagName</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·elem = document.createTextNode('Ola q tal');</pre>
+        <p class="chaptrSubSect__p"><code>.createComment(text)</code> crea un nodo de comentario y lo devuelve</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·elem = document.createComment('Esto es un comentario');</pre>
+        <p class="chaptrSubSect__p"><code>DocumentFragment()</code> es un nodo <span class="bttn">DOM</span> especial que sirve como contenedor para trasladar listas de nodos. Podemos agregarle nodos, pero cuando lo insertamos en algún lugar, lo que se inserta es su contenido</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·oneFragment = new DocumentFragment();</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Combinación" codeText="">
+        <p class="chaptrSubSect__p"><code>normalize():</code> Combina nodos de texto adyacentes en un único nodo</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·div = document.createElement('div');
+          ·div.appendChild(document.createTextNode('Hola'));
+          ·div.appendChild(document.createTextNode(' mundo'));
+          ·div.ªnormalize(); /* Combina "Hola" y " mundo" en un solo nodo de texto */
+          console.log(·div.•childNodes.length);
+          ⋗ 1
+        </pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Métodos del objeto" codeText="Node">
+      <ChaptrSubSect h4Title="Gestion de la jerarquia del" codeText="DOM">
+        <p class="chaptrSubSect__p"><code>appendChild():</code> Agrega un nodo como hijo al final de la lista de hijos de un nodo</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·myDiv = document.createElement('div');
+          document.body.appendChild(·myDiv);</pre>
+        <p class="chaptrSubSect__p"><code>isertBefore():</code> Inserta un nodo antes de un nodo de referencia en la lista de hijos</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·nuevoDiv = document.createElement('div');
+          const ·primerHijo = document.body.•firstElementChild;
+          document.body.ªinsertBefore(·nuevoDiv, ·primerHijo);</pre>
+        <p class="chaptrSubSect__p"><code>removeChild():</code> Elimina un nodo hijo de un nodo padre</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·myDiv = document.querySelector('div');
+          document.body.ªremoveChild(·myDiv);</pre>
+        <p class="chaptrSubSect__p"><code>replaceChild():</code> Reemplaza un nodo hijo existente con otro nodo</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·nuevoDiv = document.createElement('div');
+          const ·viejoDiv = document.querySelector('div');
+          document.body.ªreplaceChild(·nuevoDiv, ·viejoDiv);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Inspección de nodos y relaciones jerárquicas" codeText="">
+        <p class="chaptrSubSect__p"><code>compareDocumentPosition():</code> Compara la posición de dos nodos en el documento</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·div1 = document.querySelector('#div1');
+          const ·div2 = document.querySelector('#div2');
+          console.log(·div1.ªcompareDocumentPosition(·div2));</pre>
+        <p class="chaptrSubSect__p"><code>contains():</code> Verifica si un nodo contiene a otro nodo como descendiente</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·parent = document.body;
+          const ·child = document.querySelector('p');
+          console.log(·parent.ªcontains(·child));
+          ⋗ /º true º/</pre>
+        <p class="chaptrSubSect__p"><code>getRootNode():</code> Devuelve la raíz del nodo (por ejemplo, el documento)</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·elemento = document.querySelector('p');
+          console.log(·elemento.ªgetRootNode() === document);
+          ⋗ /º true º/</pre>
+        <p class="chaptrSubSect__p"><code>hasChildNodes():</code> Verifica si un nodo tiene nodos hijos</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·div = document.querySelector('div');
+          console.log(·div.ªhasChildNodes());
+          ⋗ /º true º/</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Identidad y comparación de nodos" codeText="">
+        <p class="chaptrSubSect__p"><code>isEqualNode():</code> Compara si dos nodos son iguales en términos de estructura y contenido</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·div1 = document.createElement('div');
+          const ·div2 = document.createElement('div');
+          console.log(·div1.ªisEqualNode(·div2));
+          ⋗ /º true º/</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Espacios de nombres" codeText="">
+        <p class="chaptrSubSect__p"><code>isDefaultNamespace():</code> Verifica si un espacio de nombres es el predeterminado para un nodo</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·svg = document.querySelector('svg');
+          console.log(·svg.ªisDefaultNamespace('/º http://www.w3.org/2000/svg º/'));
+          ⋗ /º true º/</pre>
+        <p class="chaptrSubSect__p"><code>lookupNamespaceURI():</code> Busca el URI del espacio de nombres asociado con un prefijo dado</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·svg = document.querySelector('svg');
+          console.log(·svg.ªlookupNamespaceURI('svg'));
+          ⋗ /º http://www.w3.org/2000/svg º/</pre>
+        <p class="chaptrSubSect__p"><code>lookupPrefix():</code> Busca el prefijo asociado con un URI de espacio de nombres dado</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·svg = document.querySelector('svg');
+          console.log(·svg.ªlookupPrefix('/º http://www.w3.org/2000/svg º/'));
+          ⋗ svg</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Clonación y normalización" codeText="">
+        <p class="chaptrSubSect__p"><code>cloneNode():</code> Crea una copia superficial o profunda de un nodo</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·div = document.querySelector('div');
+          const ·clon = ·div.ªcloneNode(true); /* Clona profundamente */
+          document.body.appendChild(·clon);</pre>
+        <p class="chaptrSubSect__p"><code>normalize():</code> Combina nodos de texto adyacentes en un único nodo</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·div = document.createElement('div');
+          ·div.appendChild(document.createTextNode('Hola'));
+          ·div.appendChild(document.createTextNode(' mundo'));
+          ·div.ªnormalize(); /* Combina "Hola" y " mundo" en un solo nodo de texto */
+          console.log(·div.•childNodes.length);
+          ⋗ 1
+        </pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Métodos del objeto" codeText="Element">
+      <ChaptrSubSect h4Title="Añadir/eliminar/reemplazar elementos" codeText="">
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con DocumentFragment">🙏🏻</span><span class="tooltip" title="Obsoleto pero funcional. Usar .append() es más moderno y potente.">🔴</span><code>.appendChild()</code>Agrega un SOLO nodo hijo al final de un elemento padre</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·myDiv = document.querySelector('div');
+          const ·newP = document.createElement('p');
+          ·myDiv.ªappendChild(·newP);</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con DocumentFragment">🙏🏻</span><code>.append()</code> Es utilizado para añadir MULTIPLES nodos o cadenas de texto al final de un nodo</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·myDiv = document.querySelector('div');
+          ·myDiv.ªappend('Texto final', document.createElement('p'));</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con DocumentFragment">🙏🏻</span><code>.replaceChildren()</code> Reemplaza los hijos existentes de <span class="bttn">Document</span> por un nuevo grupo de hijos específicos</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·myDiv = document.querySelector('div');
+          ·myDiv.ªreplaceChildren('Nuevo texto', document.createElement('p'));</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con DocumentFragment">🙏🏻</span><code>prepend()</code> Agrega nodos o cadenas de texto al inicio de un nodo</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·myDiv = document.querySelector('div');
+          ·myDiv.ªprepend('Texto inicial', document.createElement('p'));</pre>
+        <p class="chaptrSubSect__p"><code>after()</code> Inserta nodos o cadenas de texto inmediatamente después del nodo actual en el mismo nivel (hermano siguiente)</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·myParag = document.querySelector('p');
+          ·myParag.ªafter('Texto después', document.createElement('span'));</pre>
+        <p class="chaptrSubSect__p"><code>before()</code> Inserta nodos o cadenas de texto inmediatamente antes del nodo actual en el mismo nivel (hermano anterior)</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·myParag = document.querySelector('p');
+          ·myParag.ªbefore('Texto antes', document.createElement('span'));</pre>
+        <p class="chaptrSubSect__p"><code>remove()</code> Elimina el nodo actual del DOM</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·myParag = document.querySelector('p');
+          ·myParag.ªremove();     /* /º Elimina el &lt;p&gt; del DOM º/ */</pre>
+        <p class="chaptrSubSect__p"><code>replaceWith()</code> Reemplaza el nodo actual con uno o más nodos o cadenas de texto</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·myParag = document.querySelector('p');
+          ·myParag.ªreplaceWith(document.createElement('div'), 'Nuevo texto');</pre>
+        <p class="chaptrSubSect__p"><code>insertAdjacentElement()</code> Inserta un elemento en una posición específica relativa al nodo actual</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·div = document.querySelector('div');
+          const ·newP = document.createElement('p');
+
+          ·div.ªinsertAdjacentElement('afterbegin', ·newP); 
+          /* al inicio del contenido del nodo actual */
+
+          ·div.ªinsertAdjacentElement('beforebegin', ·newP); 
+          /* antes del nodo actual */
+
+          ·div.ªinsertAdjacentElement('beforeend', ·newP); 
+          /* al final del contenido del nodo actual */
+
+          div.ªinsertAdjacentElement('afterend', ·newP); 
+          /* después del nodo actual */</pre>
+        <p class="chaptrSubSect__p"><code>insertAdjacentHTML()</code> Inserta HTML en una posición específica relativa al nodo actual</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·div = document.querySelector('div');
+
+          ·div.ªinsertAdjacentHTML('beforebegin', '/º &lt;p&gt;Nuevo párrafo&lt;/p&gt; º/'); 
+          /* antes del nodo actual */
+
+          ·div.ªinsertAdjacentHTML('afterbegin', '/º &lt;p&gt;Nuevo párrafo&lt;/p&gt; º/'); 
+          /* al inicio del contenido del nodo actual */
+
+          ·div.ªinsertAdjacentHTML('beforeend', '/º &lt;p&gt;Nuevo párrafo&lt;/p&gt; º/'); 
+          /* al final del contenido del nodo actual */
+
+          ·div.ªinsertAdjacentHTML('afterend', '/º &lt;p&gt;Nuevo párrafo&lt;/p&gt; º/'); 
+          /* después del nodo actual */</pre>
+        <p class="chaptrSubSect__p"><code>insertAdjacentText()</code> Inserta texto plano en una posición específica relativa al nodo actual</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·div = document.querySelector('div');
+
+          ·div.ªinsertAdjacentText('beforebegin', 'Texto al inicio'); 
+          /* antes del nodo actual */
+
+          ·div.ªinsertAdjacentText('afterbegin', 'Texto al inicio'); 
+          /* al inicio del contenido del nodo actual */
+
+          ·div.ªinsertAdjacentText('beforeend', 'Texto al final'); 
+          /* al final del contenido del nodo actual */
+
+          ·div.ªinsertAdjacentText('afterend', 'Texto al final'); 
+          /* después del nodo actual */</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Manipulacion de atributos" codeText="">
+        <p class="chaptrSubSect__p"><code>getAttribute()</code> Obtiene el valor de un atributo específico</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·link = document.querySelector('a');
+          console.log(·link.ªgetAttribute('href'));   /* Devuelve la URL del enlace */        </pre>
+        <p class="chaptrSubSect__p"><code>setAttribute()</code> Establece o modifica el valor de un atributo</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·img = document.querySelector('img');
+          ·img.ªsetAttribute('src', 'nueva-imagen.jpg');</pre>
+        <p class="chaptrSubSect__p"><code>removeAttribute()</code> Elimina un atributo específico</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·div = document.querySelector('div');
+          ·div.ªremoveAttribute('class');   /*/º Elimina el atributo class º/*/</pre>
+        <p class="chaptrSubSect__p"><code>hasAttribute()</code> Verifica si un elemento tiene un atributo específico</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·input = document.querySelector('input');
+          console.log(·input.ªhasAttribute('disabled'));    /*/º true/false º/*/</pre>
+        <p class="chaptrSubSect__p"><code>getAttributeNS()</code> Obtiene el valor de un atributo en un espacio de nombres específico</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·svg = document.querySelector('svg');
+          console.log(·svg.ªgetAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns')); 
+          /*/º Devuelve el namespace º/*/</pre>
+        <p class="chaptrSubSect__p"><code>setAttributeNS()</code> Establece o modifica el valor de un atributo en un espacio de nombres específico</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·svg = document.querySelector('svg');
+          ·svg.ªsetAttributeNS('http://www.w3.org/2000/xmlns/', 
+                'xmlns:xlink', 'http://www.w3.org/1999/xlink');</pre>
+        <p class="chaptrSubSect__p"><code>removeAttributeNS()</code> Elimina un atributo específico en un espacio de nombres</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·svg = document.querySelector('svg');
+          ·svg.ªremoveAttributeNS('http://www.w3.org/1999/xlink', 'href');</pre>
+        <p class="chaptrSubSect__p"><code>hasAttributeNS()</code> Verifica si un elemento tiene un atributo específico en un espacio de nombres</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·svg = document.querySelector('svg');
+          console.log(·svg.ªhasAttributeNS('http://www.w3.org/1999/xlink', 'href'));    
+          /*/º true/false º/*/</pre>
+        <p class="chaptrSubSect__p"><code>getAttributeNode()</code> Obtiene un objeto <span class="bttn">Attr</span> que representa un atributo específico</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·input = document.querySelector('input');
+          const ·attr = ·input.ªgetAttributeNode('type');
+          console.log(·attr.•value);   /* Devuelve "text" o el tipo del input */</pre>
+        <p class="chaptrSubSect__p"><code>setAttributeNode()</code> Establece un atributo utilizando un objeto <span class="bttn">Attr</span></p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·input = document.querySelector('input');
+          const ·newAttr = document.ªcreateAttribute('placeholder');
+          ·newAttr.•value = 'Ingresa texto';
+          ·input.ªsetAttributeNode(·newAttr);</pre>
+        <p class="chaptrSubSect__p"><code>removeAttributeNode()</code> Elimina un atributo utilizando un objeto <span class="bttn">Attr</span></p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·input = document.querySelector('input');
+          const ·placeholderAttr = ·input.ªgetAttributeNode('placeholder');
+          if (·placeholderAttr) &#123;
+            ·input.ªremoveAttributeNode(·placeholderAttr);
+          &#125;</pre>
+        <p class="chaptrSubSect__p"><code>getAttributeNodeNS()</code> Obtiene un objeto <span class="bttn">Attr</span> que representa un atributo en un espacio de nombres específico</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·svg = document.querySelector('svg');
+          const ·xlinkHref = ·svg.ªgetAttributeNodeNS('http://www.w3.org/1999/xlink', 'href');
+          console.log(·xlinkHref.•value);   /* Devuelve el valor del atributo */</pre>
+        <p class="chaptrSubSect__p"><code>setAttributeNodeNS()</code> Establece un atributo en un espacio de nombres utilizando un objeto <span class="bttn">Attr</span></p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·svg = document.querySelector('svg');
+          const ·newAttr = document.ªcreateAttributeNS('http://www.w3.org/1999/xlink', 'href');
+          ·newAttr.•value = 'https://example.com';
+          ·svg.ªsetAttributeNodeNS(·newAttr);</pre>
+        <p class="chaptrSubSect__p"><code>getAttributeNames()</code> Devuelve una lista de todos los nombres de atributos del elemento</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·div = document.querySelector('div');
+          console.log(·div.ªgetAttributeNames());   /*/º ["class", "id", "data-custom"] º/*/</pre>
+        <p class="chaptrSubSect__p"><code>hasAttributes()</code> Verifica si el elemento tiene algún atributo</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·span = document.querySelector('span');
+          console.log(·span.ªhasAttributes());    /*/º true/false º/*/</pre>
+        <p class="chaptrSubSect__p"><code>toggleAttribute()</code> Alterna la existencia de un atributo. Si <code>force</code> es <code>true</code>, lo agrega; si es <code>false</code>, lo elimina</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·button = document.querySelector('button');
+          ·button.ªtoggleAttribute('disabled');     /* Alterna el atributo disabled */</pre>
+        <p class="chaptrSubSect__p">Los métodos que terminan en <code>NS</code> son específicos para trabajar con <span class="bttn">XML</span> o <span class="bttn">HTML5</span> cuando se utilizan espacios de nombres (como <code>xlink:href</code> en <span class="bttn">SVG</span>)</p>
+        <p class="chaptrSubSect__p">Los métodos que trabajan con objetos <span class="bttn">Attr</span> representan atributos como entidades independientes</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Búsqueda de elementos" codeText="">
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Document">🙏🏻</span><code>querySelector()</code> Devuelve el <strong>primer</strong> elemento que coincida con un selector CSS específico, etiquetas, clases, id o atributos</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·div = document.createElement('div');
+          ·div.•textContent = 'Div Wrapper';
+          document.body.append(·div);
+          
+          const ·p1 = document.createElement('p');
+          ·p1.•textContent = 'Paragraph 1';
+          ·div.append(·p1);
+          
+          const ·p2 = document.createElement('p');
+          ·p2.•textContent = 'Paragraph 2';
+          ·div.append(·p2);
+          
+          const ·pSelected = document.querySelector('p');
+          console.log(·pSelected.•textContent);
+          ⋗ Paragraph 1</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Document">🙏🏻</span><code>querySelectorAll()</code> Devuelve una lista estática (NodeList) de todos los elementos que coincidan con un selector CSS específico</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·div = document.createElement('div');
+          ·div.•textContent = 'Div Wrapper';
+          document.body.append(·div);
+          
+          const ·p1 = document.createElement('p');
+          ·p1.•textContent = 'Paragraph 1';
+          ·div.append(·p1);
+          
+          const ·p2 = document.createElement('p');
+          ·p2.•textContent = 'Paragraph 2';
+          ·div.append(·p2);
+          
+          const ·pSelected = document.querySelectorAll('p');
+          ·pSelected.forEach(·elem =&gt; console.log(·elem.•textContent));
+          ⋗ Paragraph 1
+          ⋗ Paragraph 2</pre>
+        <p class="chaptrSubSect__p"><code>.matches(cssSelector)</code> Comprueba si un elemento coincide con un selector CSS</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·elem = document.querySelector('/º .article_h2 º/');
+          if (·elem.matches('/º h2.article_h2 º/'))&#123;
+            console.log('Es un h2 con clase "/º article_h2 º/"');
+          &#125;;</pre>
+        <p class="chaptrSubSect__p"><code>.closest()</code> Busca el ancestro más cercano que coincida con un selector CSS, incluyendo el propio elemento</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·elem = document.querySelector('/º .chapter º/');
+          let ·ancestor = ·elem.closest('/º .book º/');</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Geometría/posición/scroll" codeText="">
+        <p class="chaptrSubSect__p"><code>getBoundingClientRect()</code> Devuelve el tamaño de un elemento y su posición relativa respecto al viewport</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·elem = document.querySelector('div');
+          const ·rect = ·elem.ªgetBoundingClientRect();
+          console.log(·rect.ºtop, ·rect.ºright, ·rect.ºbottom, ·rect.ºleft);</pre>
+        <p class="chaptrSubSect__p"><code>getClientRects()</code> Devuelve una colección de rectángulos que representan las áreas ocupadas por el elemento (útil para texto con varias líneas)</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·elem = document.querySelector('p');
+          const ·rects = ·elem.ªgetClientRects();
+          for (let #rect of ·rects) &#123;
+            console.log(#rect.ºtop, #rect.ºright, #rect.ºbottom, #rect.ºleft);
+          &#125;</pre>
+        <p class="chaptrSubSect__p"><code>scroll()</code> Desplaza el elemento hasta una posición específica</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·elem = document.querySelector('div');
+          ·elem.ªscroll(¬0, ¬100);</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Window">🙏🏻</span><code>scrollBy()</code> Desplaza el elemento relativo a su posición actual</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·elem = document.querySelector('div');
+          ·elem.ªscrollBy(¬0, ¬100);
+        
+          /* también acepta un objeto con opciones */
+          ·elem.ªscrollBy(&#123; 
+            top: ¬50, 
+            left: ¬0, 
+            behavior: 'smooth' 
+          &#125;);</pre>
+        </pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Window">🙏🏻</span><code>scrollTo()</code> Desplaza el elemento hasta una posición absoluta</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·elem = document.querySelector('div');
+          ·elem.ªscrollTo(¬0, ¬100);
+        
+          /* también acepta un objeto con opciones */
+          ·elem.ªscrollTo(&#123; 
+            top: ¬50, 
+            left: ¬0, 
+            behavior: 'smooth' 
+          &#125;);</pre>
+        <p class="chaptrSubSect__p"><code>scrollIntoView()</code> Hace que el elemento sea visible desplazando el viewport si es necesario</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·elem = document.querySelector('div');
+          ·elem.ªscrollIntoView();
+        
+          /* también acepta un objeto con opciones */
+          ·elem.ªscrollIntoView(&#123; 
+            block: 'center', 
+            inline: 'nearest', 
+            behavior: 'smooth' 
+          &#125;);
+        </pre>
+        <p class="chaptrSubSect__p"><code>scrollIntoViewIfNeeded()</code> Desplaza el elemento solo si no está completamente visible</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·elem = document.querySelector('div');
+          ·elem.ªscrollIntoViewIfNeeded();</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Estilado y estilos computados" codeText="">
+        <p class="chaptrSubSect__p"><code>computedStyleMap()</code> Devuelve un mapa (StylePropertyMapReadOnly) con los valores calculados de todas las propiedades de estilo del elemento</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·elem = document.querySelector('div');
+          const ·styles = ·elem.ªcomputedStyleMap();
+          console.log(·styles.get('color'));</pre>
+        </pre>
+        <p class="chaptrSubSect__p"><code>animate()</code> Inicia una animación en el elemento utilizando una lista de fotogramas de clave (keyframes) y opciones de temporización</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·elem = document.querySelector('div');
+          ·elem.ªanimate(
+            [
+              &#123; opacity: ¬0 &#125;, 
+              &#123; opacity: ¬1 &#125;
+            ], 
+            &#123; duration: ¬1000, iterations: ¬2 &#125;
+          );</pre>
+        </pre>
+        <p class="chaptrSubSect__p"><code>getAnimations()</code> Devuelve una lista (Animation[]) de todas las animaciones activas aplicadas al elemento</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·elem = document.querySelector('div');
+          const ·animation = ·elem.ªanimate(
+            [
+              &#123; opacity: ¬0 &#125;, 
+              &#123; opacity: ¬1 &#125;
+            ], 
+            &#123; duration: ¬1000, iterations: ¬2 &#125;
+          );
+
+          const ·activeAnimations = ·elem.ªgetAnimations();
+          console.log(·activeAnimations.length);
+          ⋗ 1</pre>
+        </pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Shadow" codeText="DOM">
+        <p class="chaptrSubSect__p"><code>attachShadow()</code> Crea un Shadow DOM en un elemento, encapsulando estilos y contenido</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·shadow = çelement.ªattachShadow(&#123; mode: 'open' &#125;);
+          ·shadow.•innerHTML = '/º &lt;style&gt; p &#123; color: red; &#125; &lt;/style&gt; &lt;p&gt;Hola&lt;/p&gt; º/';</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Foco y captura de cursor" codeText="">
+        <p class="chaptrSubSect__p"><code>hasPointerCapture()</code> Verifica si el elemento capturó un evento de puntero (ej. clic)</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·elem = document.querySelector('div');
+          console.log(·elem.ªhasPointerCapture(•pointerID));</pre>
+        </pre>
+        <p class="chaptrSubSect__p"><code>setPointerCapture()</code> Captura eventos de puntero (ej. movimiento) para un elemento</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·elem = document.querySelector('div');
+          ·elem.ªsetPointerCapture(•pointerID);</pre>
+        </pre>
+        <p class="chaptrSubSect__p"><code>requestFullscreen()</code> Pasa el elemento a modo fullscreen</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·elem = document.querySelector('div');
+          ·elem.ªrequestFullscreen();</pre>
+        </pre>
+        <p class="chaptrSubSect__p"><code>requestPointerLock()</code>  Bloquea el puntero dentro del elemento (útil para juegos)</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·elem = document.querySelector('canvas');
+          ·elem.ªrequestPointerLock();</pre>
+        </pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Eventos de" codeText="EventTarget">
+      <ChaptrSubSect h4Title="Definición" codeText="">
+        <p class="chaptrSubSect__p">Los eventos de <span class="bttn">EventTarget</span> son compartidos con <span class="bttn">Window</span>, <span class="bttn">Document</span>, <span class="bttn">Element</span>, <span class="bttn">Node</span>, etc</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Eventos" codeText="">
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Window, Document, Element, etc">🙏🏻</span><code>addEventListener():</code> Asocia un manejador de eventos a un elemento</p>
+        <pre class="chaptrSubSect__console wScript">
+          ·myElement.addEventListener('click', () =&gt; console.log('/º clik! º/');</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Window, Document, Element, etc">🙏🏻</span><code>removeEventListener():</code> </p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·handler = () =&gt; console.log('/º click! º/');
+          
+          ·myElement.addEventListener('click', ·handler);
+          ·myElement.removeEventListener('click', ·handler);</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Window, Document, Element, etc">🙏🏻</span><code>dispatchEvent():</code> Dispara manualmente un evento en un elemento</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·event = new Event('miEvento');
+          çwindow.dispatchEvent(·event);</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Métodos de" codeText="DocumentFragment">
+      <ChaptrSubSect h4Title="Definición" codeText="">
+        <p class="chaptrSubSect__p">Los métodos de <span class="bttn">DocumentFragment</span> son similares a los de <span class="bttn">Node</span> porque extiende esta interfaz, pero se incluyen aquí porque son específicos de fragmentos de documentos</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Manipulación de Nodos" codeText="">
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Element">🙏🏻</span><span class="tooltip" title="Obsoleto pero funcional. Usar .append() es más moderno y potente.">🔴</span><code>.appendChild()</code>Agrega un nodo hijo al final de un elemento padre</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·myDiv = document.querySelector('div');
+          const ·newP = document.createElement('p');
+          ·myDiv.appendChild(·newP);</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Element">🙏🏻</span><code>.append()</code> Es utilizado para añadir nodos o cadenas de texto al final de un nodo</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·myDiv = document.querySelector('div');
+          ·myDiv.append('Texto final', document.createElement('p'));</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Element">🙏🏻</span><code>.replaceChildren()</code> Reemplaza los hijos existentes de <span class="bttn">Document</span> por un nuevo grupo de hijos específicos</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·myDiv = document.querySelector('div');
+          ·myDiv.ªreplaceChildren('Nuevo texto', document.createElement('p'));</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Element">🙏🏻</span><code>prepend()</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·myDiv = document.querySelector('div');
+          ·myDiv.ªprepend('Texto inicial', document.createElement('p'));</pre>
+          <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Element">🙏🏻</span><code>querySelector()</code> Devuelve el <strong>primer</strong> elemento que coincida con un selector CSS específico, etiquetas, clases, id o atributos</p>
+          <pre class="chaptrSubSect__console wScript">
+            const ·div = document.createElement('div');
+            ·div.•textContent = 'Div Wrapper';
+            document.body.append(·div);
+            
+            const ·p1 = document.createElement('p');
+            ·p1.•textContent = 'Paragraph 1';
+            ·div.append(·p1);
+            
+            const ·p2 = document.createElement('p');
+            ·p2.•textContent = 'Paragraph 2';
+            ·div.append(·p2);
+            
+            const ·pSelected = document.querySelector('p');
+            console.log(·pSelected.•textContent);
+            ⋗ Paragraph 1</pre>
+        <p class="chaptrSubSect__p"><span class="tooltip" title="Compartido con Element">🙏🏻</span><code>querySelectorAll()</code> Devuelve una lista estática (NodeList) de todos los elementos que coincidan con un selector CSS específico</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·div = document.createElement('div');
+          ·div.•textContent = 'Div Wrapper';
+          document.body.append(·div);
+          
+          const ·p1 = document.createElement('p');
+          ·p1.•textContent = 'Paragraph 1';
+          ·div.append(·p1);
+          
+          const ·p2 = document.createElement('p');
+          ·p2.•textContent = 'Paragraph 2';
+          ·div.append(·p2);
+          
+          const ·pSelected = document.querySelectorAll('p');
+          ·pSelected.forEach(·elem =&gt; console.log(·elem.•textContent));
+          ⋗ Paragraph 1
+          ⋗ Paragraph 2</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Uso de pseudoclases con métodos" codeText="">
+        <p class="chaptrSubSect__p">Los siguientes métodos soportan pseudoclases</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>querySelector</code>: Devuelve el primer elemento que coincide con la pseudoclase.</li>
+          <li class="chaptrSubSectUl__li"><code>querySelectorAll</code>: Devuelve todos los elementos que coincide con la pseudoclase.</li>
+          <li class="chaptrSubSectUl__li"><code>matches</code>: Verifica si un elemento específico cumple con una pseudoclase.</li>
+          <li class="chaptrSubSectUl__li"><code>closest</code>: Busca el ancestro más cercano del elemento que coincide con la pseudoclase.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Lista de pseudoclases CSS soportadas por los métodos mencionados</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Pseudoclases dinámicas:</strong> <code>:hover</code>, <code>:active</code>, <code>:focus</code>, <code>:focus-visible</code>, <code>:focus-within</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>Pseudoclases estructurales:</strong> <code>:nth-child(n)</code>, <code>:nth-last-child(n)</code>, <code>:nth-of-type(n)</code>, <code>:nth-last-of-type(n)</code>, <code>:first-child</code>, <code>:last-child</code>, <code>:only-child</code>, <code>:first-of-type</code>, <code>:last-of-type</code>, <code>:only-of-type</code>, <code>:empty</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>Pseudoclases estructurales:</strong> <code>:enabled</code>, <code>:disabled</code>, <code>:checked</code>, <code>:indeterminate</code>, <code>:default</code>, <code>:valid</code>, <code>:invalid</code>, <code>:in-range</code>, <code>:out-of-range</code>, <code>:requiered</code>, <code>:optional</code>, <code>:read-only</code>, <code>:read-write</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>Pseudoclases lógicas:</strong> <code>:not(sltr)</code>, <code>:is(sltr)</code>, <code>:where(sltr)</code>, <code>:has(sltr)</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>Otras pseudoclases:</strong> <code>:root</code>, <code>:target</code>, <code>:target-within</code>, <code>:lang(lang)</code>, <code>:dir(dir)</code>, <code>:any-link</code>, <code>:link</code>, <code>:visited</code>, <code>:scope</code>, <code>:fullscreen</code>, <code>:placeholder-shown</code>.</li>
+        </ul>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Atributos y propiedades" codeText="">
+      <ChaptrSubSect h4Title="Definición" codeText="">
+        <p class="chaptrSubSect__p">Cuando el navegador carga la página, “lee” "parsea" el <span class="bttn">HTML</span> y genera objetos <span class="bttn">DOM</span> a partir de él. Para los nodos de elementos, la mayoría de los atributos <span class="bttn">HTML</span> estándar se convierten automáticamente en propiedades de los objetos <span class="bttn">DOM</span>. Pero el mapeo de propiedades y atributos no es uno a uno</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Propiedades" codeText="DOM">
+        <p class="chaptrSubSect__p">Las propiedades y métodos <span class="bttn">DOM</span> se comportan igual que los objetos JavaScript normales</p>
+        <pre class="chaptrSubSect__console wScript">
+          document.body.ºmyData = &#123;
+            name: 'Éder',
+            title: 'Emperador'
+          &#125;;
+
+          console.log(document.body.ºmyData.ºtittle);
+          ⋗ Éder</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Pueden tener cualquier valor.</li>
+          <li class="chaptrSubSectUl__li">Distingue entre mayúsculas y minúsculas.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Atributos" codeText="">
+        <p class="chaptrSubSect__p">Están definidos en el HTML, son siempre <span class="bttn">strings</span> y no son "case sensitive"</p>
+        <p class="chaptrSubSect__p">Estos son los métodos principales</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>elem.hasAttribute(nombre)</code></li>
+          <li class="chaptrSubSectUl__li"><code>elem.getAttribute(nombre)</code></li>
+          <li class="chaptrSubSectUl__li"><code>elem.setAttribute(nombre, valor)</code></li>
+          <li class="chaptrSubSectUl__li"><code>elem.removeAttribute(nombre)</code></li>
+        </ul>
+        <p class="chaptrSubSect__p">Lista oficial de atributos: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes">Link 🔗</a></p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Diferencias" codeText="">
+        <table class="chaptrSubSect__table">
+          <thead>
+            <tr>
+              <th>Propiedades</th>
+              <th>Atributos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Pueden tener cualquier tipo</td>
+              <td>Siempre son strings</td>
+            </tr>
+            <tr>
+              <td>Distinguen mayúsculas</td>
+              <td>No distinguen mayúsculas</td>
+            </tr>
+          </tbody>
+        </table>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Sincronización" codeText="">
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Atributos estándar:</strong> Se sincronizan bidireccionalmente (excepto casos como <code>value</code>).</li>
+          <li class="chaptrSubSectUl__li"><strong>Atributos no estándar:</strong> No crean propiedades <span class="bttn">DOM</span> pero pueden accederse mediante <code>getAttribute</code>.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Atributos personalizados" codeText="">
+        <p class="chaptrSubSect__p">Uso</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Pasar datos desde HTML a JS.</li>
+          <li class="chaptrSubSectUl__li">Diseñar elementos basados en su estado.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Atributos <code>data-*</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Reservados para desarrolladores, seguros frente a conflictos.</li>
+          <li class="chaptrSubSectUl__li">Acceso a través de <code>dataset</code>.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Casos de uso" codeText="">
+        <p class="chaptrSubSect__p">Cuándo Usar Atributos</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Atributos no estándar (especialmente si no tienen formato data-*.</li>
+          <li class="chaptrSubSectUl__li">Necesitas el valor “como está en HTML”.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Cuándo Usar Propiedades</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">En la mayoría de las situaciones, ya que son más rápidas y soportan tipos avanzados.</li>
+        </ul>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Estilos y clases" codeText="">
+      <ChaptrSubSect h4Title="" codeText=".className">
+        <p class="chaptrSubSect__p">Obtiene y establece el valor del atributo <code>class</code> del elemento especificado. Si asignamos algo a <code>elem.className</code>, reemplaza toda la cadena de clases</p>
+        <pre class="chaptrSubSect__console wScript">
+          ·h2__·elem.className = '/º main∞_tittle º/';</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText=".classList">
+        <p class="chaptrSubSect__p">Obtiene y establece el valor del atributo <code>class</code> del elemento especificado. Si asignamos algo a <code>elem.className</code>, reemplaza toda la cadena de clases. Además es iterable</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·elementClasses = çh2.classList;
+          const ·elementClassesToArray = Array.from(·elementClasses);
+          console.log(·elementClassesToArray);
+          ⋗ /º ["main__h2", "main__h2--active"] º/</pre>
+        <p class="chaptrSubSect__p">Métodos de <code>classList</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>add</code>/<code>remove</code><code>("class")</code>: agrega o remueve la clase.</li>
+          <li class="chaptrSubSectUl__li"><code>toggle("class")</code>: agrega la clase si no existe, si no, la elimina.</li>
+          <li class="chaptrSubSectUl__li"><code>contains("class")</code>: verifica si tiene la clase dada, devuelve <span class="bttn">Boolean</span>.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Style de un elemento" codeText="">
+        <p class="chaptrSubSect__p">La propiedad <code>elem.style</code> es un objeto que corresponde a lo escrito en el atributo <code>style</code></p>
+        <p class="chaptrSubSect__p">Para propiedades de varias palabras se usa <mark>camelCase</mark></p>
+        <pre class="chaptrSubSect__console wScript">
+          /º background-color º/ =&gt; ·elem.çstyle.ºbackgroundColor
+          /º z-index º/ =&gt; ·elem.çstyle.ºzIndex
+          /º border-left-width º/ =&gt; ·elem.çstyle.ºborderLeftWidth</pre>
+        <p class="chaptrSubSect__p">Por lo que quedaría realmente así</p>
+        <pre class="chaptrSubSect__console wScript">
+          document.body.çstyle.ºbackgroundColor = 'red';</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Reseteando la propiedad" codeText="style">
+        <p class="chaptrSubSect__p">Si establecemos <code>style.display</code> como una cadena vacía, entonces el navegador aplica clases y estilos CSS incorporados normalmente por el navegador, como si no existiera tal <code>style.display</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          document.body.çstyle.ºdisplay = 'none';   /* lo oculta */
+          document.body.çstyle.ºdisplay = '';   /* vuelve a default */</pre>
+        <p class="chaptrSubSect__p">Pero también contamos con un método especial para quitar una propiedad: <code>removeProperty('style property')</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          document.body.çstyle.ºbackground = 'red';   /* establece el background */
+          document.body.çstyle.@removeProperty('background');  /* elimina background */</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Estableciendo todo el estilo como cadena" codeText="">
+        <p class="chaptrSubSect__p">Para establecer todo el estilo como una cadena, hay una propiedad especial: <code>style.cssText</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          ·div.body.çstyle.ºcssText = '/º color: red; width: 100px; heigth: 50px º/';</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Estilos calculados" codeText="getComputedStyle">
+        <p class="chaptrSubSect__p">La propiedad <code>style</code> solo opera en el valor del atributo <code>style</code>, sin ninguna cascada de css, por lo que no podemos leer ninguna clase CSS usando <code>elem.style</code> e incrementar/decrementar su propiedad. Hay otro método para eso: <code>getComputedStyle</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          @getComputedStyle(•element, [•pseudo])</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>element</code>: El elemento del cual se va a leer el valor.</li>
+          <li class="chaptrSubSectUl__li"><code>pseudo</code>: Un pseudo-elemento es requerido, por ejemplo <code>::before</code>. Si no lo necesitas, omítelo o pásalo como cadena vacía.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          const ·myH2Lssn = document.querySelector('/º .lssnArt__h2 º/');
+          const ·computedStylesH2 = @getComputedStyle(·myH2Lssn);
+          console.log(·computedStylesH2.ºbackgroundColor);    ⋗ ∞purple</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Tamaño de elementos y desplazamiento" codeText="">
+      <ChaptrSubSect h4Title="Elemento de muestra" codeText="">
+        <p class="chaptrSubSect__p">Creamos un elemento de muestra para demostrar las propiedades</p>
+        <pre class="chaptrSubSect__console wScript">
+          /º &lt;div id="example"&gt;...Texto...&lt;/div&gt; º/
+          /º &lt;style&gt; º/
+            ＃example &#123;
+              width: 300px;
+              height: 200px;
+              border: 25px solid ＃E8C48F;
+              padding: 20px;
+              overflow: auto;
+            &#125;
+          /º &lt;/style&gt; º/</pre>
+        <p class="chaptrSubSect__p">Este tiene borde, relleno y desplazamiento. El conjunto completo de funciones. No hay márgenes porque no son parte del elemento en sí, y no tienen propiedades especiales</p>
+        <img src="../../../src/assets/img/img4.webp" alt="Esquema de propiedades css" class="chaptrSubSect__img">
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Geometría" codeText="">
+        <p class="chaptrSubSect__p">Aquí está la imagen general con propiedades geométricas</p>
+        <img src="../../../src/assets/img/img5.webp" alt="Esquema de propiedades css" class="chaptrSubSect__img">
+        <p class="chaptrSubSect__p">Los valores de estas propiedades son técnicamente números, pero estos números son “de píxeles”, así que estas son medidas de píxeles</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="offsetParent, offsetLeft/Top" codeText="">
+        <p class="chaptrSubSect__p">Estas propiedades son <mark>raramente necesarias</mark>, pero es útil en aplicaciones específicas como drag & drop o sistemas que dependen de posiciones relativas</p>
+        <p class="chaptrSubSect__p"><code>offsetParent</code>: es el antepasado más cercano de un elemento que cumple con al menos uno de estos criterios</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Está posicionado:</strong> Su propiedad <code>position</code> está configurada como <code>relative</code>, <code>absolute</code>, <code>fixed</code> o <code>sticky</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>Es una tabla o parte de una tabla:</strong> <code>td</code>, <code>th</code>, <code>table</code> son automáticamente <code>offsetParent</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>Es el <code>body</code> del documento:</strong> si no hay otro elemento posicionado más cercano.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Si ninguno de estos casos se cumple, el <code>offsetParent</code> es <code>null</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;main style="position: relative" id="main"&gt; º/
+              /º &lt;article&gt; º/
+                  /º &lt;div id="example" style="position: absolute; left: 180px; top: 180px"&gt; º/
+                      /º ...texto... º/
+                  /º &lt;/div&gt; º/
+              /º &lt;/article&gt; º/
+          /º &lt;/main&gt; º/
+
+          /* js */
+          const ·example = document.querySelector('＃example');
+          console.log(·example.ºoffsetParent.ºid);    ⋗ main
+          console.log(·example.ºoffsetLeft);    ⋗ 180
+          console.log(·example.ºoffsetTop);   ⋗ 180</pre>
+        <img src="../../../src/assets/img/img6.webp" alt="Esquema de propiedades css" class="chaptrSubSect__img">
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="offsetWidth/Height" codeText="">
+        <p class="chaptrSubSect__p">Estas dos propiedades son las más simples. Proporcionan el ancho y alto “exterior” del elemento (su tamaño completo), incluidos los bordes</p>
+        <img src="../../../src/assets/img/img7.webp" alt="Esquema de propiedades css" class="chaptrSubSect__img">
+        <p class="chaptrSubSect__p">Para nuestro elemento de muestra</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>offsetWidth = 390</code>: el ancho exterior, puede ser calculado como CSS-width interno (300px) más padding (2 * 20px) y bordes (2 * 25px).</li>
+          <li class="chaptrSubSectUl__li"><code>offsetHeight = 290</code>: el alto exterior.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Las propiedades geométricas para elementos no mostrados son cero o <code>null</code>.</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="clientTop/Left" codeText="">
+        <p class="chaptrSubSect__p">Estas dos propiedades sirven para medir los bordes</p>
+        <img src="../../../src/assets/img/img8.webp" alt="Esquema de propiedades css" class="chaptrSubSect__img">
+        <p class="chaptrSubSect__p">Para nuestro elemento de muestra</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>clientLeft = 25</code>: ancho del borde izquierdo.</li>
+          <li class="chaptrSubSectUl__li"><code>clientTop = 25</code>: ancho del borde superior.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Pero para ser precisos: estas propiedades no son el ancho/alto del borde sino las coordenadas relativas del lado interior respecto al lado exterior</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="clientWidth/Height" codeText="">
+        <p class="chaptrSubSect__p">Estas dos propiedades proporcionan el tamaño del área dentro de los bordes del elemento, icluyendo el ancho del contenido junto con los rellenos, pero sin la barra de desplazamiento</p>
+        <img src="../../../src/assets/img/img9.webp" alt="Esquema de propiedades css" class="chaptrSubSect__img">
+        <p class="chaptrSubSect__p">Si no hay rellenos, entonces <code>clientWidth/Height</code> es exactamente el área de contenido, dentro de los bordes y la barra de desplazamiento (si la hay)</p>
+        <img src="../../../src/assets/img/img10.webp" alt="Esquema de propiedades css" class="chaptrSubSect__img">
+        <p class="chaptrSubSect__p">Entonces, cuando no hay relleno, podremos usar <code>clientWidth/Height</code> para obtener el tamaño del área de contenido</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="scrollWidth/Height" codeText="">
+        <p class="chaptrSubSect__p">Estas propiedades son como <code>clientWidth/Height</code>, pero también incluyen las partes desplazadas (ocultas)</p>
+        <img src="../../../src/assets/img/img11.webp" alt="Esquema de propiedades css" class="chaptrSubSect__img">
+        <p class="chaptrSubSect__p">Para nuestro elemento de muestra</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>scrollHeight = 723</code>: es la altura interior completa del área de contenido, incluyendo las partes desplazadas.</li>
+          <li class="chaptrSubSectUl__li"><code>scrollWidth = 324</code>: es el ancho interior completo, aquí no tenemos desplazamiento horizontal, por lo que es igual a <code>clientWidth</code>.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Podemos usar estas propiedades para expandir el elemento a su ancho/alto completo</p>
+        <pre class="chaptrSubSect__console wScript">
+          ·element.ºstyle.ºheight = `$&#123;·element.ºscrollHeight&#125;px`;</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="scrollLeft/Top" codeText="">
+        <p class="chaptrSubSect__p">Estas propiedades son el ancho/alto de la parte oculta y desplazada del elemento</p>
+        <img src="../../../src/assets/img/img12.webp" alt="Esquema de propiedades css" class="chaptrSubSect__img">
+        <p class="chaptrSubSect__p">En otras palabras, scrollTop es “cuánto se desplaza hacia arriba”</p>
+        <p class="chaptrSubSect__p">La mayoría de las propiedades aquí son solo lectura, pero <code>scrollLeft/Top</code> se puede cambiar, y el navegador desplazará el elemento</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="No uses width/height obtenidos de CSS" codeText="">
+        <p class="chaptrSubSect__p">Podemos leer CSS <code>height</code>/<code>width</code> usando <code>getComputedStyle</code>, pero deberíamos usar propiedades geométricas en su lugar</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Primero:</strong> CSS <code>width</code>/<code>height</code> dependen de otra propiedad: <code>box-sizing</code> que define “qué es” CSS <code>width</code>/<code>height</code>. Un cambio en <code>box-sizing</code> para propósitos de CSS puede romper dicho JavaScript.</li>
+          <li class="chaptrSubSectUl__li"><strong>Segundo:</strong> CSS <code>width</code>/<code>height</code> puede ser <code>auto</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>Tercero:</strong> una barra de desplazamiento, CSS <code>width</code> las ignora.</li>
+        </ul>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Tamaño de ventana y desplazamiento" codeText="">
+      <ChaptrSubSect h4Title="Ancho/alto de la ventana" codeText="">
+        <p class="chaptrSubSect__p"><code>document.documentElement.clientWidth/Height</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Proporcionan el ancho/alto visibles de la ventana sin incluir la barra de desplazamiento.</li>
+          <li class="chaptrSubSectUl__li">Útil para determinar el espacio disponible para el contenido visible.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><code>window.innerWidth/Height</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Incluyen la barra de desplazamiento si está presente.</li>
+          <li class="chaptrSubSectUl__li">No se recomiendan si necesitamos medir únicamente el espacio visible.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(document.çdocumentElement.ºclientHeight);   ⋗ 909
+          console.log(document.çdocumentElement.ºclientWidth);    ⋗ 945
+          console.log(çwindow.ºinnerHeight);    ⋗ 909
+          console.log(çwindow.ºinnerWidth);   ⋗ 960</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Tamaño completo del documento" codeText="">
+        <p class="chaptrSubSect__p">No siempre podemos confiar en <code>document.documentElement.scrollHeight</code>, ya que puede dar resultados inconsistentes</p>
+        <p class="chaptrSubSect__p">Para obtener el tamaño completo del documento (incluyendo la parte desplazada)</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·scrollHeight = çMath.@max(
+            document.body.ºscrollHeight,
+            document.çdocumentElement.ºscrollHeight,
+            document.body.ºoffsetHeight,
+            document.çdocumentElement.ºoffsetHeight,
+            document.body.ºclientHeight,
+            document.çdocumentElement.ºclientHeight,
+          );
+          console.log(`Altura completa del documento $&#123;·scrollHeight&#125;`);
+          ⋗ Altura completa del documento 7873
+        </pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Desplazamiento actual" codeText="">
+        <p class="chaptrSubSect__p">Propiedades para leer el desplazamiento actual: <code>window.pageYOffset</code> y <code>window.pageXOffset</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Altamente confiables y universales.</li>
+          <li class="chaptrSubSectUl__li">Equivalentes a <code>window.scrollY</code> y <code>window.scrollX</code>.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(çwindow.ºpageYOffset);    ⋗ 0
+          console.log(çwindow.ºpageXOffset);    ⋗ 6742</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Métodos para desplazar la página" codeText="">
+        <p class="chaptrSubSect__p"><code>window.scrollBy(x, y)</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Desplaza la página de forma relativa a la posición actual.
+          </li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          çwindow.@scrollBy(¬0, ¬500)</pre>
+        <p class="chaptrSubSect__p"><code>window.scrollTo(x, y)</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Desplaza la página a una posición absoluta.
+          </li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          çwindow.@scrollTo(¬0, ¬50)</pre>
+        <p class="chaptrSubSect__p"><code>element.scrollIntoView(top)</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Desplaza la página para hacer visible un elemento.
+          </li>
+          <li class="chaptrSubSectUl__li"><code>top = true</code>: el elemento se alinea con la parte superior de la ventana.</li>
+          <li class="chaptrSubSectUl__li"><code>top = false</code>: el elemento se alinea con la parte inferior.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          const ·myElement = document.querySelector('＃mainSection');
+          ·myElement.@scrollIntoView(true);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Congelar el desplazamiento" codeText="">
+        <p class="chaptrSubSect__p">Para deshabilitar el desplazamiento del documento</p>
+        <pre class="chaptrSubSect__console wScript">
+          document.body.ºstyle.ºoverflow = 'hidden';</pre>
+        <p class="chaptrSubSect__p">Para reanudar el desplazamiento del documento</p>
+        <pre class="chaptrSubSect__console wScript">
+          document.body.ºstyle.ºoverflow = '';</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Coordenadas" codeText="">
+      <ChaptrSubSect h4Title="Sistema de coordenadas" codeText="">
+        <p class="chaptrSubSect__p">Coordenadas relativas a la ventana (<code>clientX</code>/<code>clientY</code>)</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Similares a <code>position:fixed</code>.</li>
+          <li class="chaptrSubSectUl__li">Se miden desde la esquina superior izquierda de la ventana visible.</li>
+          <li class="chaptrSubSectUl__li">Cambian cuando se desplaza la página, ya que el elemento "mueve su posición relativa a la ventana".</li>
+        </ul>
+        <p class="chaptrSubSect__p">Coordenadas relativas al documento (<code>pageX</code>/<code>pageY</code>)</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Similares a <code>position:absolute</code> relativo a la raíz del documento.</li>
+          <li class="chaptrSubSectUl__li">Se miden desde la esquina superior izquierda del documento completo.</li>
+          <li class="chaptrSubSectUl__li">Permanecen constantes, incluso si hay desplazamiento.</li>
+        </ul>
+
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Obteniendo coordenadas de elementos" codeText="">
+        <p class="chaptrSubSect__p">El método <code>getBoundingClientRect()</code> devuelve las coordenadas del elemento relativas a la ventana en forma de un rectángulo (<code>DOMRect</code>), con las siguientes propiedades principales</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>x</code>, <code>y</code>: Coordenadas del borde superior izquierdo.</li>
+          <li class="chaptrSubSectUl__li"><code>width</code>, <code>height</code>: Dimensiones del rectángulo.</li>
+          <li class="chaptrSubSectUl__li"><code>top</code>, <code>bottom</code>, <code>left</code>, <code>right</code>: Coordenadas de los bordes del rectángulo.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          const ·myEle = document.querySelector('/º chaptrSect__h3 º/');
+          let ·rect = ·myElement.@getBoundingClientRect();
+          console.log(·rect.ºtop);    ⋗ /º -1806.09375 º/
+          console.log(·rect.ºleft);   ⋗ /º 106.09375 º/
+          console.log(·rect.ºwidth);    ⋗ /º 732.8125 º/
+          console.log(·rect.ºheight);   ⋗ /º 33.84375 º/
+        </pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Conversión coors.[window] ⟹ coors.[document]" codeText="">
+        <p class="chaptrSubSect__p">Se puede usar la fórmula</p>
+        <pre class="chaptrSubSect__console wScript">
+          ·pageY = ·clientY + çwindow.ºpageYOffset;
+          ·pageX = ·clientX + çwindow.ºpageXOffset;</pre>
+        <p class="chaptrSubSect__p">Función para obtener coordenadas absolutas (documento)</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·myElem = document.querySelector('/º .chaptrSect__h3 º/');
+
+          function @getCoords(•elem) &#123;
+            let ·box = ·elem.@getBoundingClientRect();
+
+            return &#123;
+              top: ·box.ºtop + çwindow.ºpageYOffset,
+              left: ·box.ºleft + çwindow.ºpageXOffset,
+              bottom: ·box.ºbottom + çwindow.ºpageYOffset,
+              right: ·box.ºright + çwindow.ºpageXOffset
+            &#125;;
+          &#125;;
+
+          console.log(@getCoords(·myElem));
+          ⋗ /º &#123;top: 293.90625, left: 106.09375, bottom: 327.75, right: 838.90625&#125; º/
+        </pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Posición de elementos dinámicamente" codeText="">
+        <p class="chaptrSubSect__p">Mostrar un mensaje debajo de un elemento (con posición fija)</p>
+        <pre class="chaptrSubSect__console wScript">
+          function @createMessageUnder(•elem, •html) &#123;
+            let ·message = document.createElement('div');
+            ·message.ºstyle.ºcssText = '/º position:fixed; color: red º/';
+            
+            let ·coords = •elem.@getBoundingClientRect();
+            ·message.ºstyle.ºleft = ·coords.ºleft + 'px';
+            ·message.ºstyle.ºtop = ·coords.ºbottom + 'px';
+            ·message.ºinnerHTML = •html;
+          
+            document.body.append(·message);
+            @setTimeout(() =&gt; ·message.@remove(), ¬5000); 
+            /* Eliminar mensaje después de 5s */
+          &#125;
+          
+          let ·elem = document.getElementById('miElemento');
+          @createMessageUnder(·elem, '/º ¡Hola, mundo! º/');</pre>
+        <p class="chaptrSubSect__p">Mensaje absoluto que permanece tras desplazamiento</p>
+        <pre class="chaptrSubSect__console wScript">
+          function @createMessageUnder(•elem, •html) &#123;
+            let ·message = document.createElement('div');
+            ·message.ºstyle.ºcssText = '/º position:absolute; color: red º/';
+          
+            let ·coords = @getCoords(•elem);
+            ·message.style.left = ·coords.ºleft + 'px';
+            ·message.style.top = ·coords.ºbottom + 'px';
+            ·message.ºinnerHTML = •html;
+          
+            document.body.append(·message);
+            @setTimeout(() =&gt; ·message.@remove(), ¬5000);
+          &#125;</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Detectar elementos en un punto específico" codeText="">
+        <p class="chaptrSubSect__p">Usa <code>document.elementFromPoint(x, y)</code> para detectar el elemento más profundo en las coordenadas de la ventana (<code>x</code>, <code>y</code>).</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·centerX = document.çdocumentElement.ºclientWidth / 2;
+          let ·centerY = document.çdocumentElement.ºclientHeight / 2;
+          
+          let ·elem = document.@elementFromPoint(·centerX, ·centerY);
+          if (·elem) &#123;
+            ·elem.ºstyle.ºbackground = 'red';
+            console.log('Elemento en el centro:', ·elem.ºtagName);
+          &#125;;</pre>
+        <p class="chaptrSubSect__p">Este método devuelve <code>null</code> si las coordenadas están fuera de la ventana</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Propiedades JavaScript vs CSS" codeText="">
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">En CSS, <code>right</code> y <code>bottom</code> son distancias desde el borde derecho e inferior, respectivamente.</li>
+          <li class="chaptrSubSectUl__li">En JavaScript, <code>right</code> y <code>bottom</code> son coordenadas absolutas calculadas desde la esquina superior izquierda.</li>
+        </ul>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>
+
+<!-- 
+&lt;&gt;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+ªmétodos
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li">
+＃
+-->

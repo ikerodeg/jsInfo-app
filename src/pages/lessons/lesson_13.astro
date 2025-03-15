@@ -1,0 +1,67 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__13" h2Title="Matrices" slot="mainContent">
+    <ChaptrSect h3Title="Bi-dimensionales" codeText="">
+      <ChaptrSubSect h4Title="Declaración" codeText="">
+        <p class="chaptrSubSect__p">Una matriz bidimensional (también conocida como tabla o grid) puede pensarse como un array que contiene varios arrays, y estos arrays internos representan las filas. Cada fila puede contener múltiples valores, que se corresponden con las columnas</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Declaración de la matriz 2D</span>
+          <span class="key">let</span> <span class="var">matriz</span> <span class="opera">=</span> <span class="warp">[
+            [<span class="nums">1, 2, 3</span>],  <span class="commnt">Fila 0</span>
+            [<span class="nums">4, 5, 6</span>],  <span class="commnt">Fila 1</span>
+            [<span class="nums">7, 8, 9</span>]   <span class="commnt">Fila 2</span>
+          ]</span>;
+
+          <span class="commnt">Acceso a elementos</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span>(<span class="var">matriz</span><span class="warp">[<span class="nums">0</span>][<span class="nums">0</span>]</span>)</span>;   <span class="result">1</span>   <span class="commnt">fila 0, columna 0</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span>(<span class="var">matriz</span><span class="warp">[<span class="nums">1</span>][<span class="nums">2</span>]</span>)</span>;   <span class="result">6</span>   <span class="commnt">fila 1, columna 2</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span>(<span class="var">matriz</span><span class="warp">[<span class="nums">2</span>][<span class="nums">1</span>]</span>)</span>;   <span class="result">8</span>   <span class="commnt">fila 2, columna 1</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Creación dinámicamente" codeText="">
+        <p class="chaptrSubSect__p">Puedes crear una matriz 2D de forma dinámica utilizando varios métodos. El más eficiente es con el ciclo <code>for</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Usando bucle for</span>
+          <span class="key">let</span> <span class="var">rows</span> <span class="opera">=</span> <span class="nums">3</span>;
+          <span class="key">let</span> <span class="var">cols</span> <span class="opera">=</span> <span class="nums">4</span>;
+          <span class="key">let</span> <span class="var">matrix</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Array</span><span class="warp">(<span class="var">rows</span>)</span>;
+
+          <span class="func">for</span> <span class="warp">(<span class="key">let</span> <span class="params">i</span> <span class="opera">=</span> <span class="nums">0</span>; <span class="params">i</span> <span class="opera">&lt;</span> <span class="var">rows</span>; <span class="params">i</span><span class="opera">++</span>) &#123;
+            <span class="var">matrix</span>[<span class="params">i</span>] <span class="opera">=</span> <span class="key">new</span> <span class="func">Array</span>(<span class="var">cols</span>)<span class="dot">.</span><span class="func">fill</span>(<span class="args">'🦊'</span>);   <span class="commnt">Rellena cada fila</span>
+          &#125;</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">matrix</span>)</span>;
+          <span class="result">[
+            ['🦊', '🦊', '🦊', '🦊'],
+            ['🦊', '🦊', '🦊', '🦊'],
+            ['🦊', '🦊', '🦊', '🦊']
+          ]</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Multi-dimensionales" codeText="">
+      <ChaptrSubSect h4Title="Declaración" codeText="">
+        <p class="chaptrSubSect__p">Una matriz no tiene que ser estrictamente bidimensional; puede ser tridimensional o tener aún más dimensiones. Simplemente sería un array dentro de otro array, y así sucesivamente</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Declaración de la matriz 3D</span>
+          <span class="key">let</span> <span class="var">matriz3D</span> <span class="opera">=</span> <span class="warp">[
+            [
+              [<span class="nums">1, 2</span>], [<span class="nums">3, 4</span>]
+            ],
+            [
+              [<span class="nums">5, 6</span>], [<span class="nums">7, 8</span>]
+            ]
+          ]</span>;
+
+          <span class="commnt">Acceso a elementos</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span>(<span class="var">matriz3D</span><span class="warp">[<span class="nums">0</span>][<span class="nums">1</span>][<span class="nums">1</span>]</span>)</span>;   <span class="result">4</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span>(<span class="var">matriz3D</span><span class="warp">[<span class="nums">1</span>][<span class="nums">0</span>][<span class="nums">0</span>]</span>)</span>;   <span class="result">5</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>

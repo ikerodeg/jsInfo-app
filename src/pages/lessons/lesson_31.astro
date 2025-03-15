@@ -1,0 +1,686 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__31" h2Title="Proxy & Reflect" slot="mainContent">
+    <ChaptrSect h3Title="Proxy" codeText="">
+      <ChaptrSubSect h4Title="Definición" codeText="">
+        <p class="chaptrSubSect__p">Un <code>Proxy</code> envuelve (wrapper/envoltura/ contenedor) a otro objeto e intercepta sus operaciones. El proxy puede manejar estas operaciones él mismo o, en forma transparente permitirle manejarlas al objeto envuelto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Sintaxis</span>
+          <span class="key">let</span> <span class="var">myProxy</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Proxy</span><span class="warp">(<span class="params">target, handler</span>)</span>;</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>target</code> es el <mark>objeto</mark> a envolver, puede se cualquier cosa incluso funciones.</li>
+          <li class="chaptrSubSectUl__li"><code>handler</code> es un objeto que define una serie de "<mark>trampas</mark>" o interceptores. Estas "<mark>trampas</mark>" permiten modificar el comportamiento predeterminado de las operaciones que se realizan sobre un objeto.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Cuando hay una operación sobre <code>myProxy</code>, este verifica si hay una "<mark>trampa</mark>" (<code>get</code>,<code>set</code>, etc.) correspondiente en el <code>handler</code>. Si la "<mark>trampa</mark>" existe se ejecuta y el proxy tiene la oportunidad de manejarla, de otro modo la operación es ejecutada por <code>target</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="obj">user</span> <span class="opera">=</span> <span class="warp">&#123; &#125;</span>;   <span class="commnt">Objeto "target" vacío</span>
+          <span class="key">let</span> <span class="var">userProxy</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Proxy</span><span class="warp">(<span class="obj">user</span>, <span class="warp2">&#123; &#125;</span>)</span>;    <span class="commnt">"handler" vacío</span>
+
+          <span class="var">userProxy</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="args">'Éder'</span>;    <span class="commnt">Se añade propiedad al proxy</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">userProxy</span>)</span>;   <span class="result">&#123; name: 'Éder' &#125;</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">user</span>)</span>;   <span class="result">Proxy [ &#123; name: 'Éder' &#125;, &#123;&#125; ]</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">userProxy</span><span class="dot">.</span><span class="objProp">name</span>)</span>;   <span class="result">'Éder'</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">user</span><span class="dot">.</span><span class="objProp">name</span>)</span>;   <span class="result">'Éder'</span>
+          <span class="commnt">Se añadio al objeto como al proxy</span>
+
+          <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="params">key</span> <span class="key">in</span> <span class="var">userProxy</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">key</span>)</span>;
+          &#125;</span>;
+          <span class="result">'name'</span>    <span class="commnt">funciona la iteración!</span></pre>
+        <p class="chaptrSubSect__p">Como no hay "<mark>trampas</mark>" todas las operaciones sobre <code>userProxy</code> son redirigidas a <code>user</code></p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Control total sobre el objeto" codeText="target">
+        <p class="chaptrSubSect__p">Si necesitas tener un control absoluto sobre todas las operaciones de un objeto y no quieres que se pueda acceder a él de forma directa, esta opción te brinda ese nivel de control</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="obj">user</span> <span class="opera">=</span> <span class="warp">&#123; &#125;</span>;   <span class="commnt">Objeto "target" vacío</span>
+          <span class="var">user</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Proxy</span><span class="warp">(<span class="obj">target</span>, <span class="warp2">&#123; &#125;</span>)</span>;    <span class="commnt">"handler" vacío</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Listado de 'trampas'" codeText="">
+        <p class="chaptrSubSect__p">Para la mayoría de las operaciones en objetos existe el denominado “método interno”. Las "<mark>trampas</mark>" del proxy interceptan la invocación a estos métodos</p>
+        <p class="chaptrSubSect__p">Para cada método interno, existe una <mark>“trampa”</mark> en esta tabla: es el nombre del método que podemos agregar al parámetro <code>handler</code> de <code>new Proxy</code> para interceptar la operación</p>
+        <table class="chaptrSubSect__table">
+          <thead>
+            <tr>
+              <th>Mét interno</th>
+              <th>Mét handler</th>
+              <th>Se dispara...</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>[[Get]]</td>
+              <td>get</td>
+              <td>leyendo una propiedad</td>
+            </tr>
+            <tr>
+              <td>[[Set]]</td>
+              <td>set</td>
+              <td>escribiendo una propiedad</td>
+            </tr>
+            <tr>
+              <td>[[HasPropoerty]]</td>
+              <td>has</td>
+              <td>operador in</td>
+            </tr>
+            <tr>
+              <td>[[Delete]]</td>
+              <td>deleteProperty</td>
+              <td>operador delete</td>
+            </tr>
+            <tr>
+              <td>[[Call]]</td>
+              <td>apply</td>
+              <td>llamado a función</td>
+            </tr>
+            <tr>
+              <td>[[Construct]]</td>
+              <td>construct</td>
+              <td>operador new</td>
+            </tr>
+            <tr>
+              <td>[[GetPrototypeOf]]</td>
+              <td>getPrototypeOf</td>
+              <td>Objetc.getPrototypeOf</td>
+            </tr>
+            <tr>
+              <td>[[SetPrototypeOf]]</td>
+              <td>setPrototypeOf</td>
+              <td>Objetc.setPrototypeOf</td>
+            </tr>
+            <tr>
+              <td>[[IsExtensible]]</td>
+              <td>isExtensible</td>
+              <td>Objetc.isExtensible</td>
+            </tr>
+            <tr>
+              <td>[[PreventExtensions]]</td>
+              <td>preventExtensions</td>
+              <td>Objetc.preventExtensions</td>
+            </tr>
+            <tr>
+              <td>[[DefineOwnProperty]]</td>
+              <td>defineProperty</td>
+              <td>Objetc.defineProperty</td>
+            </tr>
+            <tr>
+              <td>[[GetOwnProperty]]</td>
+              <td>getOwnPropertyDescriptor</td>
+              <td>Objetc.getOwnPropertyDescriptor</td>
+            </tr>
+            <tr>
+              <td>[[OwnPropertyKeys]]</td>
+              <td>ownKeys</td>
+              <td>Objetc.getOwnPropertyNames</td>
+            </tr>
+          </tbody>
+        </table>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Valores por defecto con la trampa" codeText="get">
+        <p class="chaptrSubSect__p">Las "<mark>trampas</mark>" más comunes son para leer y escribir propiedades</p>
+        <p class="chaptrSubSect__p">Para interceptar una lectura, el <code>handler</code> debe tener un método <br><code>get(target, property, receiver)</code></p>
+        <p class="chaptrSubSect__p">Se dispara cuando una propiedad es leída, con los siguientes argumentos</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>target:</code> es el <mark>objetivo</mark>, es el objeto pasado como primer argumento a <code>new Proxy</code>.</li>
+          <li class="chaptrSubSectUl__li"><code>property:</code> nombre de la propiedado.</li>
+          <li class="chaptrSubSectUl__li"><code>receiver:</code> si la propiedad objetivo es un <span class="bttn">getter</span>, el <code>receiver</code> es el objeto que va a ser usado como <code>this</code> en su llamado. Usualmente es el objeto <code>proxy</code> mismo (o un objeto que hereda de él, si heredamos desde <code>proxy</code>). No necesitamos este argumento ahora mismo, así que se verá en más detalle luego</li>
+        </ul>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="obj">dictionary</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">'Hello'</span>: <span class="args">'Hola'</span>,
+            <span class="objProp">'Bye'</span>: <span class="args">'Adiós'</span>,
+          &#125;</span>;
+
+          <span class="obj">dictionary</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Proxy</span><span class="warp">(<span class="obj">dictionary</span>, <span class="warp2">&#123;
+            <span class="func">get</span><span class="warp2">(<span class="params">target, phrase</span>) &#123;    <span class="commnt">"target" = dictionary</span>
+              <span class="key">if</span><span class="warp">(<span class="params">phrase</span> <span class="key">in</span> <span class="params">target</span>) &#123;
+                <span class="key">return</span> <span class="params">target</span><span class="warp2">[<span class="params">phrase</span>]</span>;
+              &#125;</span> <span class="key">else</span> <span class="warp">&#123;
+                <span class="key">return</span> <span class="params">phrase</span>;
+              &#125;</span>
+            &#125;</span>
+          &#125;</span>)</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">dictionary</span><span class="warp">[<span class="args">'Hello'</span>]</span>)</span>;   <span class="result">Hola</span></pre>
+        <p class="chaptrSubSect__p">⚠️ Nota cómo el <span class="bttn">proxy</span> sobrescribe la variable, debe reemplazar completamente al objeto <code>target</code> que envolvió: nadie debe jamás hacer referencia al objeto <code>target</code> saltando tal envoltura. De otro modo sería fácil desbaratarlo</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Validación con la trampa" codeText="set">
+        <p class="chaptrSubSect__p">Digamos que queremos que las propiedades sean sólo <span class="bttn">string</span>. Si se agrega un valor de otro tipo, debería dar un error</p>
+        <p class="chaptrSubSect__p">La <span class="bttn">trampa</span> <code>set</code> se dispara cuando una propiedad es escrita</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>target:</code> es el <mark>objetivo</mark>, es el objeto pasado como primer argumento a <code>new Proxy</code>.</li>
+          <li class="chaptrSubSectUl__li"><code>property:</code> nombre de la propiedad.</li>
+          <li class="chaptrSubSectUl__li"><code>value:</code> valor de la propiedad.</li>
+          <li class="chaptrSubSectUl__li"><code>receiver:</code> similar para la <span class="bttn">trampa</span> <code>get</code>, de importancia solamente en propiedades <span class="bttn">setter</span>.</li>
+        </ul>
+        <p class="chaptrSubSect__p">La <span class="bttn">trampa</span> <code>set</code> debe devolver <code>true</code> si la escritura fue exitosa, y <code>false</code> en caso contrario (dispara <code>TypeError</code>)</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="obj">dictionary</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">'Hello'</span>: <span class="args">'Hola'</span>,
+            <span class="objProp">'Bye'</span>: <span class="args">'Adiós'</span>,
+          &#125;</span>;
+
+          <span class="obj">dictionary</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Proxy</span><span class="warp">(<span class="obj">dictionary</span>, <span class="warp2">&#123;
+            <span class="func">get</span><span class="warp">(<span class="params">target, phrase</span>) &#123;    <span class="commnt">"target" = dictionary</span>
+              <span class="key">if</span><span class="warp2">(<span class="params">phrase</span> <span class="key">in</span> <span class="params">target</span>) &#123;
+                <span class="key">return</span> <span class="params">target</span><span class="warp2">[<span class="params">phrase</span>]</span>;
+              &#125;</span> <span class="key">else</span> <span class="warp2">&#123;
+                <span class="key">return</span> <span class="params">phrase</span>;
+              &#125;</span>
+            &#125;</span>,
+            <span class="func">set</span><span class="warp">(<span class="params">target, prop, value</span>) &#123;
+            <span class="key">if</span><span class="warp2">(<span class="key">typeof</span> <span class="params">value</span> <span class="opera">==</span> <span class="args">'string'</span>) &#123;
+              <span class="params">target</span><span class="warp">[<span class="params">prop</span>]</span> <span class="opera">=</span> <span class="params">value</span>;
+              <span class="key">return true</span>;
+            &#125;</span> <span class="key">else</span> <span class="warp2">&#123;
+              <span class="key">throw new</span> <span class="obj">Error</span><span class="warp">(<span class="args">`$&#123;<span class="params">value</span>&#125; no es un string`</span>)</span>;
+              <span class="key">return false</span>;
+            &#125;</span>
+          &#125;</span>
+          &#125;</span>)</span>;
+
+          <span class="obj">dictionary</span><span class="warp">[<span class="args">'Morning'</span>]</span> <span class="opera">=</span> <span class="args">'Buenos días'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">dictionary</span>)</span>;
+          <span class="result">Proxy(Object) &#123;Hello: 'Hola', Bye: 'Adiós', Morning: 'Buenos días'&#125;</span>
+        
+          <span class="obj">dictionary</span><span class="warp">[<span class="args">'two'</span>]</span> <span class="opera">=</span> <span class="nums">2</span>;
+          <span class="result">Uncaught Error: 2 no es un string</span></pre>
+        <p class="chaptrSubSect__p">⚠️ Nota cómo el <span class="bttn">proxy</span> sobrescribe la variable, debe reemplazar completamente al objeto <code>target</code> que envolvió: nadie debe jamás hacer referencia al objeto <code>target</code> saltando tal envoltura. De otro modo sería fácil desbaratarlo</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Iteración con 'ownKeys'" codeText="getOwnPropertyDescriptor">
+        <p class="chaptrSubSect__p"><code>Object.keys</code>, <code>for..in</code>, y la mayoría de los demás métodos que iteran sobre las propiedades de objeto usan el método interno <code>[[OwnPropertyKeys]]</code> (interceptado por la <span class="bttn">trampa</span> <code>ownKeys</code>) para obtener una lista de propiedades</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>Object.getOwnPropertyNames(obj):</code> devuelve keys no symbol.</li>
+          <li class="chaptrSubSectUl__li"><code>Object.getOwnPropertySymbols(obj):</code> devuelve keys symbol.</li>
+          <li class="chaptrSubSectUl__li"><code>Object.keys/values():</code> devuelve keys/values no symbol con indicador enumerable.</li>
+          <li class="chaptrSubSectUl__li"><code>for..in:</code> itera sobre keys no symbol con el indicador enumerable, y también keys prototípicas.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>Ejemplo 1:</strong> Filtrar keys en un objeto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="obj">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="objProp">_password</span>: <span class="args">'s3cr3t'</span>,
+          &#125;</span>;
+
+          <span class="obj">user</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Proxy</span><span class="warp">(<span class="obj">user</span>, <span class="warp2">&#123;
+            <span class="func">ownKeys</span><span class="warp">(<span class="params">target</span>) &#123;
+              <span class="commnt">Filtramos las claves que comienzan con "_"</span>
+              <span class="key">return</span> <span class="obj">Object</span><span class="dot">.</span><span class="meth">keys</span><span class="warp2">(<span class="params">target</span>)</span><span class="dot">.</span><span class="func">filter</span><span class="warp">(<span class="params">key</span> =&gt; <span class="opera">!</span><span class="params">key</span><span class="dot">.</span><span class="func">startsWith</span><span class="warp2">(<span class="args">"_"</span>)</span>)</span>;
+            &#125;</span>,
+          &#125;</span>)</span>;
+
+          <span class="commnt">Iteramos las keys visibles con for..in</span>
+          <span class="func">for</span> <span class="warp">(<span class="key">let</span> <span class="var">key</span> <span class="key">in</span> <span class="obj">user</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="var">key</span>)</span>;  
+          &#125;</span>
+          <span class="result">name</span>
+          <span class="result">age</span>
+
+          <span class="commnt">Iteramos las keys visibles con Object.keys</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">keys</span><span class="warp2">(<span class="obj">user</span>)</span>)</span>;
+          <span class="result">['name', 'age']</span>
+
+          <span class="commnt">Iteramos los values con Object.values</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">values</span><span class="warp2">(<span class="obj">user</span>)</span>)</span>;
+          <span class="result">['Éder', 4]</span></pre>
+        <p class="chaptrSubSect__p">Hasta ahora, funciona, aunque si devolvemos una key que no existe en el objeto, <code>Object.keys</code> no la listará</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="obj">user</span> <span class="opera">=</span> <span class="warp">&#123; &#125;</span>;
+
+          <span class="obj">user</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Proxy</span><span class="warp">(<span class="obj">user</span>, <span class="warp2">&#123;
+            <span class="func">ownKeys</span><span class="warp">(<span class="params">target</span>) &#123;
+              <span class="key">return</span> <span class="warp2">[<span class="args">'a', 'b', 'c'</span>]</span>;
+            &#125;</span>,
+          &#125;</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">keys</span><span class="warp2">(<span class="obj">user</span>)</span>)</span>;
+          <span class="result"></span>        <span class="commnt">objeto vacío</span></pre>
+        <p class="chaptrSubSect__p">¿Por qué? La razón es simple: <code>Object.keys</code> devuelve solamente propiedades con el indicador enumerable. Para verificarlo, llama el método interno <code>[[GetOwnProperty]]</code> en cada propiedad para obtener su descriptor. Y aquí, como no hay <span class="bttn">key</span>, su descriptor está vacío, no existe el indicador <span class="bttn">enumerable</span>, entonces lo salta.</p>
+        <p class="chaptrSubSect__p">Para que <code>Object.keys</code> devuelva una propiedad, necesitamos que, o bien exista en el objeto, con el indicador <code>enumerable</code>, o interceptamos llamadas a <code>[[GetOwnProperty]]</code> (la trampa <code>getOwnPropertyDescriptor</code> lo hace), y devolver un <code>descriptor</code> con <code>enumerable: true</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="obj">user</span> <span class="opera">=</span> <span class="warp">&#123; &#125;</span>;
+
+          <span class="obj">user</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Proxy</span><span class="warp">(<span class="obj">user</span>, <span class="warp2">&#123;
+            <span class="func">ownKeys</span><span class="warp">(<span class="params">target</span>) &#123;   <span class="commnt">devuelve un array con las keys</span>
+              <span class="key">return</span> <span class="warp2">[<span class="args">'name', 'age', '_password'</span>]</span>;
+            &#125;</span>,
+            <span class="func">getOwnPropertyDescriptor</span><span class="warp2">(<span class="params">target, prop</span>) &#123;
+              <span class="key">return</span> <span class="warp">&#123;
+                <span class="objProp">enumerable</span>: <span class="key">true</span>,
+                <span class="objProp">configurable</span>: <span class="key">true</span>,
+                <span class="commnt">otros indicadores...</span>
+              &#125;</span>
+            &#125;</span>
+          &#125;</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">keys</span><span class="warp2">(<span class="obj">user</span>)</span>)</span>;
+          <span class="result">['name', 'age', '_password']</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Keys protegidas con" codeText="deleteProperty">
+        <p class="chaptrSubSect__p">Hay una convención extendida: las propiedades y los métodos que comienzan con guion bajo <code>_</code> son de uso interno. Ellos no deberían ser accedidos desde fuera del objeto</p>
+        <p class="chaptrSubSect__p">Usemos <span class="bttn">proxy</span> para prevenir cualquier acceso a propiedades que comienzan con <code>_</code>.Necesitaremos las trampas</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>get:</code> para arrojar un error al leer tal propiedad.</li>
+          <li class="chaptrSubSectUl__li"><code>set:</code> para arrojar un error al escribirla.</li>
+          <li class="chaptrSubSectUl__li"><code>deleteProperty:</code> para arrojar un error al eliminar.</li>
+          <li class="chaptrSubSectUl__li"><code>ownKeys:</code> para excluir propiedades que comienzan con <code>_</code> de <code>for..in</code> y métodos como <code>Object.keys</code>.</li>
+        </ul>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="obj">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">_password</span>: <span class="args">'****'</span>,
+          &#125;</span>;
+
+          <span class="obj">user</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Proxy</span><span class="warp">(<span class="obj">user</span>, <span class="warp2">&#123;
+            <span class="func">get</span><span class="warp">(<span class="params">target, prop</span>) &#123;    <span class="commnt">intercepta su lectura</span>
+              <span class="func">if</span><span class="warp2">(<span class="params">prop</span><span class="dot">.</span><span class="meth">startsWith</span><span class="warp">(<span class="args">'_'</span>)</span>) &#123;
+                <span class="key">throw new</span> <span class="obj">Error</span><span class="warp">(<span class="args">"Lectura denegada"</span>)</span>;
+              &#125;</span>
+              <span class="key">let</span> <span class="var">value</span> <span class="opera">=</span> <span class="params">target</span><span class="warp">[<span class="params">prop</span>]</span>;
+              <span class="key">return</span> <span class="warp">(<span class="key">typeof</span> <span class="var">value</span> <span class="opera">===</span> <span class="args">'function'</span>)</span> <span class="opera">?</span> <span class="var">value</span><span class="dot">.</span><span class="meth">bind</span><span class="warp2">(<span class="params">target</span>)</span> <span class="opera">:</span> <span class="var">value</span>;  <span class="commnt">*</span>
+            &#125;</span>,
+            <span class="func">set</span><span class="warp">(<span class="params">target, prop, val</span>) &#123;    <span class="commnt">intercepta su escritura</span>
+              <span class="func">if</span><span class="warp2">(<span class="params">prop</span><span class="dot">.</span><span class="meth">startsWith</span><span class="warp">(<span class="args">'_'</span>)</span>) &#123;
+                <span class="key">throw new</span> <span class="obj">Error</span><span class="warp">(<span class="args">"Escritura denegada"</span>)</span>;
+              &#125;</span> <span class="func">else</span> <span class="warp2">&#123;
+                <span class="params">target</span><span class="warp">[<span class="params">prop</span>]</span> <span class="opera">=</span> <span class="var">val</span>;
+                <span class="key">return true</span>;
+              &#125;</span>
+            &#125;</span>,
+            <span class="func">deleteProperty</span><span class="warp">(<span class="params">target, prop</span>) &#123;    <span class="commnt">intercepta su borrado</span>
+              <span class="func">if</span><span class="warp2">(<span class="params">prop</span><span class="dot">.</span><span class="meth">startsWith</span><span class="warp">(<span class="args">'_'</span>)</span>) &#123;
+                <span class="key">throw new</span> <span class="obj">Error</span><span class="warp">(<span class="args">"Borrado denegado"</span>)</span>;
+              &#125;</span> <span class="func">else</span> <span class="warp2">&#123;
+                <span class="key">delete</span> <span class="params">target</span><span class="warp">[<span class="params">prop</span>]</span>;
+                <span class="key">return true</span>;
+              &#125;</span>
+            &#125;</span>,
+            <span class="func">ownKeys</span><span class="warp2">(<span class="params">target</span>) &#123;    <span class="commnt">intercepta su listado</span>
+              <span class="key">return</span> <span class="obj">Object</span><span class="dot">.</span><span class="meth">keys</span><span class="warp">(<span class="params">target</span>)</span><span class="dot">.</span><span class="meth">filter</span><span class="warp">(<span class="var">key</span> =&gt; <span class="opera">!</span><span class="var">key</span><span class="dot">.</span><span class="meth">startsWith</span><span class="warp2">(<span class="args">'_'</span>)</span>)</span>;
+            &#125;</span>
+          &#125;</span>)</span>;
+
+          <span class="func">try</span> <span class="warp">&#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="obj">user</span><span class="dot">.</span><span class="objProp">_password</span>)</span>;
+          &#125;</span> <span class="func">catch</span><span class="warp">(<span class="obj">error</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">warn</span><span class="warp2">(<span class="obj">error</span><span class="dot">.</span><span class="meth">message</span>)</span>;
+          &#125;</span>
+          <span class="result">⚠️ Lectura denegada</span>
+
+          <span class="func">try</span> <span class="warp">&#123;
+            <span class="obj">user</span><span class="dot">.</span><span class="objProp">_password</span> <span class="opera">=</span> <span class="args">'test'</span>;
+          &#125;</span> <span class="func">catch</span><span class="warp">(<span class="obj">error</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">warn</span><span class="warp2">(<span class="obj">error</span><span class="dot">.</span><span class="meth">message</span>)</span>;
+          &#125;</span>
+          <span class="result">⚠️ Escritura denegada</span>
+
+          <span class="func">try</span> <span class="warp">&#123;
+            <span class="key">delete</span> <span class="obj">user</span><span class="dot">.</span><span class="objProp">_password</span>;
+          &#125;</span> <span class="func">catch</span><span class="warp">(<span class="obj">error</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">warn</span><span class="warp2">(<span class="obj">error</span><span class="dot">.</span><span class="meth">message</span>)</span>;
+          &#125;</span>
+          <span class="result">⚠️ Borrado denegado</span>
+
+          <span class="func">for</span> <span class="warp">(<span class="key">let</span> <span class="var">key</span> <span class="key">in</span> <span class="obj">user</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="var">key</span>)</span>;
+          &#125;</span>
+          <span class="result">name</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="In range con la trampa" codeText="has">
+        <p class="chaptrSubSect__p">Queremos usar el operador <code>in</code> para verificar que un número está en el rango, <code>range</code>. La trampa <code>has</code> intercepta la llamada <code>in</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="obj">range</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">start</span>: <span class="nums">1</span>,
+            <span class="objProp">end</span>: <span class="nums">10</span>
+          &#125;</span>;
+
+          <span class="obj">range</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Proxy</span><span class="warp">(<span class="obj">range</span>, <span class="warp2">&#123;
+            <span class="func">has</span><span class="warp">(<span class="params">target, prop</span>) &#123;
+              <span class="key">return</span> <span class="params">prop</span> <span class="opera">&gt;=</span> <span class="params">target</span><span class="dot">.</span><span class="objProp">start</span> <span class="opera">&&</span> <span class="params">prop</span> <span class="opera">&lt;=</span> <span class="params">target</span><span class="dot">.</span><span class="objProp">end</span>;
+            &#125;</span>
+          &#125;</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="nums">5</span> <span class="key">in</span> <span class="obj">range</span>)</span>;    <span class="result">true</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="nums">50</span> <span class="key">in</span> <span class="obj">range</span>)</span>;    <span class="result">false</span>
+        </pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Envolviendo funciones" codeText="apply">
+        <p class="chaptrSubSect__p">Cuando usas un <code>Proxy</code> para envolver una función, puedes interceptar las llamadas a esa función usando la <span class="bttn">trampa</span> <code>apply</code>. Esto permite ejecutar lógica personalizada cada vez que se llame a la función envuelta</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>target:</code> Es la función original que estamos envolviendo.</li>
+          <li class="chaptrSubSectUl__li"><code>thisArg:</code> El valor de <code>this</code> que se pasará a la función cuando se llame.</li>
+          <li class="chaptrSubSectUl__li"><code>args:</code> Una lista de argumentos que recibe la función cuando es llamada.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>Ejemplo 1:</strong> Interceptar una función con un Proxy</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span> <span class="func">greet</span><span class="warp">(<span class="params">name</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Hello, $&#123;<span class="params">name</span>&#125;!`</span>)</span>;
+          &#125;</span>
+
+          <span class="func">greet</span><span class="warp">(<span class="args">'Éder'</span>)</span>;    <span class="result">Hello, Éder!</span></pre>
+        <p class="chaptrSubSect__p">Usaremos un <code>Proxy</code> para interceptar las llamadas a <code>greet</code> y agregar un mensaje extra antes de que la función se ejecute</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">proxieGreet</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Proxy</span><span class="warp">(<span class="params">greet</span>, <span class="warp2">&#123;
+            <span class="func">apply</span><span class="warp">(<span class="params">target, thisArg, args</span>) &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`¡Ejecutando función saludar!`</span>)</span>;
+              <span class="key">return</span> <span class="params">target</span><span class="dot">.</span><span class="meth">apply</span><span class="warp">(<span class="params">thisArg, args</span>)</span>;
+            &#125;</span>,
+          &#125;</span>)</span>;
+
+          <span class="func">proxieGreet</span><span class="warp">(<span class="args">'Éder'</span>)</span>;    
+          <span class="result">¡Ejecutando función saludar!
+            Hello, Éder!</span></pre>
+        <p class="chaptrSubSect__p">¿Por qué usar <code>Proxy</code> en lugar de un simple envoltorio?</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Un <code>Proxy</code> no solo intercepta las llamadas a la función (<code>apply</code>), sino que también permite manejar otras operaciones, como acceder a propiedades (<code>get</code>) o cambiar valores (<code>set</code>)</li>
+          <li class="chaptrSubSectUl__li"><code>thisArg:</code> El valor de <code>this</code> que se pasará a la función cuando se llame.</li>
+          <li class="chaptrSubSectUl__li">Por ejemplo, si la función tiene propiedades como <code>length</code> (número de argumentos), un <code>Proxy</code> permite conservarlas automáticamente, mientras que un envoltorio simple no.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>Ejemplo 2:</strong> Comparación entre envoltorio y Proxy</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span> <span class="func">greet</span><span class="warp">(<span class="params">name</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Hello, $&#123;<span class="params">name</span>&#125;!`</span>)</span>;
+          &#125;</span>
+
+          <span class="key">function</span> <span class="func">delayWrapper</span><span class="warp">(<span class="params">originFunc, miliseconds</span>) &#123;
+            <span class="key">return</span> <span class="func">function</span><span class="warp2">(<span class="params">...args</span>) &#123;
+              <span class="func">setTimeout</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+                <span class="params">originFunc</span><span class="dot">.</span><span class="meth">apply</span><span class="warp">(<span class="obj">this</span>, <span class="params">args</span>)</span>
+              &#125;</span>, <span class="params">miliseconds</span>)</span>;
+            &#125;</span>;
+          &#125;</span>
+
+          <span class="key">const</span> <span class="var">delayedGreet</span> <span class="opera">=</span> <span class="func">delayWrapper</span><span class="warp">(<span class="params">greet</span>, <span class="nums">2000</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">delayedGreet</span><span class="dot">.</span><span class="meth">length</span> )</span>;    <span class="result">0</span>
+          <span class="commnt">Funciona, pero pierde información sobre la función original</span>
+          <span class="func">delayedGreet</span><span class="warp">(<span class="args">'Éder'</span>)</span>;   <span class="result">Hello, Éder</span>   <span class="commnt">tras 2seg</span></pre>
+          <p class="chaptrSubSect__p">Ahora implementamos la misma funcionalidad con un <code>Proxy</code></p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">function</span> <span class="func">greet</span><span class="warp">(<span class="params">name</span>) &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Hello, $&#123;<span class="params">name</span>&#125;!`</span>)</span>;
+            &#125;</span>
+  
+            <span class="key">function</span> <span class="func">delay</span><span class="warp">(<span class="params">originFunc, miliseconds</span>) &#123;
+              <span class="key">return</span> <span class="key">new</span> <span class="func">Proxy</span><span class="warp2">(<span class="params">originFunc</span>, <span class="warp">&#123;
+                <span class="func">apply</span><span class="warp2">(<span class="params">target, thisArg, args</span>) &#123;
+                  <span class="func">setTimeout</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+                    <span class="params">target</span><span class="dot">.</span><span class="meth">apply</span><span class="warp2">(<span class="params">thisArg, args</span>)</span>
+                  &#125;</span>, <span class="params">miliseconds</span>)</span>;
+                &#125;</span>,
+              &#125;</span>)</span>;
+            &#125;</span>
+
+            <span class="key">const</span> <span class="var">delayedGreet</span> <span class="opera">=</span> <span class="func">delay</span><span class="warp">(<span class="params">greet</span>, <span class="nums">2000</span>)</span>;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">delayedGreet</span><span class="dot">.</span><span class="meth">length</span> )</span>;    <span class="result">1</span>
+            <span class="commnt">El proxy redirige al target el método length</span>
+            <span class="func">delayedGreet</span><span class="warp">(<span class="args">'Éder'</span>)</span>;   <span class="result">Hello, Éder</span>   <span class="commnt">tras 2seg</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Reflect" codeText="">
+      <ChaptrSubSect h4Title="Definición" codeText="">
+        <p class="chaptrSubSect__p"><code>Reflect</code> es un objeto nativo que simplifica la creación de <code>Proxy</code>. Se dijo previamente que los métodos internos como <code>[[Get]]</code>, <code>[[Set]]</code> son únicamente para la especificación, que no pueden ser llamados directamente. El objeto <code>Reflect</code> hace de alguna manera esto posible. Sus métodos son envoltorios mínimos alrededor del método interno</p>
+        <table class="chaptrSubSect__table">
+          <thead>
+            <tr>
+              <th>Operación</th>
+              <th>Llamada <code>Reflect</code></th>
+              <th>Método Interno</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>obj[prop]</td>
+              <td>Reflect.get(obj, prop)</td>
+              <td>[[Get]]</td>
+            </tr>
+            <tr>
+              <td>obj[prop] = value</td>
+              <td>Reflect.set(obj, prop, value)</td>
+              <td>[[Set]]</td>
+            </tr>
+            <tr>
+              <td>delete obj[prop] = value</td>
+              <td>Reflect.deleteProperty(obj, prop)</td>
+              <td>[[Delete]]</td>
+            </tr>
+            <tr>
+              <td>new F(value)</td>
+              <td>Reflect.cosntruct(F, value)</td>
+              <td>[[Construct]]</td>
+            </tr>
+          </tbody>
+        </table>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="obj">user</span> <span class="opera">=</span> <span class="warp">&#123; &#125;</span>;
+          <span class="obj">Reflect</span><span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="obj">user</span>, <span class="args">'name', 'Éder'</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">user</span><span class="dot">.</span><span class="objProp">name</span>)</span>;    <span class="result">Éder</span></pre>
+        <p class="chaptrSubSect__p">Para cada método interno atrapable por <code>Proxy</code>, hay un método correspondiente en <code>Reflect</code> con el mismo nombre y argumentos que la <span class="bttn">trampa</span> <code>Proxy</code>. Entonces podemos usar <code>Reflect</code> para redirigir una operación al objeto original</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="obj">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>
+          &#125;</span>;
+
+          <span class="obj">user</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Proxy</span><span class="warp">(<span class="obj">user</span>, <span class="warp2">&#123;
+            <span class="func">get</span><span class="warp">(<span class="params">target, prop, receiver</span>) &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Usando GET en la prop -&gt; $&#123;<span class="params">prop</span>&#125;`</span>)</span>;
+              <span class="key">return</span> <span class="obj">Reflect</span><span class="dot">.</span><span class="meth">get</span><span class="warp2">(<span class="params">target, prop, receiver</span>)</span>;
+            &#125;</span>,
+            <span class="func">set</span><span class="warp">(<span class="params">target, prop, val, receiver</span>) &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Usando SET en la prop -&gt;  $&#123;<span class="params">prop</span>&#125;<span class="opera">=</span>$&#123;<span class="params">val</span>&#125;`</span>)</span>;
+              <span class="key">return</span> <span class="obj">Reflect</span><span class="dot">.</span><span class="meth">set</span><span class="warp2">(<span class="params">target, prop, val, receiver</span>)</span>;
+            &#125;</span>
+          &#125;</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">user</span><span class="dot">.</span><span class="objProp">name</span>)</span>;
+          <span class="result">Usando GET en la prop -&gt; name</span>
+          <span class="result">Éder</span>
+          <span class="obj">user</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="args">'Iker'</span>;
+          <span class="result">Usando SET en la prop -&gt; name=Iker</span></pre>
+        <p class="chaptrSubSect__p"><code>Reflect.set</code> escribe una propiedad de objeto y <mark>devuelve</mark> <code>true</code> si fue exitosa, o <code>false</code> si no lo fue</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Proxy en un getter" codeText="">
+        <p class="chaptrSubSect__p">Hagamos el ejemplo un poco más complejo. Después de heredar otro objeto <code>admin</code> desde <code>user</code>, podemos observar el comportamiento incorrecto</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·user = &#123;
+            _name: 'Éder',
+            get @name()&#123;
+              return this._name;
+            &#125;
+          &#125;;
+
+          let ·userProxy = new Proxy(·user, &#123;
+            get(•target, •prop, •receiver)&#123;
+              return •target&#123;•prop&#125;;
+            &#125;
+          &#125;);
+
+          let ·admin = &#123;
+            __proto__:  ·userProxy,
+            _name:  'Iker'
+          &#125;;
+        
+          console.log(·admin.@name);
+          ⋗ Éder</pre>
+        <p class="chaptrSubSect__p">Para arreglar estas situaciones, necesitamos <code>receiver</code>, el tercer argumento de la <span class="bttn">trampa</span> <code>get</code>. Este mantiene el <code>this</code> correcto para pasarlo al <span class="bttn">getter</span>. Que en nuestro caso es <code>admin</code>.</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·user = &#123;
+            _name: 'Éder',
+            get @name()&#123;
+              return this._name;
+            &#125;
+          &#125;;
+
+          let ·userProxy = new Proxy(·user, &#123;
+            get(•target, •prop, •receiver)&#123;
+              return Reflect.get(•target, •prop, •receiver);
+            &#125;
+          &#125;);
+
+          let ·admin = &#123;
+            __proto__:  ·userProxy,
+            _name:  'Iker'
+          &#125;;
+        
+          console.log(·admin.@name);
+          ⋗ Iker</pre>
+        <p class="chaptrSubSect__p">Podemos reescribir la trampa aún más corta</p>
+        <pre class="chaptrSubSect__console wScript">
+            get(•target, •prop, •receiver)&#123;
+              return Reflect.get(...•arguments);
+            &#125;</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Limitaciones del proxy" codeText="">
+      <ChaptrSubSect h4Title="Objetos nativos: slots internos" codeText="">
+        <p class="chaptrSubSect__p">Muchos objetos nativos, por ejemplo <code>Map</code>, <code>Set</code>, <code>Date</code>, <code>Promise</code>, etc, hacen uso de los llamados <mark>slots internos</mark></p>
+        <p class="chaptrSubSect__p">Los slots son como propiedades; pero están reservados para uso interno. Por ejemplo, <code>Map</code> almacena items en el slot interno <code>[[MapData]]</code>. Los métodos nativos los acceden directamente, sin usar los métodos internos <code>[[Get]]/[[Set]]</code>. Entonces <code>Proxy</code> no puede interceptar eso.</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·myMap = new @Map();
+
+          let ·myMapProxied = new Proxy(·myMap, &#123;&#125;);
+
+          ·myMapProxied.set('test', ¬1);
+          ⋗ ∞Error</pre>
+        <p class="chaptrSubSect__p">Afortunadamente, hay una forma de arreglarlo</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·myMap = new @Map();
+
+          let ·myMapProxied = new Proxy(·myMap, &#123;
+            get(•target, •prop, •receiver)&#123;
+              let ·value = Reflect.get(...•arguments);
+              return typeof ·value == 'function' ? ·value.bind(•target) : ·value;
+            &#125;
+          &#125;);
+          ·myMapProxied.set('test', ¬1);
+          console.log(·myMapProxied.get('test'));
+          ⋗ 1</pre>
+        <p class="chaptrSubSect__p">⚠️ <code>Array</code> no tiene <span class="bttn">slots</span> internos</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Campos privados" codeText="">
+        <p class="chaptrSubSect__p">Algo similar ocurre con los “campos privados” usados en las clases</p>
+        <pre class="chaptrSubSect__console wScript">
+          class @User &#123;
+            #name = 'Guest';
+
+            @getName()&#123;
+              return this.#name;
+            &#125;
+          &#125;
+
+          let ·user = new @User();
+          ·user = new Proxy(·user, &#123;&#125;);
+          console.log(·user.@getName());
+          ⋗ ∞Error</pre>
+        <p class="chaptrSubSect__p">De nuevo, la solución de vincular el método, hace que funcione</p>
+        <pre class="chaptrSubSect__console wScript">
+          class @User &#123;
+            #name = 'Éder';
+
+            @getName()&#123;
+              return this.#name;
+            &#125;
+          &#125;;
+
+          let ·user = new @User();
+
+          ·user = new Proxy(·user, &#123;
+            get(•target, •prop, •receiver)&#123;
+              let ·value = Reflect.get(...•arguments);
+              return typeof ·value == 'function' ? ·value.bind(•target) : ·value;
+            &#125;
+          &#125;);
+
+          console.log(·user.@getName());
+          ⋗ Éder</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="Proxy != target">
+        <p class="chaptrSubSect__p">El proxy y el objeto original son objetos diferentes. Así que si usamos el objeto original como clave y luego lo hacemos proxy, entonces el proxy no puede ser hallado</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·allUsers = new Set();
+
+          class @User&#123;
+            constructor(•name)&#123;
+              this.name = •name;
+              ·allUsers.add(this);
+            &#125;
+          &#125;;
+
+          let ·user = new @User('Éder');
+          console.log(·allUsers.has(·user));    ⋗ ∞true
+
+          ·user = new Proxy(·user, &#123;&#125;);
+          console.log(·allUsers.has(·user));    ⋗ ∞false</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Proxy revocable" codeText="">
+      <ChaptrSubSect h4Title="Definición" codeText="">
+        <p class="chaptrSubSect__p">Un proxy revocable es uno que puede ser deshabilitado</p>
+        <p class="chaptrSubSect__p">Digamos que tenemos un recurso al que quisiéramos poder cerrar en cualquier momento</p>
+        <p class="chaptrSubSect__p">Podemos envolverlo en un proxy revocable sin trampas. Tal proxy dirigirá todas las operaciones al objeto, y podemos deshabilitarlo en cualquier momento</p>
+        <pre class="chaptrSubSect__console wScript">
+          let &#123;•proxy, •revoke&#125; = Proxy.revocable(•target, •handler);</pre>
+        <p class="chaptrSubSect__p">La llamada devuelve un objeto con el proxy y la función revoke para deshabilitarlo</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·myObject = &#123;
+            data: 'datos valiosos'
+          &#125;;
+
+          let &#123;·proxy, ·revoke&#125; = Proxy.revocable(·myObject, &#123;&#125;);
+          /* pasamos el proxy en lugar del objeto */
+          console.log(·proxy.ºdata);
+          ⋗ ∞datos valiosos
+
+          /* Luego en nuestro código */
+          @revoke();
+
+          /* el proxy no funciona más, revocado */
+          console.log(·proxy.ºdata);
+          ⋗ ∞Error</pre>
+        <p class="chaptrSubSect__p">También podemos vincular el método revoke al proxy asignándolo como propiedad: <code>proxy.revoke = revoke</code></p>
+        <p class="chaptrSubSect__p">Otra opción es crear un <span class="bttn">WeakMap</span> que tenga a <span class="bttn">proxy</span> como clave y su correspondiente <span class="bttn">revoke</span> como valor, esto permite fácilmente encontrar el <span class="bttn">revoke</span> para un <span class="bttn">proxy</span></p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·revokes = new WeakMap();
+
+          let ·myObject = &#123;
+            data: 'datos valiosos'
+          &#125;;
+
+          let &#123;·proxy, ·revoke&#125; = Proxy.revocable(·myObject, &#123;&#125;);
+
+          ·revokes.set(·proxy, ·revoke);
+
+          /* en otra parte del código */
+          ·revoke = ·revokes.get(·proxy);
+          @revoke();
+
+          console.log(·proxy.ºdata);
+          ⋗ ∞Error, revocado</pre>
+        <p class="chaptrSubSect__p">Usamos <code>WeakMap</code> en lugar de <code>Map</code> aquí porque no bloqueará la recolección de basura. Si el objeto <span class="bttn">proxy</span> se vuelve inalcanzable (es decir, ya ninguna variable hace referencia a él), <code>WeakMap</code> permite eliminarlo junto con su <code>revoke</code> que no necesitaremos más</p>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>
+
+<!-- 
+()&#123;&#125;
+•parametro
+·variable
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+
+
+
+-->

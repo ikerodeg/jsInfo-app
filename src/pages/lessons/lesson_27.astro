@@ -1,0 +1,732 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__27" h2Title="Promesas" slot="mainContent">
+    <ChaptrSect h3Title="Las Promesas" codeText="">
+      <ChaptrSubSect h4Title="Definición" codeText="">
+        <p class="chaptrSubSect__p">Una <span class="bttn">promesa</span> es algo que representa un valor que no está disponible inmediatamente, pero que lo estará en el futuro. Piensa en una promesa como algo que puede cumplirse o fallar, pero que aún no sabes cuál será el resultado. En la vida real, sería como hacer un pedido de comida: no tienes la comida ahora, pero la tendrás después (eso sí, podría haber un retraso o incluso no llegar).</p>
+        <p class="chaptrSubSect__p">Estados de una promesa</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><mark>Pending</mark> cuando la promesa se ha creado, pero aún no se ha resuelto. Como cuando haces el pedido de comida.</li>
+          <li class="chaptrSubSectUl__li"><mark>Fulfilled</mark> cuando todo sale bien y obtienes el valor esperado. Como cuando recibes tu comida.</li>
+          <li class="chaptrSubSectUl__li"><code>Rejected</code> cuando algo salió mal y no obtienes el valor esperado. Como cuando te llaman y te dicen que no pueden entregarte la comida.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Creación con" codeText="new Promise()">
+        <p class="chaptrSubSect__p">Para crear una promesa, usamos el constructor <code>new Promise()</code>. Este constructor necesita que se le pase una función (llamada <span class="bttn">ejecutor</span>) que contenga dos <span class="bttn">callbacks</span> como parámetros</p>
+        <p class="chaptrSubSect__p">Cuando creamos la promesa con <code>new Promise()</code> el <span class="bttn">ejecutor</span> corre automáticamente</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">miPromesa</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Promise</span><span class="warp">(<span class="warp2">(<span class="params">callback1, callback2</span>)</span> =&gt; &#123;
+            <span class="commnt">async stuff o sync stuff</span>
+          &#125;)</span>;</pre>
+        <p class="chaptrSubSect__p">Los <span class="bttn">callback</span> pasados como argumento al <span class="bttn">ejecutor</span> se llaman por convención <code>resolve</code> y <code>reject</code></p>
+        <p class="chaptrSubSect__p">Cuando el <span class="bttn">ejecutor</span> obtiene el resultado (da igual cuando) debe llamar a una de estas dos <span class="bttn">callback</span></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">miPromesa</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Promise</span><span class="warp">(<span class="warp2">(<span class="params">resolve, reject</span>)</span> =&gt; &#123;
+            <span class="commnt">async stuff o sync stuff</span>
+          &#125;)</span>;</pre>
+        <p class="chaptrSubSect__p">Que son <code>resolve</code> y <code>reject</code>?</p>
+        <p class="chaptrSubSect__p"><code>resolve</code> (o el nombre descriptivo que elijas) es una función que se llama cuando la tarea asincrónica se completa con éxito. Su propósito es "cumplir" la promesa y enviar un valor de éxito, "Todo salió bien, aquí tienes el resultado".</p>
+        </ul>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">myPromise</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Promise</span><span class="warp">(<span class="warp2">(<span class="params">resolve, reject</span>) =&gt; &#123;   <span class="commnt"> ➀</span>
+            
+            <span class="func">setTimeout</span><span class="warp">(<span class="warp2">() =&gt; &#123;   <span class="commnt"> ➁</span>
+                <span class="func">resolve</span><span class="warp">(<span class="args">'value'</span>)</span>;   <span class="commnt"> ➂ y ➃</span>
+              &#125;, <span class="nums">1500</span></span>)</span>;
+          &#125;</span>)</span>;</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><mark><strong>➀</strong></mark> El "ejecutor" <code>() =&gt; &#123;&#125;</code> ejecuta automáticamente el bloque de código de su interior.</li>
+          <li class="chaptrSubSectUl__li"><mark><strong>➁</strong></mark> Simulamos una tarea asíncrona que "resuelve" la promesa tras 1.5seg.</li>
+          <li class="chaptrSubSectUl__li"><mark><strong>➂</strong></mark> Cuando la tarea asíncrona se completa con exito llamamos a "resolve".</li>
+          <li class="chaptrSubSectUl__li"><mark><strong>➃</strong></mark> El valor que pasamos a "resolve" será el valor de la promesa.</li>
+          <li class="chaptrSubSectUl__li"><mark><strong>➄</strong></mark> Cambia el estado de la promesa a <code>fullfilled</code>.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><code>reject</code> (o su nombre descriptivo) es una función que se llama cuando la tarea asincrónica falla. Su propósito es "rechazar" la promesa y enviar un mensaje o razón del fallo, "Algo salió mal, no puedo cumplir la promesa".</p>
+        </ul>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">miPromesa</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Promise</span><span class="warp">(<span class="warp2">(<span class="params">resolve, reject</span>) =&gt; &#123;   <span class="commnt"> ➀</span>
+            <span class="func">setTimeout</span><span class="warp">(<span class="warp2">() =&gt; &#123;   <span class="commnt"> ➁</span>
+                <span class="func">reject</span><span class="warp">(<span class="key">new</span> <span class="obj">Error</span><span class="warp2">(<span class="args">'Oooops!'</span>)</span>)</span>;  <span class="commnt"> ➂ y ➃</span>
+              &#125;, <span class="nums">1500</span></span>)</span>;
+              <span class="commnt"></span>
+          &#125;</span>)</span>;</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><mark><strong>➀</strong></mark> El "ejecutor" <code>() =&gt; &#123;&#125;</code> ejecuta automáticamente el bloque de código de su interior.</li>
+          <li class="chaptrSubSectUl__li"><mark><strong>➁</strong></mark> Simulamos una tarea asíncrona que "rechaza" la promesa tras 1.5seg.</li>
+          <li class="chaptrSubSectUl__li"><mark><strong>➂</strong></mark> Si ocurre un error se llama a "reject" con el objeto Error.</li>
+          <li class="chaptrSubSectUl__li"><mark><strong>➃</strong></mark> El valor de la promesa es el string "Oooops!".</li>
+          <li class="chaptrSubSectUl__li"><mark><strong>➄</strong></mark> Cambia el estado de la promesa a <code>rejected</code>.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Entonces el ejecutor en algun momento pasa la <span class="bttn">promise</span> a uno de estos dos estados</p>
+        <pre class="chaptrSubSect__console">
+                                                            <span class="args">state: "fullfilled"</span>
+                                    <span class="obj">resolve(value) =&gt;</span>    <span class="args">result: value</span>
+
+          new Promise(ejecutor)
+          <span class="meth">state: "pending"
+          result: undefined</span>
+
+                                    <span class="obj">reject(error) =&gt;</span>     <span class="var">state: "rejected"</span>
+                                                            <span class="var">result: error</span></pre>
+
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Consumidores" codeText="then, catch">
+        <p class="chaptrSubSect__p">Un objeto <code>Promise</code> sirve como enlace entre el <span class="bttn">ejecutor</span> y las <strong>funciones consumidoras</strong>, que recibirán un resultado o un error. Las <strong>funciones consumidoras</strong> son las que manejan el resultado que el <span class="bttn">ejecutor</span> entrega a través de <code>resolve</code> o <code>reject</code>, utilizando los métodos <code>.then</code> y <code>.catch</code></p>
+        <p class="chaptrSubSect__p">El más importante es <code>.then</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Sintaxis</span>
+          <span class="obj">myPromise</span><span class="dot">.</span><span class="meth">then</span><span class="warp">(
+            <span class="func">function</span><span class="warp2">(<span class="var">result</span>) &#123;<span class="commnt">Maneja resultado exitoso</span>&#125;</span>
+            <span class="func">function</span><span class="warp2">(<span class="var">error</span>) &#123;<span class="commnt">Maneja error</span>&#125;</span>
+          )</span>;</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">El primer argumento de <code>.then</code> es una <mark>función</mark> que se ejecuta cuando se resuelve la promesa y recibe el resultado.</li>
+          <li class="chaptrSubSectUl__li">El segundo argumento de <code>.then</code> es una <mark>función</mark> que se ejecuta cuando se rechaza la promesa y recibe el error, aunque <mark>no es recomendable</mark> es mejor usar <code>.catch()</code>.</li>
+          <li class="chaptrSubSectUl__li"><code>result</code> devuelve el mismo valor que se le pasa a <code>resolve</code>.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Veamos un ejemplo completo</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="obj">verificarPago</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Promise</span><span class="warp">(<span class="warp2">(<span class="params">resolve, reject</span>) =&gt; &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Verificando estado del pago...'</span>)</span>;
+            <span class="func">setTimeout</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+              <span class="key">let</span> <span class="var">pagoExitoso</span> <span class="opera">=</span> <span class="key">true</span>;
+              <span class="func">if</span><span class="warp">(<span class="var">pagoExitoso</span>) &#123;
+                <span class="func">resolve</span><span class="warp2">(<span class="args">'El pago fue exitoso.'</span>)</span>;
+              &#125;</span> <span class="key">else</span> <span class="warp">&#123;
+                <span class="func">reject</span><span class="warp2">(<span class="key">new</span> <span class="func">Error</span><span class="warp">(<span class="args">'El pago falló. Saldo insuficiente.'</span>)</span>)</span>;
+              &#125;</span>
+            &#125;, <span class="nums">2000</span></span>)</span>;
+          &#125;</span>)</span>;
+        
+          <span class="obj">verificarPago</span>
+              <span class="dot">.</span><span class="func">then</span><span class="warp">(<span class="warp2">(<span class="var">mensajeExito</span>) =&gt; &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="var">mensajeExito</span>)</span>;
+          &#125;</span>)</span>
+        
+        
+          <span class="result">Verificando el estado del pago...</span>
+          <span class="result">El pago fue exitoso.</span></pre>
+        <p class="chaptrSubSect__p">Después tenemos <code>.catch</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="obj">verificarPago</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Promise</span><span class="warp">(<span class="warp2">(<span class="params">resolve, reject</span>) =&gt; &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Verificando estado del pago...'</span>)</span>;
+            <span class="func">setTimeout</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+              <span class="key">let</span> <span class="var">pagoExitoso</span> <span class="opera">=</span> <span class="key">false</span>;
+              <span class="func">if</span><span class="warp">(<span class="var">pagoExitoso</span>) &#123;
+                <span class="func">resolve</span><span class="warp2">(<span class="args">'El pago fue exitoso.'</span>)</span>;
+              &#125;</span> <span class="key">else</span> <span class="warp">&#123;
+                <span class="func">reject</span><span class="warp2">(<span class="key">new</span> <span class="func">Error</span><span class="warp">(<span class="args">'El pago falló. Saldo insuficiente.'</span>)</span>)</span>;
+              &#125;</span>
+            &#125;, <span class="nums">2000</span></span>)</span>;
+          &#125;</span>)</span>;
+        
+          <span class="obj">verificarPago</span>
+            <span class="dot">.</span><span class="func">catch</span><span class="warp">(<span class="warp2">(<span class="var">error</span>) =&gt; &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">error</span><span class="warp2">(<span class="obj">error</span><span class="dot">.</span><span class="meth">message</span>)</span>;
+          &#125;</span>)</span>;
+            
+          <span class="result">Verificando el estado del pago...</span>
+          <span class="result"><span class="var">🗷 El pago falló. Fondos insuficientes.</span></span></pre>
+        <p class="chaptrSubSect__p">Si la promesa es rechazada, (si <code>reject()</code> es llamado), el bloque <code>.catch()</code> se activa e intercepta y maneja el error</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">El argumento que recibe <code>.catch()</code> <mark>es el valor que se pasa a</mark> <code>reject()</code>, que en este caso es un objeto <code>Error</code>. El método <code>error.message</code> accede al mensaje <i>"El pago falló. Fondos insuficientes."</i> que fue especificado en el <code>reject()</code>.</li>
+          <li class="chaptrSubSectUl__li">Aquí usamos <code>console.error</code> para mostrar el error en la consola con un mensaje más claro.</li>
+          <li class="chaptrSubSectUl__li">Entonces cuando <code>reject()</code> es llamado, el estado de la promesa cambia a <code>rejected</code>.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Por último tenemos <code>.finally()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="obj">verificarPago</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Promise</span><span class="warp">(<span class="warp2">(<span class="params">resolve, reject</span>) =&gt; &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Verificando estado del pago...'</span>)</span>;
+            <span class="func">setTimeout</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+              <span class="key">let</span> <span class="var">pagoExitoso</span> <span class="opera">=</span> <span class="key">false</span>;
+              <span class="func">if</span><span class="warp">(<span class="var">pagoExitoso</span>) &#123;
+                <span class="func">resolve</span><span class="warp2">(<span class="args">'El pago fue exitoso.'</span>)</span>;
+              &#125;</span> <span class="key">else</span> <span class="warp">&#123;
+                <span class="func">reject</span><span class="warp2">(<span class="key">new</span> <span class="func">Error</span><span class="warp">(<span class="args">'El pago falló. Saldo insuficiente.'</span>)</span>)</span>;
+              &#125;</span>
+            &#125;, <span class="nums">2000</span></span>)</span>;
+          &#125;</span>)</span>;
+        
+          <span class="obj">verificarPago</span>
+              <span class="dot">.</span><span class="func">then</span><span class="warp">(<span class="warp2">(<span class="var">mensajeExito</span>) =&gt; &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="var">mensajeExito</span>)</span>;
+          &#125;</span>)</span>
+            <span class="dot">.</span><span class="func">catch</span><span class="warp">(<span class="warp2">(<span class="var">error</span>) =&gt; &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">error</span><span class="warp2">(<span class="obj">error</span><span class="dot">.</span><span class="meth">message</span>)</span>;
+          &#125;</span>)</span>;
+          <span class="dot">.</span><span class="func">finally</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">'Finalizado el proceso de verificación de pago.'</span>)</span>;
+        &#125;</span>)</span>;
+            
+          <span class="result">Verificando el estado del pago...</span>
+          <span class="result">El pago fue exitoso.</span>
+          <span class="result">Finalizado el proceso de verificación de pago.</span></pre>
+        <p class="chaptrSubSect__p">Este bloque <code>.finally()</code> se ejecuta siempre, independientemente de si la promesa fue resuelta con éxito o rechazada. Es útil para tareas que deben realizarse tanto si el pago fue exitoso como si falló (por ejemplo, cerrar una conexión, limpiar variables, etc.)</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Expresión de Promesa vs Función" codeText="">
+        <p class="chaptrSubSect__p">Una promesa puede ser asignada directamente a una variable (expresión de promesa) o crear una función que retorne una promesa. Vamos a explorar ambos enfoques en términos de ventajas, inconvenientes, usos y recomendaciones</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Expresión de Promesa</span>
+          <span class="key">const</span> <span class="var">myPromise</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Promise</span><span class="warp">(<span class="warp2">(<span class="params">resolve, reject</span>) =&gt; &#123;
+            <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
+              <span class="func">resolve</span><span class="warp2">(<span class="args">'Hecho'</span>)</span>
+            &#125;, <span class="nums">1500</span></span>);</span>
+          &#125;</span>)</span>;</pre>
+        <p class="chaptrSubSect__p"><mark>Ventajas</mark></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Simplicidad:</strong> Es sencillo de escribir si sólo necesitas ejecutar una promesa una vez en un contexto fijo.</li>
+          <li class="chaptrSubSectUl__li"><strong>Se ejecuta inmediatamente:</strong> La promesa comienza su ejecución en el momento en que se asigna a la variable. No es necesario invocar una función para iniciarla.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><mark>Inconvenientes</mark></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>No reutilizable:</strong> Si necesitas ejecutar esa promesa varias veces, no es posible con una expresión de promesa asignada a una variable, porque ya se ha iniciado y finalizado.</li>
+          <li class="chaptrSubSectUl__li"><strong>Menos control:</strong> Dado que la promesa se ejecuta inmediatamente, tienes menos control sobre cuándo empieza la operación asíncrona.</li>
+          <li class="chaptrSubSectUl__li"><strong>Difícil de manejar en contextos complejos:</strong> Cuando necesitas manejar promesas con parámetros variables o lógica más avanzada, este enfoque se vuelve más limitado.</li>
+        </ul>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Función que devuelve una Promesa</span>
+          <span class="key">function</span> <span class="var">myPromise</span> <span class="warp">() &#123;
+            </span> <span class="key">return new</span> <span class="func">Promise</span><span class="warp">(<span class="warp2">(<span class="params">resolve, reject</span>) =&gt; &#123;
+                <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
+                  <span class="func">resolve</span><span class="warp2">(<span class="args">'Hecho'</span>)</span>
+                &#125;</span>, <span class="nums">1500</span>);</span>
+            &#125;</span>)</span>;
+          <span class="warp">&#125;</span>;</pre>
+        <p class="chaptrSubSect__p"><mark>Ventajas</mark></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>Reutilización:</code> Puedes invocar la función varias veces y cada vez obtendrás una nueva promesa, permitiendo la ejecución repetida de la tarea asíncrona.</li>
+          <li class="chaptrSubSectUl__li"><code>Control de la ejecución:</code> La promesa no se ejecuta inmediatamente, sino cuando llamas a la función. Esto te permite tener más control sobre cuándo deseas que se inicie la operación asíncrona.</li>
+          <li class="chaptrSubSectUl__li"><code>Parámetros:</code> Puedes pasar parámetros a la función, lo que hace que sea mucho más flexible y adecuada para manejar diferentes entradas.</li>
+          <li class="chaptrSubSectUl__li"><code>Encapsulación:</code> Agrupa el código asíncrono dentro de una función, lo que ayuda a mantener el código organizado, especialmente en proyectos grandes.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><mark>Inconvenientes</mark></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>Puede parecer más complejo:</code> En algunos casos, puede requerir más líneas de código, aunque esto es más una cuestión de estilo y no necesariamente una desventaja significativa.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Ejemplo completo paso a paso</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span> <span class="func">buscarPokemon</span><span class="warp">(<span class="params">pokemonName</span>) &#123;    <span class="commnt">1</span>
+            <span class="key">return new</span> <span class="func">Promise</span><span class="warp2">(<span class="warp">(<span class="params">resolve,  reject</span>) =&gt; &#123;   <span class="commnt">2</span>
+              <span class="func">fetch</span><span class="warp2">(<span class="args">`https://pokeapi.co/api/v2/pokemon/$&#123;<span class="params">pokemonName</span>&#125;`</span>)</span>    <span class="commnt">3</span>
+                <span class="dot">.</span><span class="func">then</span><span class="warp2">(<span class="params">respuestaFetch</span> <span class="warp">=&gt; &#123;   <span class="commnt">4</span>
+                    <span class="func">if</span><span class="warp2">(<span class="params">respuestaFetch</span><span class="dot">.</span><span class="objProp">ok</span>) &#123;    <span class="commnt">5</span>
+                        <span class="key">return</span> <span class="params">respuestaFetch</span><span class="dot">.</span><span class="meth">json</span><span class="warp">()</span>;    <span class="commnt">6</span>
+                    &#125;</span> <span class="func">else</span> <span class="warp2">&#123;
+                      <span class="func">reject</span><span class="warp">(<span class="args">`Error: Pokemon no encontrado $&#123;<span class="params">pokemonName</span>&#125;`</span>)</span>;    <span class="commnt">7</span>
+                    &#125;</span>
+                  &#125;</span>)</span>
+                  <span class="dot">.</span><span class="func">then</span><span class="warp2">(<span class="params">datosPokemon</span> <span class="warp">=&gt; &#123;   <span class="commnt">8</span>
+                      <span class="func">resolve</span><span class="warp">(<span class="params">datosPokemon</span>)</span>;
+                  &#125;</span>)</span>
+                  <span class="dot">.</span><span class="func">catch</span><span class="warp2">(<span class="obj">error</span> <span class="warp">=&gt; &#123;   <span class="commnt">9</span>
+                      <span class="func">reject</span><span class="warp">(<span class="args">`Error en la solicitud $&#123;<span class="obj">error</span>&#125;`</span>)</span>;
+                  &#125;</span>)</span>
+            &#125;</span>)</span>
+          &#125;</span>
+
+          <span class="func">buscarPokemon</span><span class="warp">(<span class="args">'pikachu'</span>)</span>    <span class="commnt">10</span>
+              <span class="dot">.</span><span class="func">then</span><span class="warp2">(<span class="params">datosRecibidosPokemon</span> <span class="warp">=&gt; &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Nombre: $&#123;<span class="params">datosRecibidosPokemon</span><span class="dot">.</span><span class="objProp">name</span>&#125;`</span>)</span>;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Altura: $&#123;<span class="params">datosRecibidosPokemon</span><span class="dot">.</span><span class="objProp">height</span>&#125;`</span>)</span>;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Peso: $&#123;<span class="params">datosRecibidosPokemon</span><span class="dot">.</span><span class="objProp">weight</span>&#125;`</span>)</span>;
+              &#125;</span>)</span>
+              <span class="dot">.</span><span class="func">catch</span><span class="warp2">(<span class="obj">error</span> <span class="warp">=&gt; &#123;   <span class="commnt">11</span>
+                  <span class="func">reject</span><span class="warp">(<span class="args">`Error en la solicitud $&#123;<span class="obj">error</span>&#125;`</span>)</span>;
+              &#125;</span>)</span>;
+          
+        </pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><mark><strong>1</strong></mark>: Creamos una función que toma como parámetro el nombre de un Pokémon y retorna una promesa.</li>
+          <li class="chaptrSubSectUl__li"><mark><strong>2</strong></mark>: <code>resolve</code>: Función que se llama para resolver la promesa cuando tenga éxito y devuelve los datos del Pokémon. <code>reject</code>: Se llama para rechazar la promesa cuando ocurra algún error o fallo.</li>
+          <li class="chaptrSubSectUl__li"><mark><strong>3</strong></mark>: Usamos <code>fetch</code> para hacer la solicitud a la API de PokeAPI, y hay que tener en cuenta que <code>fetch</code> <strong>devuelve una promesa</strong>.</li>
+          <li class="chaptrSubSectUl__li"><mark><strong>4</strong></mark>: Consumimos la promesa que devuelve <code>fetch</code> con el <code>.then</code>. En los parámetros <code>respuestaFetch</code> se "guardará" el resultado de esa operación.</li>
+          <li class="chaptrSubSectUl__li"><mark><strong>5</strong></mark>: Hacemos una verificación de la promesa si la respuesta es correcta.</li>
+          <li class="chaptrSubSectUl__li"><mark><strong>6</strong></mark>: La convertimos a JSON y la retornamos. Esto también <strong>devuelve una promesa</strong>.</li>
+          <li class="chaptrSubSectUl__li"><mark><strong>7</strong></mark>: Si la respuesta no es "ok" se llama al <code>reject</code>.</li>
+          <li class="chaptrSubSectUl__li"><mark><strong>8</strong></mark>: Consumimos la promesa que devuelve el método <code>.json()</code>.</li>
+          <li class="chaptrSubSectUl__li"><mark><strong>9</strong></mark>: Si ocurre algun error se dispara <code>reject</code>.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Encadenamiento Promesas" codeText="">
+        <p class="chaptrSubSect__p">Recordemos el calback hell</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span> <span class="func">task1</span><span class="warp">(<span class="params">callback</span>)&#123;
+            <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Suena el despertador`</span>)</span>;
+            &#125;, <span class="nums">1000</span></span>)</span>;
+            <span class="func">callback</span><span class="warp2">()</span>;
+          &#125;</span>;
+
+          <span class="key">function</span> <span class="func">task2</span><span class="warp">(<span class="params">callback</span>)&#123;
+          <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Me levanto y voy a mear`</span>)</span>;
+            &#125;, <span class="nums">2000</span></span>)</span>;
+            <span class="func">callback</span><span class="warp2">()</span>;
+          &#125;</span>;
+
+          <span class="key">function</span> <span class="func">task3</span><span class="warp">(<span class="params">callback</span>)&#123;
+          <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Me visto`</span>)</span>;
+            &#125;, <span class="nums">3000</span></span>)</span>;
+            <span class="func">callback</span><span class="warp2">()</span>;
+          &#125;</span>;
+
+          <span class="key">function</span> <span class="func">task4</span><span class="warp">(<span class="params">callback</span>)&#123;
+          <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Preparo un café`</span>)</span>;
+            &#125;, <span class="nums">4000</span></span>)</span>;
+            <span class="func">callback</span><span class="warp2">()</span>;
+          &#125;</span>;
+
+          <span class="key">function</span> <span class="func">task5</span><span class="warp">(<span class="params">callback</span>)&#123;
+          <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Mientras bebo el café miro el móvil`</span>)</span>;
+            &#125;, <span class="nums">5000</span></span>)</span>;
+            <span class="func">callback</span><span class="warp2">()</span>;
+          &#125;</span>;
+
+          <span class="key">function</span> <span class="func">task6</span><span class="warp">(<span class="params">callback</span>)&#123;
+          <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Me voy a trabajar`</span>)</span>;
+            &#125;, <span class="nums">6000</span></span>)</span>;
+            <span class="func">callback</span><span class="warp2">()</span>;
+          &#125;</span>;
+
+          <span class="func">task1</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+            <span class="func">task2</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+              <span class="func">task3</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+                <span class="func">task4</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+                  <span class="func">task5</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+                    <span class="func">task6</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+            
+                      &#125;</span> )</span>;
+                    &#125;</span> )</span>;
+                  &#125;</span> )</span>;
+                &#125;</span> )</span>;
+              &#125;</span> )</span>;
+          &#125;</span> )</span>;
+        
+          <span class="result">Suena el despertador</span>
+          <span class="result">Me levanto y voy a mear</span>
+          <span class="result">Me visto</span>
+          <span class="result">Preparo un café</span>
+          <span class="result">Mientras bebo el café miro el móvil</span>
+          <span class="result">Me voy a trabajar</span></pre>
+        <p class="chaptrSubSect__p">Así lo arreglaríamos con promesas</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span> <span class="func">task1</span><span class="warp">()&#123;
+            <span class="key">return new</span> <span class="func">Promise</span><span class="warp2">(<span class="warp">(<span class="params">resolve</span>) =&gt; &#123;
+              <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Suena el despertador`</span>)</span>;
+                <span class="func">resolve</span><span class="warp2">()</span>;
+              &#125;, <span class="nums">2000</span></span>)</span>;
+            &#125;</span>)</span>;
+          &#125;</span>;
+
+          <span class="key">function</span> <span class="func">task2</span><span class="warp">()&#123;
+            <span class="key">return new</span> <span class="func">Promise</span><span class="warp2">(<span class="warp">(<span class="params">resolve</span>) =&gt; &#123;
+              <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Me levanto y voy a mear`</span>)</span>;
+                <span class="func">resolve</span><span class="warp2">()</span>;
+              &#125;, <span class="nums">2000</span></span>)</span>;
+            &#125;</span>)</span>;
+          &#125;</span>;
+
+          <span class="key">function</span> <span class="func">task3</span><span class="warp">()&#123;
+            <span class="key">return new</span> <span class="func">Promise</span><span class="warp2">(<span class="warp">(<span class="params">resolve</span>) =&gt; &#123;
+              <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Me visto`</span>)</span>;
+                <span class="func">resolve</span><span class="warp2">()</span>;
+              &#125;, <span class="nums">2000</span></span>)</span>;
+            &#125;</span>)</span>;
+          &#125;</span>;
+
+          <span class="key">function</span> <span class="func">task4</span><span class="warp">()&#123;
+            <span class="key">return new</span> <span class="func">Promise</span><span class="warp2">(<span class="warp">(<span class="params">resolve</span>) =&gt; &#123;
+              <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Preparo un café`</span>)</span>;
+                <span class="func">resolve</span><span class="warp2">()</span>;
+              &#125;, <span class="nums">2000</span></span>)</span>;
+            &#125;</span>)</span>;
+          &#125;</span>;
+
+          <span class="key">function</span> <span class="func">task5</span><span class="warp">()&#123;
+            <span class="key">return new</span> <span class="func">Promise</span><span class="warp2">(<span class="warp">(<span class="params">resolve</span>) =&gt; &#123;
+              <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Mientras bebo el café miro el móvil`</span>)</span>;
+                <span class="func">resolve</span><span class="warp2">()</span>;
+              &#125;, <span class="nums">2000</span></span>)</span>;
+            &#125;</span>)</span>;
+          &#125;</span>;
+
+          <span class="key">function</span> <span class="func">task6</span><span class="warp">()&#123;
+            <span class="key">return new</span> <span class="func">Promise</span><span class="warp2">(<span class="warp">(<span class="params">resolve</span>) =&gt; &#123;
+              <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Me voy a trabajar`</span>)</span>;
+                <span class="func">resolve</span><span class="warp2">()</span>;
+              &#125;, <span class="nums">2000</span></span>)</span>;
+            &#125;</span>)</span>;
+          &#125;</span>;
+
+          <span class="func">task1</span><span class="warp">()</span>
+                <span class="dot">.</span><span class="func">then</span><span class="warp">(<span class="warp2">() =&gt; <span class="func">task2</span><span class="warp2">()</span></span>)</span>
+                <span class="dot">.</span><span class="func">then</span><span class="warp">(<span class="warp2">() =&gt; <span class="func">task3</span><span class="warp2">()</span></span>)</span>
+                <span class="dot">.</span><span class="func">then</span><span class="warp">(<span class="warp2">() =&gt; <span class="func">task4</span><span class="warp2">()</span></span>)</span>
+                <span class="dot">.</span><span class="func">then</span><span class="warp">(<span class="warp2">() =&gt; <span class="func">task5</span><span class="warp2">()</span></span>)</span>
+                <span class="dot">.</span><span class="func">then</span><span class="warp">(<span class="warp2">() =&gt; <span class="func">task6</span><span class="warp2">()</span></span>)</span>
+        
+          <span class="result">Suena el despertador</span>
+          <span class="result">Me levanto y voy a mear</span>
+          <span class="result">Me visto</span>
+          <span class="result">Preparo un café</span>
+          <span class="result">Mientras bebo el café miro el móvil</span>
+          <span class="result">Me voy a trabajar</span></pre>
+        <p class="chaptrSubSect__p">A esto se le llama encadenamiento de promesas, y el resultado se va pasando a lo largo de la cadena de controladores. Veamos un ejemplo más claro</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span> <span class="func">myPromise</span><span class="warp">()&#123;
+            <span class="key">return new</span> <span class="func">Promise</span><span class="warp2">(<span class="warp">(<span class="params">resolve</span>) =&gt; &#123;
+              <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
+                <span class="func">resolve</span><span class="warp2">(<span class="nums">2</span>)</span>;
+              &#125;, <span class="nums">2000</span></span>)</span>;
+            &#125;</span>)</span>;
+          &#125;</span>;
+
+          <span class="func">myPromise</span><span class="warp">()</span>
+                <span class="dot">.</span><span class="func">then</span><span class="warp">(<span class="warp2">(<span class="var">result</span>) =&gt; &#123;
+                  <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+                  <span class="key">return</span> <span class="var">result</span> <span class="opera">*</span> <span class="nums">2</span>;   <span class="commnt">Retorna 2 al SIGUIENTE .then</span>
+                &#125;</span>)</span>
+                  <span class="dot">.</span><span class="func">then</span><span class="warp">(<span class="warp2">(<span class="var">result</span>) =&gt; &#123;
+                  <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+                  <span class="key">return</span> <span class="var">result</span> <span class="opera">*</span> <span class="nums">2</span>;   <span class="commnt">Retorna 4 al SIGUIENTE .then</span>
+                &#125;</span>)</span>
+                  <span class="dot">.</span><span class="func">then</span><span class="warp">(<span class="warp2">(<span class="var">result</span>) =&gt; &#123;
+                  <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+                  <span class="key">return</span> <span class="var">result</span> <span class="opera">*</span> <span class="nums">2</span>;   <span class="commnt">Retorna 8</span>
+                &#125;</span>)</span>;
+        
+          <span class="result">2</span>
+          <span class="result">4</span>
+          <span class="result">8</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El ejemplo" codeText="loadScript">
+        <p class="chaptrSubSect__p">Imagina que tienes una página web que, en lugar de cargar todos los scripts al inicio, los carga de manera dinámica cuando son necesarios. Por ejemplo, quieres cargar un archivo JavaScript externo solo cuando el usuario realiza cierta acción</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Creamos una función que recibe un archivo como argumento</span>
+          <span class="commnt">src es la ruta del archivo que queremos cargar.</span>
+          <span class="key">function</span> <span class="func">loadScript</span><span class="warp">(<span class="params">src</span>) &#123;
+          <span class="commnt">retorna una promesa</span>
+            <span class="key">return new</span> <span class="func">Promise</span><span class="warp2">(<span class="warp">(<span class="params">resolve, reject</span>) =&gt; &#123;
+            <span class="commnt">Crea un elemento "script" y lo guarda en la variable</span>
+              <span class="key">let</span> <span class="var">script</span> <span class="opera">=</span> <span class="obj">document</span><span class="dot">.</span><span class="meth">createElement</span><span class="warp2">(<span class="args">'script'</span>)</span>;
+              <span class="commnt">Asigna el argumento src como propiedad del elemento</span>
+              <span class="obj">script</span><span class="dot">.</span><span class="objProp">src</span> <span class="opera">=</span> <span class="params">src</span>;
+
+              <span class="commnt">Si el script se carga correctamente, resolvemos la promesa</span>
+              <span class="commnt">devolviendo el objeto completo para poder trabajar con él</span>
+              <span class="obj">script</span><span class="dot">.</span><span class="meth">onload</span> <span class="opera">=</span> <span class="warp2">() =&gt; <span class="func">resolve</span>(<span class="obj">script</span>)</span>;
+
+              <span class="commnt">Si hay un error al cargar el script, rechazamos la promesa</span>
+              <span class="obj">script</span><span class="dot">.</span><span class="meth">onerror</span> <span class="opera">=</span> <span class="warp2">() =&gt; <span class="func">reject</span>(<span class="key">new</span> <span class="func">Error</span><span class="warp">(<span class="args">'Error al cargar el script'</span>)</span>)</span>;
+
+              <span class="commnt">Añadimos el script al documento</span>
+              <span class="obj">document</span><span class="dot">.</span><span class="obj">head</span><span class="dot">.</span><span class="meth">append</span><span class="warp2">(<span class="obj">script</span>)</span>;
+            &#125;</span>)</span>;
+          &#125;</span>
+
+          <span class="commnt">Llamamos a la función pasando como parámetro un archivo</span>
+          <span class="func">loadScript</span><span class="warp">(<span class="args">'miScript.js'</span>)</span>
+              <span class="commnt">Si está correcto ejecuta este código</span>
+              <span class="dot">.</span><span class="func">then</span><span class="warp">(<span class="warp2">(<span class="obj">script</span>) =&gt; &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">'Script $&#123;<span class="obj">script.src</span>&#125; cargado!'</span>)</span>;
+              &#125;</span>)</span>
+              <span class="commnt">Si ocurrió un error ejecuta este código</span>
+              <span class="dot">.</span><span class="func">catch</span><span class="warp">(<span class="warp2">(<span class="obj">error</span>) =&gt; &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">error</span><span class="warp2">(<span class="obj">error</span><span class="dot">.</span><span class="meth">message</span>)</span>;
+              &#125;</span>)</span>;</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Devolviendo promesas" codeText="">
+        <p class="chaptrSubSect__p">En un encadenamiento de promesas, cada <code>.then()</code> puede devolver un valor o una nueva promesa. Si devuelve un valor, este se pasa al siguiente <code>.then()</code>. Pero si devuelve una promesa, el siguiente <code>.then()</code> esperará a que esta nueva promesa se resuelva antes de continuar. Esto es útil cuando tienes operaciones asincrónicas que dependen unas de otras</p>
+        <p class="chaptrSubSect__p">Queremos cargar una imagen en una página web. La primera operación es obtener el archivo de la imagen y luego mostrarla en la página. Si necesitamos realizar algo después de que la imagen esté completamente cargada, podemos hacerlo devolviendo una promesa</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span> <span class="func">loadImg</span><span class="warp">(<span class="params">url</span>) &#123;    <span class="commnt">1</span>
+            <span class="key">return new</span> <span class="func">Promise</span><span class="warp2">(<span class="warp">(<span class="params">resolve, reject</span>) =&gt; &#123;   <span class="commnt">2</span>
+              <span class="key">let</span> <span class="var">img</span> <span class="opera">=</span> <span class="key">new</span> <span class="obj">Image</span><span class="warp2">()</span>;    <span class="commnt">3</span>
+              <span class="obj">img</span><span class="dot">.</span><span class="objProp">src</span> <span class="opera">=</span> <span class="params">url</span>;    <span class="commnt">4</span>
+
+              <span class="obj">img</span><span class="dot">.</span><span class="meth">onload</span> <span class="opera">=</span> <span class="warp2">() =&gt; <span class="func">resolve</span>(<span class="obj">img</span>)</span>;    <span class="commnt">5</span>
+              <span class="obj">img</span><span class="dot">.</span><span class="meth">onerror</span> <span class="opera">=</span> <span class="warp2">() =&gt; <span class="func">reject</span>(<span class="key">new</span> <span class="func">Error</span><span class="warp">(<span class="args">'Error al cargar la imagen'</span>)</span>)</span>;   <span class="commnt">6</span>
+            &#125;</span>)</span>;
+          &#125;</span>
+
+          <span class="func">loadImg</span><span class="warp">(<span class="args">'https://picsum.photos/200'</span>)</span>    <span class="commnt">7</span>
+              <span class="dot">.</span><span class="func">then</span><span class="warp">(<span class="warp2">(<span class="obj">img</span>) =&gt; &#123;   <span class="commnt">8</span>
+                <span class="obj">document</span><span class="dot">.</span><span class="obj">body</span><span class="dot">.</span><span class="meth">appendChild</span><span class="warp2">(<span class="obj">img</span>)</span>;   <span class="commnt">9</span>
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">'Imagen cargada y añadida!'</span>)</span>;    <span class="commnt">10</span>
+
+                <span class="key">return new</span> <span class="func">Promise</span><span class="warp2">(<span class="warp">(<span class="params">resolve</span>) =&gt; &#123;   <span class="commnt">11</span>
+                  <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;   <span class="commnt">12</span>
+                    <span class="obj">img</span><span class="dot">.</span><span class="obj">style</span><span class="dot">.</span><span class="objProp">filter</span> <span class="opera">=</span> <span class="args">'grayscale(100%)'</span>;   <span class="commnt">13</span>
+                    <span class="func">resolve</span><span class="warp">(<span class="args">'Filtro aplicado con exito!'</span>)</span>;    <span class="commnt">14</span>
+                  &#125;</span>, <span class="nums">2500</span>)</span>   <span class="commnt">15</span>
+                &#125;</span>)</span>
+
+              &#125;</span>)</span>
+              <span class="dot">.</span><span class="func">then</span><span class="warp">(<span class="warp2">(<span class="params">mensaje</span>) =&gt; &#123;    <span class="commnt">16</span>
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="params">mensaje</span>)</span>;    <span class="commnt">17</span>
+              &#125;</span>)</span>
+              <span class="dot">.</span><span class="func">catch</span><span class="warp">(<span class="warp2">(<span class="obj">error</span>) =&gt; &#123;    <span class="commnt">18</span>
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">error</span><span class="warp2">(<span class="obj">error</span><span class="dot">.</span><span class="meth">message</span>)</span>;
+              &#125;</span>)</span>;</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>1 ·</strong> Creamos la función que recibe como argumento la dirección donde está la imagen.</li>
+          <li class="chaptrSubSectUl__li"><strong>2 ·</strong> Retornamos una promesa con <code>resolve, reject</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>3 ·</strong> Creamos una instancia del objeto <code>Image</code> que es la etiqueta <code>&lt;img&gt;</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>4 ·</strong> Asigamos la url a la propiedad <code>src</code> del objeto <code>img</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>5 ·</strong> Usamos el método <code>.onload</code>, qué si se carga correctamente la imagen, se resuelve la promesa devolviendo el propio objeto <code>img</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>6 ·</strong> Si hay un error al cargar la imagen, rechazamos la promesa con el mensaje de error.</li>
+          <li class="chaptrSubSectUl__li"><strong>7 ·</strong> Llamamos a la función pasando como parámetro la url donde está la imagen.</li>
+          <li class="chaptrSubSectUl__li"><strong>8 ·</strong> Si la promesa se resuelve con éxito, ejecuta el <code>.then</code> que trae como parámetro el objeto <code>img</code> para poder procesarlo después.</li>
+          <li class="chaptrSubSectUl__li"><strong>9 ·</strong> Añadimos al <code>body</code> el objeto <code>img</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>10 ·</strong> Mostramos en consola el mensaje de éxito de la carga.</li>
+          <li class="chaptrSubSectUl__li"><strong>11 ·</strong> Retornamos una nueva promesa, pasando solo el <code>resolve</code> puesto que si hay un error lo capturaría el <code>.catch</code> de abajo.</li>
+          <li class="chaptrSubSectUl__li"><strong>12 ·</strong> Añadimos un retraso de tiempo para que primero cargue la imagen y después se vea la operación que se hace sobre ella.</li>
+          <li class="chaptrSubSectUl__li"><strong>13 ·</strong> Añadimos a la imagen un filtro.</li>
+          <li class="chaptrSubSectUl__li"><strong>14 ·</strong> Resolvemos la promesa con un <span class="bttn">mensaje</span>.</li>
+          <li class="chaptrSubSectUl__li"><strong>15 ·</strong> Después de 2,5seg de haber cargado la imagen se verá como se aplica el filtro.</li>
+          <li class="chaptrSubSectUl__li"><strong>16 ·</strong> Una vez se resuelve la promesa se ejecuta este <code>.then</code> que trae como parámetro el <span class="bttn">mensaje</span>.</li>
+          <li class="chaptrSubSectUl__li"><strong>17 ·</strong> Muestra en consola la operación exitosa mediante el <span class="bttn">mensaje</span>.</li>
+          <li class="chaptrSubSectUl__li"><strong>18 ·</strong> Si la promesa falla muestra en consola el mensaje de error.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El ejemplo" codeText="fetch">
+        <p class="chaptrSubSect__p">Vamos a usar la PokeAPI, una API pública que permite obtener información de Pokémon, para hacer una solicitud de datos. El primer paso será cargar los datos de un Pokémon específico utilizando su nombre</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">1</span>
+          <span class="key">let</span> <span class="var">fetchDataPromise</span> <span class="opera">=</span> <span class="func">fetch</span><span class="warp">(<span class="args">'https://pokeapi.co/api/v2/pokemon/pikachu'</span>)</span>;
+          <span class="var">fetchDataPromise</span>
+              <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="obj">response</span> <span class="warp2">=&gt; &#123;    <span class="commnt">2</span>
+                <span class="key">return</span> <span class="obj">response</span><span class="dot">.</span><span class="meth">json</span><span class="warp">()</span>;    <span class="commnt">3</span>
+              &#125;</span>)</span>
+              <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="obj">data</span> <span class="warp2">=&gt; &#123;    <span class="commnt">4</span>
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Nombre $&#123;<span class="obj">data</span><span class="dot">.</span><span class="objProp">name</span>&#125;, Altura $&#123;<span class="obj">data</span><span class="dot">.</span><span class="objProp">height</span>&#125;, Peso $&#123;<span class="obj">data</span><span class="dot">.</span><span class="objProp">weight</span>&#125;`</span>)</span>;
+              &#125;</span>)</span>
+              <span class="dot">.</span><span class="meth">catch</span><span class="warp">(<span class="obj">error</span> <span class="warp2">=&gt; &#123;    <span class="commnt">5</span>
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">error</span><span class="warp2">(<span class="args">`Error al obtener los datos:`, <span class="obj">error</span></span>)</span>;
+              &#125;</span>)</span></pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>1 ·</strong> Se hace una solicitud <code>HTTP</code> a la <code>API</code> para obtener información sobre Pikachu.</li>
+          <li class="chaptrSubSectUl__li"><strong>2 ·</strong> El servidor responde y la promesa se resuelve con un objeto <code>response</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>3 ·</strong> El objeto <code>response</code> tiene un método llamado <code>.json()</code> que convierte los datos de la respuesta en formato <code>JSON</code>. Como esta conversión también es una operación asíncrona, devuelve una nueva promesa.</li>
+          <li class="chaptrSubSectUl__li"><strong>4 ·</strong> Cuando la promesa de <code>response.json()</code> se resuelve, ahora tenemos los datos en formato <code>JSON</code>. Podemos trabajar con ellos y en este caso, los mostramos en la consola.</li>
+          <li class="chaptrSubSectUl__li"><strong>5 ·</strong> Si hay algún error, ya sea en la petición inicial o en la conversión a <code>JSON</code>, lo manejamos en el bloque <code>catch</code>.</li>
+        </ul>
+        <p class="chaptrSubSect__p">A continuación, vamos a encadenar múltiples promesas. Primero obtendremos los datos de un Pokémon, luego haremos una segunda solicitud para obtener detalles de su habilidad principal (abilities)</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">fetchDataPromise</span> <span class="opera">=</span> <span class="func">fetch</span><span class="warp">(<span class="args">'https://pokeapi.co/api/v2/pokemon/pikachu'</span>)</span>;
+          <span class="var">fetchDataPromise</span>
+              <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="obj">response</span> <span class="warp2">=&gt; <span class="obj">response</span><span class="dot">.</span><span class="meth">json</span><span class="warp2">()</span></span>)</span>
+              <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="obj">pokemon</span> <span class="warp2">=&gt; &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Nombre $&#123;<span class="obj">pokemon</span><span class="dot">.</span><span class="objProp">name</span>&#125;`</span>)</span>;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Habilidad principal $&#123;<span class="obj">pokemon</span><span class="dot">.</span><span class="objProp">abilities</span>[<span class="nums">0</span>]<span class="dot">.</span><span class="obj">ability</span><span class="dot">.</span><span class="objProp">name</span>&#125;`</span>)</span>;
+                <span class="key">return</span> <span class="func">fetch</span><span class="warp2">(<span class="obj">pokemon</span><span class="dot">.</span><span class="obj">abilities</span><span class="warp2">[<span class="nums">0</span>]</span><span class="dot">.</span><span class="obj">ability</span><span class="dot">.</span><span class="objProp">url</span>)</span>;
+              &#125;</span>)</span>
+              <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="obj">response</span> <span class="warp2">=&gt; <span class="obj">response</span><span class="dot">.</span><span class="meth">json</span><span class="warp2">()</span></span>)</span>
+              <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="obj">abilityData</span> <span class="warp2">=&gt; &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Info habilidad $&#123;<span class="obj">abilityData</span><span class="dot">.</span><span class="obj">effect_entries</span>[<span class="nums">1</span>]<span class="dot">.</span><span class="objProp">effect</span>&#125;`</span>)</span>;
+              &#125;</span>)</span>
+              <span class="dot">.</span><span class="meth">catch</span><span class="warp">(<span class="obj">error</span> <span class="warp2">=&gt; &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">error</span><span class="warp2">(<span class="args">`Error al obtener los datos:`, <span class="obj">error</span></span>)</span>;
+              &#125;</span>)</span></pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Primera solicitud:</strong> Hacemos una solicitud a la PokeAPI para obtener los datos de Pikachu. Obtenemos los detalles del Pokémon, incluido el nombre y su habilidad principal.</li>
+          <li class="chaptrSubSectUl__li"><strong>Segunda solicitud:</strong> Usamos la URL de la habilidad principal de Pikachu (que está en los datos que obtuvimos) para hacer otra solicitud a la API y obtener más detalles sobre esa habilidad. Encadenamos otra promesa para la nueva solicitud.</li>
+          <li class="chaptrSubSectUl__li"><strong>Respuesta de la habilidad:</strong> Cuando la respuesta de la habilidad se resuelve, mostramos detalles sobre su efecto.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Manejo de errores" codeText="">
+        <p class="chaptrSubSect__p">Cuando trabajamos con promesas, los errores se manejan usando <code>.catch()</code>. Si una promesa se rechaza o ocurre un error en cualquier parte de la cadena de promesas, <code>.catch()</code> captura ese error</p>
+        <p class="chaptrSubSect__p">⭐ <strong>fetch con un error</strong>. Imagina que intentamos obtener datos de un servidor que no existe</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">fetchDataPromise</span> <span class="opera">=</span> <span class="func">fetch</span><span class="warp">(<span class="args">'https://no-such-server.blabla'</span>)</span>;
+          <span class="var">fetchDataPromise</span>
+              <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="obj">response</span> =&gt; <span class="obj">response</span><span class="dot">.</span><span class="meth">json</span><span class="warp2">()</span>)</span>
+              <span class="dot">.</span><span class="meth">catch</span><span class="warp">(<span class="obj">error</span> =&gt; <span class="obj">console</span><span class="dot">.</span><span class="meth">error</span><span class="warp2">(<span class="obj">error</span><span class="dot">.</span><span class="objProp">message</span>)</span>)</span></pre>
+        <p class="chaptrSubSect__p">En este caso, como la URL es incorrecta, la promesa se rechaza, y el <code>.catch()</code> se activa mostrando el error en un <code>console.log()</code></p>
+        <p class="chaptrSubSect__p">⭐ Manejar errores de cadena de promesas con <code>.catch()</code></p>
+        <p class="chaptrSubSect__p">Una de las grandes ventajas de usar promesas es que podemos manejar los errores en cualquier punto de la cadena. No necesitamos escribir un <code>.catch()</code> después de cada <code>.then()</code>, podemos colocarlo al final para manejar cualquier error que ocurra en la cadena.</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">fetchDataPromise</span> <span class="opera">=</span> <span class="func">fetch</span><span class="warp">(<span class="args">'https://pokeapi.co/api/v2/pokemon/missingno'</span>)</span>;
+          <span class="var">fetchDataPromise</span>
+              <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="obj">response</span> =&gt; <span class="obj">response</span><span class="dot">.</span><span class="meth">json</span><span class="warp2">()</span>)</span>
+              <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="obj">pokemon</span> =&gt; <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="obj">pokemon</span><span class="dot">.</span><span class="objProp">name</span>)</span>)</span>
+              <span class="dot">.</span><span class="meth">catch</span><span class="warp">(<span class="obj">error</span> =&gt; <span class="obj">console</span><span class="dot">.</span><span class="meth">error</span><span class="warp2">(<span class="obj">error</span><span class="dot">.</span><span class="objProp">message</span>)</span>)</span></pre>
+        <p class="chaptrSubSect__p">En este caso, si intentamos buscar un Pokémon que no existe (por ejemplo, "missingno"), el <code>.catch()</code> se activará y mostrará el error</p>
+        <p class="chaptrSubSect__p">⭐ Errores en el código: <code>try...catch</code> implícito</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">new</span> <span class="func">Promise</span><span class="warp">(<span class="warp2">(<span class="params">resolve, reject</span>) =&gt; &#123;
+            <span class="func">resolve</span><span class="warp2">(<span class="args">'Todo ok!'</span>)</span>;
+          &#125;</span>)</span>
+          <span class="dot">.</span><span class="func">then</span><span class="warp">(<span class="warp2">(<span class="params">result</span>) =&gt; &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">result</span>)</span>;   <span class="commnt">Todo ok!</span>
+            <span class="func">noSuchFunction</span><span class="warp">()</span>;   <span class="commnt">dara error no existe la función</span>
+          &#125;</span>)</span>
+          <span class="dot">.</span><span class="func">catch</span><span class="warp">(<span class="warp2">(<span class="params">error</span>) =&gt; &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">error</span><span class="warp">(<span class="obj">error</span><span class="dot">.</span><span class="objProp">message</span>)</span>;   <span class="commnt">Captura el error de la función</span>
+          &#125;</span>)</span></pre>
+        <p class="chaptrSubSect__p">Aquí, el error dentro de <code>.then()</code> es capturado por el <code>.catch()</code> sin necesidad de usar explícitamente <code>try...catch</code> en el código</p>
+        <p class="chaptrSubSect__p">⭐ Relanzar (rethrow) un error</p>
+        <p class="chaptrSubSect__p">A veces, puedes capturar un error, pero no puedes manejarlo completamente en el momento. En ese caso, puedes volver a lanzar (relanzar) el error para que otro <code>.catch()</code> más arriba lo maneje</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">new</span> <span class="func">Promise</span><span class="warp">(<span class="warp2">(<span class="params">resolve, reject</span>) =&gt; &#123;
+            <span class="key">throw new</span> <span class="func">Error</span><span class="warp2">(<span class="args">'Error inicial'</span>)</span>;
+          &#125;</span>)</span>
+          <span class="dot">.</span><span class="func">catch</span><span class="warp">(<span class="warp2">(<span class="obj">error</span>) =&gt; &#123;
+            <span class="func">if</span><span class="warp">(<span class="obj">error</span> <span class="key">instanceof</span> <span class="obj">URIError</span>) &#123;
+              <span class="commnt">Maneja un URIError específico</span>
+            &#125;</span> <span class="func">else</span> <span class="warp">&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'No puedo manejar el error, lo lanzo de nuevo'</span>)</span>;
+              <span class="key">throw</span> <span class="obj">error</span>;    <span class="commnt">Relanza el error</span>  
+            &#125;</span>
+          &#125;</span>)</span>
+          <span class="dot">.</span><span class="func">then</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'No se ejecuta si hay un error'</span>)</span>;
+          &#125;</span>)</span>
+          <span class="dot">.</span><span class="func">catch</span><span class="warp">(<span class="warp2">(<span class="obj">error</span>) =&gt; &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Capturado de nuevo',</span> <span class="obj">error</span><span class="dot">.</span><span class="objProp">message</span>)</span>;
+          &#125;</span>)</span>;</pre>
+        <p class="chaptrSubSect__p"><code>throw</code> lanza un error, lo que provoca que la promesa se rechace de inmediato. Esto es similar a llamar a <code>reject()</code> con un error</p>
+        <p class="chaptrSubSect__p">⭐ Rechazos no manejados</p>
+        <p class="chaptrSubSect__p">Si no agregas un <code>.catch()</code> y ocurre un error en tu cadena de promesas, el error no será manejado, lo que puede causar problemas en tu aplicación. Para evitar esto, puedes usar el evento <code>unhandledrejection</code> en el navegador, que captura cualquier promesa rechazada que no tenga un <code>.catch()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">window</span><span class="dot">.</span><span class="meth">addEventListener</span><span class="warp">(<span class="args">'unhandledrejection'</span>, <span class="warp2">(<span class="obj">event</span>) =&gt; &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">'Error no manejado:'</span>, <span class="obj">event</span><span class="dot">.</span><span class="objProp">reason</span>)</span>;
+          &#125;</span>)</span>;
+
+          <span class="key">new</span> <span class="func">Promise</span><span class="warp">(<span class="warp2">(<span class="params">resolve, reject</span>) =&gt; &#123;
+            <span class="key">throw new</span> <span class="func">Error</span><span class="warp2">(<span class="args">'Promesa rechazada sin manejar'</span>)</span>;
+          &#125;</span>)</span>;</pre>
+        <p class="chaptrSubSect__p"><code>unhandledrejection</code> es un evento especial en JavaScript que se dispara cuando una promesa es rechazada y no hay ningún código que maneje ese rechazo (es decir, no hay un <code>.catch()</code> en la promesa). El evento te permite detectar esos errores no manejados para hacer algo con ellos, como por ejemplo, mostrar un mensaje de error o guardarlo para reportarlo</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Promise API" codeText="Promise.all">
+        <p class="chaptrSubSect__p">Toma un array de promesas <code>requests</code> y devuelve una nueva promesa que se resuelve cuando todas las promesas en el array se han completado. Si alguna solicitud falla, <code>Promise.all</code> rechazará con un error, y se manejará más adelante en el código</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Sintaxis</span>
+          <span class="key">let</span> <span class="var">miPromise</span> <span class="opera">=</span> <span class="obj">Promise</span><span class="dot">.</span><span class="meth">all</span><span class="warp">(<span class="obj">iterable</span>)</span>;
+
+          <span class="commnt">Ejemplo</span>
+          <span class="key">let</span> <span class="var">pokemonNames</span> <span class="opera">=</span> <span class="warp">[<span class="args">'pikachu', 'bulbasaur', 'charmander'</span>]</span>;
+          <span class="key">let</span> <span class="var">requests</span> <span class="opera">=</span> <span class="obj">pokemonNames</span><span class="dot">.</span><span class="meth">map</span><span class="warp">(
+            <span class="var">name</span> <span class="warp2">=&gt;</span> <span class="func">fetch</span><span class="warp2">(<span class="args">`https://pokeapi.co/api/v2/pokemon/$&#123;<span class="var">name</span>&#125;`</span>)</span>
+          )</span>;
+
+          <span class="obj">Promise</span><span class="dot">.</span><span class="meth">all</span><span class="warp">(<span class="obj">requests</span>)</span>
+              <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="var">responses</span> <span class="warp2">=&gt; &#123;     <span class="commnt">1</span>
+                  <span class="var">responses</span><span class="dot">.</span><span class="meth">forEach</span><span class="warp2">(<span class="var">response</span> <span class="warp">=&gt; &#123;     <span class="commnt">2</span>
+                      <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`$&#123;<span class="var">response</span><span class="dot">.</span><span class="objProp">url</span>&#125;: $&#123;<span class="var">response</span><span class="dot">.</span><span class="objProp">status</span>&#125;`</span>)</span>;
+                    &#125;</span>)</span>;
+                  <span class="key">return</span> <span class="var">responses</span>;
+          &#125;</span>)</span>
+          <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="var">responses</span> <span class="warp2">=&gt;</span> <span class="obj">Promise</span><span class="dot">.</span><span class="meth">all</span><span class="warp2">(<span class="var">responses</span><span class="dot">.</span><span class="meth">map</span><span class="warp">(<span class="var">resp</span> <span class="warp2">=&gt;</span> <span class="var">resp</span><span class="dot">.</span><span class="meth">json</span><span class="warp2">()</span>)</span>)</span>)</span>    <span class="commnt">3</span>
+          <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="var">pokemons</span> <span class="warp2">=&gt;</span> <span class="obj">pokemons</span><span class="dot">.</span><span class="meth">forEach</span><span class="warp2">(<span class="var">pokemon</span> <span class="warp2">=&gt;</span> <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">pokemon</span><span class="dot">.</span><span class="objProp">name</span>)</span>)</span>)</span>      <span class="commnt">4</span>
+          <span class="dot">.</span><span class="meth">catch</span><span class="warp">(<span class="var">error</span> <span class="warp2">=&gt;</span> <span class="obj">console</span><span class="dot">.</span><span class="meth">error</span><span class="warp2">(<span class="args">'Error en la solicitud:', <span class="obj">error</span></span>)</span>)</span>;      <span class="commnt">5</span>
+
+          <span class="result">https://pokeapi.co/api/v2/pokemon/pikachu: 200</span>
+          <span class="result">https://pokeapi.co/api/v2/pokemon/bulbasaur: 200</span>
+          <span class="result">https://pokeapi.co/api/v2/pokemon/charmander: 200</span>
+          <span class="result">pikachu</span>
+          <span class="result">bulbasaur</span>
+          <span class="result">charmander</span></pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>1 ·</strong> Este bloque se ejecuta cuando todas las solicitudes de <code>fetch</code> han sido exitosas. El resultado es un array llamado <code>responses</code> que contiene las respuestas <code>HTTP</code> de cada solicitud.</li>
+          <li class="chaptrSubSectUl__li"><strong>2 ·</strong>  Iteramos sobre el array <code>responses</code>. Cada <code>response</code> es una respuesta de la PokeAPI para un Pokémon específico.</li>
+          <li class="chaptrSubSectUl__li"><strong>3 ·</strong> Las respuestas <code>HTTP</code> <code>responses</code> que obtuvimos en el paso anterior no contienen directamente los datos que queremos (por ejemplo, el nombre del Pokémon). Para acceder a esos datos, necesitamos convertir las respuestas en formato JSON. Usamos el método <code>.map()</code> de nuevo para crear un array de promesas, donde cada promesa es el resultado de llamar a <code>response.json()</code> para convertir la respuesta <code>HTTP</code> en un objeto JavaScript con los datos del Pokémon. Como <code>response.json()</code> devuelve una promesa (porque la conversión a JSON es asincrónica), usamos <code>Promise.all()</code> para esperar a que todas esas conversiones terminen. El resultado es un array de objetos JSON con los datos de los Pokémon</li>
+          <li class="chaptrSubSectUl__li"><strong>4 ·</strong> Recibimos un array pokemons que contiene los datos de cada Pokémon en formato JSON e iteramos sobre este array de Pokémon. En cada iteración, accedemos a la propiedad <code>name</code> de cada objeto pokemon y la mostramos en la consola.</li>
+          <li class="chaptrSubSectUl__li"><strong>5 ·</strong> Este bloque se ejecuta si alguna de las promesas en <code>Promise.all</code> falla. Por ejemplo, si alguna solicitud a la PokeAPI no tiene éxito (tal vez por una URL incorrecta o problemas de red), el error será capturado aquí.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Promise API" codeText="Promise.allSetlled">
+        <p class="chaptrSubSect__p">Rechaza como un todo si cualquiera de sus promesas es rechazada, siempre esperará a que todas las promesas se resuelvan, ya sea de manera exitosa o con un error, y devolverá un array que contiene el estado y el resultado de cada promesa (ya sea resuelta o rechazada). Esto es bueno para los casos de “todo o nada”, cuando necesitamos que todos los resultados sean exitosos para proceder</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">pokemonNames</span> <span class="opera">=</span> <span class="warp">[<span class="args">'pikachu', 'bulbasaur', 'charmander'</span>]</span>;
+          <span class="key">let</span> <span class="var">requests</span> <span class="opera">=</span> <span class="obj">pokemonNames</span><span class="dot">.</span><span class="meth">map</span><span class="warp">(
+            <span class="var">name</span> <span class="warp2">=&gt;</span> <span class="func">fetch</span><span class="warp2">(<span class="args">`https://pokeapi.co/api/v2/pokemon/$&#123;<span class="var">name</span>&#125;`</span>)</span>
+          )</span>;
+
+          <span class="obj">Promise</span><span class="dot">.</span><span class="meth">allSettled</span><span class="warp">(<span class="obj">requests</span>)</span>
+              <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="var">results</span> <span class="warp2">=&gt; &#123;     <span class="commnt">1</span>
+                  <span class="var">results</span><span class="dot">.</span><span class="meth">forEach</span><span class="warp2">(<span class="var">result</span> <span class="warp">=&gt; &#123;     <span class="commnt">2</span>
+                    <span class="func">if</span><span class="warp">(<span class="var">result</span><span class="dot">.</span><span class="objProp">status</span> <span class="opera">===</span> <span class="args">'fulfilled'</span>) &#123;
+                      <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`$&#123;<span class="var">result</span><span class="dot">.</span><span class="var">value</span><span class="dot">.</span><span class="objProp">url</span>&#125;: $&#123;<span class="var">result</span><span class="dot">.</span><span class="objProp">status</span>&#125;`</span>)</span>;                    
+                    &#125;</span> <span class="func">else</span> <span class="warp">&#123;
+                      <span class="obj">console</span><span class="dot">.</span><span class="meth">error</span><span class="warp2">(<span class="args">`Error en la solicitud URL: $&#123;<span class="var">result</span><span class="dot">.</span><span class="objProp">reason</span>&#125;`</span>)</span>;          
+                    &#125;</span>
+
+                &#125;</span>)</span>;
+
+                <span class="key">return</span> <span class="var">results</span>
+                <span class="dot">.</span><span class="meth">filter</span><span class="warp">(<span class="var">result</span> <span class="warp2">=&gt;</span> <span class="var">result</span><span class="dot">.</span><span class="objProp">status</span> <span class="opera">===</span> <span class="args">'fulfilled'</span>)</span>
+                <span class="dot">.</span><span class="meth">map</span><span class="warp">(<span class="var">result</span> <span class="warp2">=&gt;</span> <span class="var">result</span><span class="dot">.</span><span class="objProp">value</span>)</span>;
+          &#125;</span>)</span>
+          <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="var">successfulResponses</span> <span class="warp2">=&gt;</span> <span class="obj">Promise</span><span class="dot">.</span><span class="meth">all</span><span class="warp2">(<span class="var">successfulResponses</span>
+          <span class="dot">.</span><span class="meth">map</span><span class="warp">(<span class="var">resp</span> <span class="warp2">=&gt;</span> <span class="var">resp</span><span class="dot">.</span><span class="meth">json</span><span class="warp2">()</span>)</span>)</span>)</span>    <span class="commnt">3</span>
+          <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="var">pokemons</span> <span class="warp2">=&gt;</span> <span class="obj">pokemons</span>
+          <span class="dot">.</span><span class="meth">forEach</span><span class="warp2">(<span class="var">pokemon</span> <span class="warp2">=&gt;</span> <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">pokemon</span><span class="dot">.</span><span class="objProp">name</span>)</span>)</span>)</span>      <span class="commnt">4</span>
+          <span class="dot">.</span><span class="meth">catch</span><span class="warp">(<span class="var">error</span> <span class="warp2">=&gt;</span> <span class="obj">console</span><span class="dot">.</span><span class="meth">error</span><span class="warp2">(<span class="args">'Error en la solicitud:', <span class="obj">error</span></span>)</span>)</span>;      <span class="commnt">5</span>
+
+          <span class="result">https://pokeapi.co/api/v2/pokemon/pikachu: fulfilled</span>
+          <span class="result">https://pokeapi.co/api/v2/pokemon/bulbasaur: fulfilled</span>
+          <span class="result">https://pokeapi.co/api/v2/pokemon/charmander: fulfilled</span>
+          <span class="result">pikachu</span>
+          <span class="result">bulbasaur</span>
+          <span class="result">charmander</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Promise API" codeText="Promise.race">
+        <p class="chaptrSubSect__p">Similar a <code>Promise.all</code>, pero espera solamente por la primera respuesta y obtiene su resultado (o error).</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">pokemonNames</span> <span class="opera">=</span> <span class="warp">[<span class="args">'pikachu', 'bulbasaur', 'charmander'</span>]</span>;
+          <span class="key">let</span> <span class="var">requests</span> <span class="opera">=</span> <span class="obj">pokemonNames</span><span class="dot">.</span><span class="meth">map</span><span class="warp">(
+            <span class="var">name</span> <span class="warp2">=&gt;</span> <span class="func">fetch</span><span class="warp2">(<span class="args">`https://pokeapi.co/api/v2/pokemon/$&#123;<span class="var">name</span>&#125;`</span>)</span>
+          )</span>;
+
+          <span class="obj">Promise</span><span class="dot">.</span><span class="meth">race</span><span class="warp">(<span class="obj">requests</span>)</span>
+              <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="var">response</span> <span class="warp2">=&gt; &#123;     <span class="commnt">1</span>
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`$&#123;<span class="var">response</span><span class="dot">.</span><span class="objProp">url</span>&#125;: $&#123;<span class="var">response</span><span class="dot">.</span><span class="objProp">status</span>&#125;`</span>)</span>;
+                <span class="key">return</span> <span class="var">response</span><span class="dot">.</span><span class="meth">json</span><span class="warp">()</span> ;
+          &#125;</span>)</span>
+          <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="var">pokemon</span> <span class="warp2">=&gt;</span> <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="obj">pokemon</span><span class="dot">.</span><span class="objProp">name</span>)</span>)</span>      <span class="commnt">4</span>
+          <span class="dot">.</span><span class="meth">catch</span><span class="warp">(<span class="var">error</span> <span class="warp2">=&gt;</span> <span class="obj">console</span><span class="dot">.</span><span class="meth">error</span><span class="warp2">(<span class="args">'Error en la solicitud:', <span class="obj">error</span></span>)</span>)</span>;      <span class="commnt">5</span>
+
+          <span class="result">https://pokeapi.co/api/v2/pokemon/pikachu: 200</span>
+          <span class="result">pikachu</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Promise API" codeText="Promise.any">
+        <p class="chaptrSubSect__p">Similar a <code>Promise.race</code>, solo se resuelve cuando al menos una de las promesas se resuelve correctamente, ignorando cualquier promesa que falle. Si todas las promesas fallan, entonces devuelve un error</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">pokemonNames</span> <span class="opera">=</span> <span class="warp">[<span class="args">'pakachu', 'bulbasaur', 'charmander'</span>]</span>;
+          <span class="key">let</span> <span class="var">requests</span> <span class="opera">=</span> <span class="obj">pokemonNames</span><span class="dot">.</span><span class="meth">map</span><span class="warp">(
+            <span class="var">name</span> <span class="warp2">=&gt;</span> <span class="func">fetch</span><span class="warp2">(<span class="args">`https://pokeapi.co/api/v2/pokemon/$&#123;<span class="var">name</span>&#125;`</span>)</span>
+          )</span>;
+
+          <span class="obj">Promise</span><span class="dot">.</span><span class="meth">any</span><span class="warp">(<span class="obj">requests</span>)</span>
+              <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="var">response</span> <span class="warp2">=&gt; &#123;     <span class="commnt">1</span>
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`$&#123;<span class="var">response</span><span class="dot">.</span><span class="objProp">url</span>&#125;: $&#123;<span class="var">response</span><span class="dot">.</span><span class="objProp">status</span>&#125;`</span>)</span>;
+                <span class="key">return</span> <span class="var">response</span><span class="dot">.</span><span class="meth">json</span><span class="warp">()</span> ;
+          &#125;</span>)</span>
+          <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="var">pokemon</span> <span class="warp2">=&gt;</span> <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="obj">pokemon</span><span class="dot">.</span><span class="objProp">name</span>)</span>)</span>      <span class="commnt">4</span>
+          <span class="dot">.</span><span class="meth">catch</span><span class="warp">(<span class="var">error</span> <span class="warp2">=&gt;</span> <span class="obj">console</span><span class="dot">.</span><span class="meth">error</span><span class="warp2">(<span class="args">'Ninguna solicitud correcta:', <span class="obj">error</span></span>)</span>)</span>;      <span class="commnt">5</span>
+
+          <span class="result">https://pokeapi.co/api/v2/pokemon/bulbasaur: 200</span>
+          <span class="result">bulbasaur</span>
+          <span class="result">GET https://pokeapi.co/api/v2/pokemon/pakachu 404 (Not Found)</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>

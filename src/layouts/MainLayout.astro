@@ -1,0 +1,19 @@
+---
+import "@/styles/normalize.css"
+import "@/styles/fonts.css"
+import "@/styles/styles.css"
+import Head from "@/components/Head.astro"
+import HeaderMain from "@/components/HeaderMain.astro"
+
+---
+<html lang="es">
+  <Head slot="head" title="JavaScript desde cero" description="Curso de JavaScript desde cero desarrollado con Astro v4 por Iker Rodríguez Egidua"/>
+  <HeaderMain slot="mainHeader" />
+  <body>
+    <slot name="mainHeader" />
+    <main class="main">
+      <slot name="mainContent" />
+    </main>
+      <slot name="mainFooter" />
+	</body>
+</html>

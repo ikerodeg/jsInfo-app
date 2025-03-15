@@ -1,0 +1,8 @@
+---
+const { h3Title, codeText} = Astro.props
+---
+
+<section class="chaptrSect">
+  <h3 class="chaptrSect__h3">{h3Title} {codeText && <code>{codeText}</code>}</h3>
+  <slot />
+</section>

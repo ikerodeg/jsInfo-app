@@ -1,0 +1,153 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__32" h2Title="Otros temas" slot="mainContent">
+    <ChaptrSect h3Title="La función " codeText="eval">
+      <ChaptrSubSect h4Title="Definición" codeText="">
+        <p class="chaptrSubSect__p"><code>eval</code> es una función incorporada en JavaScript que permite ejecutar código representado como una cadena de texto, su sintaxis es</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·result = eval(·code);</pre>
+        <p class="chaptrSubSect__p">Esto es un ejemplo más claro</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·myCode = '/ºconsole.log("Hello Iker")º/';
+          eval(·myCode);
+          ⋗ ∞Hello Iker</pre>
+        <p class="chaptrSubSect__p">El resultado de eval es el resultado de la última sentencia</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·value = eval('/ºlet i = 0; ++iº/');
+          console.log(·value);
+          ⋗ ∞1</pre>
+        <p class="chaptrSubSect__p">El código evaluado es ejecutado en el entorno léxico presente, entonces podemos ver sus variables externas</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·a =  1;
+
+          function @f()&#123;
+            let ·a = 2;
+
+            eval('/º console.log(a) º/');
+          &#125;
+
+          @f();      ⋗ ∞2</pre>
+        <p class="chaptrSubSect__p">También puede modificar variables externas</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·x =  5;
+          eval('/º x = 10 º/');
+          console.log(·x);  ⋗ ∞10   /*valor modificado*/</pre>
+        <p class="chaptrSubSect__p">En programación moderna <code>eval</code> es usado muy ocasionalmente. Se suele decir que “eval is evil” – juego de palabras en inglés que significa en español: “eval es malvado”, es también considerado una  <mark>mala práctica</mark> de programación</p>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Currificación" codeText="">
+      <ChaptrSubSect h4Title="Definición" codeText="">
+        <p class="chaptrSubSect__p">La currificación es una transformación de funciones que traduce una función invocable como <code>f(a, b, c)</code> a invocable como <code>f(a)(b)(c)</code>, es decir, es una forma de reescribir funciones para que no reciban todos sus argumentos de golpe, sino uno a uno</p>
+        <pre class="chaptrSubSect__console wScript">
+          function @makePizza(•base, •sauce, •tooping)&#123;
+            return `Masa $&#123;•base&#125; con salsa $&#123;•sauce&#125; y $&#123;•tooping&#125;`;
+          &#125;;
+
+          /* función currificada */
+          function @makePizzaCurry(@makePizza)&#123;
+            return @function(•base)&#123;
+              return @function(•sauce)&#123;
+                return @function(•tooping)&#123;
+                  return  @makePizza(•base, •sauce, •tooping);
+                &#125;;
+              &#125;;
+            &#125;;
+          &#125;;
+
+          let ·curriedMakePizza = @makePizzaCurry(@makePizza);
+          console.log(@curriedMakePizza('fina')('tomate')('pepperoni'));
+          ⋗ ∞Masa fina con salsa de tomate y pepperoni
+        
+          /* o se puede usar paso a paso */
+          let ·pizzaBase = @curriedMakePizza('fina');
+          let ·pizzaSauce = @pizzaBase('tomate');
+          let ·pizzaFinal = @pizzaSauce('pepperoni');
+
+          console.log(@pizzaFinal);
+          ⋗ ∞Masa fina con salsa de tomate y pepperoni</pre>
+        <p class="chaptrSubSect__p">La currificación es más útil cuando necesitas modularidad y reutilización en tareas complejas, como filtrar, mapear o transformar datos. En casos simples (como construir una pizza), la versión normal es mejor porque no añade complejidad innecesaria</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·products = [
+            &#123; nombre: 'Camiseta', cat: 'Ropa', prec: ¬20, talla: 'M' &#125;,
+            &#123; nombre: 'Jersey', cat: 'Ropa', prec: ¬60, talla: 'M' &#125;,
+            &#123; nombre: 'Chaqueta', cat: 'Ropa', prec: ¬40, talla: 'L' &#125;,
+            &#123; nombre: 'Pantalón', cat: 'Ropa', prec: ¬90, talla: 'L' &#125;,
+            &#123; nombre: 'Bambas', cat: 'Calzado', prec: ¬120, talla: 'L' &#125;,
+            &#123; nombre: 'Botas', cat: 'Calzado', prec: ¬100, talla: 'L' &#125;,
+            &#123; nombre: 'Pantuflas', cat: 'Calzado', prec: ¬30, talla: 'M' &#125;,
+            &#123; nombre: 'Gorra', cat: 'Accesorios', prec: ¬15, talla: 'S' &#125;,
+            &#123; nombre: 'Cinturón', cat: 'Accesorios', prec: ¬10, talla: 'M' &#125;,
+          ];
+
+          /* Funcion que filtra productos */
+          function @filtrarProductos(•prods, •cat, •prec, •talla)&#123;
+            return •prods.@filter((•prod) =&gt;
+              (!•cat || •prod.•cat === •cat) &&
+              (!•prec || •prod.•prec &lt;= •prec) &&
+              (!•talla || •prod.•talla === •talla)
+            );
+          &#125;;
+
+          function @currying(@func)&#123;
+            return function @curried(...•args)&#123;
+              if (•args.length &gt;= @func.length)&#123;
+                return @func.@apply(this, •args);
+              &#125; else &#123;
+                return (...•nextArgs) =&gt; &#123;
+                  return @curried(...•args, ...•nextArgs);
+                &#125;
+              &#125;
+            &#125;;
+          &#125;;
+
+          const ·curriedFiltrarProductos = @curry(@filtrarProductos);
+
+          /* Filtro Base﹕ todos los productos */
+          const ·filtroBase = @curriedFiltrarProductos(·products);
+
+          /* Filtro Categoria﹕  Ropa */
+          const ·filtroByCat = @filtroBase('Ropa');
+
+          /* Filtro Precio﹕ Max 90 */
+          const ·filtroByPrec = @filtroByCat(¬90);
+
+          /* Filtro Talla﹕ L */
+          const ·filtroByTalla = @filtroByPrec('L');
+
+          console.log(@filtroByTalla);
+          ⋗ ﹛nombre﹕ Chaqueta, cat﹕Ropa, prec﹕40, talla﹕L﹜
+             ﹛nombre﹕ Pantalón, cat﹕Ropa, prec﹕90, talla﹕L﹜
+          
+          /* Llamada directa con currificación */
+          console.log(
+            @curriedFiltrarProductos(·products)('Accesorios')(¬40)('M');
+          );
+          ⋗ ﹛nombre﹕ Cinturón, cat﹕Accesorios, prec﹕10, talla﹕M﹜</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>
+
+<!-- 
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+•parametro
+·variable
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+
+
+-->

@@ -1,0 +1,845 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__11" h2Title="Arrays" slot="mainContent">
+    <ChaptrSect h3Title="Creación de arrays" codeText="">
+      <ChaptrSubSect h4Title="Notación corchetes" codeText="[]">
+        <p class="chaptrSubSect__p">Es la forma <mark>recomendada</mark></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[ <span class="nums">1, 2, 3, 4, 5</span> ];</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Contructor de arrays" codeText="new">
+        <p class="chaptrSubSect__p">Se utiliza para crear instancias de arrays, no es <mark>nada recomendable</mark>. Los únicos usos serían crear un array vacio con un tamaño específico, y crear un array dinámicamente</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Creado dinámicamente</span>
+          <span class="key">let</span> <span class="var">arrWithContent</span> <span class="opera">=</span> <span class="key">new</span> <span class="obj">Array</span><span class="warp">(<span class="nums">5, 4, 3, 2, 1</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">arrWithContent</span>)</span>;
+          <span class="result">[5, 4, 3, 2, 1]</span>
+
+          <span class="commnt">Array vacio con x posiciones</span>
+          <span class="key">let</span> <span class="var">arrWithSize</span> <span class="opera">=</span> <span class="key">new</span> <span class="obj">Array</span><span class="warp">(<span class="nums">5</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">arrWithSize</span>)</span>;
+          <span class="result">[ &lt;5 empty items&gt; ]</span>
+        
+          <span class="var">arrWithSize</span><span class="dot">.</span><span class="meth">fill</span><span class="warp">(<span class="args">'💡'</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">arrWithSize</span>)</span>;
+          <span class="result">[<span class="args">'💡', '💡', '💡', '💡', '💡'</span>]</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Acceso a elementos" codeText="[]">
+      <ChaptrSubSect h4Title="Notación corchetes" codeText="[]">
+        <p class="chaptrSubSect__p">Poniendo la posición que ocupa en el array entre corchetes</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span><span class="warp">[<span class="nums">0</span>]</span>)</span>;
+          <span class="result">'kiwi'</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span><span class="warp">[<span class="nums">2</span>]</span>)</span>;
+          <span class="result">'uva'</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Agregar elementos" codeText="">
+      <ChaptrSubSect h4Title="Notación de corchete" codeText="[]">
+        <p class="chaptrSubSect__p">Agrega elementos poniendo la posición entre corchetes. <mark>Mejor performance</mark> de todos porque no desplaza elementos ni otra operación.</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
+          <span class="var">fruits</span><span class="warp">[<span class="nums">3</span>]</span> <span class="opera">=</span> <span class="args">'pera'</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
+          <span class="result">'kiwi', 'piña', 'uva', 'pera'</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".push()">
+        <p class="chaptrSubSect__p">Agrega elementos <mark>al final</mark> del array. Tiene la segunda mejor performance porque solo añade al final sin desplazar ningun otro</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
+          <span class="var">fruits</span><span class="dot">.</span><span class="meth">push</span><span class="warp">(<span class="args">'pera'</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
+          <span class="result">'kiwi', 'piña', 'uva', 'pera'</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".unshift()">
+        <p class="chaptrSubSect__p">Agrega elementos <mark>al principio</mark> del array. Tercera mejor performance porque al agregar al inicio tiene que desplazar todos los elementos hacia el final</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
+          <span class="var">fruits</span><span class="dot">.</span><span class="meth">unshift</span><span class="warp">(<span class="args">'pera'</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
+          <span class="result">'kiwi', 'piña', 'uva', 'pera'</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".splice()">
+        <p class="chaptrSubSect__p">Agrega un elemento en una posición dada. <mark>Peor performance</mark> de todos porque implica multiples operaciones: mover elementos, ajustar tamaño, etc</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
+          <span class="var">fruits</span><span class="dot">.</span><span class="meth">splice</span><span class="warp">(<span class="nums">2, 0, </span><span class="args">'🍏'</span>)</span>;
+          <span class="commnt">(start, deleteCount, ...items)</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
+          <span class="result">'kiwi', 'piña', '🍏', 'uva'</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Sustituir elementos" codeText="">
+      <ChaptrSubSect h4Title="Notación de corchete" codeText="[]">
+        <p class="chaptrSubSect__p">Sustituye elementos poniendo la posición entre corchetes</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
+          <span class="var">fruits</span><span class="warp">[<span class="nums">1</span>]</span> <span class="opera">=</span> <span class="args">'🍍'</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
+          <span class="result">'kiwi', '🍍', 'uva'</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".splice()">
+        <p class="chaptrSubSect__p">Sustituye un elemento en una posición dada</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
+          <span class="var">fruits</span><span class="dot">.</span><span class="meth">splice</span><span class="warp">(<span class="nums">0, 1, </span><span class="args">'🥝'</span>)</span>;
+          <span class="commnt">(start, deleteCount, ...items)</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
+          <span class="result">'🥝', 'piña', 'uva'</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Eliminar elementos" codeText="">
+      <ChaptrSubSect h4Title="El método" codeText=".pop()">
+        <p class="chaptrSubSect__p">Extrae un elemento del final y lo devuelve</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
+          <span class="key">let</span> <span class="var">extracted</span> <span class="opera">=</span> <span class="var">fruits</span><span class="dot">.</span><span class="meth">pop</span><span class="warp">()</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
+          <span class="result">'kiwi', 'piña'</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">extracted</span>)</span>;
+          <span class="result">'uva'</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".shift()">
+        <p class="chaptrSubSect__p">Extrae un elemento del inicio y lo devuelve</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
+          <span class="key">let</span> <span class="var">extracted</span> <span class="opera">=</span> <span class="var">fruits</span><span class="dot">.</span><span class="meth">shift</span><span class="warp">()</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
+          <span class="result">'piña', 'uva'</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">extracted</span>)</span>;
+          <span class="result">'kiwi'</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".splice()">
+        <p class="chaptrSubSect__p">Elimina un elemento (y su posición) en una posición dada</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
+          <span class="key">let</span> <span class="var">extracted</span> <span class="opera">=</span> <span class="var">fruits</span><span class="dot">.</span><span class="meth">splice</span><span class="warp">(<span class="nums">1, 1</span>)</span>;
+          <span class="commnt">(start, deleteCount, ...items)</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
+          <span class="result">'kiwi', 'uva'</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">extracted</span>)</span>;
+          <span class="result">'piña'</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="La orden" codeText="delete">
+        <p class="chaptrSubSect__p">Borra el valor, dejandolo vacio, pero el espacio del elemento todavía sigue y pasa a ser <code>undefined</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'kiwi', 'piña', 'uva'</span>]</span>;
+          <span class="key">delete</span> <span class="var">fruits</span><span class="warp">[<span class="nums">1</span>]</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
+          <span class="result">(3) ['kiwi', vacío, 'uva']</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Buscar elementos" codeText="">
+      <ChaptrSubSect h4Title="El método" codeText=".find()">
+        <p class="chaptrSubSect__p">Busca el primer elemento en un array que cumpla con una condición específica, y lo retorna</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Sintaxis</span>
+          <span class="obj">Array</span><span class="dot">.</span><span class="meth">find</span><span class="warp">(<span class="func">callback</span><span class="warp">(<span class="params">element, index*, array*</span>), <span class="params">this*</span></span>)</span>;
+
+          <span class="commnt">Ejemplo</span>
+          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">8567, 4321, 7432, 5555</span>]</span>;
+          <span class="key">let</span> <span class="var">resultado</span> <span class="opera">=</span> <span class="var">numbers</span><span class="dot">.</span><span class="meth">find</span><span class="warp">(<span class="params">num</span> <span class="opera">=&gt;</span> <span class="params">num</span> <span class="opera">%</span> <span class="nums">2</span> <span class="opera">===</span> <span class="nums">0</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">resultado</span>)</span>;
+          <span class="result">7432</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".includes()">
+        <p class="chaptrSubSect__p">Determina si un array contiene un elemento específico, devolviendo un valor booleano</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Sintaxis</span>
+          <span class="obj">Array</span><span class="dot">.</span><span class="meth">includes</span><span class="warp">(<span class="params">element, fromIndex*</span>)</span>;
+
+          <span class="commnt">Ejemplo</span>
+          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">8567, 4321, 7432, 5555</span>]</span>;
+          <span class="key">let</span> <span class="var">resultado</span> <span class="opera">=</span> <span class="var">numbers</span><span class="dot">.</span><span class="meth">includes</span><span class="warp">(<span class="nums">4321</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">resultado</span>)</span>;
+          <span class="result">true</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Buscar posición de un elemento" codeText="">
+      <ChaptrSubSect h4Title="El método" codeText=".indexOf()">
+        <p class="chaptrSubSect__p">Obtiene el índice de la primera aparición de un elemento y lo retorna, o <code>-1</code> si el elemento no se encuentra. Este método usa igualdad estricta</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Sintaxis</span>
+          <span class="obj">Array</span><span class="dot">.</span><span class="meth">indexOf</span><span class="warp">(<span class="params">element, fromIndex*</span>)</span>;
+
+          <span class="commnt">Ejemplo</span>
+          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'🥝', '🍏', '🍍', '🍌', '🍉'</span>]</span>;
+          <span class="key">let</span> <span class="var">fruitIndex</span> <span class="opera">=</span> <span class="var">fruits</span><span class="dot">.</span><span class="meth">indexOf</span><span class="warp">(<span class="args">'🍌'</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruitIndex</span>)</span>;
+          <span class="result">3</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".lastIndexOf()">
+        <p class="chaptrSubSect__p">Obtiene el índice de la última aparición de un elemento y lo  retorna, o <code>-1</code> si el elemento no se encuentra</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Sintaxis</span>
+          <span class="obj">Array</span><span class="dot">.</span><span class="meth">lastIndexOf</span><span class="warp">(<span class="params">element, fromIndex*</span>)</span>;
+
+          <span class="commnt">Ejemplo</span>
+          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'🍉', '🍏', '🍉', '🍌', '🍉'</span>]</span>;
+          <span class="key">let</span> <span class="var">fruitIndex</span> <span class="opera">=</span> <span class="var">fruits</span><span class="dot">.</span><span class="meth">lastIndexOf</span><span class="warp">(<span class="args">'🍉'</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruitIndex</span>)</span>;
+          <span class="result">4</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".findIndexOf()">
+        <p class="chaptrSubSect__p">Obtiene el indice del primer elemento de un array que satisface una condición proporcionada en forma de una función de prueba o callback</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Sintaxis</span>
+          <span class="obj">Array</span><span class="dot">.</span><span class="meth">findIndexOf</span><span class="warp">(<span class="func">callback</span><span class="warp">(<span class="params">element, index*, array*</span>) <span class="params">this*</span></span>;
+
+          <span class="commnt">Ejemplo</span>
+          <span class="key">let</span> <span class="var">nums</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 3, 6, 7, 9, 10</span>]</span>;
+          <span class="key">let</span> <span class="var">coincidence</span> <span class="opera">=</span> <span class="var">nums</span><span class="dot">.</span><span class="meth">findIndex</span><span class="warp">(<span class="var">nums</span> <span class="opera">=&gt;</span> <span class="var">nums</span> <span class="opera">%</span> <span class="nums">2</span> <span class="opera">===</span> <span class="nums">0</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">coincidence</span>)</span>;
+          <span class="result">2</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Longitud de un array" codeText="">
+      <ChaptrSubSect h4Title="El método" codeText=".length">
+        <p class="chaptrSubSect__p">Devuelve la cantidad de elementos en un array. La cuenta total de elementos en el array es su longitud, no su index</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'🥝', '🍏', '🍍', '🍌', '🍉'</span>]</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span><span class="dot">.</span><span class="meth">length</span>)</span>;
+          <span class="result">5</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Info de un Array" codeText="">
+      <ChaptrSubSect h4Title="La orden" codeText=".typeof">
+        <p class="chaptrSubSect__p"><b>NO</b> ayuda a distinguir un objeto de un array</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'🥝', '🍏', '🍍', '🍌', '🍉'</span>]</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="key">typeof</span> <span class="var">fruits</span>)</span>;
+          <span class="result">'object'</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText="Array.isArray()">
+        <p class="chaptrSubSect__p">Devuelve <code>true</code> si el valor es un array y <code>false</code> si no lo es</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'🥝', '🍏', '🍍', '🍌', '🍉'</span>]</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Array</span><span class="dot">.</span><span class="meth">isArray</span><span class="warp">(<span class="var">fruits</span>)</span>)</span>;
+          <span class="result">true</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".constructor.name()">
+        <p class="chaptrSubSect__p">Nos dice realmente que tipo es, <mark>el recomendado</mark></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'🥝', '🍏', '🍍', '🍌', '🍉'</span>]</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span><span class="dot">.</span><span class="obj">constructor</span><span class="dot">.</span><span class="meth">name</span>)</span>;
+          <span class="result">'Array'</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Vaciar/truncar un array" codeText="">
+      <ChaptrSubSect h4Title="Truncar array con" codeText=".length">
+        <p class="chaptrSubSect__p">Si la incrementamos manualmente, se añaden elementos vacios. Si la decrementamos, el array se trunca</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
+          <span class="var">numbers</span><span class="dot">.</span><span class="meth">length</span> <span class="opera">=</span> <span class="nums">2</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">numbers</span>)</span>;
+          <span class="result">[1, 2]</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Vaciar array con" codeText=".length">
+        <p class="chaptrSubSect__p">La forma más simple de limpiar un array es igualar a <code>0</code> la propiedad <code>length</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
+          <span class="var">numbers</span><span class="dot">.</span><span class="meth">length</span> <span class="opera">=</span> <span class="nums">0</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">numbers</span>)</span>;
+          <span class="result">[]</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Unir/combinar arrays" codeText="">
+      <ChaptrSubSect h4Title="El método" codeText=".concat()">
+        <p class="chaptrSubSect__p">Combina dos o más arrays en uno nuevo. No muta los arrays originales</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">ceroAlDos</span> <span class="opera">=</span> <span class="warp">[<span class="nums">0, 1, 2</span>]</span>;
+          <span class="key">let</span> <span class="var">tresAlCinco</span> <span class="opera">=</span> <span class="warp">[<span class="nums">3, 4, 5</span>]</span>;
+          <span class="key">let</span> <span class="var">seisAlOcho</span> <span class="opera">=</span> <span class="warp">[<span class="nums">6, 7, 8</span>]</span>;
+          <span class="key">let</span> <span class="var">ceroAlOcho</span> <span class="opera">=</span> <span class="var">ceroAlDos</span><span class="dot">.</span><span class="meth">concat</span><span class="warp">(<span class="var">tresAlCinco</span>, <span class="var">seisAlOcho</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">ceroAlOcho</span>)</span>;
+          <span class="result">[0, 1, 2, 3, 4, 5, 6, 7, 8]</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El operador" codeText="...spread">
+        <p class="chaptrSubSect__p">Combina dos o más arrays en uno nuevo. No muta los arrays originales</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">ceroAlDos</span> <span class="opera">=</span> <span class="warp">[<span class="nums">0, 1, 2</span>]</span>;
+          <span class="key">let</span> <span class="var">tresAlCinco</span> <span class="opera">=</span> <span class="warp">[<span class="nums">3, 4, 5</span>]</span>;
+          <span class="key">let</span> <span class="var">seisAlOcho</span> <span class="opera">=</span> <span class="warp">[<span class="nums">6, 7, 8</span>]</span>;
+          <span class="key">let</span> <span class="var">ceroAlOcho</span> <span class="opera">=</span> <span class="warp">[<span class="opera">...</span><span class="var">ceroAlDos</span>, <span class="opera">...</span><span class="var">tresAlCinco</span>, <span class="opera">...</span><span class="var">seisAlOcho</span>]</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">ceroAlOcho</span>)</span>;
+          <span class="result">[0, 1, 2, 3, 4, 5, 6, 7, 8]</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Ordenar array" codeText="">
+      <ChaptrSubSect h4Title="El método" codeText=".sort()">
+        <p class="chaptrSubSect__p">Se utiliza para ordenar los elementos de un array. Este método <mark>modifica</mark> el array. Por defecto, ordena los elementos del array como cadenas de texto en orden alfabético ascendente</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">De mayor a menor</span>
+          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">5, 3, 1, 4, 2</span>]</span>;
+          <span class="var">numbers</span><span class="dot">.</span><span class="meth">sort</span><span class="warp">()</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">numbers</span>)</span>;
+          <span class="result">[1, 2, 3, 4, 5]</span>
+        
+          <span class="commnt">De menor a mayor</span>
+          <span class="var">numbers</span><span class="dot">.</span><span class="meth">sort</span><span class="warp">((<span class="params">a, b</span>) <span class="opera">=&gt;</span> <span class="params">b <span class="opera">-</span> a</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">numbers</span>)</span>;
+          <span class="result">[5, 4, 3, 2, 1]</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Invertir array" codeText="">
+      <ChaptrSubSect h4Title="El método" codeText=".reverse()">
+        <p class="chaptrSubSect__p">Este método <mark>invierte</mark> (sólo le da la vuelta) los elementos en el array original. Lo <mark>muta</mark> pero <mark>no lo ordena</mark></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">nums</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
+          <span class="var">nums</span><span class="dot">.</span><span class="meth">reverse</span><span class="warp">()</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">nums</span>)</span>;
+          <span class="result">[5, 4, 3, 2, 1]</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Métodos de array" codeText="">
+      <ChaptrSubSect h4Title="El método" codeText=".filter()">
+        <p class="chaptrSubSect__p">Devuelve un array filtrando elementos que cumplan con una cierta condición</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
+          <span class="key">let</span> <span class="var">mayoresTres</span> <span class="opera">=</span> <span class="var">numbers</span><span class="dot">.</span><span class="meth">filter</span><span class="warp">(<span class="params">num</span> <span class="opera">=&gt;</span> <span class="params">num</span> <span class="opera">&gt;</span> <span class="nums">3</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">mayoresTres</span>)</span>;
+          <span class="result">[4, 5]</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".map()">
+        <p class="chaptrSubSect__p"><mark>Opera</mark> sobre cada elemento del array existente y ejecuta una función callback para cada uno. Devuelve un array con los elementos encontrados que cumplen la condición</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="var">numbers</span><span class="dot">.</span><span class="meth">map</span><span class="warp">(<span class="params">num</span> <span class="opera">=&gt;</span> <span class="params">num</span> <span class="opera">*</span> <span class="nums">10</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+          <span class="result">[10, 20, 30, 40, 50]</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".reduce()">
+        <p class="chaptrSubSect__p">Se utiliza para reducir los elementos de un array a un solo valor. Este método toma una función callback como primer argumento y un valor inicial como segundo argumento</p>
+        <p class="chaptrSubSect__p">Según dos conocidos ingenieros de Google, <mark>evita usar</mark> <code>reduce</code>. Tiene poca legibilidad y mala performance</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Sintaxis</span>
+          <span class="obj">Array</span><span class="dot">.</span><span class="meth">reduce</span><span class="warp">(<span class="func">callback</span>(
+          (<span class="params">acumu, actualValue, index, arrayOrigin</span>), <span class="params">acumuStart</span>)</span>;
+
+          <span class="commnt">Ejemplo</span>
+          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="var">numbers</span><span class="dot">.</span><span class="meth">reduce</span><span class="warp">((
+            <span class="params">acumu, actualValue</span>) <span class="opera">=&gt;</span> <span class="params">acumu</span> <span class="opera">+</span> <span class="params">actualValue</span>;
+          )</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+          <span class="result">15</span></pre>
+        <p class="chaptrSubSect__p"><code>acumu</code> = Es el valor acumulado durante el proceso, comienza siendo el primer elemento del array</p>
+        <p class="chaptrSubSect__p"><code>actualValue</code> = Es el valor actual del array que se está procesando</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Primera iteración:
+            acumu = 1 (primer elemento del array)
+            actualValue = 2 (segundo elemento del array)
+            Operación= 1 + 2 = 3
+            Nuevo valor de acumu = 3
+
+            Segunda iteración:
+            acumu = 3 (resultado de la primera iteración)
+            actualValue = 3 (tercer elemento del array)
+            Operación= 3 + 3 = 6
+            Nuevo valor de acumu = 6
+
+            Tercera iteración:
+            acumu = 6 (resultado de la segunda iteración)
+            actualValue = 4 (cuarto elemento del array)
+            Operación= 6 + 4 = 10
+            Nuevo valor de acumu = 10
+
+            Cuarta iteración:
+            acumu = 10 (resultado de la tercera iteración)
+            actualValue = 5 (cuarto elemento del array)
+            Operación= 10 + 5 = 10
+            Nuevo valor de acumu = 15
+
+            Resultado final = 15</span></pre>
+        <p class="chaptrSubSect__p">Recomendado usar en: Suma, producto o reducción a un solo valor, contar elementos cumpliendo una condicion, agrupación de datos, aplanar arrays anidados</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".every()">
+        <p class="chaptrSubSect__p">Verifica si <mark>todos</mark> los elementos de un array cumplen una condición determinada. Si <mark>todos</mark> los elementos pasan la prueba <mark>retorna</mark> <code>true</code>, si algún elemento no pasa la prueba detiene la ejecución y <mark>retorna</mark> <code>false</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Sintaxis</span>
+          <span class="obj">Array</span><span class="dot">.</span><span class="meth">every</span><span class="warp">(<span class="func">callback</span>(
+          (<span class="params">element, index*, arrayOrigin*</span>), <span class="params">this*</span>)</span>;
+
+          <span class="commnt">Ejemplo</span>
+          <span class="key">let</span> <span class="var">colors</span> <span class="opera">=</span> <span class="warp">[<span class="args">'red', 'green', 'blue', 'white'</span>]</span>;
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="var">colors</span><span class="dot">.</span><span class="meth">every</span><span class="warp">(<span class="params">element</span> <span class="opera">=&gt;</span> <span class="params">element</span><span class="dot">.</span><span class="meth">length</span> <span class="opera">&gt;</span> <span class="nums">2</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+          <span class="result">true</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".some()">
+        <p class="chaptrSubSect__p">Verifica si al menos <mark>uno</mark> de los elementos del array cumple con la condición especificada en la función de callback que se pasa como argumento</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Sintaxis</span>
+          <span class="obj">Array</span><span class="dot">.</span><span class="meth">every</span><span class="warp">(<span class="func">callback</span>(
+          (<span class="params">element, index*, arrayOrigin*</span>), <span class="params">this*</span>)</span>;
+
+          <span class="commnt">Ejemplo</span>
+          <span class="key">let</span> <span class="var">colors</span> <span class="opera">=</span> <span class="warp">[<span class="args">'red', 'green', 'blue', 'white'</span>]</span>;
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="var">colors</span><span class="dot">.</span><span class="meth">some</span><span class="warp">(<span class="params">element</span> <span class="opera">=&gt;</span> <span class="params">element</span> <span class="opera">===</span> <span class="args">'blue'</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+          <span class="result">true</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".fill()">
+        <p class="chaptrSubSect__p">Es utilizado para llenar todos los elementos de un array con un valor estático desde una posición de inicio hasta una posición de fin especificada. Este método <mark>modifica</mark> el array original</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Sintaxis</span>
+          <span class="obj">Array</span><span class="dot">.</span><span class="meth">fill</span><span class="warp">(<span class="params">newValue, start*, end*</span>)</span>;
+
+          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
+          <span class="var">numbers</span><span class="dot">.</span><span class="meth">fill</span><span class="warp">(<span class="args">'👑'</span>, <span class="nums">1, 4</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">numbers</span>)</span>;
+          <span class="result">[1, '👑', '👑', '👑', 5]</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".copyWithin()">
+        <p class="chaptrSubSect__p">Copia una parte de un array a otra ubicación dentro del mismo array, sin modificar su tamaño. Esto significa que toma elementos de un rango del array y los pega en otra posición dentro del mismo array, sobrescribiendo los elementos existentes. Este método no agrega ni elimina elementos del array, simplemente cambia sus posiciones</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Sintaxis</span>
+          <span class="obj">Array</span><span class="dot">.</span><span class="meth">copyWithin</span><span class="warp">(<span class="params">target, start*, end*</span>)</span>;
+
+          <span class="key">let</span> <span class="var">vocals</span> <span class="opera">=</span> <span class="warp">[<span class="args">'a', 'e', 'i', 'o', 'u'</span>]</span>;
+          <span class="var">vocals</span><span class="dot">.</span><span class="meth">copyWithin</span><span class="warp">(<span class="nums">2, 0, 2</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">vocals</span>)</span>;
+          <span class="result">['a', 'e', 'a', 'e', 'u']</span>
+          
+          <span class="commnt">Empieza a pegar desde la posicion 2 incluida = i</span>
+          <span class="commnt">Empieza a copiar desde la posicion 0 incluida = a</span>
+          <span class="commnt">Termina de copiar desde la posicion 2 no incluida = e</span>
+        </pre>
+        <p class="chaptrSubSect__p">El <code>target</code> es el indice donde comienza a pegar</p>
+        <p class="chaptrSubSect__p">El <code>start</code> es el indice desde el que empieza a copiar</p>
+        <p class="chaptrSubSect__p">El <code>end</code> es el indice hasta el que copia <mark>no incluido</mark></p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".flat()">
+        <p class="chaptrSubSect__p">Se utiliza para aplanar arrays anidados. Este método crea una nueva matriz con todos los elementos de sub-array concatenados en ella de manera recursiva hasta la profundidad especificada</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Sintaxis</span>
+          <span class="obj">Array</span><span class="dot">.</span><span class="meth">flat</span><span class="warp">(<span class="params">depth</span>*)</span>;
+
+          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[</span><span class="nums">1, 2, <span class="warp">[</span>3, 4, <span class="warp">[</span>5, 6</span><span class="warp">]]]</span>;
+          <span class="key">let</span> <span class="var">plainNumbers</span> <span class="opera">=</span> <span class="var">numbers</span><span class="dot">.</span><span class="meth">flat</span><span class="warp">(<span class="key">Infinity</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">plainNumbers</span>)</span>;
+          <span class="result">[1, 2, 3, 4, 5]</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".flatMap()">
+        <p class="chaptrSubSect__p">Es una combinación de los métodos <code>map()</code> y <code>flat()</code>. Este método se utiliza para aplanar un array a un nivel de profundidad y luego aplicar una función a cada elemento del array aplanado. Es equivalente a ejecutar primero <code>map()</code> y luego <code>flat()</code> de <mark>profundidad 1</mark> en un array, pero es ligeramente más eficiente que llamar a estos dos métodos por separado</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Sintaxis</span>
+          <span class="obj">Array</span><span class="dot">.</span><span class="meth">flatMap</span><span class="warp">(<span class="func">callback</span><span class="warp">(<span class="params">element, index*, array*</span>)</span>, <span class="params">this*</span>)</span>;
+
+          <span class="key">let</span> <span class="var">prizes</span> <span class="opera">=</span> <span class="warp">[<span class="nums">250, 340, <span class="warp">[</span>560</span>]]</span></span>;
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="var">prizes</span><span class="dot">.</span><span class="meth">flatMap</span><span class="warp">(<span class="params">element</span> <span class="opera">=&gt;</span> <span class="params">element</span> <span class="opera">+</span> <span class="args">'€'</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+          <span class="result">['250€', '340€', '560€']</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".Array.from()">
+        <p class="chaptrSubSect__p">Crea un Array a partir de un <mark><b>objeto iterable o similar a un array</b></mark>. Este método es muy útil cuando se necesita convertir datos que no son un array (como un conjunto de nodos del DOM o una cadena de texto) en un array</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">cadena</span> <span class="opera">=</span> <span class="args">'olaqase'</span>;
+          <span class="key">const</span> <span class="var">cadenaToArray</span> <span class="opera">=</span> <span class="obj">Array</span><span class="dot">.</span><span class="meth">from</span><span class="warp">(<span class="var">cadena</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">cadenaToArray</span>)</span>;
+          <span class="result">['o', 'l', 'a', 'q', 'a', 's', 'e']</span>
+        
+          <span class="key">const</span> <span class="var">$allDivs</span> <span class="opera">=</span> <span class="obj">document</span><span class="dot">.</span><span class="meth">querySelectorAll</span><span class="warp">(<span class="args">'div'</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">$allDivs</span>)</span>;
+          <span class="result">[div.box-1, div.box-2, div.box-3]</span> <span class="commnt">(Objeto arrayLike)</span>
+
+          <span class="key">const</span> <span class="var">$allDivsToArray</span> <span class="opera">=</span> <span class="obj">Array</span><span class="dot">.</span><span class="meth">from</span><span class="warp">(<span class="var">$allDivs</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">$allDivsToArray</span>)</span>;
+          <span class="result">['div.box-1', 'div.box-2', 'div.box-3']</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".Array.of()">
+        <p class="chaptrSubSect__p">Se utiliza para crear un nuevo arreglo con una cantidad variable de elementos, independientemente de su tipo</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">str</span> <span class="opera">=</span> <span class="args">'Hola'</span>;
+          <span class="key">const</span> <span class="var">num</span> <span class="opera">=</span> <span class="nums">5</span>;
+          <span class="key">const</span> <span class="var">char</span> <span class="opera">=</span> <span class="args">'$'</span>;
+          <span class="key">const</span> <span class="var">bool</span> <span class="opera">=</span> <span class="args">true</span>;
+          <span class="key">const</span> <span class="var">empt</span> <span class="opera">=</span> <span class="args">null</span>;
+
+          <span class="key">const</span> <span class="var">newArr</span> <span class="opera">=</span> <span class="obj">Array</span><span class="dot">.</span><span class="meth">of</span><span class="warp">(<span class="var">str, num, char, bool, empt</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">newArr</span>)</span>;
+          <span class="result">['Hola', 5, '$', true, null]</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".keys()">
+        <p class="chaptrSubSect__p">Devuelve un nuevo objeto <mark>iterador</mark> de Array que contiene las claves para cada índice en el array</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'apple', 'kiwi', 'orange', 'banana'</span>]</span>;
+
+          <span class="key">const</span> <span class="var">newIterator</span> <span class="opera">=</span> <span class="var">fruits</span><span class="dot">.</span><span class="meth">keys</span><span class="warp">()</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">newIterator</span>)</span>;
+          <span class="result">Object [Array Iterator] &#123__proto__: &#123 next: ƒ next() &#125&#125</span>
+        
+          <span class="key">const</span> <span class="var">newArray</span> <span class="opera">=</span> <span class="var">Array</span><span class="dot">.</span><span class="meth">from</span><span class="warp">(<span class="var">newIterator</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">newArray</span>)</span>;
+          <span class="result">[0, 1, 2, 3]</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".values()">
+        <p class="chaptrSubSect__p">Devuelve un nuevo objeto <mark>iterador</mark> de Array que contiene los valores para cada índice en el array. Este método es útil cuando quieres convertir un objeto iterable en un array para poder usar los métodos de array en él. Por ejemplo, si tienes un objeto <mark>NodeList</mark></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'apple', 'kiwi', 'orange', 'banana'</span>]</span>;
+
+          <span class="key">const</span> <span class="var">newIterator</span> <span class="opera">=</span> <span class="var">fruits</span><span class="dot">.</span><span class="meth">values</span><span class="warp">()</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">newIterator</span>)</span>;
+          <span class="result">Object [Array Iterator] &#123__proto__: &#123 next: ƒ next() &#125&#125</span>
+        
+          <span class="key">const</span> <span class="var">newArray</span> <span class="opera">=</span> <span class="var">Array</span><span class="dot">.</span><span class="meth">from</span><span class="warp">(<span class="var">newIterator</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">newArray</span>)</span>;
+          <span class="result">['apple', 'kiwi', 'orange', 'banana']</span>
+
+          <span class="commnt">Modo abreviado</span>
+          <span class="key">const</span> <span class="var">newArray</span> <span class="opera">=</span> <span class="var">Array</span><span class="dot">.</span><span class="meth">from</span><span class="warp">(<span class="var">fruits</span><span class="dot">.</span><span class="meth">values</span><span class="warp">()</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">newArray</span>)</span>;
+          <span class="result">['apple', 'kiwi', 'orange', 'banana']</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".entries()">
+        <p class="chaptrSubSect__p">Devuelve un nuevo objeto <mark>iterador</mark> de Array que contiene pares clave/valor para cada índice en el array. En otras palabras, genera un array de arrays, donde cada array interno tiene dos elementos: el primer elemento es el índice y el segundo elemento es el valor en ese índice</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'apple', 'kiwi', 'orange', 'banana'</span>]</span>;
+
+          <span class="key">const</span> <span class="var">newIterator</span> <span class="opera">=</span> <span class="var">fruits</span><span class="dot">.</span><span class="meth">entries</span><span class="warp">()</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">newIterator</span>)</span>;
+          <span class="result">Object [Array Iterator] &#123__proto__: &#123 next: ƒ next() &#125&#125</span>
+        
+          <span class="key">const</span> <span class="var">newArray</span> <span class="opera">=</span> <span class="var">Array</span><span class="dot">.</span><span class="meth">from</span><span class="warp">(<span class="var">newIterator</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">newArray</span>)</span>;
+          <span class="result">[[0, 'apple'], [1, 'kiwi'], [2, 'orange'], [3, 'banana']]</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Bucles de array" codeText="">
+      <ChaptrSubSect h4Title="El bucle" codeText=".forEach()">
+        <p class="chaptrSubSect__p">Itera sobre cada elemento del array existente y ejecuta una función para cada uno. A diferencia de <code>map()</code> o <code>filter()</code>, <code>forEach()</code> <mark>no devuelve un nuevo arreglo</mark> ni modifica el arreglo original, y tampoco pueden ser usadas las sentencias <code>break</code> o <code>return</code>. Sólo sirve para mostrar el resultado no para asignarlo a una variable por ejemplo</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
+
+          <span class="var">numbers</span><span class="dot">.</span><span class="meth">forEach</span><span class="warp">(<span class="params">num</span> <span class="opera">⇒</span> &#123
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">num</span> <span class="opera">*</span> <span class="nums">2</span>)</span>;
+          &#125)</span>;
+
+          <span class="result">2 4 6 8 10</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El bucle" codeText="while()">
+        <p class="chaptrSubSect__p">Es especialmente útil cuando no sabes cuántas veces necesitas que se ejecute el ciclo. Puedes usarlo cuando estás esperando a que se complete una acción específica, como esperar a que un usuario ingrese información válida</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">num</span> <span class="opera">=</span> <span class="nums">5</span>;
+
+          <span class="key">while</span> <span class="warp">(<span class="var">num</span> <span class="opera">&lt;</span> <span class="num">10</span>) &#123;
+            <span class="var">num</span><span class="opera">++</span>;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">num</span>)</span>;
+          &#125;</span>;
+
+          <span class="result">6 7 8 9</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El bucle" codeText="for()">
+        <p class="chaptrSubSect__p">Es recomendable usarlo cuando conocemos la cantidad de veces que queremos que se ejecute un bloque de código. Es especialmente útil para recorrer arrays y objetos, realizar operaciones repetitivas un número específico de veces, o cuando necesitamos un contador dentro del bucle</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
+
+          <span class="key">for</span> <span class="warp">(<span class="key">let</span> <span class="params">index</span> <span class="opera">=</span> <span class="nums">0</span>; <span class="params">index</span> <span class="opera">&lt;</span> <span class="var">numbers</span><span class="dot">.</span><span class="meth">length</span>; <span class="params">index</span> <span class="opera">++</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">numbers</span><span class="warp">[<span class="params">index</span>]</span>)</span>;
+          &#125;</span>;
+
+          <span class="result">1 2 3 4 5</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El bucle" codeText="for(of)">
+        <p class="chaptrSubSect__p">Se recomienda usar cuando necesitas trabajar con los valores de un objeto iterable, como un array o una cadena, y no te importa el índice de los elementos. Este ciclo es más sencillo y legible cuando no necesitas trabajar con el índice, a diferencia del ciclo <code>for()</code> tradicional o el método <code>forEach()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
+
+          <span class="key">for</span> <span class="warp">(<span class="params">number</span> <span class="key">of</span> <span class="var">numbers</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">number</span>)</span>;
+          &#125;</span>;
+
+          <span class="result">1 2 3 4 5</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Conversión a" codeText="String">
+      <ChaptrSubSect h4Title="El método" codeText=".join()">
+        <p class="chaptrSubSect__p">Se utiliza para unir todos los elementos de un array en una sola cadena de texto. Por defecto, separa los elementos con comas. Sin embargo, puedes especificar un separador diferente pasándolo como argumento al método</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">presentacionArr</span> <span class="opera">=</span> <span class="warp">['Me', 'llamo', 'Eder']</span>;
+          <span class="key">let</span> <span class="var">myNewString</span> <span class="opera">=</span> <span class="var">presentacionArr</span><span class="dot">.</span><span class="meth">join</span><span class="warp">(' ')</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myNewString</span>)</span>;
+          <span class="result">'Me llamo Eder'</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="key">typeof</span> <span class="var">myNewString</span>)</span>;
+          <span class="result">String</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="La función" codeText="String()">
+        <p class="chaptrSubSect__p">Los arrays tienen su propia implementación del método <code>String()</code> que devuelve un lista de elementos separados por coma</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">presentacionArr</span> <span class="opera">=</span> <span class="warp">['Me', 'llamo', 'Eder']</span>;
+          <span class="key">let</span> <span class="var">myNewString</span> <span class="opera">=</span> <span class="func">String</span><span class="warp">(<span class="var">presentacionArr</span>)</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myNewString</span>)</span>;
+          <span class="result">'Me,llamo,Eder'</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="key">typeof</span> <span class="var">myNewString</span>)</span>;
+          <span class="result">String</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".toString()">
+        <p class="chaptrSubSect__p">Convierte un array en una cadena lista de elementos separados por coma</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">presentacionArr</span> <span class="opera">=</span> <span class="warp">['Me', 'llamo', 'Eder']</span>;
+          <span class="key">let</span> <span class="var">myNewString</span> <span class="opera">=</span> <span class="var">presentacionArr</span><span class="dot">.</span><span class="meth">toString</span><span class="warp">()</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myNewString</span>)</span>;
+          <span class="result">'Me,llamo,Eder'</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="key">typeof</span> <span class="var">myNewString</span>)</span>;
+          <span class="result">String</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".toLocaleString()">
+        <p class="chaptrSubSect__p">Se utiliza para convertir un array en una cadena de texto, utilizando las convenciones de formato de la localización</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">presentacionArr</span> <span class="opera">=</span> <span class="warp">['Me', 'llamo', 'Eder']</span>;
+          <span class="key">let</span> <span class="var">myNewString</span> <span class="opera">=</span> <span class="var">presentacionArr</span><span class="dot">.</span><span class="meth">toLocaleString</span><span class="warp">('es-ES')</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">myNewString</span>)</span>;
+          <span class="result">'Me,llamo,Eder'</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="key">typeof</span> <span class="var">myNewString</span>)</span>;
+          <span class="result">String</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Comparación de arrays" codeText="">
+      <ChaptrSubSect h4Title="Los métodos" codeText="short() + every()">
+        <p class="chaptrSubSect__p">Para comparar arrays de <mark>elementos primitivos</mark> (números, cadenas de texto, etc.)</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myArr1</span> <span class="opera">=</span> <span class="warp">[<span class="args">'uno', <span class="nums">1</span>, 'dos', <span class="nums">2</span>, <span class="key">true</span></span>]</span>;
+          <span class="key">let</span> <span class="var">myArr2</span> <span class="opera">=</span> <span class="warp">[<span class="args"><span class="key">true</span>, <span class="nums">2</span>, 'dos', <span class="nums">1</span>, 'uno'</span>]</span>;
+
+          <span class="key">function</span> <span class="func">comparaArr</span><span class="warp">(<span class="params">array1, array2</span>) &#123;</span>
+              <span class="commnt">Ordenamos los arrays</span>
+              <span class="params">array1</span><span class="dot">.</span><span class="meth">sort</span><span class="warp">()</span>;
+              <span class="params">array2</span><span class="dot">.</span><span class="meth">sort</span><span class="warp">()</span>;
+
+              <span class="commnt">Comprobamos longitud</span>
+              <span class="key">if</span> <span class="warp">(<span class="params">array1</span><span class="dot">.</span><span class="meth">length</span> <span class="opera">≢</span> <span class="params">array2</span><span class="dot">.</span><span class="meth">length</span>) &#123;</span>
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Los arrays NO tienen la misma longitud'</span>);
+                <span class="key">return</span>;
+              &#125;</span>;
+
+              <span class="commnt">Comprobamos cada elemento en cada posicion</span>
+              <span class="key">let</span> <span class="var">sonIguales</span> <span class="opera">=</span> <span class="params">array1</span><span class="dot">.</span><span class="meth">every</span><span class="warp">((<span class="params">element, index</span>) <span class="opera">⇒</span> &#123;</span>
+                <span class="key">let</span> <span class="var">igualdad <span class="opera">=</span> <span class="params">element</span> <span class="opera">≡</span> <span class="params">array2</span><span class="warp">[<span class="params">index</span>]</span></span>;
+                <span class="commnt">Si es true lo almacenara en "igualdad"</span> 
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(
+                  <span class="args">`Posición $&#123;<span class="params">index</span>&#125;: $&#123;<span class="params">element</span>&#125; <span class="opera">≡</span> $&#123;<span class="params">array2<span class="warp">[<span class="params">index</span>]</span></span>&#125; <span class="opera">⇒</span> 
+                $&#123;<span class="var">igualdad</span> <span class="opera">?</span> 'true' <span class="opera">:</span> 'false'&#125;`</span>
+                )</span>;
+                <span class="commnt">Si igualdad es true devuelve lo primero,
+                //Si no, devuelve lo segundo</span>
+                <span class="key">return</span> <span class="var">igualdad</span>;
+              <span class="warp">&#125;)</span></span>;
+
+              <span class="key">if</span> <span class="warp">(<span class="var">sonIguales</span>) &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span>(<span class="args">'Misma longitud y elementos!'</span>);
+              &#125;;
+              
+            &#125;</span>;
+
+          <span class="func">comparaArr</span><span class="warp">(<span class="var">myArr1, myArr2</span>)</span>;  
+          <span class="result">Posición 0: 1 === 1 ⇒ true
+            Posición 1: 2 === 2 ⇒ true
+            Posición 2: dos === dos ⇒ true
+            Posición 3: true === true ⇒ true
+            Posición 4: uno === uno ⇒ true
+            Misma longitud y elementos!</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText="JSON.stringify()">
+        <p class="chaptrSubSect__p">Para comparar arrays de <mark>elementos primitivos</mark> (números, cadenas de texto, etc.)</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myArr1</span> <span class="opera">=</span> <span class="warp">[<span class="args">'uno', <span class="nums">1</span>, 'dos', <span class="nums">2</span>, <span class="key">true</span></span>]</span>;
+          <span class="key">let</span> <span class="var">myArr2</span> <span class="opera">=</span> <span class="warp">[<span class="args"><span class="key">true</span>, <span class="nums">2</span>, 'dos', <span class="nums">1</span>, 'uno'</span>]</span>;
+
+          <span class="key">function</span> <span class="func">comparaArr</span><span class="warp">(<span class="params">array1, array2</span>) &#123;</span>
+              <span class="commnt">Ordenamos los arrays</span>
+              <span class="params">array1</span><span class="dot">.</span><span class="meth">sort</span><span class="warp">()</span>;
+              <span class="params">array2</span><span class="dot">.</span><span class="meth">sort</span><span class="warp">()</span>;
+
+              <span class="key">if</span> <span class="warp">(<span class="obj">JSON</span><span class="dot">.</span><span class="meth">stringify</span>(<span class="params">array1</span>) <span class="opera">===</span> <span class="obj">JSON</span><span class="dot">.</span><span class="meth">stringify</span>(<span class="params">array2</span>)) &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Son iguales'</span>)</span>;
+              &#125; <span class="key">else</span> &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'No son iguales'</span>)</span>;
+              &#125;
+            &#125;</span>;
+
+          <span class="func">comparaArr</span><span class="warp">(<span class="var">myArr1, myArr2</span>)</span>;  
+          <span class="result">Son iguales</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Iterando el array con" codeText="for()">
+        <p class="chaptrSubSect__p">Para comparar arrays de <mark>elementos primitivos</mark> (números, cadenas de texto, etc.)</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myArr1</span> <span class="opera">=</span> <span class="warp">[<span class="args">'uno', <span class="nums">1</span>, 'dos', <span class="nums">2</span>, <span class="key">true</span></span>]</span>;
+          <span class="key">let</span> <span class="var">myArr2</span> <span class="opera">=</span> <span class="warp">[<span class="args"><span class="key">true</span>, <span class="nums">2</span>, 'dos', <span class="nums">1</span>, 'uno'</span>]</span>;
+
+          <span class="key">function</span> <span class="func">comparaArr</span><span class="warp">(<span class="params">array1, array2</span>) &#123;</span>
+              <span class="commnt">Ordenamos los arrays</span>
+              <span class="params">array1</span><span class="dot">.</span><span class="meth">sort</span><span class="warp">()</span>;
+              <span class="params">array2</span><span class="dot">.</span><span class="meth">sort</span><span class="warp">()</span>;
+
+              <span class="commnt">Comprobamos longitud</span>
+              <span class="key">if</span> <span class="warp">(<span class="params">array1</span><span class="dot">.</span><span class="meth">length</span> <span class="opera">≢</span> <span class="params">array2</span><span class="dot">.</span><span class="meth">length</span>) &#123;</span>
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Los arrays NO tienen la misma longitud'</span>);
+                <span class="key">return</span>;
+              &#125;</span>;
+
+              <span class="commnt">Comprobamos cada elemento en cada posicion</span>
+              <span class="key">for</span> <span class="warp">(<span class="key">let</span> <span class="params">index</span> <span class="opera">=</span> <span class="nums">0</span>; <span class="params">index</span> <span class="opera">&lt;</span> <span class="params">array1</span><span class="dot">.</span><span class="meth">length</span>; <span class="params">index</span><span class="opera">++</span>) &#123;</span>
+                <span class="key">if</span><span class="warp">(<span class="params">array1</span>[<span class="params">index</span>] <span class="opera">!==</span> <span class="params">array2</span>[<span class="params">index</span>]) &#123;</span>
+                  <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'En la posición $&#123;<span class="params">index</span>&#125; no coinciden'</span>)</span>;
+                  <span class="key">return</span>;
+                <span class="warp">&#125;;
+              &#125;</span></span>;
+
+              <span class="commnt">Si llegamos aquí, todos los elementos son iguales</span>
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Misma longitud y elementos!'</span>);
+            &#125;</span>;
+
+          <span class="func">comparaArr</span><span class="warp">(<span class="var">myArr1, myArr2</span>)</span>;  
+          <span class="result">Misma longitud y elementos!</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Copia de arrays" codeText="">
+      <ChaptrSubSect h4Title="Con el método" codeText=".slice()">
+        <p class="chaptrSubSect__p">Se utiliza para seleccionar una parte de un array y devolverla como un nuevo array. Este método <mark>no modifica el original</mark></p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Sintaxis</span>
+          <span class="var">Array</span><span class="dot">.</span><span class="meth">slice</span><span class="warp">(<span class="params">inicio, fin</span>)</span>;
+
+          <span class="commnt">Ejemplo</span>
+          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="var">numbers</span><span class="dot">.</span><span class="meth">slice</span><span class="warp">(<span class="nums">3</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>
+          <span class="result">[4, 5]</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Con el operador" codeText="...spread">
+        <p class="chaptrSubSect__p">Para copiar un array <mark>plano</mark> podemos usar el <code>spread</code> operator</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">colors</span> <span class="opera">=</span> <span class="warp">[<span class="args">'red', 'blue', 'green'</span>]</span>;
+          <span class="key">const</span> <span class="var">copyColors</span> <span class="opera">=</span> <span class="warp">[<span class="dot">...</span><span class="var">colors</span>]</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">copyColors</span>)</span>
+          <span class="result">['red', 'blue', 'green']</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Con el método" codeText=".concat()">
+        <p class="chaptrSubSect__p">Para copiar un array <mark>plano</mark></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">colors</span> <span class="opera">=</span> <span class="warp">[<span class="args">'red', 'blue', 'green'</span>]</span>;
+          <span class="key">const</span> <span class="var">copyColors</span> <span class="opera">=</span> <span class="warp">[]</span><span class="dot">.</span><span class="warp">(<span class="var">colors</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">copyColors</span>)</span>
+          <span class="result">['red', 'blue', 'green']</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Con el método" codeText="Array.from()">
+        <p class="chaptrSubSect__p">Para copiar un array <mark>plano</mark></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">colors</span> <span class="opera">=</span> <span class="warp">[<span class="args">'red', 'blue', 'green'</span>]</span>;
+          <span class="key">const</span> <span class="var">copyColors</span> <span class="opera">=</span> <span class="obj">Array</span><span class="dot">.</span><span class="meth">from</span><span class="warp">(<span class="var">colors</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">copyColors</span>)</span>
+          <span class="result">['red', 'blue', 'green']</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Con los métodos" codeText="JSON.parse() + JSON.stringify()">
+        <p class="chaptrSubSect__p">Para hacer una copia <mark>profunda</mark> de una array</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">colors</span> <span class="opera">=</span> <span class="warp">[<span class="args">'red', 'blue', 'green'</span>]</span>;
+          <span class="key">const</span> <span class="var">copyColors</span> <span class="opera">=</span> <span class="obj">JSON</span><span class="dot">.</span><span class="meth">parse</span><span class="warp">(<span class="obj">JSON</span><span class="dot">.</span><span class="meth">stringify</span><span class="warp">(<span class="var">colors</span>)</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">copyColors</span>)</span>
+          <span class="result">['red', 'blue', 'green']</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Con el operador" codeText="structuredClone()">
+        <p class="chaptrSubSect__p">Para hacer una copia <mark>profunda</mark> y así no romper la referencia del original</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">colors</span> <span class="opera">=</span> <span class="warp">[<span class="args">'red', 'blue', 'green'</span>]</span>;
+          <span class="key">const</span> <span class="var">copyColors</span> <span class="opera">=</span> <span class="func">structuredClone</span><span class="warp">(<span class="var">colors</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">copyColors</span>)</span>
+          <span class="result">['red', 'blue', 'green']</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Destructuring de arrays" codeText="">
+      <ChaptrSubSect h4Title="Asignación desestructurante" codeText="">
+        <p class="chaptrSubSect__p">La asignación desestructurante es una sintaxis especial que nos permite “desempaquetar” arrays u objetos en varias variables, porque a veces es más conveniente</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myArr</span> <span class="opera">=</span> <span class="warp">['Eder', 'Rod'];
+          <span class="key">let</span> [<span class="var">firstName, surName</span>]</span> <span class="opera">=</span> <span class="var">myArr</span>;
+          <span class="commnt">firstName = myArr[0]</span>
+          <span class="commnt">surName = myArr[1]</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">firstName</span>)</span>;  
+          <span class="result">'Eder'</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">surName</span>)</span>;    
+          <span class="result">'Rod'</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El parámetro" codeText="...rest">
+        <p class="chaptrSubSect__p">En general, si el array es mayor que la lista de la izquierda, los ítems extras son omitidos, si queremos también obtener todo lo que sigue, podemos agregarle un parámetro que obtiene “el resto” usando puntos suspensivos <code>…</code> con lo que se guardará en la variable <code>rest</code> un array con los valores que "restan"</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> [<span class="var">one, two, <span class="dot">...</span><span class="key">rest</span></span>]</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">one</span>)</span>;  
+          <span class="result">1</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">two</span>)</span>;    
+          <span class="result">2</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">rest</span>)</span>;    
+          <span class="result">[3, 4, 5]</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">rest</span><span class="warp">[<span class="nums">2</span>]</span>)</span>;    
+          <span class="result">5</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Valores predeterminados" codeText="">
+        <p class="chaptrSubSect__p">Si queremos un valor “predeterminado” para reemplazar el valor faltante, podemos proporcionarlo utilizando <code>=</code>. Los valores predeterminados pueden ser expresiones más complejas e incluso llamadas a función, que serán evaluadas sólo si el valor no ha sido proporcionado</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> [<span class="var">name, surname <span class="opera">=</span> <span class="args">'Nieve'</span></span>]</span> <span class="opera">=</span> <span class="warp">[<span class="args">'Éder', 'Rod'</span>]</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">name</span>)</span>;  
+          <span class="result">'Éder'</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">surname</span>)</span>;    
+          <span class="result">Rod</span>
+
+          <span class="key">let</span> [<span class="var">name, surname <span class="opera">=</span> <span class="args">'Nieve'</span></span>]</span> <span class="opera">=</span> <span class="warp">[<span class="args">'Iker'</span>]</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">name</span>)</span>;  
+          <span class="result">'Iker'</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">surname</span>)</span>;    
+          <span class="result">Nieve</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>

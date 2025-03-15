@@ -1,0 +1,292 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+
+  <LssnArt artClass="lssn__29" h2Title="Generadores & Iteracción" slot="mainContent">
+    <ChaptrSect h3Title="Generadores" codeText="">
+      <ChaptrSubSect h4Title="Funciones generadoras" codeText="">
+        <p class="chaptrSubSect__p">Las funciones generadoras en JavaScript son funciones especiales que permiten pausar y reanudar su ejecución, devolviendo valores intermedios en el proceso. Esto es útil cuando queremos producir una serie de valores bajo demanda, sin generar todos a la vez, como una secuencia infinita de números o un flujo de datos que llega en partes</p>
+        <p class="chaptrSubSect__p">Una función generadora se define con el símbolo <code>*</code> después de la palabra <code>function</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span><span class="opera">*</span> <span class="func">generatorName</span><span class="warp">() &#123;
+            <span class="commnt">cuerpo de la función</span>
+          &#125;</span>;</pre>
+        <p class="chaptrSubSect__p">Dentro de estas funciones, utilizamos la palabra clave <code>yield</code> en lugar de <code>return</code> para devolver <mark>valores intermedios</mark>. Cada vez que la función "cede" un valor con <code>yield</code>, su ejecución se pausa en ese punto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span><span class="opera">*</span> <span class="func">generatorSequence</span><span class="warp">() &#123;
+            <span class="key">yield</span> <span class="nums">1</span>;
+            <span class="key">yield</span> <span class="nums">2</span>;
+            <span class="key">return</span> <span class="nums">3</span>;
+          &#125;</span>;
+        
+          <span class="key">let</span> <span class="var">generator</span> <span class="opera">=</span> <span class="func">generatorSequence</span><span class="warp">()</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">generator</span>)</span>;    <span class="result">[object Generator]</span></pre>
+        <p class="chaptrSubSect__p">Cuando se invoca una función de este tipo, no ejecuta su código, sino que devuelve un objeto especial, llamado <mark>objeto generador</mark>, para gestionar la ejecución</p>
+        <p class="chaptrSubSect__p">El método principal de un generador es <code>next()</code>. Cuando se lo llama, ejecuta la ejecución hasta el <code>&lt;value&gt; yield</code> más cercano. Luego, la ejecución de la función se detiene y el <code>&lt;value&gt;</code> obtenido se devuelve al código externo</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span><span class="opera">*</span> <span class="func">generatorSequence</span><span class="warp">() &#123;
+            <span class="key">yield</span> <span class="nums">1</span>;
+            <span class="key">yield</span> <span class="nums">2</span>;
+            <span class="key">return</span> <span class="nums">3</span>;
+          &#125;</span>;
+        
+          <span class="key">let</span> <span class="var">generator</span> <span class="opera">=</span> <span class="func">generatorSequence</span><span class="warp">()</span>;
+
+          <span class="key">let</span> <span class="var">one</span> <span class="opera">=</span> <span class="var">generator</span><span class="dot">.</span><span class="meth">next</span><span class="warp2">()</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">one</span>)</span>;    <span class="result">&#123;value: 1, done: false&#125;</span>
+
+          <span class="key">let</span> <span class="var">two</span> <span class="opera">=</span> <span class="var">generator</span><span class="dot">.</span><span class="meth">next</span><span class="warp2">()</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">two</span>)</span>;    <span class="result">&#123;value: 2, done: false&#125;</span>
+          
+          <span class="key">let</span> <span class="var">three</span> <span class="opera">=</span> <span class="var">generator</span><span class="dot">.</span><span class="meth">next</span><span class="warp2">()</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">three</span>)</span>;    <span class="result">&#123;value: 3, done: true&#125;</span></pre>
+        <p class="chaptrSubSect__p">Si querriamos acceder directamente al valor usariamos <code>generator.next().value</code></p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Generadores son iterables" codeText="">
+        <p class="chaptrSubSect__p">Podemos recorrer sus valores usando <code>for..of</code> que es mucho más cómodo que usar <code>generator.next().value</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span><span class="opera">*</span> <span class="func">generatorSequence</span><span class="warp">() &#123;
+            <span class="key">yield</span> <span class="nums">1</span>;
+            <span class="key">yield</span> <span class="nums">2</span>;
+            <span class="key">return</span> <span class="nums">3</span>;
+          &#125;</span>;
+        
+          <span class="key">let</span> <span class="var">generator</span> <span class="opera">=</span> <span class="func">generatorSequence</span><span class="warp">()</span>;
+
+          <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="var">value</span> <span class="key">of</span> <span class="var">generator</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">value</span>)</span>;
+          &#125;</span>
+
+          <span class="result">1</span>
+          <span class="result">2</span></pre>
+        <p class="chaptrSubSect__p">Pero hay un problema, no muestra <code>3</code>, esto se debe a que <code>for..of</code> ignora el último <code>value</code>, cuando <code>done: true</code>. Por lo tanto, si queremos que todos los resultados se muestren con <code>for..of</code>, debemos devolverlos con <mark>todos</mark> con <code>yield</code></p>
+        <p class="chaptrSubSect__p">Como los generadores son iterables, podemos llamar a todas las funciones relacionadas, por ejemplo, la sintaxis de propagación <code>...</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span><span class="opera">*</span> <span class="func">generatorSequence</span><span class="warp">() &#123;
+            <span class="key">yield</span> <span class="nums">1</span>;
+            <span class="key">yield</span> <span class="nums">2</span>;
+            <span class="key">yield</span> <span class="nums">3</span>;
+          &#125;</span>;
+        
+          <span class="key">let</span> <span class="var">sequence</span> <span class="opera">=</span> [<span class="nums">0</span>, ...<span class="func">generatorSequence</span><span class="warp">()</span>];
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">sequence</span>)</span>;
+          <span class="result">[0, 1, 2, 3]</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Generador para iterables" codeText="">
+        <p class="chaptrSubSect__p">En otra lección creamos un objeto iterable <code>range</code> que retornaba values <code>from..to</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">range</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">from</span>: <span class="nums">1</span>,
+            <span class="objProp">to</span>: <span class="nums">5</span>,
+
+            <span class="warp2">[<span class="obj">Symbol</span><span class="dot">.</span><span class="meth">iterator</span>]() &#123;
+              <span class="key">return</span> <span class="warp">&#123;
+                  <span class="objProp">current</span>: <span class="key">this</span><span class="dot">.</span><span class="objProp">from</span>,
+                  <span class="objProp">last</span>: <span class="key">this</span><span class="dot">.</span><span class="objProp">to</span>,
+
+                  <span class="func">next</span><span class="warp2">() &#123;
+                      <span class="func">if</span><span class="warp">(<span class="key">this</span><span class="dot">.</span><span class="objProp">current</span> <span class="opera">&lt;=</span> <span class="key">this</span><span class="dot">.</span><span class="objProp">last</span>)&#123;
+                          <span class="key">return</span> <span class="warp2">&#123;<span class="objProp">done</span>: <span class="key">false</span>, <span class="objProp">value</span>: <span class="key">this</span><span class="dot">.</span><span class="objProp">current</span><span class="opera">++</span>&#125;</span>;
+                      &#125;</span> <span class="func">else</span> <span class="warp">&#123;
+                          <span class="key">return</span> <span class="warp2">&#123;<span class="objProp">done</span>: <span class="key">true</span>&#125;</span>;
+                      &#125;</span>
+                    &#125;</span>
+                &#125;</span>
+            &#125;</span>
+          &#125;</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="warp2">[<span class="dot">...</span><span class="var">range</span>]</span>)</span>;
+          <span class="result">[1, 2, 3, 4, 5]</span></pre>
+        <p class="chaptrSubSect__p">Podemos utilizar una función generadora para la iteración proporcionándola como <code>Symbol.iterator</code>. Este es el mismo range, pero mucho más compacto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">range</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">from</span>: <span class="nums">1</span>,
+            <span class="objProp">to</span>: <span class="nums">5</span>,
+
+            <span class="opera">*</span><span class="warp2">[<span class="obj">Symbol</span><span class="dot">.</span><span class="meth">iterator</span>]() &#123;
+              <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="params">value</span> <span class="opera">=</span> <span class="key">this</span><span class="dot">.</span><span class="objProp">from</span>; <span class="params">value</span> <span class="opera">&lt;=</span> <span class="key">this</span><span class="dot">.</span><span class="objProp">to</span>; <span class="params">value</span><span class="opera">++</span>) &#123;
+                <span class="key">yield</span> <span class="params">value</span>;
+              &#125;</span>
+            &#125;</span>
+          &#125;</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="warp2">[<span class="dot">...</span><span class="var">range</span>]</span>)</span>;
+          <span class="result">[1, 2, 3, 4, 5]</span></pre>
+        <p class="chaptrSubSect__p">Eso funciona, porque <code>range[Symbol.iterator]()</code> ahora devuelve un <mark>generador</mark>, y los métodos de generador son exactamente lo que espera <code>for..of</code>; tiene un método <code>.next()</code>, que devuelve valores en la forma <code>&#123;value: ..., done: true/false&#125;</code></p>
+        <p class="chaptrSubSect__p">La variante con un generador es mucho más concisa que el código iterable original, y mantiene la misma funcionalidad.</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Composición del generador" codeText="">
+        <p class="chaptrSubSect__p">La composición del generador es una característica especial de los generadores que permite “incrustar” generadores entre sí de forma transparente</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span><span class="opera">*</span> <span class="func">genSeq</span><span class="warp">(<span class="params">start, end</span>) &#123;
+            <span class="func">for</span><span class="warp2">(<span class="key">let</span> <span class="var">i</span> <span class="opera">=</span> <span class="params">start</span>; <span class="var">i</span> <span class="opera">&lt;=</span> <span class="params">end</span>; <span class="var">i</span><span class="opera">++</span>) &#123;
+              <span class="key">yield</span> <span class="var">i</span>;
+            &#125;</span>
+          &#125;</span>;</pre>
+        <p class="chaptrSubSect__p">Ahora nos gustaría reutilizarlo para generar una secuencia más compleja</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Primero, dígitos 0..9 (con códigos de caracteres 48…57)</li>
+          <li class="chaptrSubSectUl__li">Seguido de letras mayúsculas del alfabeto A..Z (códigos de caracteres 65…90)</li>
+          <li class="chaptrSubSectUl__li">Seguido de letras del alfabeto en minúscula a..z (códigos de carácter 97…122)</li>
+        </ul>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span><span class="opera">*</span> <span class="func">genSeq</span><span class="warp">(<span class="params">start, end</span>) &#123;
+            <span class="func">for</span><span class="warp2">(<span class="key">let</span> <span class="var">i</span> <span class="opera">=</span> <span class="params">start</span>; <span class="var">i</span> <span class="opera">&lt;=</span> <span class="params">end</span>; <span class="var">i</span><span class="opera">++</span>) &#123;
+              <span class="key">yield</span> <span class="var">i</span>;
+            &#125;</span>
+          &#125;</span>;
+
+          <span class="key">function</span><span class="opera">*</span> <span class="func">genPassCodes</span><span class="warp">() &#123;
+            <span class="key">yield</span><span class="opera">*</span> <span class="func">genSeq</span><span class="warp2">(<span class="nums">48, 57</span>)</span>;
+            <span class="key">yield</span><span class="opera">*</span> <span class="func">genSeq</span><span class="warp2">(<span class="nums">65, 90</span>)</span>;
+            <span class="key">yield</span><span class="opera">*</span> <span class="func">genSeq</span><span class="warp2">(<span class="nums">97, 122</span>)</span>;
+          &#125;</span>;
+
+          <span class="key">let</span> <span class="var">str</span> <span class="opera">=</span> <span class="args">''</span>;
+
+          <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="var">code</span> <span class="key">of</span> <span class="func">genPassCodes</span><span class="warp2">()</span>) &#123;
+            <span class="var">str</span> <span class="opera">+=</span> <span class="obj">String</span><span class="dot">.</span><span class="meth">fromCharCode</span><span class="warp">(<span class="var">code</span>)</span>;
+          &#125;</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">str</span>)</span>;
+          <span class="result">0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</span></pre>
+        <p class="chaptrSubSect__p">El resultado es el mismo que si insertamos el código de los generadores anidados</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span><span class="opera">*</span> <span class="func">genSeq</span><span class="warp">(<span class="params">start, end</span>) &#123;
+            <span class="func">for</span><span class="warp2">(<span class="key">let</span> <span class="var">i</span> <span class="opera">=</span> <span class="params">start</span>; <span class="var">i</span> <span class="opera">&lt;=</span> <span class="params">end</span>; <span class="var">i</span><span class="opera">++</span>) &#123;
+              <span class="key">yield</span> <span class="var">i</span>;
+            &#125;</span>
+          &#125;</span>;
+
+          <span class="key">function</span><span class="opera">*</span> <span class="func">generateAlphaNum</span><span class="warp">() &#123;
+            <span class="func">for</span><span class="warp2">(<span class="key">let</span> <span class="var">i</span> <span class="opera">=</span> <span class="nums">48</span>; <span class="var">i</span> <span class="opera">&lt;=</span> <span class="nums">57</span>; <span class="var">i</span><span class="opera">++</span>)</span> <span class="key">yield</span> <span class="var">i</span>;
+            <span class="func">for</span><span class="warp2">(<span class="key">let</span> <span class="var">i</span> <span class="opera">=</span> <span class="nums">65</span>; <span class="var">i</span> <span class="opera">&lt;=</span> <span class="nums">90</span>; <span class="var">i</span><span class="opera">++</span>)</span> <span class="key">yield</span> <span class="var">i</span>;
+            <span class="func">for</span><span class="warp2">(<span class="key">let</span> <span class="var">i</span> <span class="opera">=</span> <span class="nums">97</span>; <span class="var">i</span> <span class="opera">&lt;=</span> <span class="nums">122</span>; <span class="var">i</span><span class="opera">++</span>)</span> <span class="key">yield</span> <span class="var">i</span>;
+          &#125;</span>;
+
+          <span class="key">let</span> <span class="var">str</span> <span class="opera">=</span> <span class="args">''</span>;
+
+          <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="var">code</span> <span class="key">of</span> <span class="func">generateAlphaNum</span><span class="warp2">()</span>) &#123;
+            <span class="var">str</span> <span class="opera">+=</span> <span class="obj">String</span><span class="dot">.</span><span class="meth">fromCharCode</span><span class="warp">(<span class="var">code</span>)</span>;
+          &#125;</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">str</span>)</span>;
+          <span class="result">0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Doble sentido" codeText="yield">
+        <p class="chaptrSubSect__p">No solo devuelve el resultado al exterior, sino que también puede pasar el valor dentro del generador. Para hacerlo, deberíamos llamar a <code>generator.next (arg)</code>, con un argumento. Ese argumento se convierte en el resultado de <code>yield</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span><span class="opera">*</span> <span class="func">gen</span><span class="warp">() &#123;
+            <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="key">yield</span> <span class="args">'2 + 2 = ? '</span>;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="var">result</span>)</span>;
+          &#125;</span>;
+
+          <span class="key">let</span> <span class="obj">generator</span> <span class="opera">=</span> <span class="func">gen</span><span class="warp">()</span>;
+          <span class="key">let</span> <span class="var">question</span> <span class="opera">=</span> <span class="obj">generator</span><span class="dot">.</span><span class="meth">next</span><span class="warp">()</span><span class="dot">.</span><span class="objProp">value</span>;
+          <span class="obj">generator</span><span class="dot">.</span><span class="meth">next</span><span class="warp">(<span class="nums">4</span>)</span>;  <span class="result">4</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Iter/Gen async" codeText="">
+      <ChaptrSubSect h4Title="Iteradores asíncronos" codeText="">
+        <p class="chaptrSubSect__p">La iteración asincrónica es necesaria cuando los valores vienen asincrónicamente: después de setTimeout u otra clase de retraso. El caso más común es un objeto que necesita hacer un pedido sobre la red para enviar el siguiente valor</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Usa <code>Symbol.asyncIterator</code> en lugar de <code>Symbol.iterator</code>.</li>
+          <li class="chaptrSubSectUl__li">El método <code>next()</code> debe devolver una promesa (a ser cumplida con el siguiente valor) y la palabra clave <code>async</code> lo maneja, nosotros simplemente hacemos <code>async next()</code>.</li>
+          <li class="chaptrSubSectUl__li">Para iterar sobre tal objeto, debemos usar un bucle <code>for await (let item of iterable)</code>.</li>
+        </ul>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">range</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">from</span>: <span class="nums">1</span>,
+            <span class="objProp">to</span>: <span class="nums">5</span>,
+
+            <span class="warp2">[<span class="obj">Symbol</span><span class="dot">.</span><span class="meth">asyncIterator</span>]() &#123;
+              <span class="key">return</span> <span class="warp">&#123;
+                  <span class="objProp">current</span>: <span class="key">this</span><span class="dot">.</span><span class="objProp">from</span>,
+                  <span class="objProp">last</span>: <span class="key">this</span><span class="dot">.</span><span class="objProp">to</span>,
+
+                  <span class="key">async </span><span class="func">next</span><span class="warp2">() &#123;
+                      <span class="key">await new</span> <span class="func">Promise</span><span class="warp2">(<span class="params">resolve</span> =&gt; <span class="func">setTimeout</span><span class="warp">(<span class="params">resolve</span>, <span class="nums">1000</span>)</span>)</span>;
+
+                      <span class="func">if</span><span class="warp">(<span class="key">this</span><span class="dot">.</span><span class="objProp">current</span> <span class="opera">&lt;=</span> <span class="key">this</span><span class="dot">.</span><span class="objProp">last</span>)&#123;
+                          <span class="key">return</span> <span class="warp2">&#123;<span class="objProp">done</span>: <span class="key">false</span>, <span class="objProp">value</span>: <span class="key">this</span><span class="dot">.</span><span class="objProp">current</span><span class="opera">++</span>&#125;</span>;
+                      &#125;</span> <span class="func">else</span> <span class="warp">&#123;
+                          <span class="key">return</span> <span class="warp2">&#123;<span class="objProp">done</span>: <span class="key">true</span>&#125;</span>;
+                      &#125;</span>
+                    &#125;</span>
+                &#125;</span>;
+            &#125;</span>
+          &#125;</span>;
+
+          <span class="warp">(<span class="key">async</span> <span class="warp2">() =&gt; &#123;
+            <span class="func">for</span> <span class="key">await</span> <span class="warp2">(<span class="key">let</span> <span class="params">value</span> <span class="key">of</span> <span class="obj">range</span>) &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">value</span>)</span>;
+            &#125;</span>
+          &#125;</span>)()</span>
+
+          <span class="result">1 2 3 4 5</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Generadores asíncronos" codeText="">
+        <p class="chaptrSubSect__p">Cuando queremos hacer un objeto que genere una secuencia de valores asincrónicamente, podemos usar un generador asincrónico. La sintaxis es simple,  anteponga <code>async</code> a <code>function*</code>. Esto hace al generador asincrónico, y entonce usamos <code>for await (...)</code> para iterarlo</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">async function*</span> <span class="func">genSeq</span><span class="warp">(<span class="params">start, end</span>) &#123;
+            <span class="func">for</span><span class="warp2">(<span class="key">let</span> <span class="var">i</span> <span class="opera">=</span> <span class="params">start</span>; <span class="var">i</span> <span class="opera">&lt;=</span> <span class="params">end</span>; <span class="var">i</span><span class="opera">++</span>) &#123;
+              <span class="key">await new</span> <span class="func">Promise</span><span class="warp">(<span class="params">resolve</span> =&gt; <span class="func">setTimeout</span><span class="warp2">(<span class="params">resolve</span>, <span class="nums">1000</span>)</span>)</span>;
+              <span class="key">yield</span> <span class="var">i</span>;
+            &#125;</span>
+          &#125;</span>;
+
+          <span class="warp">(<span class="key">async</span> <span class="warp2">() =&gt; &#123;
+            <span class="key">let</span> <span class="obj">generator</span> <span class="opera">=</span> <span class="func">genSeq</span><span class="warp">(<span class="nums">1, 5</span>)</span>;
+            <span class="func">for</span> <span class="key">await</span> <span class="warp">(<span class="key">let</span> <span class="var">value</span> <span class="key">of</span> <span class="obj">generator</span>) &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="var">value</span>)</span>;
+            &#125;</span>
+          &#125;</span>)()</span>
+          <span class="result">1 2 3 4 5</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Ejemplo real" codeText="">
+        <p class="chaptrSubSect__p">Muchos servicios en línea entregan datos paginados, por ejemplo, GitHub nos permite recuperar commits de la misma manera paginada</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">async function*</span> <span class="func">fetchCommits</span><span class="warp">(<span class="params">repo</span>) &#123;
+            <span class="key">let</span> <span class="var">url</span> <span class="opera">=</span> <span class="args">`https://api.github.com/repos/$&#123;<span class="params">repo</span>&#125;/commits`</span>;
+
+            <span class="func">while</span><span class="warp2">(<span class="var">url</span>) &#123;
+              <span class="key">const</span> <span class="obj">response</span> <span class="opera">=</span> <span class="key">await</span> <span class="func">fetch</span><span class="warp">(<span class="var">url</span>, <span class="warp2">&#123;
+                <span class="objProp">headers</span>: <span class="warp">&#123;<span class="args">'User-Agent': 'Our script'</span>&#125;</span>,
+              &#125;</span>)</span>;
+
+              <span class="key">const</span> <span class="var">body</span> <span class="opera">=</span> <span class="key">await</span> <span class="obj">response</span><span class="dot">.</span><span class="meth">json</span><span class="warp">()</span>;
+
+              <span class="key">let</span> <span class="var">nextPage</span> <span class="opera">=</span> <span class="obj">response</span><span class="dot">.</span><span class="objProp">headers</span><span class="dot">.</span><span class="meth">get</span><span class="warp">(<span class="args">'Link'</span>)</span><span class="dot">.</span><span class="meth">match</span><span class="warp">(<span class="args">/&lt;(.*?)&gt;; rel="next"/</span>)</span>;
+              <span class="var">nextPage</span> <span class="opera">=</span> <span class="var">nexPage?.</span><span class="warp">[<span class="nums">1</span>]</span>;
+              <span class="var">url = nextPage</span>;
+
+              <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="params">commit</span> <span class="key">of</span> <span class="var">body</span>) &#123;
+                <span class="key">yield</span> <span class="params">commit</span>;
+              &#125;</span>
+            &#125;</span>;
+          &#125;</span>;
+
+          <span class="warp">(<span class="key">async</span> <span class="warp2">() =&gt; &#123;
+            <span class="key">let</span> <span class="var">count</span> <span class="opera">=</span> <span class="nums">0</span>;
+
+            <span class="func">for</span> <span class="key">await</span> <span class="warp">(<span class="key">const</span> <span class="params">commit</span> <span class="key">of</span> <span class="func">fetchCommits</span><span class="warp2">(<span class="args">'javascript-tutorial/en.javascript.info'</span>)</span>) &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">commit</span><span class="dot">.</span><span class="objProp">author</span><span class="dot">.</span><span class="objProp">login</span>)</span>;
+
+              <span class="func">if</span><span class="warp2">(<span class="opera">++</span><span class="var">count</span> <span class="opera">==</span> <span class="nums">20</span>) &#123;
+                <span class="key">break</span>;
+              &#125;</span>
+            &#125;</span>
+          &#125;</span>)()</span>;
+        </pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>

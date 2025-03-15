@@ -1,0 +1,97 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__28" h2Title="Async/await" slot="mainContent">
+    <ChaptrSect h3Title="Async/await" codeText="">
+      <ChaptrSubSect h4Title="Definición" codeText="">
+        <p class="chaptrSubSect__p">Con <code>async/await</code>, trabajamos con promesas, pero sin usar <code>.then()</code> y <code>.catch()</code> como métodos, sino a través de una estructura más clara y ordenada</p>
+        <p class="chaptrSubSect__p"><code>async</code> se coloca antes de una función para convertirla en una función asíncrona, que permite usar <code>await</code> dentro de ella</p>
+        <p class="chaptrSubSect__p"><code>await</code> hace que el código "espere" a que la promesa se resuelva (o rechace) antes de seguir</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Creación" codeText="Async">
+        <p class="chaptrSubSect__p"><code>Async</code> se ubica delante de una función y significa solamente una cosa: que la función siempre devolverá una promesa. Otros valores serán envueltos y resueltos en una promesa automáticamente. Vamos a crear una función con <code>async</code> que devuelva una promesa</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">async function</span> <span class="func">multiplyBy2</span><span class="warp">(<span class="params">number</span>) &#123;
+            <span class="key">return new</span> <span class="func">Promise</span><span class="warp">(<span class="warp2">(<span class="params">resolve, reject</span>) =&gt; &#123;
+                <span class="func">setTimeout</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+                    <span class="func">resolve</span><span class="warp">(<span class="params">number</span> <span class="opera">*</span> <span class="nums">2</span>)</span>
+                  &#125;</span>, <span class="nums">1000</span>)</span>;
+              &#125;</span>)</span>;
+          &#125;</span>;</pre>
+        <p class="chaptrSubSect__p">Consumimos la promesa con <code>.then()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">async function</span> <span class="func">multiplyBy2</span><span class="warp">(<span class="params">number</span>) &#123;
+            <span class="key">return new</span> <span class="func">Promise</span><span class="warp">(<span class="warp2">(<span class="params">resolve, reject</span>) =&gt; &#123;
+                <span class="func">setTimeout</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+                    <span class="func">resolve</span><span class="warp">(<span class="params">number</span> <span class="opera">*</span> <span class="nums">2</span>)</span>
+                  &#125;</span>, <span class="nums">1000</span>)</span>;
+              &#125;</span>)</span>;
+          &#125;</span>;
+
+          <span class="func">multiplyBy2</span><span class="warp">(<span class="nums">8</span>)</span>
+            <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="var">result</span> <span class="warp2">=&gt; &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Resultado x2: $&#123;<span class="var">result</span>&#125;`</span>)</span>;
+            &#125;</span>)</span>;
+          
+          <span class="result">Resultado x2: 16</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Consumo" codeText="await">
+        <p class="chaptrSubSect__p"><code>await</code> solo trabaja dentro de funciones <code>async</code> y hace que JavaScript espere hasta que la promesa responda y devuelve su resultado. Recordemos el ejemplo pasado en el que se consumía la promesa con <code>.then()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">async function</span> <span class="func">multiplyBy2</span><span class="warp">(<span class="params">number</span>) &#123;
+            <span class="key">return new</span> <span class="func">Promise</span><span class="warp">(<span class="warp2">(<span class="params">resolve, reject</span>) =&gt; &#123;
+                <span class="func">setTimeout</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+                    <span class="func">resolve</span><span class="warp">(<span class="params">number</span> <span class="opera">*</span> <span class="nums">2</span>)</span>
+                  &#125;</span>, <span class="nums">1000</span>)</span>;
+              &#125;</span>)</span>;
+          &#125;</span>;
+
+          <span class="func">multiplyBy2</span><span class="warp">(<span class="nums">8</span>)</span>
+            <span class="dot">.</span><span class="meth">then</span><span class="warp">(<span class="var">result</span> <span class="warp2">=&gt; &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Resultado x2: $&#123;<span class="var">result</span>&#125;`</span>)</span>;
+            &#125;</span>)</span>;
+          <span class="result">Resultado x2: 16</span></pre>
+        <p class="chaptrSubSect__p">Ahora vamos a consumir la promesa con <code>await</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">async function</span> <span class="func">multiplyBy2</span><span class="warp">(<span class="params">number</span>) &#123;
+            <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="key">await new</span> <span class="func">Promise</span><span class="warp">(<span class="warp2">(<span class="params">resolve, reject</span>) =&gt; &#123;
+                <span class="func">setTimeout</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+                    <span class="func">resolve</span><span class="warp">(<span class="params">number</span> <span class="opera">*</span> <span class="nums">2</span>)</span>
+                  &#125;</span>, <span class="nums">1000</span>)</span>;
+              &#125;</span>)</span>;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="var">result</span>)</span>;
+              <span class="key">return</span> <span class="var">result</span>;
+          &#125;</span>;
+
+          <span class="func">multiplyBy2</span><span class="warp">(<span class="nums">8</span>)</span>
+          <span class="result">Resultado x2: 16</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Manejo de errores" codeText="try..catch">
+        <p class="chaptrSubSect__p"><code>await</code> solo trabaja dentro de funciones <code>async</code> y hace que JavaScript espere hasta que la promesa responda y devuelve su resultado. Recordemos el ejemplo pasado en el que se consumía la promesa con <code>.then()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">async function</span> <span class="func">multiplyBy2</span><span class="warp">(<span class="params">number</span>) &#123;
+            <span class="func">try</span><span class="warp2">&#123;</span>
+              <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="key">await new</span> <span class="func">Promise</span><span class="warp">(<span class="warp2">(<span class="params">resolve, reject</span>) =&gt; &#123;
+                  <span class="func">setTimeout</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+                      <span class="func">resolve</span><span class="warp">(<span class="params">number</span> <span class="opera">*</span> <span class="nums">2</span>)</span>
+                    &#125;</span>, <span class="nums">1000</span>)</span>;
+                &#125;</span>)</span>;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="var">result</span>)</span>;
+                <span class="key">return</span> <span class="var">result</span>;
+              &#125; <span class="func">catch</span> (<span class="obj">error</span>)&#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">error</span><span class="warp2">(<span class="var">error</span>)</span>;
+              &#125;
+          &#125;</span>;
+
+          <span class="func">multiplyBy2</span><span class="warp">(<span class="nums">8</span>)</span>;
+          <span class="result">Resultado x2: 16</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>

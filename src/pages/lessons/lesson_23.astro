@@ -1,0 +1,605 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__23" h2Title="Clases" slot="mainContent">
+    <ChaptrSect h3Title="Sintaxis y buenas prácticas" codeText="">
+      <ChaptrSubSect h4Title="Definición" codeText="">
+        <p class="chaptrSubSect__p">Son una forma moderna y más estructurada de crear objetos y gestionar la herencia, introducida en ES6. Aunque bajo el capó siguen funcionando con prototipos, las clases proporcionan una sintaxis más clara y legible</p>
+        <p class="chaptrSubSect__p">Se dice que <code>class</code> es <mark>azúcar sintáctica</mark> (sintaxis que es diseñada para una lectura más fácil, pero que no introduce nada nuevo), porque en realidad podemos declarar lo mismo sin la palabra clave <code>class</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Creamos la función constructora</span>
+          <span class="key">function</span> <span class="func">User</span><span class="warp">(<span class="params">name</span>) &#123;
+            <span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="params">name</span>;
+          &#125;</span>;
+
+          <span class="commnt">un prototipo de función tiene
+          la propiedad "constructor" por defecto, 
+          así que no necesitamos crearla</span>
+
+          <span class="commnt">Agregamos el método al prototipo</span>
+          <span class="obj">User</span><span class="dot">.</span><span class="meth">prototype</span><span class="dot">.</span><span class="objProp">sayHi</span> <span class="opera">=</span> <span class="func">function</span><span class="warp">() &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="obj">this</span><span class="dot">.</span><span class="params">name</span>)</span>;
+          &#125;</span>;
+
+          <span class="commnt">Uso</span>
+          <span class="key">let</span> <span class="var">user</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">User</span><span class="warp">(<span class="args">"Éder"</span>)</span>;
+          <span class="obj">user</span><span class="dot">.</span><span class="meth">sayHi</span><span class="warp">()</span>;
+          <span class="result">'Éder'</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Sintaxis" codeText="">
+        <p class="chaptrSubSect__p">Sintaxis básica</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">class</span> <span class="func">MyClass</span><span class="warp">&#123;
+            <span class="commnt">constructor</span>
+            <span class="func">constructor</span><span class="warp2">() &#123;...&#125;</span>
+            <span class="commnt">métodos de clase</span>
+            <span class="func">method1</span><span class="warp2">() &#123;...&#125;</span>
+            <span class="func">method2</span><span class="warp2">() &#123;...&#125;</span>
+          &#125;</span>;</pre>
+        <p class="chaptrSubSect__p">Una clase es un tipo de función</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Una clase es una función</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="key">typeof</span> <span class="var">MyClass</span>)</span>;
+          <span class="result">'function'</span>
+
+          <span class="commnt">Mejor dicho el método constructor</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="key">typeof</span> <span class="var">MyClass</span> <span class="opera">===</span> <span class="obj">MyClass</span><span class="dot">.</span><span class="meth">prototype</span><span class="dot">.</span><span class="meth">constructor</span>)</span>;
+          <span class="result">true</span>
+
+          <span class="commnt">Los métodos están en MyClass.prototype</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">MyClass</span><span class="dot">.</span><span class="meth">prototype</span><span class="dot">.</span><span class="meth">sayHi</span>)</span>;
+          <span class="result">ƒ sayHi() &#123;...&#125;</span>
+
+          <span class="commnt">Hay 2 métodos en el prototipo</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">getOwnPropertyNames</span><span class="warp2">(<span class="obj">MyClass</span><span class="dot">.</span><span class="meth">prototype</span>)</span>)</span>;
+          <span class="result">(2) ['constructor', 'sayHi']</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Diferencias función vs Clase" codeText="">
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Una función creada con <code>class</code> es etiquetada por una propiedad interna especial <code>[[IsClassConstructor]]:true</code>. Entones <mark>no es exactamente lo mismo</mark> que crearla manualmente. El lenguaje verifica esa propiedad en varios lugares. Por ejemplo, a diferencia de las funciones regulares, esta debe ser llamada con <code>new</code>.</li>
+          <li class="chaptrSubSectUl__li">Los métodos de clase no son enumerables. La definición de clase establece la bandera <code>enumerable = false</code> para todos los métodos en <code>prototype</code>. Si hacemos <code>for..in</code> a un objeto usualmente no queremos sus métodos de clase.</li>
+          <li class="chaptrSubSectUl__li">Las clases siempre asumen <code>use strict</code>. Todo el código dentro del constructor de clase está automáticamente en modo estricto.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Buenas prácticas" codeText="">
+        <p class="chaptrSubSect__p">Las clases se suelen almacenar en <mark>archivos individuales</mark>, de forma que cada clase que creamos, debería estar en un fichero <mark>con su mismo nombre</mark></p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Animal.js</span>
+          <span class="key">export class</span> <span class="func">Animal</span> <span class="warp">&#123;
+            <span class="commnt">contenido de la clase</span>  
+          &#125;</span>;</pre>
+        <p class="chaptrSubSect__p">Para instanciar objetos basados en esa clase, se puede importar el fichero de la clase</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">index.js</span>
+          <span class="key">import</span> <span class="warp">&#123; <span class="var">Animal</span> &#125;</span>  <span class="key">from</span> <span class="args">'./Animal.js'</span>;
+          <span class="key">const</span> <span class="var">pato</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Animal</span><span class="warp">()</span>;</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Creación" codeText="">
+      <ChaptrSubSect h4Title="Declaración literal" codeText="class">
+        <p class="chaptrSubSect__p">De manera literal</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">class</span> <span class="func">Player</span> <span class="warp">&#123;
+            <span class="func">constructor</span><span class="warp2">(<span class="params">name, age, position</span>) &#123;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="params">name</span>;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">age</span> <span class="opera">=</span> <span class="params">age</span>;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">position</span> <span class="opera">=</span> <span class="params">position</span>;
+            &#125;</span>
+            
+            <span class="func">marcarGol</span><span class="warp2">() &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`$&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125; marcó gol!`</span>)</span>
+            &#125;</span>
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">player_11</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Player</span><span class="warp">(<span class="args">'Éder', 4, 'ExtIzq'</span>)</span>;
+
+          <span class="obj">player_11</span><span class="dot">.</span><span class="meth">marcarGol</span><span class="warp">()</span>;
+          <span class="result">Éder marcó gol!</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Expresión de clase anónima" codeText="">
+        <p class="chaptrSubSect__p">Se puede crear una clase dentro de una expresión asignada a una variable. Esto es útil cuando quieres crear una clase de manera más dinámica o condicional.</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">Player</span> <span class="opera">=</span> <span class="key">class</span> <span class="warp">&#123;
+            <span class="func">constructor</span><span class="warp2">(<span class="params">name, age, position</span>) &#123;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="params">name</span>;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">age</span> <span class="opera">=</span> <span class="params">age</span>;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">position</span> <span class="opera">=</span> <span class="params">position</span>;
+            &#125;</span>
+            
+            <span class="func">marcarGol</span><span class="warp2">() &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`$&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125; marcó gol!`</span>)</span>
+            &#125;</span>
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">player_11</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Player</span><span class="warp">(<span class="args">'Éder', 4, 'ExtIzq'</span>)</span>;
+
+          <span class="obj">player_11</span><span class="dot">.</span><span class="meth">marcarGol</span><span class="warp">()</span>;
+          <span class="result">Éder marcó gol!</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Expresión de clase nombrada" codeText="">
+        <p class="chaptrSubSect__p">Su utilidad se basa en la auto-referencia dentro de la clase, se puede referir a la propia clase desde dentro del cuerpo de la clase usando su nombre, lo que no se puede hacer con una expresión de clase anónima.</p>
+        <p class="chaptrSubSect__p">Tienen una mejor depuración, al usar una clase nombrada, los errores en tiempo de ejecución mostrarán un nombre útil en los rastreos de pila (stack traces). En el caso de una expresión de clase anónima, a veces es más difícil identificar el origen del problema</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">Player</span> <span class="opera">=</span> <span class="key">class</span> <span class="func">FootbalPlayer</span> <span class="warp">&#123;
+            <span class="func">constructor</span><span class="warp2">(<span class="params">name, age, position</span>) &#123;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="params">name</span>;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">age</span> <span class="opera">=</span> <span class="params">age</span>;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">position</span> <span class="opera">=</span> <span class="params">position</span>;
+            &#125;</span>
+            
+            <span class="func">marcarGol</span><span class="warp2">() &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`$&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125; marcó gol!`</span>)</span>
+            &#125;</span>
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">player_11</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Player</span><span class="warp">(<span class="args">'Éder', 4, 'ExtIzq'</span>)</span>;
+
+          <span class="obj">player_11</span><span class="dot">.</span><span class="meth">marcarGol</span><span class="warp">()</span>;
+          <span class="result">Éder marcó gol!</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Dinámicamente" codeText="">
+        <p class="chaptrSubSect__p">Puedes crear clases dinámicamente usando una función, generando una clase según ciertos parámetros o condiciones</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Crea y retorna una clase segun el tipo deportista</span>
+          <span class="key">function</span> <span class="func">crearClaseFutbolista</span><span class="warp">(<span class="params">tipo</span>) &#123;
+          <span class="commnt">retorna una clase anónima</span>
+            <span class="key">return class</span> <span class="warp2">&#123;
+              <span class="commnt">El constructor inicializa los valores 'name' y 'tipo'</span>
+              <span class="func">constructor</span><span class="warp">(<span class="params">name</span>) &#123;
+                <span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="params">name</span>;
+                <span class="obj">this</span><span class="dot">.</span><span class="objProp">tipo</span> <span class="opera">=</span> <span class="params">tipo</span>;
+              &#125;</span>;
+
+              <span class="func">presentarse</span><span class="warp">() &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Soy $&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125;, un $&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">tipo</span>&#125;`</span>)</span>;
+              &#125;</span>;
+            &#125;</span>;
+          &#125;</span>;
+        
+          <span class="commnt">Crea la clase 'Futbolista' pasando 'futbolista' como tipo</span>
+          <span class="key">const</span> <span class="var">Futbolista</span> <span class="opera">=</span> <span class="func">crearClaseFutbolista</span><span class="warp">(<span class="args">'futbolista'</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Futbolista</span>)</span>;
+          <span class="result">class &#123;
+            constructor(name) &#123;
+              this.name = name;
+              this.tipo = tipo;
+            &#125;
+
+            presentarse() &#123;
+              console.log(`Soy $&#123;this.name&#125;, un $&#123;this.tipo&#125;`)
+            &#125;
+          &#125;</span>
+
+          <span class="commnt">Crea nueva instancia de la clase 'Futbolista' </span>
+          <span class="key">const</span> <span class="obj">jugador</span> <span class="opera">=</span> <span class="key">new</span> <span class="meth">Futbolista</span><span class="warp">(<span class="args">'Éder'</span>)</span>;
+          
+          <span class="obj">jugador</span><span class="dot">.</span><span class="meth">presentarse</span><span class="warp">()</span>;
+          <span class="result">Soy Éder, un futbolista</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Miembros de una clase" codeText="">
+      <ChaptrSubSect h4Title="El constructor" codeText="">
+        <p class="chaptrSubSect__p">Es un <mark>método</mark> que se ejecuta automáticamente cuando se crea una nueva instancia de una clase utilizando la palabra clave <code>new</code>. <b>Inicializa las propiedades del nuevo objeto</b>. Cada clase sólo puede tener un  constructor</p>
+        <p class="chaptrSubSect__p">Si no defines un constructor en una clase, JavaScript crea uno implícito para ti. Este constructor por defecto no acepta parámetros y simplemente inicializa la instancia sin añadir propiedades</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">class</span> <span class="func">Player</span> <span class="warp">&#123;
+            <span class="func">constructor</span><span class="warp2">(<span class="params">param1, param2</span>) &#123;
+              <span class="commnt">propiedades</span>
+            &#125;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Tipos de propiedades" codeText="">
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><mark><b>públicas</b></mark>: Se pueden acceder desde fuera de la clase.</li>
+          <li class="chaptrSubSectUl__li"><mark><b>privadas</b></mark>: <b>NO</b> se puede acceder desde fuera de la clase.</li>
+          <li class="chaptrSubSectUl__li"><mark><b>protegidas</b></mark>: Aunque no es un concepto formal en JavaScript, se puede simular.</li>
+          <li class="chaptrSubSectUl__li"><mark><b>computadas</b></mark>: Función para acceder a una propiedad con modificaciones (getter/setter).</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Propiedades de clase" codeText="">
+        <p class="chaptrSubSect__p">Las variables que "viven" dentro de las clases se denominan propiedades o propiedades de clase, esta es la manera más moderna, limpia y declarativa</p>
+        <p class="chaptrSubSect__p">Desde ES2022, se pueden definir propiedades de clase directamente dentro de la clase, fuera del constructor. Esto significa que no es estrictamente necesario incluir todas las propiedades dentro del constructor. Estas propiedades <b>se inicializan de manera automática cuando se crea una instancia de la clase</b>, lo que hace el código más limpio y declarativo</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">class</span> <span class="func">Character</span> <span class="warp">&#123;
+            <span class="objProp">maxLife</span> <span class="opera">=</span> <span class="nums">100</span>;
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Character</span><span class="warp">()</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Character</span><span class="dot">.</span><span class="objProp">maxLife</span>)</span>;
+          <span class="result">undefined</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player1</span><span class="dot">.</span><span class="objProp">maxLife</span>)</span>;
+          <span class="result">100</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Propiedades de clase" codeText="static">
+        <p class="chaptrSubSect__p">Pertenecen a la clase misma y no a las instancias. Se accede a ellas directamente desde la clase</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">class</span> <span class="func">Character</span> <span class="warp">&#123;
+            <span class="commnt">Contador de instancias</span>
+            <span class="key">static</span> <span class="objProp">instanceCounter</span> <span class="opera">=</span> <span class="nums">0</span>;
+            <span class="func">constructor</span><span class="warp2">() &#123;
+              <span class="commnt">Se incrementa al crear una instancia</span>
+              <span class="obj">Character</span><span class="dot">.</span><span class="var">instanceCounter++</span>; 
+            &#125;</span>;
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Character</span><span class="warp">()</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Character</span><span class="dot">.</span><span class="objProp">instanceCounter</span>)</span>;
+          <span class="result">1</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Propiedades de instancia públicas" codeText="">
+        <p class="chaptrSubSect__p">Son accesibles desde cualquier lugar, ya sea dentro o fuera de la clase. Por defecto todas las propiedades del constructor son públicas</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">class</span> <span class="func">Character</span> <span class="warp">&#123;
+            <span class="func">constructor</span><span class="warp2">(<span class="params">name, type</span>) &#123;
+              <span class="obj">this</span><span class="dot">.</span><span class="params">name</span> <span class="opera">=</span> <span class="params">name</span>;
+              <span class="obj">this</span><span class="dot">.</span><span class="params">type</span> <span class="opera">=</span> <span class="params">type</span>;
+            &#125;</span>
+
+            <span class="func">sayHi</span><span class="warp">()&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>)</span>;
+              <span class="commnt">Accede desde fuera de la clase a la propiedad pública</span>
+            &#125;</span>
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Character</span><span class="warp">(<span class="args">'Éder', 'Human'</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player1</span><span class="dot">.</span><span class="objProp">name</span>)</span>;
+          <span class="result">'Éder'</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Propiedades de instancia privadas" codeText="#">
+        <p class="chaptrSubSect__p">Comienzan con un símbolo de hash <code>#</code>. Estas propiedades solo son accesibles <mark>desde dentro de la clase</mark> en la que se definen. No se pueden acceder ni modificar directamente fuera de la clase. Hay 3 formas de usar las propiedades privadas:</p>
+        <p class="chaptrSubSect__p"><strong>Declaración + inicializacion en la clase:</strong> Si todas las instancias de tu clase deben compartir el mismo valor inicial para la propiedad privada y ese valor es conocido de antemano, usar la inicialización en la declaración de la clase es la opción más directa y limpia</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">class</span> <span class="func">Character</span> <span class="warp">&#123;
+            <span class="opera">#</span><span class="objProp">powerUp</span> <span class="opera">=</span> <span class="nums">0.6</span>;
+            <span class="commnt">Definir propiedad privada</span>
+
+            <span class="func">showPowerUp</span><span class="warp">()&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">this</span><span class="dot">.</span><span class="objProp">#powerUp</span>)</span>;
+              <span class="commnt">Acceso permitido dentro de la clase</span>
+            &#125;</span>
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Character</span><span class="warp">()</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player1</span>)</span>;
+          <span class="result">Character &#123;#powerUp: 0.6&#125;</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player1</span><span class="dot">.</span><span class="objProp">powerUp</span>)</span>;
+          <span class="result">undefined</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player1</span><span class="dot">.</span><span class="objProp">#powerUp</span>)</span>;
+          <span class="result">✘: acceso a propiedad privada fuera de la clase</span>
+
+          <span class="obj">player1</span><span class="dot">.</span><span class="meth">showPowerUp</span><span class="warp">()</span></span>;
+          <span class="result">0.6</span></pre>
+        <p class="chaptrSubSect__p"><strong>Declaración (clase) inicializacion (constructor):</strong> Si necesitas realizar alguna lógica de inicialización o el valor depende de los argumentos pasados al constructor, deberías inicializar la propiedad privada dentro del constructor</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">class</span> <span class="func">Character</span> <span class="warp">&#123;
+            <span class="opera">#</span><span class="objProp">powerUp</span>;
+            <span class="commnt">Definir propiedad privada</span>
+            <span class="func">constructor</span><span class="warp2">() &#123;
+              <span class="obj">this</span><span class="dot">.</span><span class="params">#powerUp</span>  <span class="opera">=</span> <span class="nums">0.6</span>;
+            &#125;</span>
+
+            <span class="func">showPowerUp</span><span class="warp">()&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">this</span><span class="dot">.</span><span class="objProp">#powerUp</span>)</span>;
+              <span class="commnt">Acceso permitido dentro de la clase</span>
+            &#125;</span>
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Character</span><span class="warp">()</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player1</span>)</span>;
+          <span class="result">Character &#123;#powerUp: 0.6&#125;</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player1</span><span class="dot">.</span><span class="objProp">powerUp</span>)</span>;
+          <span class="result">undefined</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player1</span><span class="dot">.</span><span class="objProp">#powerUp</span>)</span>;
+          <span class="result">✘: acceso a propiedad privada fuera de la clase</span>
+
+          <span class="obj">player1</span><span class="dot">.</span><span class="meth">showPowerUp</span><span class="warp">()</span></span>;
+          <span class="result">0.6</span></pre>
+        <p class="chaptrSubSect__p"><strong>Declaración (clase) asignacion (parametros):</strong> Si cada instancia de la clase necesita un valor diferente que se determinará en tiempo de ejecución (por ejemplo, basado en argumentos pasados al constructor), entonces la inicialización dinámica en el constructor es la manera correcta de hacerlo</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">class</span> <span class="func">Character</span> <span class="warp">&#123;
+            <span class="commnt">Definir propiedad privada</span>
+            <span class="opera">#</span><span class="objProp">powerUp</span>;
+            <span class="commnt">Por defecto si no se pasa parametro</span>
+            <span class="func">constructor</span><span class="warp2">(<span class="params">powerUp</span> <span class="opera">=</span> <span class="nums">1</span>) &#123;
+              <span class="obj">this</span><span class="dot">.</span><span class="params">#powerUp</span>  <span class="opera">=</span> <span class="params">powerUp</span>;
+            &#125;</span>
+
+            <span class="func">showPowerUp</span><span class="warp">()&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">this</span><span class="dot">.</span><span class="objProp">#powerUp</span>)</span>;
+              <span class="commnt">Acceso permitido dentro de la clase</span>
+            &#125;</span>
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Character</span><span class="warp">(<span class="nums">0.7</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player1</span>)</span>;
+          <span class="result">Character &#123;#powerUp: 0.7&#125;</span>
+          <span class="obj">player1</span><span class="dot">.</span><span class="meth">showPowerUp</span><span class="warp">()</span></span>;
+          <span class="result">0.7</span>
+        
+          <span class="key">const</span> <span class="var">player2</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Character</span><span class="warp">()</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player2</span>)</span>;
+          <span class="result">Character &#123;#powerUp: 1&#125;</span>
+          <span class="obj">player2</span><span class="dot">.</span><span class="meth">showPowerUp</span><span class="warp">()</span></span>;
+          <span class="result">1</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Getters" codeText="get">
+        <p class="chaptrSubSect__p">Para definirla, añadimos la palabra clave <code>get</code> antes del nombre de la función, fuera del constructor es decir, dentro de la clase. La ventaja de usar un <code>get</code> en vez de un <mark>método</mark> normal es que con el primero a la hora de acceder a él se accede como una propiedad (sin usar paréntesis) y usa la encapsulación para privacidad del código</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">class</span> <span class="func">Character</span> <span class="warp">&#123;
+            <span class="objProp">type</span>;
+            <span class="objProp">basePower</span> <span class="opera">=</span> <span class="nums">100</span>;
+            <span class="opera">#</span><span class="objProp">powerUp</span>;
+
+            <span class="func">constructor</span><span class="warp2">(<span class="params">type, powerUp</span>) &#123;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">type</span> <span class="opera">=</span> <span class="params">type</span>;
+              <span class="obj">this</span><span class="dot">.</span><span class="opera">#</span><span class="objProp">powerUp</span> <span class="opera">=</span> <span class="params">powerUp</span>
+            &#125;</span>
+
+            <span class="key">get</span> <span class="func">showPower</span><span class="warp">()&#123;
+              <span class="key">return</span> <span class="obj">this</span><span class="dot">.</span><span class="objProp">basePower</span> <span class="opera">*</span> <span class="obj">this</span><span class="dot">.</span><span class="objProp">#powerUp</span>;
+            &#125;</span>
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Character</span><span class="warp">(<span class="args">'Human',</span> <span class="nums">1.1</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player1</span>)</span>;
+          <span class="result">Character &#123;type: 'Human', basePower: 100, #powerUp: 1.1&#125;</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player1</span><span class="dot">.</span><span class="objProp">showPower</span>)</span>;
+          <span class="result">110</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Setters" codeText="set">
+        <p class="chaptrSubSect__p">Los setters igual que en los objetos, son una manera de que al modificar una propiedad, se haga bajo unas condiciones y no directamente</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">class</span> <span class="func">Character</span> <span class="warp">&#123;
+            <span class="objProp">type</span>;
+            <span class="objProp">basePower</span> <span class="opera">=</span> <span class="nums">100</span>;
+            <span class="opera">#</span><span class="objProp">powerUp</span>;
+
+            <span class="func">constructor</span><span class="warp2">(<span class="params">type, powerUp</span>) &#123;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">type</span> <span class="opera">=</span> <span class="params">type</span>;
+              <span class="obj">this</span><span class="dot">.</span><span class="opera">#</span><span class="objProp">powerUp</span> <span class="opera">=</span> <span class="params">powerUp</span>
+            &#125;</span>
+
+            <span class="key">get</span> <span class="func">showPower</span><span class="warp">()&#123;
+              <span class="key">return</span> <span class="obj">this</span><span class="dot">.</span><span class="objProp">basePower</span> <span class="opera">*</span> <span class="obj">this</span><span class="dot">.</span><span class="objProp">#powerUp</span>;
+            &#125;</span>
+
+            <span class="key">set</span> <span class="func">poisoned</span> <span class="warp2">(<span class="params">modifier</span>) &#123;
+              <span class="func">if</span> <span class="warp">(<span class="params">modifier</span> <span class="opera">&gt;</span> <span class="nums">1</span>) &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'You are death!'</span>)</span>;
+              &#125;</span> <span class="key">else</span> <span class="warp">&#123;
+                <span class="obj">this</span><span class="dot">.</span><span class="opera">#</span><span class="objProp">powerUp</span> <span class="opera">=</span> <span class="obj">this</span><span class="dot">.</span><span class="params">#powerUp</span> <span class="opera">*</span> <span class="params">modifier</span>;
+              &#125;</span>
+            &#125;</span>
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Character</span><span class="warp">(<span class="args">'Human',</span> <span class="nums">1.1</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player1</span><span class="dot">.</span><span class="objProp">showPower</span>)</span>;
+          <span class="result">110</span>
+
+          <span class="obj">player1</span><span class="dot">.</span><span class="objProp">poisoned</span> <span class="opera">=</span> <span class="nums">0.5</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player1</span><span class="dot">.</span><span class="objProp">showPower</span>)</span>;
+          <span class="result">55</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Propiedades protegidas" codeText="_">
+        <p class="chaptrSubSect__p">Es convención nombrarlas con un guíon bajo primero <code>_</code>. Para modificarlas, se puede hacer con getters y setters</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">class</span> <span class="func">Character</span> <span class="warp">&#123;
+            <span class="objProp">type</span>;
+            <span class="objProp">_actualLevel</span> <span class="opera">=</span> <span class="nums">1</span>;    <span class="commnt">Propiedad protegida</span>
+            <span class="objProp">#levelPoints</span> <span class="opera">=</span> <span class="nums">0</span>;
+
+            <span class="func">constructor</span><span class="warp2">(<span class="params">type</span>) &#123;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">type</span> <span class="opera">=</span> <span class="params">type</span>;
+            &#125;</span>
+
+            <span class="key">get</span> <span class="func">showLevel</span><span class="warp">()&#123;
+              <span class="key">return</span> <span class="obj">this</span><span class="dot">.</span><span class="objProp">_actualLevel</span>;
+            &#125;</span>
+
+            <span class="key">set</span> <span class="func">newLevel</span> <span class="warp2">(<span class="params">levelPoints</span>) &#123;
+              <span class="func">if</span> <span class="warp">(<span class="params">levelPoints</span> <span class="opera">&gt;</span> <span class="nums">3</span>) &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Cheater!'</span>)</span>;
+              &#125;</span> <span class="key">else</span> <span class="warp">&#123;
+                <span class="obj">this</span><span class="dot">.</span><span class="objProp">#levelPoints</span> <span class="opera">+=</span> <span class="params">levelPoints</span>;
+                <span class="obj">this</span><span class="dot">.</span><span class="objProp">_actualLevel</span> <span class="opera">=</span> <span class="obj">this</span><span class="dot">.</span><span class="objProp">_actualLevel</span> <span class="opera">+</span> <span class="obj">this</span><span class="dot">.</span><span class="objProp">#levelPoints</span>;
+              &#125;</span>
+            &#125;</span>
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Character</span><span class="warp">(<span class="args">'Human'</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player1</span>)</span>;
+          <span class="result">Character &#123;type: 'Human', _actualLevel: 1, #levelPoints: 0&#125;</span>
+
+          <span class="obj">player1</span><span class="dot">.</span><span class="meth">newLevel</span><span class="warp">(<span class="nums">2</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player1</span>)</span>;
+          <span class="result">Character &#123;type: 'Human', _actualLevel: 3, #levelPoints: 2&#125;</span></pre>
+        <p class="chaptrSubSect__p">Aunque <code>#</code> ofrece protección real, algunos desarrolladores prefieren usar <code>_</code> cuando quieren indicar que una propiedad es "protegida" pero no necesariamente bloquear el acceso completo, ya que con <code>#</code> no es posible acceder ni desde subclases, mientras que con <code>_</code> sí.</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Métodos de instancia" codeText="">
+        <p class="chaptrSubSect__p">Se definen directamente dentro de la clase sin ningún modificador especial y se llaman a través de una instancia de la clase</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">class</span> <span class="func">Character</span> <span class="warp">&#123;
+            <span class="objProp">type</span>;
+
+            <span class="func">constructor</span><span class="warp2">(<span class="params">type</span>) &#123;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">type</span> <span class="opera">=</span> <span class="params">type</span>;
+            &#125;</span>
+
+            <span class="func">presentation</span><span class="warp">()&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Hi, i'm $&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">type</span>&#125;`</span>)</span>;
+            &#125;</span>
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Character</span><span class="warp">(<span class="args">'Human'</span>)</span>;
+          <span class="obj">player1</span><span class="dot">.</span><span class="meth">presentation</span><span class="warp">()</span>;
+          <span class="result">Hi, i'm Human</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Métodos estáticos" codeText="static">
+        <p class="chaptrSubSect__p">Pertenecen a la clase misma y no a las instancias de la clase. No se puede acceder a las propiedades o métodos de instancia dentro de ellos a menos que se pase explícitamente una instancia como parámetro</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">class</span> <span class="func">Character</span> <span class="warp">&#123;
+            <span class="objProp">type</span>;
+
+            <span class="key">static</span> <span class="func">describeCharacterClass</span><span class="warp2">() &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Clase creadora de personajes de juego`</span>)</span>;
+            &#125;</span>
+
+            <span class="func">constructor</span><span class="warp2">(<span class="params">type</span>) &#123;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">type</span> <span class="opera">=</span> <span class="params">type</span>;
+            &#125;</span>
+
+            <span class="func">presentation</span><span class="warp">()&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Hi, i'm $&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">type</span>&#125;`</span>)</span>;
+            &#125;</span>
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Character</span><span class="warp">(<span class="args">'Human'</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Character</span><span class="dot">.</span><span class="meth">describeCharacterClass</span><span class="warp2">()</span>)</span>;
+          <span class="result">Clase creadora de personajes de juego</span></pre>
+          <p class="chaptrSubSect__p">Desde el bloque <code>static &#123;&#125;</code> solo se puede acceder a propiedades estáticas, pero no a propiedades de clase</p>
+          <p class="chaptrSubSect__p">Desde el bloque <code>constructor ()</code> se puede acceder tanto a las propiedades de clase como a las estáticas</p>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Herencia de clase" codeText="">
+      <ChaptrSubSect h4Title="" codeText="extends + super()">
+        <p class="chaptrSubSect__p">La herencia de clase es el modo para que una clase extienda a otra de esta manera podemos añadir nueva funcionalidad a la ya existente</p>
+        <p class="chaptrSubSect__p">Se usa dentro de una subclase para llamar al constructor de la clase padre. Es una herramienta fundamental en la herencia, ya que permite a la subclase inicializar o utilizar las propiedades y métodos definidos en la clase base.</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Clase Padre</span>
+          <span class="key">class</span> <span class="func">Character</span> <span class="warp">&#123;
+            <span class="objProp">health</span> <span class="opera">=</span> <span class="nums">100</span>;
+            <span class="func">constructor</span><span class="warp">(<span class="params">type, name</span>) &#123;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">type</span> <span class="opera">=</span> <span class="params">type</span>;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="params">name</span>;
+            &#125;</span>
+            <span class="func">describe</span><span class="warp">()&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`I'm $&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">type</span>&#125; with $&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">health</span>&#125; of life.`</span>)</span>;
+            &#125;</span>
+            <span class="func">takeDamage</span><span class="warp">(<span class="params">amount</span>)&#123;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">health</span> <span class="opera">-=</span> <span class="params">amount</span>;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`$&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125; takes $&#123;<span class="params">amount</span>&#125; of damage.`</span>)</span>;
+            &#125;</span>
+          &#125;</span>;
+
+          <span class="commnt">Clase Hija que hereda de Character</span>
+          <span class="key">class</span> <span class="var">Hero</span> <span class="key">extends</span> <span class="obj">Character</span> <span class="warp">&#123;
+            <span class="func">constructor</span><span class="warp2">(<span class="params">type, name, ability</span>) &#123;
+              <span class="commnt">Llamada al constructor de Character con super()</span>
+              <span class="func">super</span><span class="warp2">(<span class="params">type, name</span>)</span>;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">ability</span> <span class="opera">=</span> <span class="params">ability</span>;
+            &#125;</span>
+            <span class="func">useAbility</span><span class="warp2">()&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`$&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125; uses $&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">ability</span>&#125;!`</span>)</span>;
+            &#125;</span>
+          &#125;</span>;
+
+          <span class="commnt">Nueva instancia de subclase Hero</span>
+          <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Hero</span><span class="warp">(<span class="args">'Human', 'Éder', 'Chutazo'</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player1</span>)</span>;
+          <span class="result">Hero &#123;health: 100, type: 'Human', name: 'Éder', ability: 'Chutazo'&#125;</span>
+        
+          <span class="commnt">Método que hereda de Character</span>
+          <span class="obj">player1</span><span class="dot">.</span><span class="meth">takeDamage</span><span class="warp">(<span class="nums">30</span>)</span>;
+          <span class="result">Éder takes 30 of damage</span>
+
+          <span class="commnt">Método propio de Hero</span>
+          <span class="obj">player1</span><span class="dot">.</span><span class="meth">useAbility</span><span class="warp">()</span>;
+          <span class="result">Éder uses Chutazo!</span>
+
+          <span class="commnt">Método que hereda de Character</span>
+          <span class="obj">player1</span><span class="dot">.</span><span class="meth">describe</span><span class="warp">()</span>;
+          <span class="result">I'm Human with 70 of life</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Comprobación de clase" codeText="">
+      <ChaptrSubSect h4Title="El operador" codeText="instanceof">
+        <p class="chaptrSubSect__p">El operador instanceof permite verificar si un objeto pertenece a una clase determinada. También tiene en cuenta la herencia, en resumen, el operador <code>instanceof</code> no solo verifica la clase directa, sino que también recorre toda la cadena de prototipos para verificar si un objeto es una instancia de una clase o cualquiera de sus padres. Por eso, tanto <code>Hero</code> como <code>Character</code> devuelven <code>true</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Clase Padre</span>
+          <span class="key">class</span> <span class="func">Character</span> <span class="warp">&#123;
+            <span class="commnt">...resto de código...</span>
+          &#125;</span>;
+
+          <span class="commnt">Clase Hija que hereda de Character</span>
+          <span class="key">class</span> <span class="var">Hero</span> <span class="key">extends</span> <span class="obj">Character</span> <span class="warp">&#123;
+              <span class="commnt">...resto de código...</span>
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Hero</span><span class="warp">()</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player1</span> <span class="key">instanceof</span> <span class="obj">Hero</span>)</span>;
+          <span class="result">true</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">player1</span> <span class="key">instanceof</span> <span class="obj">Character</span>)</span>;
+          <span class="result">true</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Mixins" codeText="">
+      <ChaptrSubSect h4Title="Los mixins" codeText="">
+        <p class="chaptrSubSect__p">Es un objeto o función que proporciona métodos o propiedades que pueden ser mezclados en otras clases. Sirven para extender la funcionalidad de una clase sin utilizar herencia directa y permiten reutilizar código en varias clases sin tener que crear una jerarquía compleja</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Mixin con habilidades</span>
+          <span class="key">let</span> <span class="var">abilitiesMixin</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="func">fly</span><span class="warp2">()&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`$&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125; flies!`</span>)</span>;
+            &#125;,</span>
+            <span class="func">swim</span><span class="warp2">()&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`$&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125; swims!`</span>)</span>;
+            &#125;</span>
+          &#125;</span>;
+
+          <span class="commnt">Clase Padre</span>
+          <span class="key">class</span> <span class="func">Character</span> <span class="warp">&#123;
+            <span class="objProp">health</span> <span class="opera">=</span> <span class="nums">100</span>;
+            <span class="func">constructor</span><span class="warp">(<span class="params">type, name</span>) &#123;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">type</span> <span class="opera">=</span> <span class="params">type</span>;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="params">name</span>;
+            &#125;</span>
+            <span class="func">describe</span><span class="warp">()&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`I'm $&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">type</span>&#125; with $&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">health</span>&#125; of life.`</span>)</span>;
+            &#125;</span>
+            <span class="func">takeDamage</span><span class="warp">(<span class="params">amount</span>)&#123;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">health</span> <span class="opera">-=</span> <span class="params">amount</span>;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`$&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125; takes $&#123;<span class="params">amount</span>&#125; of damage.`</span>)</span>;
+            &#125;</span>
+          &#125;</span>;
+
+          <span class="commnt">Clase Hija que hereda de Character</span>
+          <span class="key">class</span> <span class="var">Hero</span> <span class="key">extends</span> <span class="obj">Character</span> <span class="warp">&#123;
+            <span class="objProp">ability</span>;
+            <span class="func">useAbility</span><span class="warp2">()&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`$&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125; uses $&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">ability</span>&#125;!`</span>)</span>;
+            &#125;</span>
+          &#125;</span>;
+
+          <span class="commnt">Extendemos la clase Hero con los métodos del mixin</span>
+          <span class="obj">Object</span><span class="dot">.</span><span class="meth">assign</span><span class="warp">(<span class="obj">Hero</span><span class="dot">.</span><span class="key">prototype</span>, <span class="obj">abilitiesMixin</span>)</span>;
+          
+          <span class="commnt">Nueva instancia de subclase Hero</span>
+          <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Hero</span><span class="warp">(<span class="args">'Human', 'Éder'</span>)</span>;
+        
+          <span class="commnt">Métodos del Mixin</span>
+          <span class="obj">player1</span><span class="dot">.</span><span class="meth">fly</span><span class="warp">()</span>;
+          <span class="result">Éder flies!</span>
+          <span class="obj">player1</span><span class="dot">.</span><span class="meth">swim</span><span class="warp">()</span>;
+          <span class="result">Éder swims!</span>
+
+          <span class="commnt">Método que hereda de Character</span>
+          <span class="obj">player1</span><span class="dot">.</span><span class="meth">describe</span><span class="warp">()</span>;
+          <span class="result">I'm Human with 100 of life</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>

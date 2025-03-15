@@ -1,0 +1,86 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__12" h2Title="Array-Like" slot="mainContent">
+    <ChaptrSect h3Title="La propiedad clave" codeText="Symbol.iterator">
+      <ChaptrSubSect h4Title="Qué es un iterable" codeText="">
+        <p class="chaptrSubSect__p">Un iterable es un objeto que define un método llamado <code>Symbol.iterator</code>. Este método devuelve un iterador, un objeto que sabe cómo acceder a una colección de elementos uno a uno</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Qué es" codeText="Symbol.iterator">
+        <p class="chaptrSubSect__p">Es un símbolo predefinido que representa el <mark>método</mark> predeterminado para iterar sobre un objeto. Este método debe devolver un iterador que implemente el protocolo de iteradores de JavaScript</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Cómo funciona" codeText="">
+        <p class="chaptrSubSect__p">Cuando intentas usar un bucle <code>for...of</code> en un objeto, el mecanismo de iteración llama automáticamente al método <code>Symbol.iterator</code> del objeto</p>
+        <p class="chaptrSubSect__p">Un iterador tiene un método llamado <code>next()</code> que devuelve un objeto con dos propiedades: <code>value</code>(el valor actual) y <code>done</code>(un booleano que indica si la iteración ha terminado (true) o no (false).)</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Creación de un objeto iterador" codeText="">
+        <p class="chaptrSubSect__p">Cuando intentas usar un bucle <code>for...of</code> en un objeto, el mecanismo de iteración llama automáticamente al método <code>Symbol.iterator</code> del objeto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">rango</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="key">from</span>: <span class="nums">1</span>,
+            <span class="key">to</span>: <span class="nums">5</span>
+          &#125;;
+
+          <span class="func">for</span> <span class="warp">(<span class="key">let</span> <span class="var">num</span> <span class="key">of</span> <span class="var">rango</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span>(<span class="var">num</span>)</span>;
+          &#125;</span>;
+        
+          <span class="result">rango is not iterable</span></pre>
+        <p class="chaptrSubSect__p">Para hacer que el objeto <code>rango</code> sea iterable (y así permitir que <code>for..of</code> funcione) necesitamos agregarle el método llamado <code>Symbol.iterator</code> (un símbolo incorporado especial usado solo para realizar esa función)</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">rango</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">from</span>: <span class="nums">1</span>,
+            <span class="objProp">to</span>: <span class="nums">5</span>
+
+            <span class="commnt">Definimos el método Symbol.iterator</span>
+            [<span class="obj">Symbol</span><span class="dot">.</span><span class="meth">iterator</span>]() &#123;
+              <span class="obj">this</span><span class="dot">.</span><span class="meth">current</span> <span class="opera">=</span> <span class="obj">this</span><span class="dot">.</span><span class="meth">from</span>;
+              <span class="key">return <span class="obj">this</span></span>;
+            &#125;,
+
+            <span class="commnt">Definimos el método next()</span>
+            <span class="func">next</span>() &#123;
+              <span class="func">if</span> (<span class="obj">this</span><span class="dot">.</span><span class="meth">current</span> <span class="opera">&lt;=</span> <span class="obj">this</span><span class="dot">.</span><span class="meth">to</span>) &#123;
+                <span class="key">return</span> &#123; <span class="objProp">done</span>: <span class="key">false</span>, <span class="objProp">value</span>: <span class="obj">this</span><span class="dot">.</span><span class="meth">current</span><span class="opera">++</span> &#125;;
+              &#125; <span class="key">else</span> &#123;
+                <span class="key">return</span> &#123; <span class="objProp">done</span>: <span class="key">true</span> &#125;;
+              &#125;
+            &#125;
+          &#125;;
+
+          <span class="func">for</span> <span class="warp">(<span class="key">let</span> <span class="var">num</span> <span class="key">of</span> <span class="var">rango</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span>(<span class="var">num</span>)</span>;
+          &#125;</span>;
+        
+          <span class="result">1 2 3 4 5</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Iterables y " codeText="array-like">
+      <ChaptrSubSect h4Title="Iterables" codeText="">
+        <p class="chaptrSubSect__p">Son objetos que implementan el método <code>Symbol.iterator</code></p>
+        <p class="chaptrSubSect__p">Puede ser recorrido por <code>for...of</code></p>
+        <p class="chaptrSubSect__p">Arrays, strings, Maps, Sets, NodeLists, etc.</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="array-like">
+        <p class="chaptrSubSect__p">Un objeto es "array-like" si tiene propiedades indexadas numéricamente (0, 1, 2, etc.) y una propiedad <code>length</code>, pero no necesariamente implementa <code>Symbol.iterator</code></p>
+        <p class="chaptrSubSect__p">No puede ser recorrido por <code>for...of</code> (a menos que implemente <code>Symbol.iterator</code>)</p>
+        <p class="chaptrSubSect__p">Tienen una estructura similar a un array, pero <mark><b>NO</b></mark> tienen los métodos de <code>Array.prototype</code></p>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Conversión a array" codeText="">
+      <ChaptrSubSect h4Title="Usando" codeText="Array.from()">
+        <p class="chaptrSubSect__p">Cualquiera de los dos puede ser convertido a un array usando el método <code>Array.from()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">Array</span><span class="dot">.</span><span class="meth">from</span><span class="warp">(<span class="params">iterator</span>)</span>;
+
+          <span class="obj">Array</span><span class="dot">.</span><span class="meth">from</span><span class="warp">(<span class="params">arrayLike</span>)</span>;</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>

@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'Neucha';
+  src: url('/src/assets/fonts/Neucha.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NovaMono';
+  src: url('/src/assets/fonts/NovaMono.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ranga';
+  src: url('/src/assets/fonts/Ranga.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

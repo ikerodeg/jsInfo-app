@@ -1,0 +1,73 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__22" h2Title="JSON" slot="mainContent">
+    <ChaptrSect h3Title="Conversión" codeText="">
+      <ChaptrSubSect h4Title="De objeto a JSON" codeText="JSON.stringify()">
+        <p class="chaptrSubSect__p">Sintaxis</p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">JSON</span><span class="dot">.</span><span class="meth">stringify</span><span class="warp">(<span class="params">value, replacer*, space*</span>)</span>;
+          <span class="commnt">* opcional</span></pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>value</code>: Es el valor a convertir.</li>
+          <li class="chaptrSubSectUl__li"><code>replacer</code>: Array de propiedades o función de mapeo, <code>function(property, valor)</code>.</li>
+          <li class="chaptrSubSectUl__li"><code>space</code>: Cantidad de tabulaciones para usar el formateo.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Convierte el objeto en un string. Omite propiedades que sean <code>functions</code>, <code>Symbols</code> o <code>undefined</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">myObj</span> <span class="opera">=</span> <span class="warp">&#123;<span class="objProp">name</span>: <span class="args">"Éder"</span>, <span class="objProp">age</span>: <span class="nums">4</span> &#125;</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">myObj</span>)</span>;
+          <span class="result">&#123;name: 'Éder', age: 4&#125;</span>
+
+          <span class="key">const</span> <span class="var">myJSON</span> <span class="opera">=</span> <span class="warp">(<span class="obj">JSON</span><span class="dot">.</span><span class="meth">stringify</span><span class="warp2">(<span class="obj">myObj</span>)</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">myJSON</span>)</span>;
+          <span class="result">'&#123;"name":"Éder", "age": 4&#125;'</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="De JSON a objeto" codeText="JSON.parse()">
+        <p class="chaptrSubSect__p">Sintaxis</p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">JSON</span><span class="dot">.</span><span class="meth">parse</span><span class="warp">(<span class="params">string, reviver*</span>)</span>;
+          <span class="commnt">* opcional</span></pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>string</code>: Es el string en formato JSON a analizar.</li>
+          <li class="chaptrSubSectUl__li"><code>reviver</code>: <code>function(key, value)</code> que será llamado para cada par (propiedad, valor).</li>
+        </ul>
+        <p class="chaptrSubSect__p">Convierte un JSON a objeto de JavaScript</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">userDataJSON</span> <span class="opera">=</span> <span class="warp"><span class="args">'&#123;
+            "name": "Éder",
+            "age": 4,
+            "family": ["Iker", "Bego", "Jose", "Yaya"]
+          &#125;'</span></span>;
+          <span class="commnt">No debe tener espacios en blanco</span>
+
+          <span class="key">let</span> <span class="var">user</span> <span class="opera">=</span> <span class="obj">JSON</span><span class="dot">.</span><span class="meth">parse</span><span class="warp">(<span class="obj">userDataJSON</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">user</span>)</span>;
+          <span class="result">&#123;name: 'Éder', age: 4, family: Array(4)&#125;</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">user</span><span class="dot">.</span><span class="objProp">family</span><span class="warp2">[<span class="nums">0</span>]</span>)</span>;
+          <span class="result">'Iker'</span></pre>
+          <p class="chaptrSubSect__p">Utilizando <code>reviver</code></p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">let</span> <span class="var">myJSON</span> <span class="opera">=</span> <span class="args">'&#123;"title": "Conference", "date": "2017-11-30T12:00"&#125;'</span>
+
+            <span class="key">let</span> <span class="var">meetup</span> <span class="opera">=</span> <span class="obj">JSON</span><span class="dot">.</span><span class="meth">parse</span><span class="warp">(<span class="obj">myJSON</span>, <span class="func">function</span><span class="warp2">(<span class="params">key, value</span>) &#123;
+              <span class="func">if</span><span class="warp">(<span class="params">key</span> <span class="opera">===</span> <span class="args">'date'</span>)</span> <span class="key">return new</span> <span class="func">Date</span>(<span class="params">value</span>);
+              <span class="key">return</span> <span class="params">value</span>
+            &#125;</span>)</span>;
+
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">meetup</span><span class="span dot">.</span><span class="objProp">date</span><span class="dot">.</span><span class="meth">getDate</span><span class="warp2">()</span>)</span>;
+            <span class="result">30</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>

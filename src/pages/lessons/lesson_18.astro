@@ -1,0 +1,155 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__18" h2Title="WeakMap" slot="mainContent">
+    <ChaptrSect h3Title="Creación de un WeakMap" codeText="">
+      <ChaptrSubSect h4Title="Utilizando su constructor" codeText="new WeakMap()">
+        <p class="chaptrSubSect__p">Es la única forma de crearlo, <mark>no existe la forma literal</mark> como en los objetos</p>
+        <p class="chaptrSubSect__p">Las claves de un <code>WeakMap</code> <mark>sólo pueden ser objetos</mark></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">myWeakMap</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakMap</span><span class="warp">()</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">myWeakMap</span>)</span>;
+          <span class="result">WeakMap(0) &#123;&#125;</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Agregar elementos" codeText="">
+      <ChaptrSubSect h4Title="Utilizando su constructor" codeText="new WeakMap()">
+        <p class="chaptrSubSect__p">Cuando lo estamos creando podemos pasarle también unos valores iniciales</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">jug_11</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">pie</span>: <span class="args">'Izq'</span>,
+          &#125;</span>
+
+          <span class="key">const</span> <span class="var">jug_21</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Iker'</span>,
+            <span class="objProp">pie</span>: <span class="args">'Der'</span>,
+          &#125;</span>
+
+          <span class="key">const</span> <span class="var">firstTeam</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakMap</span><span class="warp">([
+            [<span class="obj">jug_11</span>, <span class="args">'ExtIzq'</span>],
+            [<span class="obj">jug_21</span>, <span class="args">'MedCentDef'</span>]
+          ])</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">firstTeam</span>)</span>;
+          <span class="result">WeakMap &#123;&#123;...&#125; =&gt; 'MedCentDef', &#123;...&#125; =&gt; 'ExtIzq'&#125;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Utilizando el método" codeText=".set()">
+        <p class="chaptrSubSect__p">Cómo argumento le pasaremos un objeto y un valor</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">jug_11</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">pie</span>: <span class="args">'Izq'</span>,
+          &#125;</span>
+
+          <span class="key">const</span> <span class="var">jug_21</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Iker'</span>,
+            <span class="objProp">pie</span>: <span class="args">'Der'</span>,
+          &#125;</span>
+
+          <span class="key">const</span> <span class="var">firstTeam</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakMap</span><span class="warp">([
+            [<span class="obj">jug_11</span>, <span class="args">'ExtIzq'</span>],
+          ])</span>;
+
+          <span class="obj">firstTeam</span><span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="obj">jug_21</span>, <span class="args">'MedCentDef'</span>)</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">firstTeam</span>)</span>;
+          <span class="result">WeakMap &#123;&#123;...&#125; =&gt; 'MedCentDef', &#123;...&#125; =&gt; 'ExtIzq'&#125;</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Acceso a elementos" codeText="">
+      <ChaptrSubSect h4Title="Devuelve el value de key con" codeText=".get()">
+          <p class="chaptrSubSect__p">Devuelve el valor de un key que es un objeto</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">const</span> <span class="var">jug_11</span> <span class="opera">=</span> <span class="warp">&#123;
+              <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+              <span class="objProp">pie</span>: <span class="args">'Izq'</span>,
+            &#125;</span>
+  
+            <span class="key">const</span> <span class="var">jug_21</span> <span class="opera">=</span> <span class="warp">&#123;
+              <span class="objProp">name</span>: <span class="args">'Iker'</span>,
+              <span class="objProp">pie</span>: <span class="args">'Der'</span>,
+            &#125;</span>
+  
+            <span class="key">const</span> <span class="var">firstTeam</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakMap</span><span class="warp">([
+              [<span class="obj">jug_11</span>, <span class="args">'ExtIzq'</span>],
+              [<span class="obj">jug_21</span>, <span class="args">'MedCentDef'</span>]
+            ])</span>;
+            
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">firstTeam</span><span class="dot">.</span><span class="meth">get</span><span class="warp2">(<span class="obj">jug_11</span>)</span>)</span>;
+            <span class="result">'ExtIzq'</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Existencia claves" codeText="">
+      <ChaptrSubSect h4Title="Verifica si existe una clave con" codeText=".has()">
+          <p class="chaptrSubSect__p">Devuelve un booleano</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">const</span> <span class="var">jug_11</span> <span class="opera">=</span> <span class="warp">&#123;
+              <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+              <span class="objProp">pie</span>: <span class="args">'Izq'</span>,
+            &#125;</span>
+  
+            <span class="key">const</span> <span class="var">jug_21</span> <span class="opera">=</span> <span class="warp">&#123;
+              <span class="objProp">name</span>: <span class="args">'Iker'</span>,
+              <span class="objProp">pie</span>: <span class="args">'Der'</span>,
+            &#125;</span>
+  
+            <span class="key">const</span> <span class="var">firstTeam</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakMap</span><span class="warp">([
+              [<span class="obj">jug_11</span>, <span class="args">'ExtIzq'</span>],
+              [<span class="obj">jug_21</span>, <span class="args">'MedCentDef'</span>]
+            ])</span>;
+            
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">firstTeam</span><span class="dot">.</span><span class="meth">has</span><span class="warp2">(<span class="obj">jug_11</span>)</span>)</span>;
+            <span class="result">true</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Eliminar elementos" codeText="">
+      <ChaptrSubSect h4Title="Elimina elemento con clave con" codeText=".delete()">
+          <p class="chaptrSubSect__p">Elmina el elemento que contiene esa clave</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">const</span> <span class="var">jug_11</span> <span class="opera">=</span> <span class="warp">&#123;
+              <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+              <span class="objProp">pie</span>: <span class="args">'Izq'</span>,
+            &#125;</span>
+  
+            <span class="key">const</span> <span class="var">jug_21</span> <span class="opera">=</span> <span class="warp">&#123;
+              <span class="objProp">name</span>: <span class="args">'Iker'</span>,
+              <span class="objProp">pie</span>: <span class="args">'Der'</span>,
+            &#125;</span>
+  
+            <span class="key">const</span> <span class="var">firstTeam</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakMap</span><span class="warp">([
+              [<span class="obj">jug_11</span>, <span class="args">'ExtIzq'</span>],
+              [<span class="obj">jug_21</span>, <span class="args">'MedCentDef'</span>]
+            ])</span>;
+
+            <span class="obj">firstTeam</span><span class="dot">.</span><span class="meth">delete</span><span class="warp">(<span class="obj">jug_21</span>)</span>;
+            
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">firstTeam</span>)</span>;
+            <span class="result">WeakMap &#123;&#123;...&#125; =&gt; 'ExtIzq'&#125;</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Casos de uso" codeText="">
+      <ChaptrSubSect h4Title="Casos de uso reales" codeText="">
+        <p class="chaptrSubSect__p">El área principal de aplicación de WeakMap es como almacenamiento de datos adicional</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">jug_11</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">firstTeam</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakMap</span><span class="warp">()</span>;
+
+          <span class="obj">firstTeam</span><span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="obj">jug_11</span>, <span class="args">'ExtIzq'</span>)</span>;
+
+          <span class="obj">jug_11</span> <span class="opera">=</span> <span class="warp">&#123;&#125;</span>;</pre>
+        <p class="chaptrSubSect__p">Como ha desaparecido el obj <code>jug_11</code> y el <code>WeakMap</code> tiene una <mark>referencia débil</mark> a él, <code>firstTeam</code> será <mark>auto-destruido</mark> por el recolector de basura pero no automáticamente, si no cuando pueda el motor V8</p>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>

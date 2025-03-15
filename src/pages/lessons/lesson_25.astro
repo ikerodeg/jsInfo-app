@@ -1,0 +1,228 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__25" h2Title="Closures" slot="mainContent">
+    <ChaptrSect h3Title="Los Clousures" codeText="">
+      <ChaptrSubSect h4Title="Explicación" codeText="">
+        <p class="chaptrSubSect__p">Un <mark>closure</mark> es una función que "recuerda" el entorno en el que fue creada, incluso después de que ese entorno haya terminado de ejecutarse. Imagina que tienes una función dentro de otra función. La función interna tiene acceso a las variables de la función externa, aunque esta última ya haya finalizado su ejecución. Este "acceso a las variables de la función externa" es lo que hace que un <mark>closure</mark> funcione</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Funciones anidadas" codeText="">
+        <p class="chaptrSubSect__p">Una función dentro de otra función, pueden producir nuevos ámbitos o scopes para las variables que hay dentro de ellas, y para poder acceder desde fuera de la función a esas variables tenemos que utilizar el doble paréntesis <code>()()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">a</span> <span class="opera">=</span> <span class="args">'Hey!, '</span>;
+
+          <span class="key">function</span> <span class="func">global</span> <span class="warp">() &#123;
+            <span class="key">const</span> <span class="var">b</span> <span class="opera">=</span> <span class="args">'¿Qué '</span>;
+
+            <span class="key">function</span> <span class="func">local</span> <span class="warp">() &#123;
+              <span class="key">const</span> <span class="var">c</span> <span class="opera">=</span> <span class="args">'tal?'</span>;
+              <span class="key">return</span> <span class="var">a <span class="opera">+</span> b <span class="opera">+</span> c</span>;
+            &#125;;</span>
+
+            <span class="key">return</span> <span class="func">local</span>;
+          &#125;</span>;
+          
+          <span class="func">global</span><span class="warp">()</span>;
+          <span class="result">ƒ local()</span>
+          <span class="func">global</span><span class="warp">()()</span>;
+          <span class="result">'Hey!, ¿Qué tal?'</span></pre>
+        <p class="chaptrSubSect__p">Desglosando lo que pasa</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">La función <code>global()</code> retorna la función <code>local</code> en sí (su código).</li>
+          <li class="chaptrSubSectUl__li">Como la función <code>local()</code> es la más interna, tiene acceso a todo lo que hay por fuera de ella (funciones y variables).</li>
+          <li class="chaptrSubSectUl__li">Si llamamos a <code>global()</code> nos retornará el código de la función <code>local</code>, por lo que para ejecutarla necesitamos el doble paréntesis <code>()()</code>.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Para evitar el doble paréntesis <code>()()</code> podemos crear una constante y asignarle la llamada a la función <code>globlal</code> para luego ejecutar esa variable recien creada con sólo 1 paréntesis</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">closure</span> <span class="opera">=</span> <span class="func">global</span><span class="warp">()</span>;
+          <span class="func">closure</span><span class="warp">()</span>;
+          <span class="result">'Hey!, ¿Qué tal?'</span></pre>
+        <p class="chaptrSubSect__p">Esto ya se acerca a lo que es un <mark>closure</mark></p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Closures" codeText="">
+        <p class="chaptrSubSect__p">Supongamos que tienes una función que devuelve otra función</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span> <span class="func">saludo</span> <span class="warp">(<span class="params">name</span>) &#123;
+            <span class="key">return</span> <span class="func">function</span><span class="warp2">() &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Hola, $&#123;<span class="params">name</span>&#125;`</span>)</span>;
+            &#125;;</span>
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">saludarÉder</span> <span class="opera">=</span> <span class="func">saludo</span><span class="warp">(<span class="args">'Éder'</span>)</span>;
+          <span class="func">saludarÉder</span><span class="warp">()</span>;
+          <span class="result">'Hola, Éder'</span>
+        
+          <span class="key">const</span> <span class="var">saludarIker</span> <span class="opera">=</span> <span class="func">saludo</span><span class="warp">(<span class="args">'Iker'</span>)</span>;
+          <span class="func">saludarIker</span><span class="warp">()</span>;
+          <span class="result">'Hola, Iker'</span></pre>
+        <p class="chaptrSubSect__p">Desglosando lo que pasa</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Llamamos a la función <code>saludo('Éder')</code>. Esta función toma el argumento <code>'Éder'</code> y devuelve una nueva función.</li>
+          <li class="chaptrSubSectUl__li">La nueva función que devuelve tiene acceso a la variable <code>nombre</code> aunque la función <code>saludo</code> ya haya terminado de ejecutarse.</li>
+          <li class="chaptrSubSectUl__li">Cuando llamas a <code>saludarEder()</code>, que es la función devuelta, todavía puede acceder al valor de <code>nombre</code> que se le pasó originalmente (en este caso, <code>'Éder'</code>).</li>
+        </ul>
+        <p class="chaptrSubSect__p">Es una función que encapsula una serie de variables y definiciones locales que unicamente serán accesibles si son devueltas con el operador <code>return</code>, esto nos permite en cierto modo tener variables <strong>privadas</strong>. Esto se utilizaba antes de la llegada de las <mark>Clases</mark> ya que los <mark>closures</mark> se acercan bastante a la definición de <mark>Clase</mark> como por ejemplo en lenguajes como Java</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">miContador</span> <span class="opera">=</span> <span class="warp2">(</span><span class="key">function</span><span class="warp">() &#123;
+            <span class="key">let</span> <span class="var">_contador</span> <span class="opera">=</span> <span class="nums">0</span>;
+
+            <span class="key">function</span> <span class="func">incrementar</span> <span class="warp">() &#123;
+              <span class="key">return</span> <span class="var">_contador</span><span class="opera">++</span>;
+            &#125;</span>
+
+            <span class="key">function</span> <span class="func">decrementar</span> <span class="warp">() &#123;
+              <span class="key">return</span> <span class="var">_contador</span><span class="opera">--</span>;
+            &#125;</span>
+
+            <span class="key">function</span> <span class="func">valor</span> <span class="warp">() &#123;
+              <span class="key">return</span> <span class="var">_contador</span>;
+            &#125;</span>
+
+            <span class="key">return</span><span class="warp">&#123;
+              <span class="func">incrementar</span>,
+              <span class="func">decrementar</span>,
+              <span class="func">valor</span>,
+            &#125;</span>
+          &#125;</span><span class="warp2">)()</span>;
+          
+          <span class="obj">miContador</span><span class="dot">.</span><span class="func">incrementar</span><span class="warp">()</span>;
+          <span class="obj">miContador</span><span class="dot">.</span><span class="func">incrementar</span><span class="warp">()</span>;
+          <span class="obj">miContador</span><span class="dot">.</span><span class="func">incrementar</span><span class="warp">()</span>;
+          <span class="obj">miContador</span><span class="dot">.</span><span class="func">decrementar</span><span class="warp">()</span>;
+          <span class="obj">miContador</span><span class="dot">.</span><span class="func">valor</span><span class="warp">()</span>;
+          <span class="result">2</span></pre>
+        <p class="chaptrSubSect__p">Desglosando lo que pasa</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Después de crear todas las funciones, envolvemos la princial entre paréntesis y le añadimos dos más para que se auto-ejecute</li>
+          <li class="chaptrSubSectUl__li">No podremos acceder a la variable <code>_contador</code> a menos que sea desde dentro de la <mark>closure</mark></li>
+          <li class="chaptrSubSectUl__li">Si llamamos a <code>miContador()</code> nos retornará el código de las funciones.</li>
+          <li class="chaptrSubSectUl__li">El motivo por el que se llama como si fueran métodos de objeto es porque en realidad se devuelve un objeto en el <code>return</code> principal de la función principal.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Interview Closures" codeText="">
+        <p class="chaptrSubSect__p">Una de las preguntas estrella en las entrevistas es como se comporta el scope y porque este ciclo <code>for</code> si se usa <code>var</code> da un resultado y si se usa <code>let</code> da otro</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Usando *let*</span>
+          <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="var">i</span> <span class="opera">=</span> <span class="nums">0</span>; <span class="var">i</span> <span class="opera">&lt;</span> <span class="nums">3</span>; <span class="var">i</span><span class="opera">++</span>) &#123;
+            <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() <span class="opera">=&gt;</span> &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="var">i</span>)</span>
+            &#125;</span>, <span class="nums">3000</span>)</span>
+          &#125;</span>;
+          <span class="result">0 1 2</span></pre>
+        <p class="chaptrSubSect__p">Desglosando lo que pasa con <code>let</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><mark>1ª</mark><span class="bttn">Inicialización:</span> Crea la variable <code>i</code> y le asigna el valor <code>0</code>.</li>
+          <li class="chaptrSubSectUl__li">Al crearla, también crea una <span class="bttn">caja</span> (scope) privada, y dentro guarda el valor que en ese momento tenía <code>i</code> en este caso <code>0</code>.</li>
+          <li class="chaptrSubSectUl__li"><mark>1ª</mark><span class="bttn">Comprobación:</span> Comprueba que <code>i &lt; 3</code> en este caso es <code>true</code> por lo que procede adelante.</li>
+          <li class="chaptrSubSectUl__li"><mark>1ª</mark><span class="bttn">Ejecución:</span> Al ejecutar el código, guarda en la caja del <code>let</code> el código del <code>setTimeout</code>, pero todavía no imprime nada porque no ha pasado el tiempo parametrizado.</li>
+          <li class="chaptrSubSectUl__li"><mark>1ª</mark><span class="bttn">Actualización:</span> Incrementa a <code>i</code> en 1.</li>
+        </ul>
+        <pre class="chaptrSubSect__console">
+          ―― Caja 1ª Iteración ――
+          <span class="var">i</span> <span class="opera">=</span> <span class="nums">0</span>;
+          <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() <span class="opera">=&gt;</span> &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="var">i</span>)</span>
+            &#125;</span>, <span class="nums">3000</span>)</span>
+          <span class="commnt">3seg para que se "abra la caja"</span></pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><mark>2ª</mark><span class="bttn">Inicialización:</span> Asigna a la variable <code>i</code> el valor recién incrementado, en este caso <code>1</code>.</li>
+          <li class="chaptrSubSectUl__li">También crea una <span class="bttn">caja</span> (scope) privada, y dentro guarda el valor que en ese momento tenía <code>i</code> en este caso <code>1</code>.</li>
+          <li class="chaptrSubSectUl__li"><mark>2ª</mark><span class="bttn">Comprobación:</span> Comprueba que <code>i &lt; 3</code> en este caso es <code>true</code> por lo que procede adelante.</li>
+          <li class="chaptrSubSectUl__li"><mark>2ª</mark><span class="bttn">Ejecución:</span> Al ejecutar el código, guarda en la caja del <code>let</code> el código del <code>setTimeout</code>, pero todavía no imprime nada porque no ha pasado el tiempo parametrizado.</li>
+          <li class="chaptrSubSectUl__li"><mark>2ª</mark><span class="bttn">Actualización:</span> Incrementa a <code>i</code> en 1.</li>
+        </ul>
+        <pre class="chaptrSubSect__console">
+          ―― Caja 2ª Iteración ――
+          <span class="var">i</span> <span class="opera">=</span> <span class="nums">1</span>;
+          <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() <span class="opera">=&gt;</span> &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="var">i</span>)</span>
+            &#125;</span>, <span class="nums">3000</span>)</span>
+          <span class="commnt">3seg para que se "abra la caja"</span></pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><mark>3ª</mark><span class="bttn">Inicialización:</span> Asigna a la variable <code>i</code> el valor recién incrementado, en este caso <code>2</code>.</li>
+          <li class="chaptrSubSectUl__li">También crea una <span class="bttn">caja</span> (scope) privada, y dentro guarda el valor que en ese momento tenía <code>i</code> en este caso <code>2</code>.</li>
+          <li class="chaptrSubSectUl__li"><mark>3ª</mark><span class="bttn">Comprobación:</span> Comprueba que <code>i &lt; 3</code> en este caso es <code>true</code> por lo que procede adelante.</li>
+          <li class="chaptrSubSectUl__li"><mark>3ª</mark><span class="bttn">Ejecución:</span> Al ejecutar el código, guarda en la caja del <code>let</code> el código del <code>setTimeout</code>, pero todavía no imprime nada porque no ha pasado el tiempo parametrizado.</li>
+          <li class="chaptrSubSectUl__li"><mark>3ª</mark><span class="bttn">Actualización:</span> Incrementa a <code>i</code> en 1.</li>
+        </ul>
+        <pre class="chaptrSubSect__console">
+          ―― Caja 3ª Iteración ――
+          <span class="var">i</span> <span class="opera">=</span> <span class="nums">2</span>;
+          <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() <span class="opera">=&gt;</span> &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="var">i</span>)</span>
+            &#125;</span>, <span class="nums">3000</span>)</span>
+          <span class="commnt">3seg para que se "abra la caja"</span></pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><mark>4ª</mark><span class="bttn">Inicialización:</span> Asigna a la variable <code>i</code> el valor recién incrementado, en este caso <code>3</code>.</li>
+          <li class="chaptrSubSectUl__li">También crea una <span class="bttn">caja</span> (scope) privada, y dentro guarda el valor que en ese momento tenía <code>i</code> en este caso <code>3</code>.</li>
+          <li class="chaptrSubSectUl__li"><mark>4ª</mark><span class="bttn">Comprobación:</span> Comprueba que <code>i &lt; 3</code> en este caso es <code>false</code> por lo que detiene el ciclo y esa caja recién creada la borra el recolector de basura.</li>
+          <li class="chaptrSubSectUl__li">Cuando el tiempo del <code>setTimeout</code> ha cumplido, se proceden a "abrir" esas caja e imprimir los <code>console.log</code> con las variables cuyos valores tenían en ese momento que se guardaron.</li>
+          <li class="chaptrSubSectUl__li">Primero se abre la caja del <code>setTimeout</code> de la primera iteración con valor <code>0</code>, luego la 2º con valor <code>1</code> y por último la 3º con valor <code>2</code>.</li>
+        </ul>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Usando *var*</span>
+          <span class="func">for</span><span class="warp">(<span class="key">var</span> <span class="var">i</span> <span class="opera">=</span> <span class="nums">0</span>; <span class="var">i</span> <span class="opera">&lt;</span> <span class="nums">3</span>; <span class="var">i</span><span class="opera">++</span>) &#123;
+            <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() <span class="opera">=&gt;</span> &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="var">i</span>)</span>
+            &#125;</span>, <span class="nums">3000</span>)</span>
+          &#125;</span>;
+          <span class="result">3 3 3</span></pre>
+        <p class="chaptrSubSect__p">Desglosando lo que pasa con <code>var</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><mark>1ª</mark><span class="bttn">Inicialización:</span> Crea la variable <code>i</code> <mark>global</mark> y le asigna el valor <code>0</code>.</li>
+          <li class="chaptrSubSectUl__li"><mark>1ª</mark><span class="bttn">Comprobación:</span> Comprueba que <code>i &lt; 3</code> en este caso es <code>true</code> por lo que procede adelante.</li>
+          <li class="chaptrSubSectUl__li"><mark>1ª</mark><span class="bttn">Ejecución:</span> Al ejecutar el código, guarda en un espacio de memoria el código del <code>setTimeout</code>, pero todavía no imprime nada porque no ha pasado el tiempo parametrizado.</li>
+          <li class="chaptrSubSectUl__li"><mark>1ª</mark><span class="bttn">Actualización:</span> Incrementa a <code>i</code> en 1.</li>
+        </ul>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Variable global</span>
+          <span class="var">i</span> <span class="opera">=</span> <span class="nums">0</span>;
+          <span class="commnt">Espacio en memoria 1ª iteración</span>
+          <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() <span class="opera">=&gt;</span> &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="var">i</span>)</span>
+            &#125;</span>, <span class="nums">3000</span>)</span>
+          <span class="commnt">3seg para que se ejecute el setTimeout</span></pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><mark>2ª</mark><span class="bttn">Inicialización:</span> Asigna a la variable <mark>global</mark> <code>i</code> el valor recién incrementado, en este caso <code>1</code>.</li>
+          <li class="chaptrSubSectUl__li"><mark>2ª</mark><span class="bttn">Comprobación:</span> Comprueba que <code>i &lt; 3</code> en este caso es <code>true</code> por lo que procede adelante.</li>
+          <li class="chaptrSubSectUl__li"><mark>2ª</mark><span class="bttn">Ejecución:</span> Al ejecutar el código, guarda en un espacio de memoria el código del <code>setTimeout</code>, pero todavía no imprime nada porque no ha pasado el tiempo parametrizado.</li>
+          <li class="chaptrSubSectUl__li"><mark>2ª</mark><span class="bttn">Actualización:</span> Incrementa a <code>i</code> en 1.</li>
+        </ul>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Variable global</span>
+          <span class="var">i</span> <span class="opera">=</span> <span class="nums">1</span>;
+          <span class="commnt">Espacio en memoria 2ª iteración</span>
+          <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() <span class="opera">=&gt;</span> &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="var">i</span>)</span>
+            &#125;</span>, <span class="nums">3000</span>)</span>
+          <span class="commnt">3seg para que se ejecute el setTimeout</span></pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><mark>3ª</mark><span class="bttn">Inicialización:</span> Asigna a la variable <mark>global</mark> <code>i</code> el valor recién incrementado, en este caso <code>2</code>.</li>
+          <li class="chaptrSubSectUl__li"><mark>3ª</mark><span class="bttn">Comprobación:</span> Comprueba que <code>i &lt; 3</code> en este caso es <code>true</code> por lo que procede adelante.</li>
+          <li class="chaptrSubSectUl__li"><mark>3ª</mark><span class="bttn">Ejecución:</span> Al ejecutar el código, guarda en un espacio de memoria el código del <code>setTimeout</code>, pero todavía no imprime nada porque no ha pasado el tiempo parametrizado.</li>
+          <li class="chaptrSubSectUl__li"><mark>3ª</mark><span class="bttn">Actualización:</span> Incrementa a <code>i</code> en 1.</li>
+        </ul>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Variable global</span>
+          <span class="var">i</span> <span class="opera">=</span> <span class="nums">2</span>;
+          <span class="commnt">Espacio en memoria 3ª iteración</span>
+          <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() <span class="opera">=&gt;</span> &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="var">i</span>)</span>
+            &#125;</span>, <span class="nums">3000</span>)</span>
+          <span class="commnt">3seg para que se ejecute el setTimeout</span></pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><mark>4ª</mark><span class="bttn">Inicialización:</span> Asigna a la variable <mark>global</mark> <code>i</code> el valor recién incrementado, en este caso <code>3</code>.</li>
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"><mark>4ª</mark><span class="bttn">Comprobación:</span> Comprueba que <code>i &lt; 3</code> en este caso es <code>false</code> por lo que detiene el ciclo pero hay que recordar que como la variable es <mark>global</mark> se ha actualizado su valor a 3 y es accesible a todo el código, está fuera digamos de una <span class="bttn">caja</span> como hace <code>let</code>.</li>
+          <li class="chaptrSubSectUl__li">Cuando el tiempo del <code>setTimeout</code> ha cumplido, se procede a ejecutar el primer <code>setTimeout</code> guardado en esos espacios en memoria. Cuando el primer <code>console.log</code> accede a la variable <code>i</code> busca su valor que es <code>3</code> puesto que no ha estado protegida en una <span class="bttn">caja</span> y ha sido actualizado. Después se ejecutará el segundo con el mismo valor y el tercero igual.</li>
+        </ul>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>

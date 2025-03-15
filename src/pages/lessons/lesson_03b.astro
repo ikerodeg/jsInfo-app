@@ -1,0 +1,730 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+const ruta = '../../src/assets/img/'
+---
+<MainLayout>
+  <LssnArt artClass="lssn__03b" h2Title="Eventos en la UI" slot="mainContent">
+    <ChaptrSect h3Title="Eventos del Mouse" codeText="">
+      <ChaptrSubSect h4Title="Tipo de enventos" codeText="">
+        <p class="chaptrSubSect__p">Conocemos ya algunos tipos de eventos del mouse</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>mousedown/mouseup</code>: Se oprime/suelta el botón del ratón sobre un elemento.</li>
+          <li class="chaptrSubSectUl__li"><code>mouseover/mouseout</code>: El puntero del mouse se mueve sobre/sale de un elemento.</li>
+          <li class="chaptrSubSectUl__li"><code>mousemove</code>: Cualquier movimiento del mouse sobre un elemento activa el evento.</li>
+          <li class="chaptrSubSectUl__li"><code>click</code>: Se activa después de mousedown y un mouseup enseguida sobre el mismo elemento si se usó el botón.</li>
+          <li class="chaptrSubSectUl__li"><code>dbclick</code>: Se activa después de dos clicks seguidos sobre el mismo elemento. Hoy en día se usa raramente.</li>
+          <li class="chaptrSubSectUl__li"><code>contextmenu</code>: Se activa al pulsar el botón derecho del ratón. Existen otras formas de abrir el menú contextual, por ejemplo: usando un comando especial de teclado también puede activarse, de manera que no es exactamente un evento exclusivo del mouse.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Orden de eventos" codeText="">
+        <p class="chaptrSubSect__p">Por ejemplo , un click izquierdo primero activa <code>mousedown</code> cuando se presiona el botón, enseguida <code>mouseup</code> y <code>click</code> cuando se suelta. En casos así, el orden es fijo. Es decir, los controladores son llamados en el siguiente orden <code>mousedown</code> → <code>mouseup</code> → <code>click</code></p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Detección de botones del mouse" codeText="">
+        <p class="chaptrSubSect__p">La propiedad <code>event.button</code> identifica qué botón activó el evento</p>
+        <table class="chaptrSubSect__table">
+          <thead>
+            <tr>
+              <th>Botón del mouse</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="tdBold">Botón izquierdo</td>
+              <td class="tdCenter">0</td>
+            </tr>
+            <tr>
+              <td class="tdBold">Botón central</td>
+              <td class="tdCenter">1</td>
+            </tr>
+            <tr>
+              <td class="tdBold">Botón derecho</td>
+              <td class="tdCenter">2</td>
+            </tr>
+          </tbody>
+        </table>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;button id='btn'&gt;CLickMe&lt;/button&gt; º/
+
+          /* js */
+          const ·btn = document.getElementById('btn');
+          
+          ·btn.addEventListener('mousedown', (çevent) =&gt; &#123;
+            switch (çevent.ºbutton)&#123;
+              •case 0:
+                console.log('Click izquierdo');
+                break;
+              •case 1:
+                console.log('Click central');
+                break;
+              •case 2:
+                console.log('Click derecho');
+                break;
+              default:
+                console.log('Otro botón o acción desconocida')
+            &#125;
+          &#125;);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Teclas modificadores" codeText="">
+        <p class="chaptrSubSect__p">Los eventos incluyen información sobre teclas como <code>Shift</code>, <code>Alt</code>, <code>Ctrl</code> y <code>Meta</code> (Cmd en Mac)</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>event.shiftKey</code>, <code>event.altKey</code>, <code>event.ctrlKey</code>, <code>event.metaKey</code>.</li>
+          <li class="chaptrSubSectUl__li">Estas propiedades son <code>true</code> si la tecla estaba presionada al activarse el evento.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;button id='modBtn'&gt;Shift + Click&lt;/button&gt; º/
+
+          /* js */
+          const ·modBtn = document.getElementById('modBtn');
+          
+          ·modBtn.addEventListener('click', (çevent) =&gt; &#123;
+            if (çevent.ºshiftKey)&#123;
+              console.log('Click + Shift presionado');
+            &#125; else &#123;
+              console.log('Click normal');
+            &#125;
+          &#125;);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Coordenadas del Mouse" codeText="">
+        <p class="chaptrSubSect__p">Hay 2 tipos de propiedades relaccionadas con el mouse</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>ºclientX/Y</code>: Coordenadas relativas a la ventana.@</li>º
+          <li clas@s="chaptrSubSectUl__li"><code>pageX/Y</code>: Coordenadas relativas al documento, independientemente del desplazamiento de la página.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;div id='tracker' class='tracker'&gt;Mueve el mouse aquí&lt;/div&gt; º/
+
+          /* css */
+          /º .tracker&#123; º/
+            /º inline-size: 10em; º/
+            /º block-size: 10em; º/
+          /º &#125; º/
+
+          /* js */
+          const ·tracker = document.getElementById('tracker');
+          
+          ·tracker.addEventListener('mousemove', (çevent) =&gt; &#123;
+            ·tracker.ºtextContent = `/º Posición: ($&#123;çevent.ºclientX&#125;, $&#123;çevent.ºclientY&#125;) º/`;
+          &#125;);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Prevención de comportamientos predeterminados" codeText="">
+        <p class="chaptrSubSect__p">Evitar la selección de texto</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">La acción predeterminada de <code>mousedown</code> selecciona texto. Esto puede evitarse con <code>event.preventDefault()</code>.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;div id='noSelect' class='noSelect'&gt;No puedes seleccionar este texto&lt;/div&gt; º/
+
+          /* css */
+          /º .noSelect&#123; º/
+            /º user-select: none; º/
+          /º &#125; º/
+
+          /* js */
+          const ·noSelect = document.getElementById('noSelect');
+          
+          ·noSelect.addEventListener('mousedown', (çevent) =&gt; &#123;
+            çevent.@preventDefault();
+            console.log('Selección desabilitada');
+          &#125;);</pre>
+        <p class="chaptrSubSect__p">Evitar copias de texto</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Usar el evento <code>oncopy</code> para bloquear el copiado.</li>
+        </ul>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Moviendo el Mouse" codeText="">
+      <ChaptrSubSect h4Title="Eventos" codeText="mouseover/mouseout">
+        <p class="chaptrSubSect__p">Se activan cuando el cursor</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>mouseover</code>: Entra a un elemento.</li>
+          <li class="chaptrSubSectUl__li"><code>mouseout</code>: Sale de un elemento.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Estos eventos incluyen una propiedad especial, <code>relatedTarget</code>, que indica el elemento complementario en la transición</p>
+        <p class="chaptrSubSect__p">Para <code>mouseover</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>event.target</code>: Elemento donde entró el mouse.</li>
+          <li class="chaptrSubSectUl__li"><code>event.relatedTarget</code>: Elemento desde el que vino el mouse.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Para <code>mouseout</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>event.target</code>: Elemento que el mouse dejó.</li>
+          <li class="chaptrSubSectUl__li"><code>event.relatedTarget</code>: Elemento hacia el que se movió el mouse.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;div id='box'&gt;Mueve el mouse aquí&lt;/div&gt; º/
+
+          /* css */
+          /º .box &#123; º/
+            /º inline-size: 15em; º/
+            /º block-size: 15em; º/
+          /º &#125; º/
+
+          /* js */
+          const ·box = document.getElementById('box');
+
+          ·box.addEventListener('mouseover', (çevent) =&gt; &#123;
+            console.log(`Entraste en: $&#123;çevent.ºtarget.ºid&#125;`);
+            console.log(`Viniendo desde: $&#123;çevent.ºrelatedTarget?.ºid || "window"&#125;`);
+          &#125;);
+
+          ·box.addEventListener('mouseout', (çevent) =&gt; &#123;
+            console.log(`Saliste de: $&#123;çevent.ºtarget.ºid&#125;`);
+            console.log(`Yendo hacia: $&#123;çevent.ºrelatedTarget?.ºid || "window"&#125;`);
+          &#125;);
+        </pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Precaución" codeText="relatedTarget = null">
+        <p class="chaptrSubSect__p">Si el cursor entra desde <span class="bttn">window</span> o sale hacia <span class="bttn">window</span>, <code>relatedTarget</code> será <code>null</code>. Evita errores verificando antes de acceder a sus propiedades</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;div id='box' class='box'&gt;Mueve el mouse hacia aqui&lt;/div&gt; º/
+
+          /* css */
+          /º .box&#123; º/
+            /º inline-size; 10em; º/
+            /º block-size; 10em; º/
+          /º &#125; º/
+
+          /* js */
+          const ·box = document.getElementById('box');
+          
+          ·box.addEventListener('mouseout', (çevent) =&gt; &#123;
+            if (!çevent.ºrelatedTarget) &#123;
+              console.log('El mouse salió hacia la ventana');
+              return;
+            &#125;
+            console.log(`Nuevo elemento: $&#123;çevent.ºrelatedTarget.ºtagName&#125;`);
+          &#125;);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Movimientos rápidos del mouse" codeText="">
+        <p class="chaptrSubSect__p">Si el cursor se mueve rápidamente, el navegador puede omitir elementos intermedios</p>
+        <p class="chaptrSubSect__p">Por ejemplo, de un elemento <code>A</code> a <code>C</code>, el evento <code>mouseout</code> puede activarse en <code>A</code> y <code>mouseover</code> directamente en <code>C</code>, ignorando <code>B</code></p>
+        <p class="chaptrSubSect__p">Esto mejora el rendimiento, pero debemos considerarlo en la lógica</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Diferencias" codeText="mouseover/mouseenter">
+        <p class="chaptrSubSect__p"><code>mouseover</code> y <code>mouseout</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Burbujean:</strong> Los eventos se propagan hacia los padres.</li>
+          <li class="chaptrSubSectUl__li">Detectan movimientos hacia elementos descendientes.</li>
+          <li class="chaptrSubSectUl__li">Útiles para delegación de eventos.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><code>mouseenter</code> y <code>mouseleave</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>No burbujean:</strong> Los eventos no afectan a  los padres.</li>
+          <li class="chaptrSubSectUl__li">Ignoran movimientos hacia elementos descendientes.</li>
+          <li class="chaptrSubSectUl__li">Simples para detectar entradas y salidas de un elemento como un todo.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;div id='parent' class='parent'&gt;Padre º/
+            /º &lt;div id='child' class='child'&gt;Hijo º/
+            /º &lt;/div&gt; º/
+          /º &lt;/div&gt; º/
+
+          /* css */
+          /º .parent&#123; º/
+            /º inline-size: 10em; º/
+            /º block-size: 10em; º/
+            /º background-color: purple; º/
+          /º &#125; º/
+
+          /º .child&#123; º/
+            /º inline-size: 5em; º/
+            /º block-size: 5em; º/
+            /º background-color: orangered; º/
+          /º &#125; º/
+
+          /* js */
+          const ·parent = document.getElementById('parent');
+          const ·child = document.getElementById('child');
+
+          const ·handleMouseOver = () =&gt; console.log('mouseover en el padre');
+          const ·handleMouseOout = () =&gt; console.log('mouseout en el padre');
+          const ·handleMouseEnter = () =&gt; console.log('mouseenter en el padre');
+          const ·handleMouseLeave = () =&gt; console.log('mouseleave en el padre');
+          
+          ·parent.addEventListener('mouseover', ·handleMouseOver);
+          ·parent.addEventListener('mouseout', ·handleMouseOut);
+          ·parent.addEventListener('mouseenter', ·handleMouseEnter);
+          ·parent.addEventListener('mouseleave', ·handleMouseLeave);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Delegación de eventos" codeText="mouseover/out">
+        <p class="chaptrSubSect__p">La delegación de eventos es útil cuando tenemos muchos elementos (como celdas en una tabla) y queremos optimizar el rendimiento, en este capítulo, nos enfocamos en usar <code>mouseover</code> y <code>mouseout</code> para implementar delegación, ya que <code>mouseenter</code> y <code>mouseleave</code> no permiten delegación</p>
+        <p class="chaptrSubSect__p">Queremos resaltar las celdas de una tabla al pasar el mouse por encima, (entrada y salida de celdas) usando delegación de eventos. Teniendo en cuenta los siguientes puntos clave</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Detectar si el mouse entra o sale de una celda.</li>
+          <li class="chaptrSubSectUl__li">Ignorar transiciones internas (movimientos dentro de la misma celda).</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;ul id='menu' class='menu'&gt; º/
+            /º &lt;li class='inicio'&gt;Inicio&lt;/li&gt; º/
+            /º &lt;li class='acercaDe'&gt;Acerca de&lt;/li&gt; º/
+            /º &lt;li class='servicios'&gt;Servicios&lt;/li&gt; º/
+            /º &lt;li class='contacto'&gt;contacto&lt;/li&gt; º/
+          /º &lt;/ul&gt; º/
+        </pre>
+        <pre class="chaptrSubSect__console wScript">
+          /* css */
+          /º .li &#123; º/
+            /º background-color: black; º/
+            /º border: 2px solid orangered; º/
+            /º color: orangered; º/
+            /º padding: 1em; º/
+            /º margin-block: 0.3em; º/
+          /º &#125; º/</pre>
+        <pre class="chaptrSubSect__console wScript">
+          /* js */
+
+          const ·menu = document.getElementById('menu');
+          let ·currentItem = null;
+
+          /* Delegar eventos en el menú */
+          ·menu.addEventListener('mouseover', (çevent) =&gt; &#123;
+            const ·target = çevent.·target.@closest('li');
+            /* Ignorar movimientos fuera del menú o dentro del mismo elemento */
+            if (!·target || ·target === ·currentItem || !·menu.@contains(·target)) return;
+            /* Entrar a un nuevo elemento del menú */
+            ·currentItem = ·target;
+            @onEnter(·target);
+          &#125;);
+
+          ·menu.addEventListener('mouseout', (çevent) =&gt; &#123;
+            if (!·currentItem) return;
+            const ·relatedTarget = çevent.·relatedTarget;
+            /* Ignorar si seguimos dentro del mismo elemento */
+            if (·relatedTarget && ·currentItem.@contains(·relatedTarget)) return;
+            /* Salir del elemento actual */
+            @onLeave(·currentItem);
+            ·currentItem = null;
+          &#125;);
+
+          /* Funciones auxiliares */
+          function @onEnter(•item) &#123;
+            •item.ºstyle.ºcolor = 'black';
+            •item.ºstyle.ºfontWeight = ¬800;
+            •item.ºstyle.ºbackgroundColor = 'yellow';
+            console.log(`/º Entraste en $&#123;item.tagName&#125;.$&#123;item.className&#125; º/`);
+          &#125;;
+
+          function @onLeave(•item) &#123;
+            •item.ºstyle.ºcolor = '';
+            •item.ºstyle.ºbackgroundColor = '';
+            console.log(`/º Saliste de $&#123;item.tagName&#125;.$&#123;item.className&#125; º/`);
+          &#125;;</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Arrastrar y Soltar" codeText="">
+      <ChaptrSubSect h4Title="Porqué usar eventos del ratón" codeText="">
+        <p class="chaptrSubSect__p">La <span class="bttn">API</span> nativa de <span class="bttn">HTML</span> incluye eventos específicos para manejar acciones de arrastrar y soltar (<code>dragstart</code>, <code>dragend</code>, etc.), pero tiene importantes limitaciones</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">No permite restringir movimientos, como limitar el arrastre a una dirección específica (horizontal o vertical).</li>
+          <li class="chaptrSubSectUl__li">Es poco flexible al definir las áreas de inicio del arrastre.</li>
+          <li class="chaptrSubSectUl__li">Su soporte en dispositivos móviles es limitado.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Por estas razones, es común implementar arrastrar y soltar mediante eventos del ratón, que ofrecen un control más granular y son más compatibles.</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Algoritmo básico de" codeText="drag&drop">
+        <p class="chaptrSubSect__p">El proceso básico para implementar esta funcionalidad consta de tres pasos principales</p>
+        <p class="chaptrSubSect__p"><mark>1:</mark> Preparar el elemento para ser arrastrado (<code>mousedown</code>)
+        </p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Definir la posición inicial y cambiar el estilo del elemento.</li>
+          <li class="chaptrSubSectUl__li">Asegurarse de que el elemento puede moverse libremente (<code>position: absolute</code>).</li>
+        </ul>
+        <p class="chaptrSubSect__p"><mark>2:</mark> Mover el elemento con el ratón (<code>mousemove</code>)</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Actualizar dinámicamente la posición del elemento siguiendo las coordenadas del cursor.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><mark>3:</mark> Finalizar el arrastre (<code>mouseup</code>)</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Detener el seguimiento del movimiento del ratón y realizar cualquier acción necesaria al soltar el elemento.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Implementación detallada" codeText="">
+        <p class="chaptrSubSect__p"><strong>1: Preparar el elemento para arrastrar</strong></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Calcula la posición inicial del cursor respecto al elemento con <code>getBoundingClientRect()</code>.</li>
+          <li class="chaptrSubSectUl__li">Cambia el posicionamiento a <code>absolute</code> y ajusta <code>zIndex</code> para mantener el elemento en primer plano.</li>
+          <li class="chaptrSubSectUl__li">Utiliza <code>document.body.append(element)</code> para asegurarse de que el elemento no sea ocultado por otros.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>2: Mover el elemento con el ratón</strong></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">El evento <code>mousemove</code> actualiza la posición del elemento con la función <code>moveAt</code>, asegurando un movimiento suave.</li>
+          <li class="chaptrSubSectUl__li">Usa <code>document.elementFromPoint(event.clientX, event.clientY)</code> para identificar elementos debajo del cursor durante el movimiento.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>3: Finaliza el arrastre</strong></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Elimina los eventos <code>mousemove</code> y <code>mouseup</code> al soltar el ratón.</li>
+          <li class="chaptrSubSectUl__li">Si el elemento es soltado sobre un "droppable" (elemento válido), realiza acciones como añadir el elemento dentro del droppable.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>4: Evita el comportamiento nativo</strong></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Desactiva el comportamiento predeterminado de arrastrar con <code>ondragstart</code>.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>5: Mejoras adicionales</strong></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Los elementos receptores (droppables) son detectados dinámicamente con <code>elementFromPoint</code> y resaltados.</li>
+          <li class="chaptrSubSectUl__li">Se puede añadir lógica personalizada dentro de la detección de droppables.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;section&gt; º/
+            /º &lt;p&gt;Drag the ball&lt;/p&gt; º/
+            /º &lt;img src="https://en.js.cx/clipart/soccer-gate.svg" id='gate' class='droppable'&gt; º/
+            /º &lt;img src="https://en.js.cx/clipart/ball.svg" id='ball'&gt; º/
+          /º &lt;/section&gt; º/</pre>
+        <pre class="chaptrSubSect__console wScript">
+          /* css */
+          /º ＃gate &#123; º/
+            /º cursor: pointer; º/
+            /º inline-size: 15em; º/
+            /º block-size: 10em; º/
+            /º margin-block-end: 5em; º/
+          /º &#125;º/
+
+          /º ＃ball &#123; º/
+            /º cursor: pointer; º/
+            /º inline-size: 2em; º/
+            /º block-size: 2em; º/
+          /º &#125;º/</pre>
+        <pre class="chaptrSubSect__console wScript">
+          /* js */
+          document.addEventListener('DOMContentLoaded', () =&gt; &#123;
+            let ·currentDroppable = null;
+            const ·ball = document.getElementById('ball');
+          
+            ·ball.addEventListener('mousedown', (çevent) =&gt; &#123;
+              let ·shiftX = çevent.ºclientX - ·ball.@getBoundingClientRect().ºleft;
+              let ·shiftY = çevent.ºclientY - ·ball.@getBoundingClientRect().ºtop;
+          
+              ·ball.ºstyle.ºposition = 'absolute';
+              ·ball.ºstyle.ºzIndex = ¬1000;
+              document.body.append(·ball);
+          
+              @moveAt(çevent.•pageX, çevent.•pageY);
+          
+              function @moveAt(•pageX, •pageY) &#123;
+                ·ball.ºstyle.ºleft = •pageX - ·shiftX + 'px';
+                ·ball.ºstyle.ºtop = •pageY - ·shiftY + 'px';
+              &#125;
+          
+              function @onMouseMove(çevent) &#123;
+                @moveAt(çevent.•pageX, çevent.•pageY);
+          
+                ·ball.ºhidden = true;
+                let ·elemBelow = document.@elementFromPoint(çevent.ºclientX, çevent.ºclientY);
+                ·ball.ºhidden = false;
+          
+                if (!·elemBelow) return;
+          
+                let ·droppableBelow = ·elemBelow.closest('.droppable');
+                if (·currentDroppable !== ·droppableBelow) &#123;
+                  if (·currentDroppable) &#123;
+                    @leaveDroppable(·currentDroppable);
+                  &#125;
+                  ·currentDroppable = ·droppableBelow;
+                  if (·currentDroppable) &#123;
+                    @enterDroppable(·currentDroppable);
+                  &#125;
+                &#125;
+              &#125;
+          
+              document.addEventListener('mousemove', @onMouseMove);
+          
+              document.addEventListener('mouseup', function @onMouseUp() &#123;
+                document.removeEventListener('mousemove', @onMouseMove);
+                document.removeEventListener('mouseup', @onMouseUp);
+              &#125;);
+            &#125;);
+          
+            ·ball.addEventListener('dragstart', (çevent) =&gt; &#123;
+              çevent.@preventDefault();
+            &#125;);
+          
+            function @enterDroppable(·elem) &#123;
+              ·elem.ºstyle.ºbackground = 'pink';
+            &#125;
+          
+            function @leaveDroppable(·elem) &#123;
+              ·elem.ºstyle.ºbackground = '';
+            &#125;
+          &#125;);
+        </pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Eventos del puntero" codeText="">
+      <ChaptrSubSect h4Title="Historia breve" codeText="">
+        <p class="chaptrSubSect__p"><mark>Eventos de Mouse:</mark> Fueron los primeros en manejar la interacción del usuario, pero son limitados al mouse</p>
+        <p class="chaptrSubSect__p"><mark>Eventos Táctiles:</mark> Introducidos para dispositivos táctiles (teléfonos y tabletas) y soportan capacidades como multi-touch, pero no abordan dispositivos como lápices</p>
+        <p class="chaptrSubSect__p"><mark>Eventos de Puntero:</mark> Nacieron para unificar los eventos de entrada en todos los dispositivos señaladores (mouse, táctil, lápices, etc.) y simplificar el manejo de multi-touch</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Tipos de eventos de puntero" codeText="">
+        <table class="chaptrSubSect__table">
+          <thead>
+            <tr>
+              <th>Eventos de Puntero</th>
+              <th>Evento de Mouse Similar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="tdCenter">pointerdown</td>
+              <td class="tdCenter">mousedown</td>
+            </tr>
+            <tr>
+              <td class="tdCenter">pointerup</td>
+              <td class="tdCenter">mouseup</td>
+            </tr>
+            <tr>
+              <td class="tdCenter">pointermove</td>
+              <td class="tdCenter">mousemove</td>
+            </tr>
+            <tr>
+              <td class="tdCenter">pointerover</td>
+              <td class="tdCenter">mouseover</td>
+            </tr>
+            <tr>
+              <td class="tdCenter">pointeroout</td>
+              <td class="tdCenter">mouseout</td>
+            </tr>
+            <tr>
+              <td class="tdCenter">pointerenter</td>
+              <td class="tdCenter">mouseenter</td>
+            </tr>
+            <tr>
+              <td class="tdCenter">pointerleave</td>
+              <td class="tdCenter">mouseleave</td>
+            </tr>
+            <tr>
+              <td class="tdCenter">pointercancel</td>
+              <td class="tdCenter"><i>(No equivalente)</i></td>
+            </tr>
+            <tr>
+              <td class="tdCenter">gotpointercapture</td>
+              <td class="tdCenter"><i>(No equivalente)</i></td>
+            </tr>
+            <tr>
+              <td class="tdCenter">lostpointercapture</td>
+              <td class="tdCenter"><i>(No equivalente)</i></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="chaptrSubSect__p">Los eventos de puntero extienden los eventos del mouse, agregando compatibilidad con dispositivos táctiles y lápices</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Propiedades únicas de eventos de puntero" codeText="">
+        <p class="chaptrSubSect__p">Además de las propiedades comunes de los eventos del mouse (<code>clientX</code>, <code>clientY</code>, <code>target</code>, etc.), los eventos de puntero añaden propiedades específicas</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>pointerId</code>: Identificador único del puntero. Útil para manejar multi-touch.</li>
+          <li class="chaptrSubSectUl__li"><code>pointerType</code>: Tipo de dispositivo señalador (<span class="bttn">mouse</span>, <span class="bttn">touch</span>, <span class="bttn">pen</span>).</li>
+          <li class="chaptrSubSectUl__li"><code>isPrimary</code>: <code>true</code> si es el puntero principal (ej. primer dedo en multitáctil).</li>
+          <li class="chaptrSubSectUl__li"><code>pressure</code>: Fuerza de presión (0 a 1).</li>
+          <li class="chaptrSubSectUl__li"><code>width</code> y <code>height</code>: Dimensiones del área de contacto.</li>
+          <li class="chaptrSubSectUl__li"><code>tiltX</code>, <code>tiltY</code>, <code>twist</code>, <code>tangentialPressure</code>: Propiedades adicionales para lápices digitales.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Ejemplos" codeText="">
+        <p class="chaptrSubSect__p"><mark>1:</mark> Diferenciar dispositivos con <code>pointerType</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;div id="area"&gt; º/
+            Toca, haz clic o usa un lápiz aquí.
+          /º &lt;/div&gt; º/</pre>
+        <pre class="chaptrSubSect__console wScript">
+          /* js */
+          const ·area = document.getElementById('area');
+
+          ·area.addEventListener('pointerdown', (çevent) =&gt; &#123;
+            console.log(`/º Tipo de dispositivo: $&#123;çevent.pointerType&#125; º/`);
+            if (çevent.ºpointerType === 'mouse') &#123;
+              console.log('/º ¡Interacción con mouse! º/');
+            &#125; else if (çevent.ºpointerType === 'touch') &#123;
+              console.log('/º ¡Interacción táctil! º/');
+            &#125; else if (çevent.ºpointerType === 'pen') &#123;
+              console.log('/º ¡Interacción con lápiz! º/');
+            &#125;
+          &#125;);</pre>
+        <p class="chaptrSubSect__p"><mark>2:</mark> Multi-touch con <code>pointerId</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;div id="area"&gt; º/
+            Usa varios dedos aquí.
+          /º &lt;/div&gt; º/</pre>
+        <pre class="chaptrSubSect__console wScript">
+          /* js */
+          const ·touchArea = document.getElementById('touch-area');
+
+          ·touchArea.addEventListener('pointerdown', (çevent) =&gt; &#123;
+            console.log(`/º Pointer ID: $&#123;çevent.pointerId&#125;, Primary: $&#123;çevent.isPrimary&#125; º/`);
+          &#125;);
+        
+          ·touchArea.addçEventListener('pointerup', (çevent) =&gt; &#123;
+            console.log(`/º Pointer ID liberado: $&#123;çevent.pointerId&#125; º/`);
+          &#125;);
+        </pre>
+        <p class="chaptrSubSect__p"><mark>3:</mark> El evento <code>pointercancel</code> se dispara cuando el navegador interrumpe una interacción del puntero, como en acciones nativas (arrastrar y soltar). Podemos evitar esto configurando la propiedad CSS <code>touch-action</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;div id="area" style="touch-action: none"&gt; º/
+            Arrastra aquí.
+          /º &lt;/div&gt; º/</pre>
+        <pre class="chaptrSubSect__console wScript">
+          /* js */
+          const ·draggable = document.getElementById('draggable');
+
+          ·draggable.addEventListener('pointerdown', (çevent) =&gt; &#123;
+            console.log('/º Inicia arrastre. º/');
+          &#125;);
+        
+          ·draggable.addEventListener('pointercancel', () =&gt; &#123;
+            console.log('/º Interacción cancelada por el navegador. º/');
+          &#125;);</pre>
+        <p class="chaptrSubSect__p"><mark>4:</mark> Podemos "capturar" eventos de puntero y redirigirlos a un elemento específico, incluso si el puntero se mueve fuera de él</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;div class="slider" style="position: relative"&gt; º/
+              /º &lt;div class="thimb" style="position: absolute"&gt;&lt;/div&gt; º/
+          /º &lt;/div&gt; º/</pre>
+        <pre class="chaptrSubSect__console wScript">
+          /* js */
+          const ·slider = document.querySelector('.slider');
+          const ·thumb = document.querySelector('.thumb');
+
+          ·thumb.addEventListener('pointerdown', (çevent) =&gt; &#123;
+            ·thumb.@setPointerCapture(çevent.ºpointerId);
+            const ·sliderRect = ·slider.@getBoundingClientRect();
+
+            ·thumb.addEventListener('pointermove', (çevent) =&gt; &#123;
+              let ·newLeft = çevent.ºclientX - ·sliderRect.ºleft;
+              ·newLeft = çMath.@max(¬0, çMath.@min(·newLeft, ·sliderRect.ºwidth - ·thumb.ºoffsetWidth));
+              ·thumb.ºstyle.ºleft = ·newLeft + 'px';
+            &#125;);
+
+            ·thumb.addEventListener('pointerup', () =&gt; &#123;
+              ·thumb.ºonpointermove = null; /* Limpieza */
+            &#125;);
+          &#125;);</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Eventos del Teclado" codeText="">
+      <ChaptrSubSect h4Title="Definición" codeText="">
+        <p class="chaptrSubSect__p">
+          Los eventos del teclado son eventos que se activan cuando el usuario interactúa con el teclado. Estos eventos son útiles para capturar la entrada del usuario y realizar acciones en respuesta a ella.</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Eventos clave" codeText="keydown/keyup">
+        <p class="chaptrSubSect__p"><code>keydown:</code> Se activa al presionar una tecla (y se repite si la mantienes pulsada)</p>
+        <p class="chaptrSubSect__p"><code>keyup:</code> Se activa al soltar una tecla (sólo una vez)</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Propiedades del evento" codeText="key/code">
+        <p class="chaptrSubSect__p"><code>event.key:</code> Permite obtener el carácter</p>
+        <p class="chaptrSubSect__p"><code>event.code:</code> Permite obtener el código físico de la tecla</p>
+        <table class="chaptrSubSect__table">
+          <thead>
+            <tr>
+              <th>Tecla</th>
+              <th>event.key</th>
+              <th>event.code</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="tdBold">🅉</td>
+              <td class="tdCenter">z (minúscula)</td>
+              <td class="tdCenter">KeyZ</td>
+            </tr>
+            <tr>
+              <td class="tdBold">SHIFT + 🅉</td>
+              <td class="tdCenter">Z (mayúscula)</td>
+              <td class="tdCenter">KeyZ</td>
+            </tr>
+          </tbody>
+        </table>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Evitar acciones predeterminadas" codeText="">
+        <p class="chaptrSubSect__p">Algunas teclas tienen comportamientos predeterminados que pueden interferir con la lógica de la aplicación. Para evitarlos, podemos usar el evento <code>preventDefault()</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          document.addEventListener('keydown', (çevent) =&gt; &#123;
+            if (çevent.ºkey === 'F12') &#123;
+              çevent.@preventDefault();
+            &#125;
+          &#125;);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Ejemplo final" codeText="">
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;input id="input" type="text" placeholder="Teléfono (ej: +346666666)"&gt; º/
+
+          /* js */
+          const ·input = document.querySelector('#·input');
+          ·input.addEventListener('keydown', (çevent) =&gt; &#123;
+            const ·allowedChars = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+            if (!#isNaN(çevent.ºkey) || ·allowedChars.@includes(çevent.ºkey)) &#123;
+              console.log('Carácter permitido');
+            &#125; else &#123;
+              çevent.@preventDefault();
+              console.log('Carácter no permitido');
+              &#125;
+          &#125;;</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Desplazamiento" codeText="">
+      <ChaptrSubSect h4Title="Desplazamiento" codeText="">
+        <p class="chaptrSubSect__p">El desplazamiento es un evento que se activa cuando el usuario desplaza el contenido de un elemento con barras de desplazamiento. Este evento es útil para detectar cuándo el usuario interactúa con el contenido desplazable y realizar acciones en respuesta a ello.</p>
+        <pre class="chaptrSubSect__console wScript">
+          çwindow.addEventListener('scroll', () =&gt; &#123;
+            document.getElementById('showScroll').•innerHTML = çwindow.•pageYOffset + 'px';
+          &#125;);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Evitar desplazamiento" codeText="">
+        <p class="chaptrSubSect__p">El evento scroll se dispara después de que el desplazamiento ocurre. Es como intentar detener una puerta que ya se abrió: es demasiado tarde. Existen dos enfoques principales para evitar el desplazamiento</p>
+        <p class="chaptrSubSect__p"><mark>A)</mark> Bloquear con JavaScript (eventos específicos)</p>
+        <pre class="chaptrSubSect__console wScript">
+          document.addEventListener('wheel', (çevent) =&gt; &#123;
+            çevent.@preventDefault();
+          &#125;);</pre>
+        <p class="chaptrSubSect__p"><mark>B)</mark> Bloquear con CSS (propiedad overflow)</p>
+        <pre class="chaptrSubSect__console wScript">
+          /º body &#123; º/
+            /º overflow: hidden; º/
+          /º &#125; º/</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>
+
+<!-- 
+&lt;&gt;
+&#123;&#125;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<img class="chaptrSubSect__img" src=`${ruta}img13.webp` alt="captura del evento">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li"></li>
+＃
+-->

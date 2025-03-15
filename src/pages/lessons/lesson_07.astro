@@ -1,0 +1,130 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__07" h2Title="Condicionales" slot="mainContent">
+    <ChaptrSect h3Title="La setencia" codeText="if">
+      <ChaptrSubSect h4Title="Sintaxis" codeText="">
+        <p class="chaptrSubSect__p">Es recomendable siempre encerrar nuestro bloque de código entre llaves <code>&#123;&#125;</code>, inclusive si solo se va a ejecutar una sola sentencia para mejora la legibilidad</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">edad</span> <span class="opera">=</span> <span class="nums">18</span>;
+
+          <span class="key">if</span><span class="warp">(<span class="var">edad</span> <span class="opera">≧</span> <span class="nums">18</span>)</span> <span class="warp">&#123; 
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Ola q ase!'</span>)</span>;
+          &#125</span>;
+          <span class="result">Ola q ase!</span>     <span class="commnt">Es true, se cumple</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Conversion booleana" codeText="==">
+        <p class="chaptrSubSect__p">La sentencia <code>if(…)</code> evalúa la expresión dentro de sus paréntesis y convierte el resultado en booleano</p>
+        <p class="chaptrSubSect__p">El número <code>0</code>, un string vacio <code>""</code>, <code>null</code>, <code>undefined</code>, y <code>NaN</code> se convierten en <code>false</code>. Por esto son llamados valores <span class="bttn">falsy</span>. El resto de los valores se convierten en <code>true</code>, entonces los llamaremos valores <span class="bttn">truthy</span></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">if</span><span class="warp">(<span class="args">""</span>)</span> <span class="warp">&#123; 
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Ola q ase!'</span>)</span>;
+          &#125</span>;
+          <span class="result"></span>     <span class="commnt">Es false no se ejecutará el log</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="La sentencia" codeText="else">
+        <p class="chaptrSubSect__p">Cuando la condición sea <code>false</code> se puede poner opcionalmente un bloque de código que se ejecutará con <code>else</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">year</span> <span class="opera">=</span> <span class="nums">2020</span>;
+
+          <span class="key">if</span><span class="warp">(<span class="var">year</span> <span class="opera">==</span> <span class="nums">2020</span>)</span> <span class="warp">&#123; 
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'El año de Éder!'</span>)</span>;
+          &#125</span> <span class="key">else</span> <span class="warp">&#123; 
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Otro año cualquiera'</span>)</span>;
+          &#125</span>;
+          <span class="result">El año de Éder!</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="La clausula" codeText="else if">
+        <p class="chaptrSubSect__p">Es una extensión de la estructura <code>if...else</code> que permite manejar múltiples condiciones de manera secuencial.</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">year</span> <span class="opera">=</span> <span class="nums">1976</span>;
+          
+          <span class="key">if</span><span class="warp">(<span class="var">year</span> <span class="opera">==</span> <span class="nums">2020</span>)</span> <span class="warp">&#123; 
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'El año de Éder!'</span>)</span>;
+          &#125</span> <span class="key">else if</span><span class="warp">(<span class="var">year</span> <span class="opera">==</span> <span class="nums">1976</span>)</span> <span class="warp">&#123; 
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'El año de Iker!'</span>)</span>;
+          &#125</span> <span class="key">else</span> <span class="warp">&#123; 
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Otro año cualquiera'</span>)</span>;
+          &#125</span>;
+          <span class="result">El año de Iker!</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="El operador ternario" codeText="?">
+      <ChaptrSubSect h4Title="Versión moderna de" codeText="if">
+        <p class="chaptrSubSect__p">Es la versión moderna de la clausula <code>if</code> y es el único operador con tres opeandos</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">accesAllowed</span>;
+          <span class="key">let</span> <span class="var">age</span> <span class="opera">=</span> <span class="nums">21</span>;
+
+          <span class="commnt">Versión tradicional con if</span>
+          <span class="key">if</span><span class="warp">(<span class="var">age</span> <span class="opera">&gt;</span> <span class="nums">18</span>)</span> <span class="warp">&#123; 
+            <span class="var">accesAllowed</span> <span class="opera">=</span> <span class="key">true</span>;
+          &#125</span> <span class="key">else</span> <span class="warp">&#123; 
+            <span class="var">accesAllowed</span> <span class="opera">=</span> <span class="key">false</span>;
+          &#125</span>;
+          
+          <span class="commnt">Versión operador ternario</span>
+          <span class="key">let</span> <span class="var">accesAllowed</span> <span class="opera">=</span> <span class="warp">(<span class="var">age</span> <span class="opera">&gt;</span> <span class="nums">18</span>)</span> <span class="opera">?</span> <span class="key">true</span> <span class="opera">:</span> <span class="key">false</span>;</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Múltiples" codeText="?">
+        <p class="chaptrSubSect__p">Aunque se pueden usar, <mark>no es recomendable</mark> por legibilidad</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">age</span> <span class="opera">=</span> <span class="nums">18</span>;
+
+          <span class="key">let</span> <span class="var">message</span> <span class="opera">=</span> <span class="warp">(<span class="var">age</span> <span class="opera">&lt;</span> <span class="nums">3</span>)</span> <span class="opera">?</span> <span class="args">'Hola bebé!'</span> <span class="opera">:</span> 
+          <span class="warp">(<span class="var">age</span> <span class="opera">&lt;</span> <span class="nums">18</span>)</span> <span class="opera">?</span> <span class="args">'Muy joven todavía!'</span> <span class="opera">:</span>
+          <span class="warp">(<span class="var">age</span> <span class="opera">&gt;</span> <span class="nums">70</span>)</span> <span class="opera">?</span> <span class="args">'Cuanta sabiduría!'</span> <span class="opera">:</span> 
+          <span class="args">'Eres un adulto!'</span>;
+        
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">message</span>)</span>;
+          <span class="result">Eres un adulto!</span>
+        </pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="La sentencia" codeText="switch">
+      <ChaptrSubSect h4Title="Sintaxis" codeText="">
+        <p class="chaptrSubSect__p">Evalúa una expresión y ejecuta diferentes bloques de código según el valor de dicha expresión. Es útil cuando tienes múltiples condiciones que deseas evaluar de manera más limpia que con múltiples <code>if...else if</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="opera">+</span><span class="func">prompt</span><span class="warp">(<span class="args">'Un número del 1 al 3'</span>)</span>;
+      
+          <span class="key">switch</span><span class="warp"><span class="cnsl-ylw">(<span class="var">result</span>) <span class="warp">&#123;
+              <span class="key">case</span> <span class="nums">1</span><span class="opera">:</span>
+                  <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Muy pequeño'</span>)</span>;
+                  <span class="key">break</span>;
+              <span class="key">case</span> <span class="nums">2</span><span class="opera">:</span>
+                  <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Exacto'</span>)</span>;
+                  <span class="key">break</span>;
+              <span class="key">case</span> <span class="nums">3</span><span class="opera">:</span>
+                  <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Muy grande'</span>)</span>;
+                  <span class="key">break</span>;
+              <span class="key">default:</span>
+                  <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Número inválido'</span>)</span>;
+          &#125;</span>;</pre>
+          <p class="chaptrSubSect__p"> La sentencia <code>switch</code> utiliza comparación estricta (<code>===</code>), lo que puede causar problemas si no se tiene en cuenta el tipo de datos</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Agrupamiento de" codeText="case">
+        <p class="chaptrSubSect__p">Si queremos que se ejecute el mismo código para <code>case 1</code> y <code>case 3</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="opera">+</span><span class="func">prompt</span><span class="warp">(<span class="args">'Un número del 1 al 3'</span>)</span>;
+      
+          <span class="key">switch</span><span class="warp"><span class="cnsl-ylw">(<span class="var">result</span>) <span class="warp">&#123;
+              <span class="key">case</span> <span class="nums">2</span><span class="opera">:</span>
+                  <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Exacto'</span>)</span>;
+                  <span class="key">break</span>;
+              <span class="key">case</span> <span class="nums">1</span><span class="opera">:</span>
+              <span class="key">case</span> <span class="nums">3</span><span class="opera">:</span>
+                  <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Muy grande'</span>)</span>;
+                  <span class="key">break</span>;
+              <span class="key">default:</span>
+                  <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Número inválido'</span>)</span>;
+          &#125;</span>;</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>

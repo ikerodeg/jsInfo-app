@@ -1,0 +1,46 @@
+[
+  {
+    "modelo": "Ferrari 812 Superfast",
+    "marca": "Ferrari",
+    "tipo": "Coupé",
+    "precioBaseUSD": 340000,
+    "motor": "V12 atmosférico",
+    "potenciaHP": 789,
+    "aceleracion0a100kmhSeg": 2.9,
+    "imagenes": ["ferrari_812_1.jpg", "ferrari_812_2.jpg"]
+  },
+  {
+    "modelo": "Lamborghini Aventador SVJ",
+    "marca": "Lamborghini",
+    "tipo": "Superdeportivo",
+    "precioBaseUSD": 520000,
+    "motor": "V12 atmosférico",
+    "potenciaHP": 759,
+    "aceleracion0a100kmhSeg": 2.8,
+    "traccionTotal": true,
+    "imagenes": ["aventador_svj_1.jpg", "aventador_svj_2.jpg"]
+  },
+  {
+    "modelo": "McLaren 765LT",
+    "marca": "McLaren",
+    "tipo": "Supercar",
+    "precioBaseUSD": 380000,
+    "motor": "V8 biturbo",
+    "potenciaHP": 755,
+    "aceleracion0a100kmhSeg": 2.7,
+    "edicionLimitada": true,
+    "imagenes": ["mclaren_765lt_1.jpg", "mclaren_765lt_2.jpg"]
+  },
+  {
+    "modelo": "Porsche 911 Turbo S",
+    "marca": "Porsche",
+    "tipo": "Deportivo",
+    "precioBaseUSD": 220000,
+    "motor": "Bóxer 6 cilindros biturbo",
+    "potenciaHP": 640,
+    "aceleracion0a100kmhSeg": 2.7,
+    "traccionTotal": true,
+    "techoSolarOpcional": true,
+    "imagenes": ["porsche_911_turbo_s_1.jpg", "porsche_911_turbo_s_2.jpg"]
+  }
+]

@@ -1,0 +1,1062 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__14" h2Title="Objetos" slot="mainContent">
+    <ChaptrSect h3Title="Creación de objetos" codeText="">
+      <ChaptrSubSect h4Title="Notación literal" codeText="{}">
+        <p class="chaptrSubSect__p">Se guarda en una variable (<mark>se recomienda usar </mark><code>const</code>) con un nombre y se usa un par llaves. Es la manera más rápida y se considera buenas practicas</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myObjetct</span> <span class="opera">=</span> <span class="warp">&#123; &#125;;</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Constructor" codeText="Object">
+        <p class="chaptrSubSect__p">Usando el constructor <code>Object</code> y el operador <code>new</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">myObject</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Object</span><span class="warp">();</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Función con variables" codeText="">
+        <p class="chaptrSubSect__p">Usando una función a la que se le pasa unos parámetros</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span> <span class="func">makeUser</span><span class="warp">(<span class="params">name, age</span>) &#123;
+            <span class="key">return</span>  &#123;
+              <span class="objProp">name</span>: <span class="params">name</span>,
+              <span class="objProp">age</span>: <span class="params">age</span>,
+            &#125;
+          &#125;</span>;
+        
+        <span class="key">let</span> <span class="var">user</span> <span class="opera">=</span> <span class="func">makeUser</span><span class="warp">(<span class="args">'Éder'</span>, <span class="nums">4</span>)</span>;
+        <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">user</span><span class="dot">.</span><span class="objProp">name</span>)</span>;
+        <span class="result">Éder</span></pre>
+        <p class="chaptrSubSect__p">En el ejemplo anterior las propiedades tienen los mismos nombres que las variables, pero podemos simplemente escribir un único nombre como propiedad/valor</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span> <span class="func">makeUser</span><span class="warp">(<span class="params">name, age</span>) &#123;
+            <span class="key">return</span>  &#123;
+              <span class="objProp">name</span>,
+              <span class="objProp">age</span>,
+            &#125;
+          &#125;</span>;
+        
+        <span class="key">let</span> <span class="var">user</span> <span class="opera">=</span> <span class="func">makeUser</span><span class="warp">(<span class="args">'Éder'</span>, <span class="nums">4</span>)</span>;
+        <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">user</span><span class="dot">.</span><span class="objProp">name</span>)</span>;
+        <span class="result">Éder</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Acceso a propiedades" codeText="">
+      <ChaptrSubSect h4Title="Operador del punto" codeText=".">
+        <p class="chaptrSubSect__p">Se puede acceder a los valores de las propiedades utilizando el operador del punto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">fullName</span>: <span class="warp">&#123;
+              <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+              <span class="objProp">surName</span>: <span class="args">'Rod'</span>
+            &#125;</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="objProp">hobbies</span>: [<span class="args">'Futbol', 'Lego', 'Puzzles'</span>],
+          &#125;</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">newUser<span class="dot">.</span>fullName</span><span class="dot">.</span><span class="objProp">surName</span>)</span>;
+          <span class="result">Rod</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Operador de corchete" codeText="[ ]">
+        <p class="chaptrSubSect__p">Es más versátil y permite el acceso dinámico a las propiedades del objeto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">fullName</span>: <span class="warp">&#123;
+              <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+              <span class="objProp">surName</span>: <span class="args">'Rod'</span>
+            &#125;</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="objProp">hobbies</span>: [<span class="args">'Futbol', 'Lego', 'Puzzles'</span>],
+          &#125;</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">newUser</span>[<span class="args">'fullName'</span>][<span class="args">'surName'</span>])</span>;
+          <span class="result">Rod</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Actualizar propiedades" codeText="">
+      <ChaptrSubSect h4Title="Operador del punto" codeText=".">
+        <p class="chaptrSubSect__p">Se puede actualizar los valores de las propiedades utilizando el operador del punto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">fullName</span>: <span class="warp">&#123;
+              <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+              <span class="objProp">surName</span>: <span class="args">'Rod'</span>
+            &#125;</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="objProp">hobbies</span>: [<span class="args">'Futbol', 'Lego', 'Puzzles'</span>],
+          &#125;</span>;
+
+          <span class="obj">newUser</span><span class="dot">.</span><span class="obj">fullName</span><span class="dot">.</span><span class="objProp">surName</span> <span class="opera">=</span> <span class="args">'Rodríguez'</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">newUser<span class="dot">.</span>fullName</span><span class="dot">.</span><span class="objProp">surName</span>)</span>;
+          <span class="result">Rodríguez</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Operador del corchete" codeText="[]">
+        <p class="chaptrSubSect__p">Se puede actualizar los valores de las propiedades utilizando el operador del corchete</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">fullName</span>: <span class="warp">&#123;
+              <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+              <span class="objProp">surName</span>: <span class="args">'Rod'</span>
+            &#125;</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="objProp">hobbies</span>: [<span class="args">'Futbol', 'Lego', 'Puzzles'</span>],
+          &#125;</span>;
+
+          <span class="obj">newUser</span><span class="warp">[<span class="args">'fullName'</span>][<span class="args">'surName'</span>]</span> <span class="opera">=</span> <span class="args">'Rodríguez'</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">newUser<span class="dot">.</span>fullName</span><span class="dot">.</span><span class="objProp">surName</span>)</span>;
+          <span class="result">Rodríguez</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Agregar propiedades" codeText="">
+      <ChaptrSubSect h4Title="Operador del punto" codeText=".">
+        <p class="chaptrSubSect__p">Se puede agregar propiedades utilizando el operador del punto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">fullName</span>: <span class="warp">&#123;
+              <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+              <span class="objProp">surName</span>: <span class="args">'Rod'</span>
+            &#125;</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="objProp">hobbies</span>: [<span class="args">'Futbol', 'Lego', 'Puzzles'</span>],
+          &#125;</span>;
+
+          <span class="obj">newUser</span><span class="dot">.</span><span class="objProp">heigth</span> <span class="opera">=</span> <span class="nums">107</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">newUser</span><span class="dot">.</span><span class="objProp">heigth</span>)</span>;
+          <span class="result">107</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Operador del corchete" codeText="[]">
+        <p class="chaptrSubSect__p">Se puede agregar propiedades utilizando el operador del corchete</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">fullName</span>: <span class="warp">&#123;
+              <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+              <span class="objProp">surName</span>: <span class="args">'Rod'</span>
+            &#125;</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="objProp">hobbies</span>: [<span class="args">'Futbol', 'Lego', 'Puzzles'</span>],
+          &#125;</span>;
+
+          <span class="obj">newUser</span><span class="warp">[<span class="args">'heigth'</span>]</span> <span class="opera">=</span> <span class="nums">107</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">newUser</span><span class="dot">.</span><span class="objProp">heigth</span>)</span>;
+          <span class="result">107</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Variables externas" codeText="">
+        <p class="chaptrSubSect__p">Se puede agregar propiedades cuyo valor sea el de una variable externa</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">heigth</span> <span class="opera">=</span> <span class="nums">106</span>;
+
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">fullName</span>: <span class="warp">&#123;
+              <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+              <span class="objProp">surName</span>: <span class="args">'Rod'</span>
+            &#125;</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="objProp">hobbies</span>: [<span class="args">'Futbol', 'Lego', 'Puzzles'</span>],
+          &#125;</span>;
+
+          <span class="obj">newUser</span><span class="dot">.</span><span class="objProp">heigth</span> <span class="opera">=</span> <span class="var">heigth</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">newUser</span><span class="dot">.</span><span class="objProp">heigth</span>)</span>;
+          <span class="result">107</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Borrado de propiedades" codeText="">
+      <ChaptrSubSect h4Title="Operador" codeText="delete">
+        <p class="chaptrSubSect__p">Se puede borrar propiedades utilizando el operador <code>delete</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">fullName</span>: <span class="warp">&#123;
+              <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+              <span class="objProp">surName</span>: <span class="args">'Rod'</span>
+            &#125;</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="objProp">hobbies</span>: [<span class="args">'Futbol', 'Lego', 'Puzzles'</span>],
+          &#125;</span>;
+
+          <span class="key">delete</span> <span class="obj">newUser</span><span class="dot">.</span><span class="objProp">hobbies</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">newUser</span><span class="dot">.</span><span class="objProp">hobbies</span>)</span>;
+          <span class="result">undefined</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Vaciado de objeto" codeText="">
+      <ChaptrSubSect h4Title="Manteniendo la ref al objeto original" codeText="">
+        <p class="chaptrSubSect__p">Cuando vacías un objeto usando un bucle <code>for...in</code> o <code>Object.keys()</code> y <code>delete</code>, eliminas las propiedades del objeto original <mark>manteniendo la referencia</mark> al mismo. Esto es útil cuando quieres que cualquier referencia a ese objeto en otros lugares (por ejemplo, otras variables que apuntan al mismo objeto) también vean los cambios</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">jug_11</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">jug_13</span> <span class="opera">=</span> <span class="obj">jug_11</span>;
+          <span class="commnt">Ambos apuntan al mismo objeto</span>
+
+          <span class="commnt">Vaciamos el objeto con ciclo for</span>
+          <span class="func">for</span> <span class="warp">(<span class="key">let</span> <span class="params">key</span> <span class="key">in</span> <span class="obj">jug_11</span>)&#123;
+            <span class="key">delete</span> <span class="obj">jug_11</span><span class="warp2">[<span class="params">key</span>]</span>;
+          &#125;</span>;
+
+          <span class="commnt">o con Object.keys</span>
+          <span class="obj">Object</span><span class="dot">.</span><span class="meth">keys</span><span class="warp">(<span class="obj">jug_11</span>)<span class="dot">.</span><span class="meth">forEach</span><span class="warp">(<span class="warp2">(<span class="params">key</span>)</span> <span class="opera">=&gt;</span> &#123;
+            <span class="key">delete</span> <span class="obj">jug_11</span><span class="warp2">[<span class="params">key</span>]</span>;
+          &#125;)</span></span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">jug_11</span>)</span>;
+          <span class="result">&#123;&#125;</span>
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">jug_13</span>)</span>;
+          <span class="result">&#123;&#125;</span>  <span class="commnt">jug_13 también refleja los cambios</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Eliminando la ref al objeto original" codeText="">
+        <p class="chaptrSubSect__p">Cuando reasignas a un objeto un objeto vacío lo que haces es que ahora apunte a un nuevo objeto en memoria, pero las otras referencias al objeto original seguirán apuntando al antiguo objeto, no al nuevo <mark>eliminando la referencia</mark> al objeto original</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">jug_11</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">jug_13</span> <span class="opera">=</span> <span class="obj">jug_11</span>;
+          <span class="commnt">Ambos apuntan al mismo objeto</span>
+
+          <span class="commnt">Reasignamos jug_11 a un nuevo objeto vacío</span>
+          <span class="obj">jug_11</span> <span class="opera">=</span> <span class="warp">&#123;&#125;</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">jug_11</span>)</span>;
+          <span class="result">&#123;&#125;</span>
+          <span class="commnt">jug_11 ahora es un nuevo objeto vacío</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">jug_13</span>)</span>;
+          <span class="result">&#123;name: 'Éder', age: 4&#125;</span>
+          <span class="commnt">jug_13 aún apunta al antiguo objeto</span></pre>
+          <p class="chaptrSubSect__p">Cuando se asigna a un objeto <code>null</code></p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">const</span> <span class="var">jug_11</span> <span class="opera">=</span> <span class="warp">&#123;
+              <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            &#125;</span>;
+  
+            <span class="key">const</span> <span class="var">jug_13</span> <span class="opera">=</span> <span class="obj">jug_11</span>;
+            <span class="commnt">Ambos apuntan al mismo objeto</span>
+  
+            <span class="obj">jug_11</span> <span class="opera">=</span> <span class="key">null</span>;
+            
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">jug_11</span>)</span>;
+            <span class="result">null</span>
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">jug_13</span>)</span>;
+            <span class="result">&#123;&#125;</span>  <span class="commnt">jug_13 también refleja los cambios</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Buscar propiedades" codeText="key">
+      <ChaptrSubSect h4Title="Operador" codeText="in">
+        <p class="chaptrSubSect__p">El operador <code>in</code> devuelve <code>true</code> si la propiedad especificada está en el objeto especificado o su prototipo</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+          &#125;</span>;
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'age'</span> <span class="key">in</span> <span class="obj">newUser</span>)</span>;
+          <span class="result">true</span></pre>
+          <p class="chaptrSubSect__p">Si omitimos las comillas significa una variable. Podemos buscar el valor de esa variable si está dentro de las propiedades del objeto</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+              <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+              <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+              <span class="objProp">age</span>: <span class="nums">4</span>,
+            &#125;</span>;
+
+            <span class="key">let</span> <span class="var">keyName</span> <span class="opera">=</span> <span class="args">'age'</span>;
+            
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">keyName</span> <span class="key">in</span> <span class="obj">newUser</span>)</span>;
+            <span class="result">true</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Iteración sobre propiedades" codeText="keys">
+      <ChaptrSubSect h4Title="El ciclo" codeText="for..in">
+        <p class="chaptrSubSect__p">Sirve para recorrer las propiedades de un objeto, itera no solo sobre el objeto original lo hace sobre los añadidos después. Admite <code>break</code> y <code>continue</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+          &#125;</span>;
+          
+          <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="params">key</span> <span class="key">in</span> <span class="var">newUser</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">key</span>)</span>;
+          &#125;</span>;
+
+          <span class="result">'name'
+            'surName'
+            'age'</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText="Object.keys()">
+        <p class="chaptrSubSect__p">Sirve para recorrer las propiedades de un objeto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+          &#125;</span>;
+          
+          <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="params">key</span> <span class="key">of</span> <span class="obj">Object</span><span class="dot">.</span><span class="meth">keys</span>(<span class="var">newUser</span>)) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">key</span>)</span>;
+          &#125;</span>;
+
+          <span class="result">'name'
+            'surName'
+            'age'</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Iteración sobre valores" codeText="values">
+      <ChaptrSubSect h4Title="El ciclo" codeText="for..in">
+        <p class="chaptrSubSect__p">También sirve para recorrer los valores de las propiedades</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+          &#125;</span>;
+          
+          <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="params">value</span> <span class="key">in</span> <span class="var">newUser</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">newUser</span>[<span class="params">value</span>])</span>;
+          &#125;</span>;
+
+          <span class="result">'Éder'
+            'Rod'
+             4</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText="Object.values()">
+        <p class="chaptrSubSect__p">Sirve para recorrer los valores de un objeto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+          &#125;</span>;
+          
+          <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="params">value</span> <span class="key">of</span> <span class="obj">Object</span><span class="dot">.</span><span class="meth">values</span>(<span class="var">newUser</span>)) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">value</span>)</span>;
+          &#125;</span>;
+
+          <span class="result">'Éder'
+            'Rod'
+             4</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Iteración sobre pares" codeText="">
+      <ChaptrSubSect h4Title="El ciclo" codeText="for..in">
+        <p class="chaptrSubSect__p">Podemos mostrar los pares <mark>keys</mark> + <mark>values</mark></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+          &#125;</span>;
+          
+          <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="params">entries</span> <span class="key">in</span> <span class="var">newUser</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(`$&#123;<span class="params">entries</span>&#125;: $&#123;<span class="obj">newUser</span>[<span class="params">entries</span>]&#125;``)</span>;
+          &#125;</span>;
+
+          <span class="result">'name: Éder'
+            'surName: Rod'
+            'age: 4'</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText="Object.entries()">
+        <p class="chaptrSubSect__p">Devuelve un <mark>array de arrays</mark>, donde cada par de arrays representa una entrada en el objeto original. Cada par consiste en una clave (nombre de la propiedad) y su valor correspondiente, en ese orden</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+          &#125;</span>;
+          
+          <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="params">keyValue</span> <span class="key">of</span> <span class="obj">Object</span><span class="dot">.</span><span class="meth">entries</span>(<span class="var">newUser</span>)) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">keyValue</span>)</span>;
+          &#125;</span>;
+
+          <span class="result">['name', 'Éder'],
+            ['surName', 'Rod'],
+            ['age', 4]</span></pre>
+        <p class="chaptrSubSect__p">También lo podemos asignar directamente a una variable</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+          &#125;</span>;
+          
+          <span class="key">let</span> <span class="var">newArrOfArr</span> <span class="opera">=</span> <span class="obj">Object</span><span class="dot">.</span><span class="meth">entries</span><span class="warp">(<span class="var">newUser</span>)</span>;
+
+          <span class="result">[
+              ['name', 'Éder'],
+              ['surName', 'Rod'],
+              ['age', 4]
+           ]</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Copia de objetos" codeText="">
+      <ChaptrSubSect h4Title="Mediante el ciclo" codeText="for..in">
+        <p class="chaptrSubSect__p">Hace una <mark>copia superficial</mark> <mark>shallow copy</mark> del objeto. Solo se copian las propiedades del objeto principal, pero si el objeto original contiene propiedades que son otros objetos, esos objetos anidados <b>NO</b> se clonan profundamente</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">clonedObj</span> <span class="opera">=</span> <span class="warp">&#123; &#125;</span>;
+          
+          <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="params">property</span> <span class="key">in</span> <span class="var">newUser</span>) &#123;
+            <span class="obj">clonedObj</span>[<span class="params">property</span>] <span class="opera">=</span> <span class="obj">newUser</span>[<span class="params">property</span>];
+          &#125;</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">clonedObj</span>)</span>;
+          <span class="result">&#123; name: 'Eder', surName: 'Rod', age: 4 &#125;</span>
+
+          <span class="obj">clonedObj</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="args">'Iker'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">clonedObj</span>)</span>;
+          <span class="result">&#123; name: 'Iker', surName: 'Rod', age: 4 &#125;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Mediante el operador spread" codeText="{...obj}">
+        <p class="chaptrSubSect__p">Hace una <mark>copia superficial</mark> <mark>shallow copy</mark> del objeto. Solo se copian las propiedades del objeto principal, pero si el objeto original contiene propiedades que son otros objetos, esos objetos anidados <b>NO</b> se clonan profundamente</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">clonedObj</span> <span class="opera">=</span> <span class="warp">&#123;<span class="opera">...</span><span class="obj">newUser</span>&#125;</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">clonedObj</span>)</span>;
+          <span class="result">&#123; name: 'Eder', surName: 'Rod', age: 4 &#125;</span>
+
+          <span class="obj">clonedObj</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="args">'Iker'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">clonedObj</span>)</span>;
+          <span class="result">&#123; name: 'Iker', surName: 'Rod', age: 4 &#125;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Mediante el método" codeText="Object.assign()">
+        <p class="chaptrSubSect__p">Hace una <mark>copia superficial</mark> <mark>shallow copy</mark> del objeto. Solo se copian las propiedades del objeto principal, pero si el objeto original contiene propiedades que son otros objetos, esos objetos anidados <b>NO</b> se clonan profundamente</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">clonedObj</span> <span class="opera">=</span> <span class="warp">&#123; &#125;</span>;
+          
+          <span class="obj">Object</span><span class="dot">.</span><span class="meth">assign</span><span class="warp">(<span class="obj">clonedObj, newUser</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">clonedObj</span>)</span>;
+          <span class="result">&#123; name: 'Eder', surName: 'Rod', age: 4 &#125;</span>
+
+          <span class="obj">clonedObj</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="args">'Iker'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">clonedObj</span>)</span>;
+          <span class="result">&#123; name: 'Iker', surName: 'Rod', age: 4 &#125;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Mediante" codeText="JSON.parse + JSON.stringify">
+        <p class="chaptrSubSect__p">Realiza una copia profunda <mark>deepClone</mark>, incluidas todas las propiedades anidadas. Primero convierte el objeto en una cadena <mark>JSON</mark> para después a partir de esa cadena, crear un nuevo objeto. Sin embargo, esta técnica solo funciona si el objeto y sus propiedades son serializables en <mark>JSON</mark>. Si el objeto contiene propiedades no serializables, como <mark><b>funciones</b></mark> o referencias a objetos no serializables, <b>NO</b> funcionará</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="objProp">hobbies</span>: [<span class="args">'Fútbol', 'Lego'</span>],
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">clonedObj</span> <span class="opera">=</span> <span class="obj">JSON</span><span class="dot">.</span><span class="meth">parse</span><span class="warp">(<span class="obj">JSON</span><span class="dot">.</span><span class="meth">stringify</span><span class="warp">(<span class="obj">newUser</span>)</span>)</span>;
+          
+          <span class="obj">clonedObj</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="args">'Iker'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">clonedObj</span>)</span>;
+          <span class="result">&#123;name: 'Iker', surName: 'Rod', age: 4, hobbies: Array(2)&#125;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Mediante el método" codeText="structuredClone()">
+        <p class="chaptrSubSect__p">Realiza una copia profunda <mark>deepClone</mark>, incluidas todas las propiedades anidadas. Primero convierte el objeto en una cadena <mark>JSON</mark> para después a partir de esa cadena, crear un nuevo objeto. Sin embargo, esta técnica solo funciona si el objeto y sus propiedades son serializables en <mark>JSON</mark>. Si el objeto contiene propiedades no serializables, como <mark><b>funciones</b></mark> o referencias a objetos no serializables, <b>NO</b> funcionará</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="objProp">hobbies</span>: [<span class="args">'Fútbol', 'Lego'</span>],
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">clonedObj</span> <span class="opera">=</span> <span class="func">structuredCloned</span><span class="warp">(<span class="obj">newUser</span>)</span>;
+
+          <span class="obj">clonedObj</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="args">'Iker'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">clonedObj</span>)</span>;
+          <span class="result">&#123;name: 'Iker', surName: 'Rod', age: 4, hobbies: Array(2)&#125;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Mediante función personalizada" codeText="">
+        <p class="chaptrSubSect__p">Realiza una copia profunda real <mark>deepClone</mark>, incluidas todas las propiedades anidadas y funciones</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">fullName</span>: <span class="warp">&#123;
+              <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+              <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            &#125;</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="objProp">hobbies</span>: [<span class="args">'Fútbol', 'Lego'</span>],
+            <span class="func">saludo</span>()&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(`<span class="args">Hola</span> $&#123;<span class="obj">this</span><span class="dot">.</span><span class="obj">fullName</span><span class="dot">.</span><span class="objProp">name</span> &#125;`)</span>;
+            &#125;
+          &#125;</span>;
+
+          <span class="key">function</span> <span class="func">deepCopyObj</span><span class="warp">(<span class="params">obj</span>) &#123;
+            <span class="key">let</span> <span class="var">copy</span>;
+            <span class="func">if</span>(<span class="key">null</span> <span class="opera">==</span> <span class="params">obj</span> <span class="opera">||</span> <span class="args">'object'</span> <span class="opera">!=</span> <span class="key">typeof</span> <span class="params">obj</span>) &#123;
+              <span class="key">return</span> <span class="params">obj</span>;
+            &#125;
+
+            <span class="func">if</span>(<span class="params">obj</span> <span class="key">instanceof</span> <span class="obj">Date</span>) &#123;
+              <span class="var">copy</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Date</span>();
+              <span class="obj">copy</span><span class="dot">.</span><span class="meth">setTime</span>(<span class="obj">obj</span><span class="dot">.</span><span class="meth">getTime</span>());
+              <span class="key">return</span> <span class="obj">copy</span>;
+            &#125;
+
+            <span class="func">if</span>(<span class="params">obj</span> <span class="key">instanceof</span> <span class="obj">Array</span>) &#123;
+              <span class="var">copy</span> <span class="opera">=</span> [];
+              <span class="func">for</span>(<span class="key">let</span> <span class="params">i</span> <span class="opera">=</span> <span class="nums">0</span>, <span class="params">leng</span> <span class="opera">=</span> <span class="obj">obj</span><span class="dot">.</span><span class="meth">length</span>; <span class="params">i</span> <span class="opera">&lt;</span> <span class="params">leng</span>; <span class="params">i</span><span class="opera">++</span>) &#123;
+                <span class="obj">copy</span>[<span class="params">i</span>] <span class="opera">=</span> <span class="func">deepCopyObj</span>(<span class="params">obj</span>[<span class="params">i</span>]);
+              &#125;
+              <span class="key">return</span> <span class="obj">copy</span>;
+            &#125;
+
+            <span class="func">if</span>(<span class="params">obj</span> <span class="key">instanceof</span> <span class="obj">Object</span>) &#123;
+              <span class="var">copy</span> <span class="opera">=</span> &#123;&#125;;
+              <span class="func">for</span>(<span class="key">let</span> <span class="params">attr</span> <span class="key">in</span> <span class="params">obj</span>) &#123;
+                <span class="func">if</span>(<span class="params">obj</span><span class="dot">.</span><span class="meth">hasOwnProperty</span>(<span class="params">attr</span>))&#123;
+                 <span class="obj">copy</span>[<span class="params">attr</span>] <span class="opera">=</span> <span class="func">deepCopyObj</span>(<span class="params">obj</span>[<span class="params">attr</span>]);
+                &#125;
+              &#125;
+              <span class="key">return</span> <span class="obj">copy</span>;
+            &#125;
+            
+            <span class="key">throw new</span> <span class="func">Error</span>(<span class="args">'Unable to copy!'</span>);
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">clonedObj</span> <span class="opera">=</span> <span class="func">deepCopyObj</span><span class="warp">(<span class="obj">newUser</span>)</span>;
+
+          <span class="obj">clonedObj</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="args">'Iker'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">clonedObj</span>)</span>;
+          <span class="result">&#123;fullName: &#123;…&#125;, age: 4, hobbies: Array(2), saludo: ƒ&#125;</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Métodos de objeto" codeText="">
+      <ChaptrSubSect h4Title="Forma literal" codeText="">
+        <p class="chaptrSubSect__p">Una función que es la propiedad de un objeto, es denominada su <mark>método</mark></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="objProp">sayHi</span>: <span class="func">function</span>()&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Hola que tal!'</span>)</span>;
+            &#125;,
+          &#125;</span>;
+
+          <span class="obj">newUser</span><span class="dot">.</span><span class="meth">sayHi</span><span class="warp">()</span>;
+          <span class="result">'Hola que tal!'</span></pre>
+        <p class="chaptrSubSect__p">Existe una sintaxis más corta para los métodos en objetos literales. Podemos omitir <code>function</code> y simplemente escribir <code>sayHi()</code>. En casi todos los casos la sintaxis abreviada es la <mark>preferida</mark></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="func">sayHi</span>()&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Hola que tal!'</span>)</span>;
+            &#125;,
+          &#125;</span>;
+
+          <span class="obj">newUser</span><span class="dot">.</span><span class="meth">sayHi</span><span class="warp">()</span>;
+          <span class="result">'Hola que tal!'</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Expresión de función + asignación" codeText="">
+        <p class="chaptrSubSect__p">Podemos añadir una expresion de función ya declarada a nuestro objeto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">sayHi</span> <span class="opera">=</span> <span class="func">function</span><span class="warp">()&#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Hola que tal!'</span>)</span>;
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="objProp">sayHi</span>: <span class="var">sayHi</span>,
+          &#125;</span>;
+
+          <span class="obj">newUser</span><span class="dot">.</span><span class="meth">sayHi</span><span class="warp">()</span>;
+          <span class="result">'Hola que tal!'</span></pre>
+        <p class="chaptrSubSect__p">También podemos añadirla al objeto con el método del punto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">sayHi</span> <span class="opera">=</span> <span class="func">function</span><span class="warp">()&#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Hola que tal!'</span>)</span>;
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+          &#125;</span>;
+
+          <span class="obj">newUser</span><span class="dot">.</span><span class="meth">sayHi</span> <span class="opera">=</span> <span class="var">sayHi</span>
+          <span class="obj">newUser</span><span class="dot">.</span><span class="meth">sayHi</span><span class="warp">()</span>;
+          <span class="result">'Hola que tal!'</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="La palabra clave" codeText="this">
+      <ChaptrSubSect h4Title="Uso de" codeText="this">
+        <p class="chaptrSubSect__p">Es común que un <mark>método de objeto</mark> necesite acceder a la información almacenada en el objeto para cumplir su tarea. Por ejemplo, el código dentro de <code>newUser.sayHi()</code> puede necesitar el nombre del usuario <code>newUser</code></p>
+        <p class="chaptrSubSect__p">Para acceder al objeto, un método puede usar la palabra clave <code>this</code>, el valor de <code>this</code> es el objeto “antes del punto”, el usado para llamar al método</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="objProp">sayHi</span>: <span class="func">function</span>()&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Hola que tal $&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125;!`</span>)</span>;
+            &#125;,
+          &#125;</span>;
+
+          <span class="obj">newUser</span><span class="dot">.</span><span class="meth">sayHi</span><span class="warp">()</span>;
+          <span class="result">'Hola que tal!'</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Las funciones flecha no tienen" codeText="this">
+        <p class="chaptrSubSect__p">Las funciones de flecha son especiales: ellas no tienen su “propio” <code>this</code>. Si nosotros hacemos referencia a <code>this</code> desde tales funciones, esta será tomada desde afuera de la función “normal”</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">newUser</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">surName</span>: <span class="args">'Rod'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="func">sayHi</span>()&#123;
+              <span class="key">let</span> <span class="var">arrowFunc</span> <span class="opera">=</span> () <span class="opera">=&gt;</span> <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>)</span>;
+              <span class="func">arrowFunc</span>();
+            &#125;,
+          &#125;</span>;
+
+          <span class="obj">newUser</span><span class="dot">.</span><span class="meth">sayHi</span><span class="warp">()</span>;
+          <span class="result">'Éder'</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Reutilización de métodos" codeText="">
+      <ChaptrSubSect h4Title="El método" codeText=".call">
+        <p class="chaptrSubSect__p">Podemos usar una función exterior en cada objeto que tengamos para no escribir un método repetido en cada uno de ellos, y aplicarlo a cada uno con <code>call</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user1</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">user2</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Iker'</span>,
+            <span class="objProp">age</span>: <span class="nums">48</span>,
+          &#125;</span>;
+
+          <span class="key">function</span> <span class="meth">showInfo</span><span class="warp">(<span class="params">likes, friends</span>)&#123;
+            <span class="key">return</span> `$&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125;: $&#123;<span class="params">likes</span>&#125; likes, $&#123;<span class="params">friends</span>&#125; amigos`;
+          &#125;</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">showInfo</span><span class="dot">.</span><span class="meth">call</span>(<span class="obj">user1</span>, <span class="nums">100, 40</span>))</span>;
+          <span class="result">Éder: 100 likes, 40 amigos</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">showInfo</span><span class="dot">.</span><span class="meth">call</span>(<span class="obj">user2</span>, <span class="nums">9, 0</span>))</span>;
+          <span class="result">Iker: 9 likes, 0 amigos</span></pre>
+        <p class="chaptrSubSect__p">Tambien podemos llamar a un método dentro de un objeto para que sea usado en otro</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user1</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="meth">showInfo</span><span class="warp">(<span class="params">likes, friends</span>)&#123;
+              <span class="key">return</span> `$&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125;: $&#123;<span class="params">likes</span>&#125; likes, $&#123;<span class="params">friends</span>&#125; amigos`;
+            &#125;</span>
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">user2</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Iker'</span>,
+            <span class="objProp">age</span>: <span class="nums">48</span>,
+          &#125;</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">user1</span><span class="dot">.</span><span class="obj">showInfo</span><span class="dot">.</span><span class="meth">call</span>(<span class="obj">user2</span>, <span class="nums">9, 0</span>))</span>;
+          <span class="result">Iker: 9 likes, 0 amigos</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".apply">
+        <p class="chaptrSubSect__p">La única diferencia con <code>call</code> es la forma en que recibe los parámetros. A <code>apply</code> se le pasa los parámetros por medio de un array</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user1</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="meth">showInfo</span><span class="warp">(<span class="params">likes, friends</span>)&#123;
+              <span class="key">return</span> `$&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125;: $&#123;<span class="params">likes</span>&#125; likes, $&#123;<span class="params">friends</span>&#125; amigos`;
+            &#125;</span>
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">user2</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Iker'</span>,
+            <span class="objProp">age</span>: <span class="nums">48</span>,
+          &#125;</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">user1</span><span class="dot">.</span><span class="obj">showInfo</span><span class="dot">.</span><span class="meth">apply</span>(<span class="obj">user2</span>, [<span class="nums">9, 0</span>]))</span>;
+          <span class="result">Iker: 9 likes, 0 amigos</span></pre>
+        <p class="chaptrSubSect__p">Un truco insteresante es que los arrays no tienen el método <code>Math.max</code>, pero gracias a que <code>apply</code> es un método de objeto que recibe los parámetros desde un array lo podemos aplicar</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">10, 2, 300</span>]</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Math</span><span class="dot">.</span><span class="meth">max</span><span class="dot">.</span><span class="meth">apply</span>(<span class="key">null</span>, <span class="var">numbers</span>))</span>;
+          <span class="result">300</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".bind">
+        <p class="chaptrSubSect__p">Crea una función en base a la función que vamos a enlazar. <mark>Retorna una función</mark> con el nuevo contexto. Al igual que las otras dos de arriba, se trata de mantener el "contexto" para poder seguir usando <code>this</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user1</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="func">eat</span>(<span class="params">food</span>)&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`$&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125; come $&#123;<span class="params">food</span>&#125;`</span>)</span>
+            &#125;
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">user2</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Iker'</span>,
+            <span class="objProp">age</span>: <span class="nums">48</span>,
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">queCome</span> <span class="opera">=</span> <span class="obj">user1</span><span class="dot">.</span><span class="meth">eat</span><span class="dot">.</span><span class="meth">bind</span><span class="warp">(<span class="obj">user2</span>)</span>;
+
+          <span class="func">queCome</span><span class="warp">(<span class="args">'tiramisú'</span>)</span>;
+          <span class="result">Iker come tiramisú</span></pre>
+        <p class="chaptrSubSect__p">Como el método <code>bind</code> devuelve una función, para invocarla necesitamos almacenarla en una variable, como si fuera una expresion de función. Digamos que podemos crear métodos para usarlos en distintos objetos</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user1</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+          &#125;</span>;
+
+          <span class="key">const</span> <span class="var">user2</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Iker'</span>,
+            <span class="objProp">age</span>: <span class="nums">48</span>,
+          &#125;</span>;
+
+          <span class="key">function</span> <span class="func">newMethod</span><span class="warp">() &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Hola, me llamo &#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125;`</span>)</span>
+          &#125;</span>
+
+          <span class="key">const</span> <span class="var">sayHi1</span> <span class="opera">=</span> <span class="obj">newMethod</span><span class="dot">.</span><span class="meth">bind</span><span class="warp">(<span class="obj">user1</span>)</span>;
+          <span class="func">sayHi</span><span class="warp">()</span>;
+          <span class="result">Hola me llamo Éder</span>
+        
+          <span class="key">const</span> <span class="var">sayHi2</span> <span class="opera">=</span> <span class="obj">newMethod</span><span class="dot">.</span><span class="meth">bind</span><span class="warp">(<span class="obj">user2</span>)</span>;
+          <span class="func">sayHi</span><span class="warp">()</span>;
+          <span class="result">Hola me llamo Iker</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Función constructora" codeText="">
+      <ChaptrSubSect h4Title="Creación de la función" codeText="">
+        <p class="chaptrSubSect__p">La función constructora es nombrada con la <mark>primera letra en mayúsculas</mark>, y pasamos los parámetros entre paréntesis que en el objeto serán las propiedades</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span> <span class="func">Car</span><span class="warp">(<span class="params">make, model, year</span>)&#123;
+            <span class="obj">this</span><span class="dot">.</span><span class="objProp">make</span> <span class="opera">=</span> <span class="params">make</span>;
+            <span class="obj">this</span><span class="dot">.</span><span class="objProp">model</span> <span class="opera">=</span> <span class="params">model</span>;
+            <span class="obj">this</span><span class="dot">.</span><span class="objProp">year</span> <span class="opera">=</span> <span class="params">year</span>;
+          &#125;</span>;</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Creación de objetos con" codeText="new">
+        <p class="chaptrSubSect__p">Asignamos a una variable el resultado de ejecutar la función constructora, pasándole los argumentos que serán los valores de las propiedades ya predefinidas usando el operador <code>new</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span> <span class="func">Car</span><span class="warp">(<span class="params">make, model, year</span>)&#123;
+            <span class="obj">this</span><span class="dot">.</span><span class="objProp">make</span> <span class="opera">=</span> <span class="params">make</span>;
+            <span class="obj">this</span><span class="dot">.</span><span class="objProp">model</span> <span class="opera">=</span> <span class="params">model</span>;
+            <span class="obj">this</span><span class="dot">.</span><span class="objProp">year</span> <span class="opera">=</span> <span class="params">year</span>;
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">car01</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Car</span><span class="warp">(<span class="args">'Nissan', 'GT-R', <span class="nums">2024</span></span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">car01</span>)</span>;
+          <span class="result">Car &#123;
+              make: 'Nissan',
+              model: 'GT-R',
+              year: 2024,
+              __proto__: &#123; constructor: ƒ Car() &#125;
+          &#125;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Constructor modo test" codeText="new.target">
+        <p class="chaptrSubSect__p">En funciones constructoras, si olvidas usar <code>new</code>, la función puede no comportarse como esperas, porque <code>this</code> no apuntará a un nuevo objeto, sino al contexto global o <code>undefined</code> en modo estricto</p>
+        <p class="chaptrSubSect__p">Usar <code>new.target</code> permite verificar si una función ha sido llamada correctamente con <code>new</code>. Si no ha sido llamada con <code>new</code>, se puede corregir el error automáticamente, como en el ejemplo que vemos</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span> <span class="func">Jugador</span><span class="warp">(<span class="params">name</span>)&#123;
+            <span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="params">name</span>;
+            <span class="func">if</span>(<span class="opera">!</span><span class="key">new</span><span class="dot">.</span><span class="key">target</span>)&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">warn</span><span class="warp">(<span class="args">'Añadido "new" al crear a $&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125;'</span>)</span>;
+              <span class="key">return new</span> <span class="func">Jugador</span>(<span class="params">name</span>)
+            &#125; <span class="key">else</span> &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">warn</span><span class="warp">(<span class="args">'Función llamada con "new"'</span>)</span>;
+            &#125;
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">lateralIzq</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Jugador</span><span class="warp">(<span class="args">'Éder'</span>)</span>;
+          <span class="result">Función llamada con el operador "new"</span>
+
+          <span class="key">const</span> <span class="var">medioCentro</span> <span class="opera">=</span> <span class="func">Jugador</span><span class="warp">(<span class="args">'Iker'</span>)</span>;
+          <span class="result">⚠ Añadido "new" al crear a Iker</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Métodos en el constructor" codeText="">
+        <p class="chaptrSubSect__p">Podemos agregar a <code>this</code> no sólo propiedades, sino también métodos</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span> <span class="func">Jugador</span><span class="warp">(<span class="params">name</span>)&#123;
+            <span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="params">name</span>;
+            <span class="obj">this</span><span class="dot">.</span><span class="objProp">sayHi</span> <span class="opera">=</span> <span class="func">function</span>()&#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span>(<span class="args">`Hola, soy $&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125;`</span>)
+            &#125;
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">lateralIzq</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Jugador</span><span class="warp">(<span class="args">'Éder'</span>)</span>;
+
+          <span class="obj">lateralIzq</span><span class="dot">.</span><span class="func">sayHi</span><span class="warp">()</span>;
+          <span class="result">Hola, soy Éder</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Conversión a primitivo" codeText="">
+      <ChaptrSubSect h4Title="to array con" codeText=".keys">
+        <p class="chaptrSubSect__p">Devuelve un array de propiedades. Los métodos <code>Object.*</code> devuelven arrays de objetos “reales”, no solo un iterable</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="objProp">isGood</span>: <span class="key">true</span>,
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">userKeys</span> <span class="opera">=</span> <span class="obj">Object</span><span class="dot">.</span><span class="meth">keys</span><span class="warp">(<span class="obj">user</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">userKeys</span>)</span>;
+          <span class="result">["name", "age", "isGood"]</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="to array con" codeText=".values">
+        <p class="chaptrSubSect__p">Devuelve un array de valores. Los métodos <code>Object.*</code> devuelven arrays de objetos “reales”, no solo un iterable</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="objProp">isGood</span>: <span class="key">true</span>,
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">userValues</span> <span class="opera">=</span> <span class="obj">Object</span><span class="dot">.</span><span class="meth">values</span><span class="warp">(<span class="obj">user</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">userValues</span>)</span>;
+          <span class="result">["Éder", 4, true]</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="to array con" codeText=".entries">
+        <p class="chaptrSubSect__p">Devuelve un array de pares propiedad/valor. Los métodos <code>Object.*</code> devuelven arrays de objetos “reales”, no solo un iterable</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+            <span class="objProp">isGood</span>: <span class="key">true</span>,
+          &#125;</span>;
+        
+          <span class="key">const</span> <span class="var">userEntries</span> <span class="opera">=</span> <span class="obj">Object</span><span class="dot">.</span><span class="meth">entries</span><span class="warp">(<span class="obj">user</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">userEntries</span>)</span>;
+          <span class="result">[["name", "Éder"], ["age", 4], ["isGood", true]]</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="from array to object" codeText=".fromEntries">
+        <p class="chaptrSubSect__p">Los objetos carecen de muchos métodos que existen para los arrays, (map,filter y otros), si queremos aplicarlos, entonces podemos usar <code>Object.entries</code> para convertir los pares propiedad/valor en un array, seguido de <code>Object.fromEntries</code> para transformarlo de nuevo en un objeto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">bagShop</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">banana</span>: <span class="nums">3</span>,
+            <span class="objProp">burguer</span>: <span class="nums">2</span>,
+            <span class="objProp">kiwi</span>: <span class="nums">3</span>,
+          &#125;</span>;
+        
+          <span class="commnt">Convertirmos lo entries a un array</span>
+          <span class="key">const</span> <span class="var">arrBagShop</span> <span class="opera">=</span> <span class="obj">Object</span><span class="dot">.</span><span class="meth">entries</span><span class="warp">(<span class="obj">bagShop</span>)</span>;
+          <span class="result">[["banana", 3], ["burguer", 2], ["kiwi", 3]]</span>
+        
+          <span class="commnt">Operamos sobre el array</span>
+          <span class="key">const</span> <span class="var">doubleBagShop</span> <span class="opera">=</span> <span class="var">arrBagShop</span><span class="dot">.</span><span class="meth">map</span><span class="warp">(([<span class="params">key, value</span>]) <span class="opera">=&gt;</span> [<span class="params">key, value</span> <span class="opera">*</span> <span class="nums">2</span>])</span>;
+          <span class="result">[["banana", 6], ["burguer", 4], ["kiwi", 6]]</span>
+        
+          <span class="commnt">Convertimos de nuevo a un objeto</span>
+          <span class="key">const</span> <span class="var">doubleBagShopObj</span> <span class="opera">=</span> <span class="obj">Object</span><span class="dot">.</span><span class="meth">fromEntries</span><span class="warp">(<span class="obj">doubleBagShop</span>)</span>;
+          <span class="result">&#123; banana: 6, burguer: 4, kiwi: 6 &#125;</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="El tipo" codeText="Symbol">
+      <ChaptrSubSect h4Title="Creación y asignación" codeText="">
+        <p class="chaptrSubSect__p">Permite crear valores únicos e inmutables. Son ideales para definir propiedades "ocultas" o no enumerables, o métodos en objetos sin generar conflictos con otros nombres de propiedades</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">id</span> <span class="opera">=</span> <span class="func">Symbol</span><span class="warp">()</span>;
+        
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">id</span>)</span>;
+          <span class="result">Symbol()</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Symbols con" codeText="description">
+        <p class="chaptrSubSect__p">Cuando creas un <code>Symbol</code> usando <code>Symbol('description')</code>, la cadena proporcionada como argumento se convierte en una etiqueta descriptiva que sirve principalmente para facilitar la depuración y asignarles un significado humano comprensible</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">symb1</span> <span class="opera">=</span> <span class="func">Symbol</span><span class="warp">(<span class="args">'passFacebook'</span>)</span>;
+          <span class="key">const</span> <span class="var">symb2</span> <span class="opera">=</span> <span class="func">Symbol</span><span class="warp">(<span class="args">'passFacebook'</span>)</span>;
+        
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">symb1</span> <span class="opera">==</span> <span class="var">symb2</span>)</span>;
+          <span class="result">false</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Añadir a un objeto literal" codeText="">
+        <p class="chaptrSubSect__p">Usando la notacion de corchetes <code>[]</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">dni</span> <span class="opera">=</span> <span class="func">Symbol</span><span class="warp">(<span class="args">'dniNumber'</span>)</span>;
+
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Iker'</span>,
+            [<span class="var">dni</span>]: <span class="nums">555555</span>,
+          &#125;</span>
+        
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">user</span>)</span>;
+          <span class="result">&#123;name: 'Iker', Symbol(dniNumber): 555555&#125;</span></pre>
+        <p class="chaptrSubSect__p">Al usar el símbolo <code>dni</code> entre corchetes como clave en el objeto, se está creando una propiedad que no colisiona con otras propiedades del objeto y que no es accesible a través de métodos convencionales como <code>Object.keys()</code>. De esta manera, la propiedad <code>dni</code> no aparecerá cuando iteres sobre el objeto o cuando imprimas sus propiedades.</p>
+        <p class="chaptrSubSect__p">El objeto <code>user</code> tendrá una propiedad <code>name</code> accesible de manera normal, pero la propiedad que almacena el valor <code>555555</code> está protegida usando el símbolo, lo que asegura que no sea fácilmente accesible o manipulada desde el exterior del objeto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">dni</span> <span class="opera">=</span> <span class="func">Symbol</span><span class="warp">(<span class="args">'dniNumber'</span>)</span>;
+
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Iker'</span>,
+            [<span class="var">dni</span>]: <span class="nums">555555</span>,
+          &#125;</span>;
+
+          <span class="obj">user</span><span class="dot">.</span><span class="objProp">dni</span> <span class="opera">=</span> <span class="nums">55555555</span>
+          <span class="commnt">Esto no afecta al valor de Symbol(dniNumber)</span>
+
+          <span class="obj">user</span><span class="warp">[<span class="objProp">dni</span>]</span> <span class="opera">=</span> <span class="nums">55555555</span>
+          <span class="commnt">Esto SI afecta al valor de Symbol(dniNumber)</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Añadir a un objeto creado" codeText="">
+        <p class="chaptrSubSect__p">Usando la notacion de corchetes <code>[]</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">dni</span> <span class="opera">=</span> <span class="func">Symbol</span><span class="warp">(<span class="args">'dniNumber'</span>)</span>;
+
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Iker'</span>,
+          &#125;</span>
+
+          <span class="obj">user</span>[<span class="var">dni</span>] <span class="opera">=</span> <span class="nums">555555</span>;
+        
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">user</span>)</span>;
+          <span class="result">&#123;name: 'Iker', Symbol(dniNumber): 555555&#125;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Symbols globales" codeText="Symbol.for()">
+        <p class="chaptrSubSect__p"><code>Symbol.for(key)</code> busca en un registro global de Symbols utilizando una clave específica <code>(key)</code></p>
+        <p class="chaptrSubSect__p">Si el <code>Symbol</code> con esa clave ya existe en el registro global, lo devuelve</p>
+        <p class="chaptrSubSect__p">Si no existe, lo crea y lo almacena en ese registro global, de modo que pueda ser <mark>reutilizado</mark> en <mark>cualquier parte</mark> del código que acceda a esa misma clave</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Crear un Symbol global o tomar uno existente</span>
+          <span class="key">const</span> <span class="var">globalSym1</span> <span class="opera">=</span> <span class="func">Symbol</span><span class="dot">.</span><span class="meth">for</span><span class="warp">(<span class="args">'mySymbol'</span>)</span>;
+
+          <span class="commnt">Intenta obtener el mismo Symbol</span>
+          <span class="key">const</span> <span class="var">globalSym2</span> <span class="opera">=</span> <span class="func">Symbol</span><span class="dot">.</span><span class="meth">for</span><span class="warp">(<span class="args">'mySymbol'</span>)</span>;
+        
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">globalSym1</span> <span class="opera">==</span> <span class="var">globalSym2</span>)</span>;
+          <span class="result">true</span></pre>
+        <p class="chaptrSubSect__p">Ejemplo paso a paso</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Crear un Symbol global</span>
+          <span class="key">const</span> <span class="var">globalSym</span> <span class="opera">=</span> <span class="func">Symbol</span><span class="dot">.</span><span class="meth">for</span><span class="warp">(<span class="args">'user'</span>)</span>;
+
+          <span class="commnt">Crear un objeto usando ese Symbol</span>
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Iker'</span>,
+            [<span class="var">globalSym</span>]: <span class="nums">555555</span>
+          &#125;</span>;
+        
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">user</span>[<span class="obj">Symbol</span><span class="dot">.</span><span class="meth">for</span>(<span class="args">'user'</span>)])</span>;
+          <span class="result">555555</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Tomar el nombre desde un global" codeText="Symbol.keyFor()">
+        <p class="chaptrSubSect__p">Para devolver el nombre de un global symbol</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Crear un Symbol global</span>
+          <span class="key">const</span> <span class="var">globalSym</span> <span class="opera">=</span> <span class="func">Symbol</span><span class="dot">.</span><span class="meth">for</span><span class="warp">(<span class="args">'mySymbolDesc'</span>)</span>;
+
+          <span class="commnt">Tomar el nombre de un global sym</span>
+          <span class="key">const</span> <span class="var">nameFromGlobalSym</span> <span class="opera">=</span> <span class="func">Symbol</span><span class="dot">.</span><span class="meth">keyFor</span><span class="warp">(<span class="args">globalSym</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">nameFromGlobalSym</span>)</span>;
+          <span class="result">'mySymbolDesc'</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Diferencias entre normales y globales" codeText="">
+        <p class="chaptrSubSect__p"><code>Symbol()</code> Siempre crea un <code>Symbol</code> único y no es accesible globalmente, incluso si usas la misma descripción</p>
+        <p class="chaptrSubSect__p"><code>Symbol.for()</code> Crea o recupera un <code>Symbol</code> del registro global, permitiendo que el <code>Symbol</code> sea compartido en diferentes partes del programa usando la misma clave</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">dni</span> <span class="opera">=</span> <span class="func">Symbol</span><span class="warp">(<span class="args">'dniNumber'</span>)</span>;
+        
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">dni</span>)</span>;
+          <span class="result">Symbol(dniNumber)</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Conversión a primitivo" codeText="Symbol.toPrimitive">
+        <p class="chaptrSubSect__p">Es un <code>Symbol</code> incorporado en JavaScript que se usa como clave especial en los objetos. Al implementar una función con <code>Symbol.toPrimitive</code>, le puedes decir a JavaScript cómo convertir un objeto a un valor primitivo cuando se necesita</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Sintaxis</span>
+          <span class="obj">obj</span><span class="warp">[<span class="obj">Symbol</span><span class="dot">.</span><span class="meth">toPrimitive</span>](<span class="key">hint</span>)</span>;</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>obj</code>: Es el objeto al que quieres definir la conversión.</li>
+          <li class="chaptrSubSectUl__li"><code>Symbol.toPrimitive</code>: Es la propiedad especial que le dice a JavaScript cómo convertir este objeto a un valor primitivo.</li>
+          <li class="chaptrSubSectUl__li"><code>hint</code>: Es un argumento que le dice al método en qué tipo primitivo se espera convertir el objeto. Los posibles valores de hint son:</li>
+          <li class="chaptrSubSectUl__li--sub"><code>string</code>: JavaScript espera que el objeto se convierta en un string.</li>
+          <li class="chaptrSubSectUl__li--sub"><code>number</code>: JavaScript espera que el objeto se convierta en un número.</li>
+          <li class="chaptrSubSectUl__li--sub"><code>default</code>: No está claro si JavaScript espera un string o un número, pero en este caso debes decidir cuál devolver.</li>
+        </ul>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+
+            [<span class="obj">Symbol</span><span class="dot">.</span><span class="meth">toPrimitive</span>](<span class="key">hint</span>) &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`sugerencia: $&#123;<span class="key">hint</span>&#125;`</span>)</span>;
+              <span class="key">return hint</span> <span class="opera">==</span> <span class="args">'string'</span> <span class="opera">?</span> <span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">:</span> <span class="obj">this</span><span class="dot">.</span><span class="objProp">age</span>
+            &#125;
+          &#125;</span>;
+        
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="func">String</span>(<span class="obj">user</span>))</span>;
+          <span class="result">sugerencia: string
+            'Éder'</span>
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="func">Number</span>(<span class="obj">user</span>))</span>;
+          <span class="result">sugerencia: number
+            4</span>
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">user</span> <span class="opera">+</span> <span class="nums">4</span>)</span>;
+          <span class="result">sugerencia: default
+            8</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Conversión a primitivo alternativa" codeText="">
+        <p class="chaptrSubSect__p">Proporcionan una forma alternativa “al viejo estilo” de implementar la conversión</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>,
+
+            <span class="commnt">para sugerencia 'string'</span>
+            <span class="func">toString</span>() &#123;
+              <span class="key">return </span> <span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>;
+            &#125;,
+
+            <span class="commnt">para sugerencia 'number' o 'default'</span>
+            <span class="func">valueOf</span>() &#123;
+              <span class="key">return </span> <span class="obj">this</span><span class="dot">.</span><span class="objProp">age</span>;
+            &#125;
+          &#125;</span>;
+        
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="func">String</span>(<span class="obj">user</span>))</span>;
+          <span class="result">sugerencia: string
+            'Éder'</span>
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="func">Number</span>(<span class="obj">user</span>))</span>;
+          <span class="result">sugerencia: number
+            4</span>
+          
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">user</span> <span class="opera">+</span> <span class="nums">4</span>)</span>;
+          <span class="result">sugerencia: default
+            8</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>

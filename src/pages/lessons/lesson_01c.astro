@@ -1,0 +1,320 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+const ruta = '../../src/assets/img/'
+---
+<MainLayout>
+  <LssnArt artClass="lssn__01c" h2Title="Marcos y Ventanas" slot="mainContent">
+    <ChaptrSect h3Title="Ventanas emergentes y métodos" codeText="">
+      <ChaptrSubSect h4Title="Abrir ventana emergente" codeText="">
+        <p class="chaptrSubSect__p">Usamos <code>window.open(url, nombre, parámetros)</code> para abrirla</p>
+        <pre class="chaptrSubSect__console wScript">
+          çwindow.ªopen('/º https://www.google.es º/', 'Google', '/º _blank º/');</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>url:</strong> La página a abrir.</li>
+          <li class="chaptrSubSectUl__li"><strong>nombre:</strong> Un apodo para la ventana (opcional).</li>
+          <li class="chaptrSubSectUl__li"><strong>parámetros:</strong> Detalles como tamaño o posición.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Personalizar la ventana" codeText="">
+        <p class="chaptrSubSect__p">Puedes ajustar cómo se ve la ventana emergente con parámetros</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>width/height</code> Tamaño en pixels.</li>
+          <li class="chaptrSubSectUl__li"><code>left/top</code> Dónde aparece en la pantalla.</li>
+          <li class="chaptrSubSectUl__li"><code>scrollbars=yes</code> Barras de desplazamiento.</li>
+          <li class="chaptrSubSectUl__li"><code>resizable=no</code> Se puede agrandar o no.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          let ·ajustes = '/º width=400, height=300, left=100, top=100, scrollbars=yes, resizable=no º/';
+          çwindow.ªopen('/º https://www.google.es º/', 'Google', ·ajustes);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Bloqueadores de ventanas emergentes" codeText="">
+        <p class="chaptrSubSect__p">Los navegadores bloquean popups automáticos para evitar molestias (como anuncios). Solo funcionan si el usuario hace algo, como clicar un botón</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* Esto se bloquea */
+          çwindow.ªopen('/º https://ejemplo.com º/');
+          
+          /* Esto funciona con un clic */
+          let ·boton = document.querySelector('button');
+          ·boton.addEventListener('click', () =&gt; &#123;
+            çwindow.ªopen('/º https://ejemplo.com º/');
+          &#125;);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Interacción en y desde la ventana emergente" codeText="">
+        <p class="chaptrSubSect__p">Desde la ventana principal puedes controlarla, y ella puede "hablar" contigo, siempre que estén en el mismo dominio (por seguridad)</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Escribir en la ventana emergente</strong></li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          /* Abrir una nueva ventana emergente */
+          let ·newPopUp = çwindow.ªopen('', 'Saludo', '/º width=300,height=200 º/');
+        
+          /* Crear el contenido de la ventana emergente */
+          const ·mainH1 = ·newPopUp.document.createElement('h1');
+          ·mainH1.•textContent = '/º ¡Hola, Éder! º/';
+          ·newPopUp.document.body.appendChild(·mainH1);</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>La ventana emergente cambia la principal</strong></li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          /* Abrir una nueva ventana emergente */
+          let ·newPopUp = çwindow.ªopen('', 'Saludo', '/º width=300,height=200 º/');
+        
+          /* Crear el contenido de la ventana emergente */
+          const ·mainH1 = ·newPopUp.document.createElement('h1');
+          ·mainH1.•textContent = '/º ¡Hola, Éder! º/';
+          ·newPopUp.document.body.appendChild(·mainH1);
+        
+          /* Modificar la página principal desde la ventana emergente */
+          const ·myScript = ·newPopUp.document.createElement('script');
+          
+          ·myScript.•textContent = `
+          /* Este código se ejecuta en la ventana emergente */
+          /º window.opener.document.body.innerHTML = º/ '/º ¡Saludos desde el popup! º/';
+          `;
+          ·newPopUp.document.body.append(·myScript);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Cerrar la ventana" codeText="">
+        <p class="chaptrSubSect__p">Para cerrarla, usa <code>close()</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          /* Abrir una nueva ventana emergente */
+          let ·newPopUp = çwindow.ªopen('', 'Saludo', '/º width=300,height=200 º/');
+        
+          /* Crear el contenido de la ventana emergente */
+          const ·mainH1 = ·newPopUp.document.createElement('h1');
+          ·mainH1.•textContent = '/º ¡Hola, Éder! º/';
+          ·newPopUp.document.body.appendChild(·mainH1);
+
+          @setTimeout(() =&gt; &#123;
+            ·newPopUp.ªclose();
+            console.log(·newPopUp.•closed);
+          &#125;, ¬2000);
+        
+          ⋗ /º true º/</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Mover y cambiar tamaño" codeText="">
+        <p class="chaptrSubSect__p">Se puede mover o ajustar con</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>moveTo(x, y)</code> La lleva a una posición.</li>
+          <li class="chaptrSubSectUl__li"><code>resizeTo(ancho, alto)</code> Cambia su tamaño.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          /* Abrir una nueva ventana emergente */
+          let ·newPopUp = çwindow.ªopen('', 'Saludo', '/º width=300,height=200 º/');
+        
+          /* Crear el contenido de la ventana emergente */
+          const ·mainH1 = ·newPopUp.document.createElement('h1');
+          ·mainH1.•textContent = '/º ¡Hola, Éder! º/';
+          ·newPopUp.document.body.appendChild(·mainH1);
+
+          @setTimeout(() =&gt; &#123;
+            ·newPopUp.ªmoveTo(¬50, ¬50);    /*/º Mueve a (50, 50) º/*/
+            ·newPopUp.ªresizeTo(¬500, ¬400);    /* La hace 500x400 */
+          &#125;, ¬2000);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Enfocar la ventana" codeText="">
+        <p class="chaptrSubSect__p">Con <code>focus()</code> la traes al frente, pero los navegadores a veces lo ignoran por seguridad</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* Abrir una nueva ventana emergente */
+          let ·newPopUp = çwindow.ªopen('', 'Saludo', '/º width=300,height=200 º/');
+        
+          /* Crear el contenido de la ventana emergente */
+          const ·mainH1 = ·newPopUp.document.createElement('h1');
+          ·mainH1.•textContent = '/º ¡Hola, Éder! º/';
+          ·newPopUp.document.body.appendChild(·mainH1);
+
+          /* Enfocar la ventana */
+          ·newPopUp.ªfocus();</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Comunicación entre ventanas" codeText="">
+      <ChaptrSubSect h4Title="Explicación" codeText="">
+        <p class="chaptrSubSect__p"></p>
+        <pre class="chaptrSubSect__console wScript">
+
+        </pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Mismo origen" codeText="">
+        <p class="chaptrSubSect__p"></p>
+        <pre class="chaptrSubSect__console wScript">
+
+        </pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Ventanas en subdominios" codeText="">
+        <p class="chaptrSubSect__p"></p>
+        <pre class="chaptrSubSect__console wScript">
+
+        </pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Trampa iframe" codeText="">
+        <p class="chaptrSubSect__p"></p>
+        <pre class="chaptrSubSect__console wScript">
+
+        </pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Colección" codeText="window.frames">
+        <p class="chaptrSubSect__p"></p>
+        <pre class="chaptrSubSect__console wScript">
+
+        </pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El atributo iframe" codeText="sandbox">
+        <p class="chaptrSubSect__p"></p>
+        <pre class="chaptrSubSect__console wScript">
+
+        </pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Mensajería entre ventanas" codeText="">
+        <p class="chaptrSubSect__p"></p>
+        <pre class="chaptrSubSect__console wScript">
+
+        </pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Ataque secuestro clicks" codeText="">
+      <ChaptrSubSect h4Title="Explicación" codeText="">
+        <p class="chaptrSubSect__p"></p>
+        <pre class="chaptrSubSect__console wScript">
+
+        </pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="La idea" codeText="">
+        <p class="chaptrSubSect__p"></p>
+        <pre class="chaptrSubSect__console wScript">
+
+        </pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="La demostración" codeText="">
+        <p class="chaptrSubSect__p"></p>
+        <pre class="chaptrSubSect__console wScript">
+
+        </pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Defensas OldSchool" codeText="">
+        <p class="chaptrSubSect__p"></p>
+        <pre class="chaptrSubSect__console wScript">
+
+        </pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="X-Frame-Options">
+        <p class="chaptrSubSect__p"></p>
+        <pre class="chaptrSubSect__console wScript">
+
+        </pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Funcionalidad deshabilitada" codeText="">
+        <p class="chaptrSubSect__p"></p>
+        <pre class="chaptrSubSect__console wScript">
+
+        </pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Atributo" codeText="Samesite">
+        <p class="chaptrSubSect__p"></p>
+        <pre class="chaptrSubSect__console wScript">
+
+        </pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>
+
+<!-- 
+&lt;&gt;          < > no estilados
+()&#123;&#125;    ( ) { } no estilados
+﹛﹜              { } Llaves no estilados
+﹕                : 2 puntos no estilados
+＃                # Rejilla no estilada
+
+ªmétodos
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li">
+
+-->

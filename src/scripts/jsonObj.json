@@ -1,0 +1,46 @@
+{
+  "modelo": "Rolls-Royce Phantom VIII",
+  "marca": "Rolls-Royce",
+  "año": 2023,
+  "precioBaseUSD": 450000,
+  "motor": {
+    "tipo": "V12 biturbo",
+    "cilindradaCC": 6750,
+    "potenciaHP": 563,
+    "torqueNm": 900,
+    "tecnologias": ["Inyección directa", "Distribución variable"]
+  },
+  "rendimiento": {
+    "aceleracion0a100kmhSeg": 5.3,
+    "velocidadMaximaKmh": 250,
+    "consumoCombustibleL100km": 14.8,
+    "emisionesCO2gKm": 343
+  },
+  "dimensiones": {
+    "longitudMm": 5762,
+    "anchuraMm": 2018,
+    "alturaMm": 1646,
+    "pesoKg": 2625
+  },
+  "interior": {
+    "materialAsientos": "Cuero de primera calidad",
+    "sistemaSonido": "Bespoke Audio",
+    "pantallaCentralPulgadas": 12.3,
+    "extras": ["Techo panorámico", "Mesas traseras plegables", "Nevera para bebidas"],
+    "asientosTraserosReclinables": true
+  },
+  "exterior": {
+    "colorPrincipal": "Negro Diamante",
+    "tipoPintura": "Metalizada",
+    "llantasPulgadas": 22,
+    "faros": "Láser",
+    "elementosCromados": true
+  },
+  "disponible": true,
+  "unidadesEnStock": null,
+  "galeriaImagenes": [
+    "phantom_exterior_1.jpg",
+    "phantom_interior_2.jpg",
+    "phantom_motor.jpg"
+  ]
+}

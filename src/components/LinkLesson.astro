@@ -1,0 +1,9 @@
+---
+const { page, descLesson } = Astro.props
+---
+<article class="artLesson">
+  <a class="aLinkLssn" href={page}><h2 class="h2Lesson"><span>{descLesson}</span></h2></a>
+  <section class="lssnIndice">
+    <slot />
+  </section>
+</article>

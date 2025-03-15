@@ -1,0 +1,108 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__20" h2Title="WeakSet" slot="mainContent">
+    <ChaptrSect h3Title="Creación de un Set" codeText="">
+      <ChaptrSubSect h4Title="Utilizando su constructor" codeText="new Set()">
+        <p class="chaptrSubSect__p">Sólo podemos agregar <mark>objetos</mark> cómo elementos</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><b>Valores únicos</b>: No puede contener valores duplicados. Si intentas agregar el mismo valor más de una vez, lo ignorará</li>
+          <li class="chaptrSubSectUl__li">Tiene referencias débiles (el recolector de basura lo eliminará si el objeto es borrado en otro lugar y no es accesible)</li>
+          <li class="chaptrSubSectUl__li"><b>No</b> permite iteración sobre él</li>
+          <li class="chaptrSubSectUl__li"><b>No</b> tiene el método <code>size</code></li>
+          <li class="chaptrSubSectUl__li"><b>No</b> se pueden añadir objetos cuando se crea el literal, puesto que los objetos tienen que estar antes referenciados en una variable</li>
+        </ul>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">firstTeam</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakSet</span><span class="warp">()</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">bagShopSET</span>)</span>;
+          <span class="result">WeakSet &#123;&#125;</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Agregar elementos" codeText="">
+      <ChaptrSubSect h4Title="Utilizando el método" codeText=".add()">
+        <p class="chaptrSubSect__p">Cómo argumento le pasaremos valores</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="warp">&#123;<span class="objProp">name</span>: <span class="args">'Éder'</span>&#125;</span>
+          <span class="key">const</span> <span class="var">player2</span> <span class="opera">=</span> <span class="warp">&#123;<span class="objProp">name</span>: <span class="args">'Iker'</span>&#125;</span>
+          <span class="key">const</span> <span class="var">player3</span> <span class="opera">=</span> <span class="warp">&#123;<span class="objProp">name</span>: <span class="args">'Bego'</span>&#125;</span>
+
+          <span class="key">const</span> <span class="var">firstTeam</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakSet</span><span class="warp">()</span>;
+          
+          <span class="obj">firstTeam</span><span class="dot">.</span><span class="meth">add</span><span class="warp">(<span class="obj">player1</span>)</span>;
+          <span class="obj">firstTeam</span><span class="dot">.</span><span class="meth">add</span><span class="warp">(<span class="obj">player2</span>)</span>;
+          <span class="obj">firstTeam</span><span class="dot">.</span><span class="meth">add</span><span class="warp">(<span class="obj">player3</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">firstTeam</span>)</span>;
+          <span class="result">WeakSet &#123;&#123;...&#125;, &#123;...&#125;, &#123;...&#125;&#125;</span></pre>
+          <p class="chaptrSubSect__p">Podemos usar el encadenamiento para añadir varios valores a la vez</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="warp">&#123;<span class="objProp">name</span>: <span class="args">'Éder'</span>&#125;</span>
+            <span class="key">const</span> <span class="var">player2</span> <span class="opera">=</span> <span class="warp">&#123;<span class="objProp">name</span>: <span class="args">'Iker'</span>&#125;</span>
+            <span class="key">const</span> <span class="var">player3</span> <span class="opera">=</span> <span class="warp">&#123;<span class="objProp">name</span>: <span class="args">'Bego'</span>&#125;</span>
+  
+            <span class="key">const</span> <span class="var">firstTeam</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakSet</span><span class="warp">()</span>;
+            
+            <span class="obj">firstTeam</span><span class="dot">.</span><span class="meth">add</span><span class="warp">(<span class="obj">player1</span>)</span>
+                        <span class="dot">.</span><span class="meth">add</span><span class="warp">(<span class="obj">player2</span>)</span>
+                        <span class="dot">.</span><span class="meth">add</span><span class="warp">(<span class="obj">player3</span>)</span>;
+  
+
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">firstTeam</span>)</span>;
+            <span class="result">WeakSet &#123;&#123;...&#125;, &#123;...&#125;, &#123;...&#125;&#125;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Array como argumento a" codeText="new WeakSet()">
+        <p class="chaptrSubSect__p">Podemos pasar un array de objetos al constructor <code>new WeakSet()</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="warp">&#123;<span class="objProp">name</span>: <span class="args">'Éder'</span>&#125;</span>;
+          <span class="key">const</span> <span class="var">player2</span> <span class="opera">=</span> <span class="warp">&#123;<span class="objProp">name</span>: <span class="args">'Iker'</span>&#125;</span>;
+          <span class="key">const</span> <span class="var">player3</span> <span class="opera">=</span> <span class="warp">&#123;<span class="objProp">name</span>: <span class="args">'Bego'</span>&#125;</span>;
+
+          <span class="key">const</span> <span class="var">firstTeam</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakSet</span><span class="warp">(<span class="warp2">[<span class="obj">player1, player2, player3</span>]</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">firstTeam</span>)</span>;
+          <span class="result">WeakSet &#123;&#123;...&#125;, &#123;...&#125;, &#123;...&#125;&#125;</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Existencia valores" codeText="">
+      <ChaptrSubSect h4Title="Verifica si existe un elemento con" codeText=".has()">
+          <p class="chaptrSubSect__p">Devuelve un booleano</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="warp">&#123;<span class="objProp">name</span>: <span class="args">'Éder'</span>&#125;</span>;
+            <span class="key">const</span> <span class="var">player2</span> <span class="opera">=</span> <span class="warp">&#123;<span class="objProp">name</span>: <span class="args">'Iker'</span>&#125;</span>;
+            <span class="key">const</span> <span class="var">player3</span> <span class="opera">=</span> <span class="warp">&#123;<span class="objProp">name</span>: <span class="args">'Bego'</span>&#125;</span>;
+  
+            <span class="key">const</span> <span class="var">firstTeam</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakSet</span><span class="warp">(<span class="warp2">[<span class="obj">player1, player2, player3</span>]</span>)</span>;
+
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">firstTeam</span><span class="dot">.</span><span class="meth">has</span><span class="warp2">(<span class="obj">player2</span>)</span>)</span>;
+            <span class="result">true</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Eliminar elementos" codeText="">
+      <ChaptrSubSect h4Title="Elimina elemento con" codeText=".delete()">
+          <p class="chaptrSubSect__p">Devuelve <code>true</code> si el valor existía y fue eliminado, o <code>false</code> si el valor no estaba</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">const</span> <span class="var">player1</span> <span class="opera">=</span> <span class="warp">&#123;<span class="objProp">name</span>: <span class="args">'Éder'</span>&#125;</span>;
+            <span class="key">const</span> <span class="var">player2</span> <span class="opera">=</span> <span class="warp">&#123;<span class="objProp">name</span>: <span class="args">'Iker'</span>&#125;</span>;
+            <span class="key">const</span> <span class="var">player3</span> <span class="opera">=</span> <span class="warp">&#123;<span class="objProp">name</span>: <span class="args">'Bego'</span>&#125;</span>;
+  
+            <span class="key">const</span> <span class="var">firstTeam</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakSet</span><span class="warp">(<span class="warp2">[<span class="obj">player1, player2, player3</span>]</span>)</span>;
+
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">firstTeam</span>)</span>;
+            <span class="result">WeakSet &#123;&#123;...&#125;, &#123;...&#125;, &#123;...&#125;&#125;</span>
+
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">firstTeam</span><span class="dot">.</span><span class="meth">delete</span><span class="warp2">(<span class="obj">player2</span>)</span>)</span>;
+            <span class="result">true</span>
+  
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">firstTeam</span>)</span>;
+            <span class="result">WeakSet &#123;&#123;...&#125;, &#123;...&#125;&#125;</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>

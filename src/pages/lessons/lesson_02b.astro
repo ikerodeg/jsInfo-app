@@ -1,0 +1,855 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+const ruta = '../../src/assets/img/'
+---
+<MainLayout>
+  <LssnArt artClass="lssn__02b" h2Title="Introduccion eventos" slot="mainContent">
+    <ChaptrSect h3Title="Conceptos básicos" codeText="">
+      <ChaptrSubSect h4Title="Explicación" codeText="">
+        <p class="chaptrSubSect__p">Un evento es una acción o suceso que ocurre en el navegador (ej: clic del ratón, carga de una página, pulsación de una tecla). JavaScript nos permite "escuchar" estos eventos y ejecutar código en respuesta</p>
+        <p class="chaptrSubSect__p"><strong>Eventos del mouse</strong></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>click</code></li>
+          <li class="chaptrSubSectUl__li"><code>contexmenu</code></li>
+          <li class="chaptrSubSectUl__li"><code>mouseover</code>/<code>mouseout</code></li>
+          <li class="chaptrSubSectUl__li"><code>mousedown</code><code>mouseup</code></li>
+          <li class="chaptrSubSectUl__li"><code>mousemove</code></li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>Eventos del teclado</strong></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>keydown</code>/<code>keyup</code></li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>Eventos del elemento form</strong></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>submit</code></li>
+          <li class="chaptrSubSectUl__li"><code>focus</code></li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>Eventos del documento</strong></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>DOMContentLoaded</code></li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>Eventos del CSS</strong></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>transitionend</code></li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Controladores de eventos" codeText="">
+        <p class="chaptrSubSect__p">Para reaccionar a los eventos podemos asignar un <span class="bttn">handler</span> (controlador) el cual es una función que se ejecuta en caso de un evento. Los handlers son una forma de ejecutar código JavaScript en caso de acciones por parte del usuario. Hay muchas maneras de asignar un <span class="bttn">handler</span> . Vamos a verlas empezando por las más simples</p>
+        <p class="chaptrSubSect__p">🔥 <mark>Como atributo <span class="bttn">HMTL</span>:</mark> Un <span class="bttn">handler</span> puede ser establecido en el <span class="bttn">HTML</span> con un atributo llamado <code>on&lt;event&gt;</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          &lt;·input ºvalue='Haz click aquí' onclick='/º console.log("click") º/' ºtype='button'&gt;</pre>
+        <p class="chaptrSubSect__p">Un atributo <span class="bttn">HTML</span> no es un lugar conveniente para escribir un montón de código</p>
+        <p class="chaptrSubSect__p">🔥 <mark>Como propiedad del <span class="bttn">DOM</span>:</mark> Podemos asignar un <span class="bttn">handler</span> usando una propiedad del <span class="bttn">DOM</span> <code>on&lt;event&gt;</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          &lt;input ºvalue='Botón' ºid='button' ºtype='button'&gt;
+
+          &lt;script&gt;
+            ·button.@onclick = @function() &#123;
+              console.log('/º ¡Click! º/');
+            &#125;;
+          &lt;/script&gt;</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Posibles errores" codeText="">
+        <p class="chaptrSubSect__p">Podemos establecer una función existente como un <span class="bttn">handler</span></p>
+        <pre class="chaptrSubSect__console wScript">
+          function @sayThanks() &#123;
+            console.log('/º ¡Gracias! º/');
+          &#125;
+
+          ·elem.onclick = @sayThanks;</pre>
+        <p class="chaptrSubSect__p">⚠️ Pero la función debe ser asignada <mark>sin paréntesis</mark>. Si agregamos paréntesis, <code>sayThanks()</code> se convierte en una llamada de función. En ese caso la última linea toma el resultado de la ejecución de la función, que es <code>undefined</code> (ya que la función no devuelve nada), y lo asigna a <code>onclick</code>. Esto no funciona</p>
+        <p class="chaptrSubSect__p">Por otro lado, en el markup necesitamos los paréntesis</p>
+        <pre class="chaptrSubSect__console wScript">
+          &lt;·input ºtype='button' ºid='button' onclick='@sayThanks()'&gt;</pre>
+        <p class="chaptrSubSect__p">Cuando el navegador lee el atributo crea una función <span class="bttn">handler</span> con cuerpo a partir del contenido del atributo</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="addEventListener">
+        <p class="chaptrSubSect__p">El problema es que no podemos asignar multiples handlers a un solo evento. Hay una forma alternativa de administrar los handlers utilizando los métodos especiales <code>addEventListener</code> y <code>removeEventListener</code>, que no tienen este problema</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* Sintaxis */
+          ·element.addEventListener(•event, •handler, [•options]);</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>event</code>: Nombre del evento, por ejemplo: <code>click</code>.</li>
+          <li class="chaptrSubSectUl__li"><code>handler</code>: La función handler.</li>
+          <li class="chaptrSubSectUl__li"><code>options</code>: Un objeto adicional, opcional, con las propiedades:</li>
+            <li class="chaptrSubSectUl__li--sub"><code>once</code>: si es <code>true</code> entonces el listener se remueve automáticamente después de activarlo.</li>
+            <li class="chaptrSubSectUl__li--sub"><code>capture</code>: la fase en la que se controla el evento. Puede ser <code>false</code>/<code>true</code>.</li>
+            <li class="chaptrSubSectUl__li--sub"><code>passive</code>: si es <code>true</code> entonces el <span class="bttn">handler</span> no llamará a <code>preventDefault().</code></li>
+        </ul>
+        <p class="chaptrSubSect__p">Para eliminar el <span class="bttn">handler</span>, se usa <code>removeEventListener</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          /* Sintaxis */
+          ·element.removeEventListener(•event, •handler, [•options]);</pre>
+        <p class="chaptrSubSect__p">Para eliminar un <span class="bttn">handler</span> deberemos pasar exactamente la misma función que asignamos, y para eso la función debe estar almacenada en una variable</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* Esto no funciona */
+          ·elem.addEventListener('click', () =&gt; console.log('/º ¡Hola! º/'));
+          ·elem.removeEventListener('click', () =&gt; console.log('/º ¡Hola! º/'));
+
+          /* Manera correcta */
+          function @handler() &#123;
+            console.log('/º ¡Hola! º/');
+          &#125;;
+
+          ·elem.addEventListener('click', @handler);
+          ·elem.removeEventListener('click', @handler);</pre>
+        <p class="chaptrSubSect__p">Múltiples llamadas a <code>addEventListener</code> permiten  agregar múltiples handlers, podemos establecerlos usando un propiedad <span class="bttn">DOM</span> como <code>addEventListener</code> juntos</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          &lt;·input ºtype='button' ºid='elem' ºvalue='/º clickMe! º/'&gt;
+          
+          /* js */
+          function @handler1() &#123;
+            console.log('/º ¡Gracias! º/');
+          &#125;;
+
+          function @handler2() &#123;
+            console.log('/º ¡Gracias de nuevo! º/');
+          &#125;;
+
+          ·elem.onclick = () =&gt; console.log('/º ¡Hola! º/'); ⋗ /º ¡Hola! º/
+          ·elem.addEventListener('click', @handler1);   ⋗ /º ¡Gracias! º/
+          ·elem.addEventListener('click', @handler2);   ⋗ /º ¡Gracias de nuevo! º/
+          /* Al pulsar en el botón se ejecutan los 3 eventos a la vez */</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Objeto del evento" codeText="">
+        <p class="chaptrSubSect__p">Cuando ocurre un evento en el navegador (como un clic, el movimiento del mouse, o la pulsación de una tecla), el navegador crea automáticamente un objeto del evento que contiene toda la información necesaria para manejar ese evento. Este objeto se pasa como argumento al manejador del evento</p>
+        <p class="chaptrSubSect__p">Estas propiedades están disponibles para la mayoría de los eventos</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>type</code>: Indica el tipo de evento (<code>click</code>, <code>keydown</code>, <code>submit</code>).</li>
+          <li class="chaptrSubSectUl__li"><code>currentTarget</code>: Elemento que está manejando el evento (similar a <code>this</code> en los manejadores tradicionales, pero más confiable)</li>
+          <li class="chaptrSubSectUl__li"><code>target</code>: Elemento original donde ocurrió el evento, que puede ser diferente de <code>currentTarget</code> si el evento se propagó desde un hijo.</li>
+          <li class="chaptrSubSectUl__li"><code>timeStamp</code>: Tiempo desde que se cargó la página hasta que ocurrió el evento.</li>
+          <li class="chaptrSubSectUl__li"><strong>Métodos comunes:</strong></li>
+          <li class="chaptrSubSectUl__li--sub"><code>preventDefault</code>: Evita la acción predeterminada del navegador (e.g., evitar el envío de un formulario).</li>
+          <li class="chaptrSubSectUl__li--sub"><code>stopPropagation</code>: Detiene la propagación del evento a otros elementos.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Esta es la sintaxis de uso genérica para manejar eventos y trabajar con las propiedades comunes del objeto del evento</p>
+        <pre class="chaptrSubSect__console wScript">
+          document.addEventListener('tipoDeEvento', (çevent) =&gt; &#123;
+            /* Acceder al tipo de evento */
+            console.log(çevent.ºtype);
+          
+            /* Acceder al elemento que maneja el evento */
+            console.log(çevent.ºcurrentTarget);
+          
+            /* Acceder al elemento que originalmente disparó el evento */
+            console.log(çevent.ºtarget);
+          
+            /* Tiempo desde que se cargó la página hasta que ocurrió el evento */
+            console.log(çevent.ºtimeStamp);
+          
+            /* Métodos comunes */
+            çevent.@preventDefault(); /* Evita la acción predeterminada */
+          &#125;);
+        </pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Objeto handler" codeText="">
+        <p class="chaptrSubSect__p">Un objeto <span class="bttn">handler</span> es un objeto que puede ser usado como manejador de eventos. Para que funcione, debe implementar un método llamado <code>handleEvent</code>, que será llamado automáticamente cuando ocurra un evento.</p>
+        <p class="chaptrSubSect__p">Su ventaja principal es que permite estructurar el código mejor que con simples funciones, especialmente cuando un mismo objeto necesita manejar varios tipos de eventos.</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          &lt;·button ºid='boton'&gt;clickMe&lt;/·button&gt;
+
+          /* js */
+          let çmyObj = &#123;
+             @handleEvent(çevent) &#123;
+              console.log(çevent.ºtype, çevent.ºcurrentTarget);
+             &#125;
+          &#125;;
+
+          ·elem.addEventListener('click', çmyObj);
+          ⋗ click /º &lt;button class='boton'&gt;clickMe&lt;/button&gt; º/
+        </pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Propagación y captura" codeText="">
+      <ChaptrSubSect h4Title="Propagación" codeText="bubbling">
+        <p class="chaptrSubSect__p">Cuando un evento ocurre en un elemento, este primero ejecuta los manejadores que tiene asignados, luego los manejadores de su padre, y así hasta otros ancestros</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;·div&gt;DIV º/
+              /º &lt;·p id="inner"&gt;P º/
+                  /º &lt;·button id="button"&gt;ClickMe&lt;/·button&gt; º/
+              /º &lt;/·p&gt; º/
+          /º &lt;/·div&gt; º/
+        
+          /* js */
+          const ·outer = document.getElementById('outer');
+          const ·inner = document.getElementById('inner');
+          const ·button = document.getElementById('button');
+
+          function @logEvent(•event) &#123;
+            console.log(`/º Evento del $&#123; º/this.ºtagName/º &#125; º/`);
+          &#125;;
+
+          // Añadimos manejadores a todos los niveles
+          ·outer.addEventListener('click', @logEvent);
+          ·inner.addEventListener('click', @logEvent);
+          ·button.addEventListener('click', @logEvent);
+
+          /* pulsamos en button */
+          ⋗ /º Evento del BUTTON º/
+          ⋗ /º Evento del P º/
+          ⋗ /º Evento del DIV º/
+
+          /* pulsamos en p */
+          ⋗ /º Evento del P º/
+          ⋗ /º Evento del DIV º/
+
+          /* pulsamos en div */
+          ⋗ /º Evento del DIV º/</pre>
+        <p class="chaptrSubSect__p">Así si hacemos clic en <code>&lt;button&gt;</code>, veremos 3 logs: <code>button</code> → <code>p</code> → <code>div</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Primero:</strong> se ejecuta el <code>event</code> del <code>&lt;button&gt;</code> y burbujea hasta el elemento padre.</li>
+          <li class="chaptrSubSectUl__li"><strong>Segundo:</strong> se ejecuta el <code>event</code> del <code>&lt;p&gt;</code> y burbujea hasta el elemento padre.</li>
+          <li class="chaptrSubSectUl__li"><strong>Tercero:</strong> se ejecuta el <code>event</code> del <code>&lt;div&gt;</code>.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Este proceso se conoce como <mark>propagación</mark> porque los eventos “se propagan” desde el elemento más al interior, a través de los padres, como una burbuja en el agua <mark>bubbling</mark></p>
+        <img class="chaptrSubSect__img" src=`${ruta}img13.webp` alt="Propagacion evento">
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="event.target">
+        <p class="chaptrSubSect__p">Para saber dónde realmente ocurrió el evento usamos <code>event.target</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;·div id="outer"&gt;DIV º/
+              /º &lt;·p id="inner"&gt;P º/
+                  /º &lt;·button id="button"&gt;ClickMe&lt;/·button&gt; º/
+              /º &lt;/·p&gt; º/
+          /º &lt;/·div&gt; º/
+        
+          /* js */
+          const ·outer = document.getElementById('outer');
+          const ·inner = document.getElementById('inner');
+          const ·button = document.getElementById('button');
+
+          function @logEvent(•event) &#123;
+            console.log(`Click en $/º &#123; º/•event.ºtarget.ºtagName/º &#125; º/, Evento del $/º &#123; º/this.ºtagName/º &#125; º/`);
+          &#125;;
+
+          // Añadimos manejadores a todos los niveles
+          ·outer.addEventListener('click', @logEvent);
+          ·inner.addEventListener('click', @logEvent);
+          ·button.addEventListener('click', @logEvent);
+
+          /* pulsamos en button */
+          ⋗ /º Click en BUTTON, Evento del BUTTON º/
+          ⋗ /º Click en BUTTON, Evento del P º/
+          ⋗ /º Click en BUTTON, Evento del DIV º/
+
+          /* pulsamos en p */
+          ⋗ /º Click en P, Evento del P º/
+          ⋗ /º Click en P, Evento del DIV º/
+
+          /* pulsamos en div */
+          ⋗ /º Click en DIV, Evento del DIV º/</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>event.target</code> es el elemento actual dentro de el <code>&lt;div&gt;</code> al que se le hizo clic.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Detener la propagación" codeText="event.stopPropagation()">
+        <p class="chaptrSubSect__p">Una propagación de evento empieza desde el elemento objetivo hacia arriba. Normalmente este continúa hasta <code>&lt;html&gt;</code> y luego hacia el objeto <span class="bttn">document</span>, algunos eventos incluso alcanzan <span class="bttn">window</span>, llamando a todos los manejadores en el camino</p>
+        <p class="chaptrSubSect__p">Pero cualquier manejador podría decidir que el evento se ha procesado por completo y detener su propagación. El método para esto es <code>event.stopPropagation()</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;·div id="outer"&gt;DIV º/
+              /º &lt;·p id="inner"&gt;P º/
+                  /º &lt;·button id="button"&gt;ClickMe&lt;/·button&gt; º/
+              /º &lt;/·p&gt; º/
+          /º &lt;/·div&gt; º/
+        
+          /* js */
+          const ·outer = document.getElementById('outer');
+          const ·inner = document.getElementById('inner');
+          const ·button = document.getElementById('button');
+
+          function @logEvent(•event) &#123;
+            console.log(`Click en $/º &#123; º/•event.ºtarget.ºtagName/º &#125; º/, Evento del $/º &#123; º/this.ºtagName/º &#125; º/`);
+          &#125;;
+
+          function @logEventStop(•event) &#123;
+            console.log(`Click en $/º &#123; º/•event.ºtarget.ºtagName/º &#125; º/, Evento del $/º &#123; º/this.ºtagName/º &#125; º/`);
+            •event.@stopPropagation();
+            console.log('Propagación detenida');
+          &#125;;
+
+          // Añadimos manejadores a todos los niveles
+          ·outer.addEventListener('click', @logEvent);
+          ·inner.addEventListener('click', @logEvent);
+          ·button.addEventListener('click', @logEventStop);
+
+          /* pulsamos en button */
+          ⋗ Click en BUTTON, Evento del BUTTON
+          ⋗ Propagación detenida
+
+          /* pulsamos en p */
+          ⋗ Click en P, Evento del P
+          ⋗ Click en P, Evento del DIV
+
+          /* pulsamos en div */
+          ⋗ Click en DIV, Evento del DIV</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Sólo hemos detenido la propagación del evento del <code>&lt;button&gt;</code>.</li>
+          <li class="chaptrSubSectUl__li">Detiene la propagación hacia arriba, pero todos los manejadores en el elemento actual se ejecutarán</li>
+          <li class="chaptrSubSectUl__li">Para detener la propagación y prevenir que los manejadores del elemento actual se ejecuten, se usa <code>event.stopImmediatePropagation()</code>.</li>
+          <li class="chaptrSubSectUl__li">La propagación es conveniente. <mark>No la detengas sin una necesidad real</mark>, obvia y arquitectónicamente bien pensada.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Un solo manejador" codeText="">
+        <p class="chaptrSubSect__p">Podemos usar un solo manejador en el elemento más exterior y detectar en que elemento dentro de ese mismo se ha pulsado</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;·div id="outer"&gt;DIV º/
+              /º &lt;·p id="inner"&gt;P º/
+                  /º &lt;·button id="button"&gt;ClickMe&lt;/·button&gt; º/
+              /º &lt;/·p&gt; º/
+          /º &lt;/·div&gt; º/
+        
+          /* js */
+          const ·outer = document.getElementById('outer');
+
+          function @logEvent(•event) &#123;
+            console.log(`Click en $/º &#123; º/•event.ºtarget.ºtagName/º &#125; º/, Evento del $/º &#123; º/this.ºtagName/º &#125; º/`);
+          &#125;;
+
+          // Añadimos el manejador al elemento exterior
+          ·outer.addEventListener('click', @logEvent);
+
+          /* pulsamos en button */
+          ⋗ /º Click en BUTTON, Evento del DIV º/
+
+          /* pulsamos en p */
+          ⋗ /º Click en P, Evento del DIV º/
+
+          /* pulsamos en div */
+          ⋗ /º Click en DIV, Evento del DIV º/</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Captura" codeText="">
+        <p class="chaptrSubSect__p">Hay 3 fases de la propagación de eventos</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Fase de captura:</strong> el evento desciende al elemento.</li>
+          <li class="chaptrSubSectUl__li"><strong>Fase de objetivo:</strong> el evento alcanza al elemento.</li>
+          <li class="chaptrSubSectUl__li"><strong>Fase de propagación:</strong> el evento se propaga hacia arriba del elemento.</li>
+        </ul>
+        <img class="chaptrSubSect__img" src=`${ruta}img14.webp` alt="Captura del evento">
+        <p class="chaptrSubSect__p">Se explica así: por un clic en <code>&lt;td&gt;</code> el evento va primero a través de la cadena de ancestros hacia el elemento en la fase de <mark>captura</mark>, luego alcanza el objetivo y se desencadena ahí la fase <mark>objetivo</mark>, y por último va hacia arriba en la fase de <mark>propagación</mark>, ejecutando los manejadores en su camino</p>
+        <p class="chaptrSubSect__p">La fase de captura es invisible para nosotros, porque los manejadores agregados que usan la propiedad <code>on&lt;event&gt;</code>, usan atributos <span class="bttn">HTML</span>, ó <code>addEventListener()</code> de dos argumentos (<code>event</code>, <code>handler</code>), no ven la fase de captura, únicamente se ejecutan en la 2da y 3ra fase. Para atrapar un evento en la fase de captura, necesitamos preparar la opción <code>capture</code> como <code>true</code> en el manejador</p>
+        <pre class="chaptrSubSect__console wScript">
+          ·elem.addEventListener(..., &#123;capture: true&#125;)
+
+          /* o solamente */
+          ·elem.addEventListener(..., true)</pre>
+        <p class="chaptrSubSect__p">Hay dos posibles valores para la opción <code>capture</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>false</code>: (por defecto) el handler es preparado para la fase de propagación.</li>
+          <li class="chaptrSubSectUl__li"><code>true</code>: el handler es preparado para la fase de captura.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Aunque formalmente hay 3 fases, la 2da fase (“la fase de objetivo”: el evento alcanzó el elemento) no es manejada de forma separada; los manejadores en ambas fases, la de captura y propagación, se disparan en esa fase</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;·div&gt;DIV º/
+              /º &lt;·p&gt;P º/
+                  /º &lt;·button&gt;ClickMe&lt;/·button&gt; º/
+              /º &lt;/·p&gt; º/
+          /º &lt;/·div&gt; º/
+        
+          /* js */
+          for(let elem of document.querySelectorAll('*')) &#123;
+            ·elem.addEventListener('click', (çevent) =&gt; console.log(`Captura: $&#123;·elem.tagName&#125;`), true);
+            ·elem.addEventListener('click', (çevent) =&gt; console.log(`Propagación: $&#123;·elem.tagName&#125;`));
+          &#125;
+
+          /* pulsamos en button */
+          ⋗ /º Captura: HTML º/
+          ⋗ /º Captura: BODY º/
+          ⋗ /º Captura: DIV º/
+          ⋗ /º Captura: P º/
+          ⋗ /º Captura: BUTTON º/
+          ⋗ /º Propagación: BUTTON º/
+          ⋗ /º Propagación: P º/
+          ⋗ /º Propagación: DIV º/
+          ⋗ /º Propagación: BODY º/
+          ⋗ /º Propagación: HTML º/</pre>
+        <p class="chaptrSubSect__p">Para quitar el manejador, <code>removeEventListener</code> necesita la misma fase</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* si agregamos */
+          addEventListener(..., true);
+
+          /* debemos mencionar la misma fase */
+          removeEventListener(..., true);</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Delegación de eventos" codeText="">
+      <ChaptrSubSect h4Title="Explicación" codeText="">
+        <p class="chaptrSubSect__p">Si tenemos muchos elementos manejados de manera similar podemos, en lugar de asignar un manejador a cada uno de ellos, poner un único manejador a su ancestro común</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* hmtl */
+          /º &lt;table id='table'&gt;; º/
+            /º &lt;tr&gt; º/
+              /º &lt;td class='nw'&gt;&lt;strong&gt;Northwest&lt;/strong&gt;&lt;br&gt;Metal&lt;br&gt;Silver&lt;br&gt;Elders&lt;/td&gt; º/
+              /º &lt;td class='n'&gt;&lt;strong&gt;North&lt;/strong&gt;&lt;br&gt;Water&lt;br&gt;Blue&lt;br&gt;Change&lt;/td&gt; º/
+              /º &lt;td class='ne'&gt;&lt;strong&gt;Northeast&lt;/strong&gt;&lt;br&gt;Earth&lt;br&gt;Yellow&lt;br&gt;Direction&lt;/td&gt; º/
+            /º &lt;/tr&gt; º/
+            /º &lt;tr&gt; º/
+              /º &lt;td class='w'&gt;&lt;strong&gt;West&lt;/strong&gt;&lt;br&gt;Metal&lt;br&gt;Gold&lt;br&gt;Youth&lt;/td&gt; º/
+              /º &lt;td class='c'&gt;&lt;strong&gt;Center&lt;/strong&gt;&lt;br&gt;All&lt;br&gt;Purple&lt;br&gt;Harmony&lt;/td&gt; º/
+              /º &lt;td class='e'&gt;&lt;strong&gt;East&lt;/strong&gt;&lt;br&gt;Wood&lt;br&gt;Blue&lt;br&gt;Future&lt;/td&gt; º/
+            /º &lt;/tr&gt; º/
+            /º &lt;tr&gt; º/
+              /º &lt;td class='sw'&gt;&lt;strong&gt;Southwest&lt;/strong&gt;&lt;br&gt;Earth&lt;br&gt;Brown&lt;br&gt;Tranquility&lt;/td&gt; º/
+              /º &lt;td class='s'&gt;&lt;strong&gt;South&lt;/strong&gt;&lt;br&gt;Fire&lt;br&gt;Orange&lt;br&gt;Fame&lt;/td&gt; º/
+              /º &lt;td class='se'&gt;&lt;strong&gt;Southeast&lt;/strong&gt;&lt;br&gt;Wood&lt;br&gt;Green&lt;br&gt;Romance&lt;/td&gt; º/
+            /º &lt;/tr&gt; º/
+          /º &lt;/table&gt; º/</pre>
+        <pre class="chaptrSubSect__console wScript">
+          /* css */
+          /º table &#123; º/
+            /º margin-inline: auto; º/
+            /º background-color: darkcyan; º/
+            /º border: 2px solid black; º/
+            /º border-radius: 0.3em; º/
+            /º margin-block-start: 4em; º/
+          /º &#125; º/
+
+          /º td &#123; º/
+            /º border: 1px solid gray; º/
+            /º border-radius: 0.3em; º/
+            /º padding: 0.3em; º/
+            /º color: white; º/
+            /º text-align: center; º/
+          /º &#125; º/
+
+          /º .nw&#123; º/
+            /º background-color: gray; º/
+            /º color: black; º/
+          /º &#125; º/
+          /º .n&#123; º/
+            /º background-color: blue; º/
+            /º color: white; º/
+          /º &#125; º/
+          /º .ne&#123; º/
+            /º background-color: lightyellow; º/
+            /º color: black; º/
+          /º &#125; º/
+          /º .w&#123; º/
+            /º background-color: yellow; º/
+            /º color: black; º/
+          /º &#125; º/
+          /º .c&#123; º/
+            /º background-color: blueviolet; º/
+            /º color: white; º/
+          /º &#125; º/
+          /º .e&#123; º/
+            /º background-color: cyan; º/
+            /º color: black; º/
+          /º &#125; º/
+          /º .sw&#123; º/
+            /º background-color: brown; º/
+            /º color: white; º/
+          /º &#125; º/
+          /º .s&#123; º/
+            /º background-color: orange; º/
+            /º color: white; º/
+          /º &#125; º/
+          /º .se&#123; º/
+            /º background-color: green; º/
+            /º color: white; º/
+          /º &#125; º/
+          /º .highlight&#123; º/
+            /º background-color: red; º/
+          /º &#125; º/</pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·selectedTd;
+          const ·myTable = document.getElementById('table');
+          ·myTable.addEventListener('click', (çevent) =&gt; &#123;
+            let ·td = çevent.ºtarget.closest('td');	  /* 1 */
+            if(!·td)&#123;    /* 2 */
+              console.log(`No se pulsó en un td`);
+              return		
+            &#125;
+            if(!table.contains(td))&#123;   /* 3 */
+              console.log(`Esta tabla no contiene ese td`);
+              return		
+            &#125;
+            console.log(`Se pulsó en $&#123;td.tagName&#125;`)
+            @highlight(·td);    /* 4 */
+          &#125;)
+
+          function @highlight(·td)&#123;
+            if(·selectedTd)&#123;
+              ·selectedTd.classList.ºremove('highlight');
+            &#125;
+            ·selectedTd = ·td;
+            ·selectedTd.classList.add('highlight');
+            @setTimeout(() =&gt; &#123;
+              ·selectedTd.classList.ºremove('highlight');
+            &#125;, ¬300)
+            
+          &#125;</pre>
+        <p class="chaptrSubSect__p">Podemos ver tags anidados dentro de <code>&lt;td&gt;</code>, como <code>&lt;strong&gt;</code>, si el clic ocurre en <code>&lt;strong&gt;</code>, este se vuelve el valor de <code>event.target</code></p>
+        <img class="chaptrSubSect__img" src=`${ruta}img15.webp` alt="captura del evento">
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>1 ·</strong> El método <code>elem.closest(selector)</code> devuelve el ancestro más cercano que coincide con el selector. En nuestro caso buscamos <code>&lt;td&gt;</code> hacia arriba desde el elemento de origen.</li>
+          <li class="chaptrSubSectUl__li"><strong>2 ·</strong> Si <code>event.target</code> no ocurrió dentro de algún <code>&lt;td&gt;</code>, el llamado retorna inmediatamente pues no hay nada que hacer.</li>
+          <li class="chaptrSubSectUl__li"><strong>3 ·</strong> En caso de tablas anidadas, <code>event.target</code> podría ser un <code>&lt;td&gt;</code>, pero fuera de la tabla actual. Entonces verificamos que sea realmente un <code>&lt;td&gt;</code> de nuestra tabla.</li>
+          <li class="chaptrSubSectUl__li"><strong>4 ·</strong> Si cumple todo, destacarla.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Ejemplo de delegación" codeText="">
+        <p class="chaptrSubSect__p">Hay otros usos para la delegación de eventos. Digamos que queremos hacer un menú con los botones <span class="bttn">Save</span>, <span class="bttn">Load</span>, <span class="bttn">Search</span>. Y hay objetos con los métodos <code>save</code>, <code>load</code>, <code>search</code> ¿Cómo asociarlos? La primera idea podría ser asignar un controlador separado para cada botón. Pero hay una solución más elegante. Podemos agregar un controlador para el menú completo y un atributo <code>data-action</code> a los botones con el método a llamar</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;div id="menu"&gt; º/
+            /º &lt;button data-action="save"&gt;Save&lt;/button&gt; º/
+            /º &lt;button data-action="load"&gt;Load&lt;/button&gt; º/
+            /º &lt;button data-action="search"&gt;Search&lt;/button&gt; º/
+          /º &lt;/div&gt; º/</pre>
+        <pre class="chaptrSubSect__console wScript">
+          /* js */
+          class çMenu &#123;
+            constructor(•elem) &#123;
+              this._elem = •elem;
+              this._handleClick = this.ºhandleClick.bind(this);   /* Enlazamos el contexto */
+              this._elem.addEventListener('click', this._handleClick);
+            &#125;
+            @save() &#123;
+              console.log('saving');
+            &#125;
+            @load() &#123;
+              console.log('loading');
+            &#125;
+            @search() &#123;
+              console.log('searching');
+            &#125;
+            @handleClick(çevent) &#123;
+              const ·action = çevent.ºtarget.ºdataset.·action;  /* Leemos el atributo data-action */
+              if (·action && typeof this[·action] === 'function') &#123;
+                this[·action]();  /* Llamamos al método correspondiente */
+              &#125;
+            &#125;
+            @destroy() &#123;
+              this._elem.removeEventListener('click', this._handleClick);
+            &#125;
+          &#125;
+          
+          const ·menu = new çMenu(document.getElementById('menu'));</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Acciones predeterminadas" codeText="">
+      <ChaptrSubSect h4Title="Evitar las acciones del navegador" codeText="">
+        <p class="chaptrSubSect__p">Hay dos formas de decirle al navegador que no queremos que actúe</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Utilizar el método <code>event.preventDefault()</code>. <mark>Recomendado</mark>.</li>
+          <li class="chaptrSubSectUl__li">Si el controlador se asigna usando <code>on&lt;event&gt;</code>, entonces devolver <code>false</code>.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          /º &lt;a href="/" onclick="return false"&gt;Haz click aquí&lt;/a&gt; º/
+          /* o */
+          /º &lt;a href="/" onclick="event.preventDefault()"&gt;Click aquí&lt;/a&gt; º/</pre>
+        <p class="chaptrSubSect__p">Ejemplo de menu</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;ul id="menu" class="menu"&gt; º/
+            /º &lt;li&gt;&lt;a href="/html"&gt;HTML&lt;/a&gt;&lt;li&gt; º/
+            /º &lt;li&gt;&lt;a href="/javascript"&gt;JavaScript&lt;/a&gt;&lt;li&gt; º/
+            /º &lt;li&gt;&lt;a href="/css"&gt;CSS&lt;/a&gt;&lt;li&gt; º/
+          /º &lt;/ul&gt; º/</pre>
+        <pre class="chaptrSubSect__console wScript">
+          /* css */
+          /º .menu li &#123; º/
+            /º display: inline-block; º/
+            /º margin: 0; º/
+          /º &#125; º/
+          
+          /º .menu &gt; li a &#123; º/
+            /º display: inline-block; º/
+            /º margin: 0 2px; º/
+            /º outline: none; º/
+            /º text-align: center; º/
+            /º text-decoration: none; º/
+            /º font: 14px/100% sans-serif; º/
+            /º padding: .5em 2em .55em; º/
+            /º text-shadow: 0 1px 1px rgba(0, 0, 0, .3); º/
+            /º border-radius: .5em; º/
+            /º box-shadow: 0 1px 2px rgba(0, 0, 0, .2); º/
+            /º color: #d9eef7; º/
+            /º border: solid 1px #0076a3; º/
+            /º background: #0095cd; º/
+          /º &#125; º/
+          
+          /º .menu &gt; li:hover a &#123; º/
+            /º text-decoration: none; º/
+            /º background: #007ead; º/
+          /º &#125; º/</pre>
+        <pre class="chaptrSubSect__console wScript">
+          /* js */
+          const ·menu = document.getElementById('menu');
+          ·menu.addEventListener('click', (çevent) =&gt; &#123;
+            if (çevent.ºtarget.ºnodeName !== 'A') &#123;
+              console.log('/º No se pulsó dentro de un botón! º/')
+              return
+            &#125;
+            let ·href = çevent.ºtarget.@getAttribute('href');
+            console.log(·href);
+            çevent.@preventDefault()
+          &#125;)
+        </pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="La opción de controlador 'pasivo'" codeText="">
+        <p class="chaptrSubSect__p">La opción opcional <code>passive:true</code> de <code>addEventListener</code> indica al navegador que el controlador no llamará a <code>preventDefault()</code></p>
+        <p class="chaptrSubSect__p">Hay algunos eventos como touchmove en dispositivos móviles, que provocan el desplazamiento por defecto, pero ese desplazamiento se puede evitar usando <code>preventDefault()</code> en el controlador.</p>
+        <p class="chaptrSubSect__p">Las opciones <code>passive: true</code> le dicen al navegador que el controlador no va a cancelar el desplazamiento. Entonces el navegador se desplaza de inmediato para brindar una experiencia con la máxima fluidez, y el evento se maneja de inmediato</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="event.defaultPrevented">
+        <p class="chaptrSubSect__p">La propiedad <code>event.defaultPrevented</code> es <code>true</code> si se impidió la acción predeterminada y <code>false</code> en caso contrario</p>
+        <p class="chaptrSubSect__p">Podemos usar <code>event.defaultPrevented</code> en lugar de <code>event.stopPropagation()</code>, para señalar a otros controladores de eventos que el evento fue manejado</p>
+        <pre class="chaptrSubSect__console wScript">
+          /º &lt;button&gt;El clic derecho muestra el menú contextual del navegador&lt;/button&gt; º/
+
+          /º &lt;button oncontextmenu="alert('Dibuja nuestro menú'); return false"&gt; º/
+            El clic derecho muestra nuestro menú contextual
+          /º &lt;/button&gt; º/</pre>
+        <p class="chaptrSubSect__p">Por defecto, el navegador en el evento <code>contextmenu</code> (clic derecho del ratón) muestra un menú contextual con opciones estándar. Aquí se previene en el segundo botón y se muestra nuestro menú</p>
+        <p class="chaptrSubSect__p">Una solución alternativa verificar en el controlador <code>document</code> si se evitó la acción predeterminada</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;p&gt;Right click&lt;/p&gt; º/
+          /º &lt;button id="elem"&gt;Right click para el menú de botones&lt;/button&gt; º/</pre>
+        <pre class="chaptrSubSect__console wScript">
+          /* js */
+          const ·elem = document.getElementById('elem');
+          ·elem.ºoncontextmenu = @function(çevent) &#123;
+            çevent.@preventDefault();
+            alert('Menú contextual del botón');
+          &#125;;
+        
+          document.ºoncontextmenu = @function(çevent) &#123;
+            if (çevent.ºdefaultPrevented) return;
+        
+            çevent.@preventDefault();
+            alert('Menú contextual del documento');
+          &#125;;</pre>
+        <p class="chaptrSubSect__p">Ahora todo funciona correctamente. Si tenemos elementos anidados, y cada uno de ellos tiene un menú contextual propio, eso también funcionaría. Solo asegúrate de buscar <code>event.defaultPrevented</code> en cada controlador de <code>contextmenu</code></p>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Eventos personalizados" codeText="">
+      <ChaptrSubSect h4Title="Contructor de eventos" codeText="">
+        <p class="chaptrSubSect__p">Las clases de eventos integradas forman una jerarquía, similar a las clases de elementos <span class="bttn">DOM</span>. La raíz es la clase incorporada <code>Event</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·event = new @Event(•type[, •options]);</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>type</code>: tipo de event, un string como <code>click</code> o nuestro propio evento como "mi-evento"</li>
+          <li class="chaptrSubSectUl__li"><code>options</code>: el objeto con 2 propiedades opcionales</li>
+          <ul class="chaptrSubSect__ul">
+            <li class="chaptrSubSectUl__li"><code>bubbles</code>: <code>true</code>/<code>false</code> – si es <code>true</code>, entonces el evento se propaga.</li>
+            <li class="chaptrSubSectUl__li"><code>cancelable</code>: <code>true</code>/<code>false</code> – si es <code>true</code>, entonces la “acción predeterminada” puede ser prevenida. Más adelante veremos qué significa para los eventos personalizados.</li>
+          </ul>
+          <li class="chaptrSubSectUl__li">Por defecto, los dos son <code>false</code>: <code>&#123;bubbles: false, cancelable: false&#125;</code></li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="dispatchEvent">
+        <p class="chaptrSubSect__p">Después de que se crea un objeto de evento, debemos “ejecutarlo” en un elemento usando la llamada <code>elem.dispatchEvent(event)</code></p>
+        <p class="chaptrSubSect__p">Los controladores reaccionan como si fuera un evento normal del navegador. Si el evento fue creado con la bandera <code>bubbles</code>, entonces se propaga</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;button id="elem" onclick="alert('Click');"&gt;Click automático&lt;/button&gt; º/</pre>
+        <pre class="chaptrSubSect__console wScript">
+          /* js */
+          const ·elem = document.getElementById('elem');
+          let ·event = new @Event('click');
+          ·elem.@dispatchEvent(·event);</pre>
+        <p class="chaptrSubSect__p">Hay una forma de diferenciar un evento de usuario “real” de uno generado por script. La propiedad <code>event.isTrusted</code> es <code>true</code> para eventos que provienen de acciones de usuarios reales y <code>false</code> para eventos generados por script</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;button id="miBoton"&gt;Click aquí&lt;/button&gt; º/</pre>
+        <pre class="chaptrSubSect__console wScript">
+          /* js */
+          const ·boton = document.getElementById('miBoton');
+          ·boton.addEventListener('click', (çevent) =&gt; &#123;
+            if(çevent.ºisTrusted) &#123;  /* /º Si es original entra en el if º/ */
+              console.log('Click REAL del usuario');
+            &#125; else &#123;  /* Si es creado por javascript */
+              console.log('Click SIMULADO por JavaScript');
+            &#125;  /* Muestra siempre el tipo de evento */
+            console.log(`Tipo de evento: $&#123;çevent.ºtype&#125;`);
+          &#125;);
+          /* simulamos un click tras 2seg */
+          @setTimeout(() =&gt; &#123;
+            let ·eventoSimulado = new @Event('click');  /* creamos el evento */
+            ·boton.@dispatchEvent(·eventoSimulado);   /* lo disparamos */
+          &#125;, ¬2000);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Ejemplo de Bubbling con evento personalizados" codeText="">
+        <p class="chaptrSubSect__p">La clave para entender el <span class="bttn">bubbling</span> de eventos personalizados está en visualizar cómo el evento "sube" por el árbol del <span class="bttn">DOM</span></p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;div id="casa"&gt; º/
+            /º &lt;div id="salaDeEstar"&gt; º/
+              /º &lt;div id="cocina"&gt; º/
+                /º &lt;button id="botonRumor"&gt;Inicia Rumor&lt;/button&gt; º/
+              /º &lt;/div&gt; º/
+            /º &lt;/div&gt; º/
+          /º &lt;/div&gt; º/</pre>
+        <pre class="chaptrSubSect__console wScript">
+          /* js */
+          const ·casa = document.getElementById('casa');
+          const ·salaDeEstar = document.getElementById('salaDeEstar');
+          const ·cocina = document.getElementById('cocina');
+          const ·botonRumor = document.getElementById('botonRumor');
+
+          ·casa.addEventListener('rumor', () =&gt; &#123;
+            console.log(`El rumor llegó a la casa. Lo escuchó $&#123;çevent.ºtarget.ºid&#125;`);
+          &#125;);
+          ·salaDeEstar.addEventListener('rumor', () =&gt; &#123;
+            console.log(`El rumor llegó a la salaDeEstar. Lo escuchó $&#123;çevent.ºtarget.ºid&#125;`);
+          &#125;);
+          ·cocina.addEventListener('rumor', () =&gt; &#123;
+            console.log(`El rumor llegó a la cocina. Lo escuchó $&#123;çevent.ºtarget.ºid&#125;`);
+          &#125;);
+          
+          ·botonRumor.addEventListener('click', () =&gt; &#123;
+            let ·eventoRumor = new @CustomEvent('rumor', (çevent) =&gt; &#123; bubbles: true &#125;);
+              ·botonRumor.@dispatchEvent(·eventoRumor);
+          &#125;);
+          
+        </pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Otras clases de eventos UI" codeText="">
+        <p class="chaptrSubSect__p">La clase genérica <code>Event</code> no permite configurar propiedades específicas del evento. Solo admite configuraciones básicas como, <code>bubbles</code> y <code>cancelable</code></p>
+        <p class="chaptrSubSect__p">Para crear eventos con objetos que tienen propiedades específicas dependiendo del tipo de evento, usamos constructores específicos como estos</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>Event</code>: Clase base para la mayoría de eventos de UI. No se suele instanciar directamente.</li>
+          <li class="chaptrSubSectUl__li"><code>FocusEvent</code>: Eventos relacionados con el foco de elementos, como cuando un input recibe o pierde el foco.</li>
+          <li class="chaptrSubSectUl__li"><code>MouseEvent</code>: Eventos del ratón, como clicks, movimientos y ruedas.</li>
+          <li class="chaptrSubSectUl__li"><code>KeyboardEvent</code>: Eventos del teclado, como presionar una tecla.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Utilizar los constructores específicos para cada tipo de evento nos permite definir propiedades únicas y comportamientos esperados. Siempre es mejor usar el constructor específico para el tipo de evento que se quiere crear, ya que permite definir todas las propiedades relevantes y seguir las prácticas recomendadas</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·keyboardEvent = new @KeyboardEvent('keydown', &#123;
+            bubbles: true,
+            cancelable: true,
+            key: 'a',
+            code: 'KeyA'
+          &#125;);
+
+          console.log(·keyboardEvent.ºkey);   ⋗ a
+          console.log(·keyboardEvent.ºcode);   ⋗ KeyA</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Eventos personalizados" codeText="">
+        <p class="chaptrSubSect__p">Para nuestros tipos de eventos completamente nuevos, deberíamos usar <code>new</code> <code>CustomEvent</code>. Técnicamente, <code>CustomEvent</code> es lo mismo que <code>Event</code>, con una excepción. En el segundo argumento (objeto) podemos agregar una propiedad adicional <code>detail</code> para cualquier información personalizada que queramos pasar con el evento</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;button id='counterButton'&gt;Click aquí&lt;/button&gt; º/
+
+          /* js */
+          const ·button = document.getElementById('counterButton');
+          let ·clickCount = ¬0;
+
+          /* Escucha del evento personalizado increment */
+          ·button.addEventListener('increment', (çevent) =&gt; &#123;
+            console.log(`Click número: $&#123;çevent.ºdetail.ºcount&#125;`);
+          &#125;);
+          
+          /* Manejador para el click del botón */
+          ·button.addEventListener('click', () =&gt; &#123;
+            ·clickCount++;
+
+            /* Creamos un evento personalizado increment con el detalle del contador */
+            const ·incrementEvent = new @CustomEvent('increment', &#123;
+              detail: &#123; count: ·clickCount &#125;
+            &#125;);
+
+            /* Despachamos el evento personalizado */
+            ·button.@dispatchEvent(·incrementEvent);
+          &#125;);</pre>
+        <p class="chaptrSubSect__p">La propiedad <code>detail</code> puede tener cualquier dato. Técnicamente podríamos vivir sin él, porque podemos asignar cualquier propiedad a un objeto <code>new Event</code> regular después de su creación. Pero <code>CustomEvent</code> proporciona el campo especial <code>detail</code> para evitar conflictos con otras propiedades del evento</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="event.preventDefault()">
+        <p class="chaptrSubSect__p">Para eventos nuevos y personalizados, no hay acciones predeterminadas del navegador, pero un código que distribuye dicho evento puede tener sus propios planes de qué hacer después de activar el evento. Al llamar a <code>event.preventDefault()</code>, un controlador de eventos puede enviar una señal de que esas acciones deben cancelarse. En ese caso, la llamada a <code>elem.dispatchEvent(event)</code> devuelve <code>false</code>. Y el código que lo envió sabe que no debería continuar</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;pre id='rabbit'&gt; º/
+                |\   /|
+                \|_|/
+               /º /.  .\ º/
+            /º =\_Y_/= º/
+             /º &#123;&gt;o&lt;&#125; º/
+          /º &lt;/pre&gt; º/
+
+          /* js */
+          function @hide() &#123;
+            let ·event = new @CustomEvent('hide', &#123;
+              cancelable: true;
+            &#125;);
+            if (!·rabbit.@dispatchEvent(çevent)) &#123;
+              console.log('La acción fue impedida por un controlador');
+            &#125; else &#123;
+              ·rabbit.ºhidden = true;
+            &#125;;
+          &#125;;
+
+          ·rabbit.addEventListener('hide', (çevent) =&gt; &#123;
+            if (@confirm('/º ¿Llamar a preventDefault? º/')) &#123;
+              çevent.@preventDefault();
+            &#125;;
+          &#125;);</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Eventos dentro de enventos" codeText="">
+        <p class="chaptrSubSect__p">Los eventos dentro de eventos son sincrónicos, se procesan en una cola</p>
+        <p class="chaptrSubSect__p">La excepción notable es cuando un evento se inicia desde dentro de otro, por ejemplo, usando <code>dispatchEvent</code>. Dichos eventos se procesan inmediatamente: se llaman los nuevos controladores de eventos y luego se reanuda el manejo de eventos actual.</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;button id='menu'&gt;Menu (dame click)&lt;/button&gt; º/
+
+          /* js */
+          const ·menu = document.getElementById('menu');
+
+          ·menu.addEventListener('click', () =&gt; &#123;
+            console.log('PRIMER LOG');
+            ·menu.@dispatchEvent( new @CustomEvent('/º menu-open º/', &#123;
+              bubbles: true
+            &#125;));
+            console.log('SEGUNDO LOG');
+          &#125;);
+
+          /* se dispara entre PRIMER y SEGUNDO */
+          document.addEventListener('/º menu-open º/', () =&gt; &#123;
+            console.log('LOG LISTENER')
+          &#125;);
+        </pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>
+
+<!-- 
+&lt;&gt;
+&#123;&#125;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+ªMetodos
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<img class="chaptrSubSect__img" src=`${ruta}img13.webp` alt="captura del evento">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li">
+＃
+-->

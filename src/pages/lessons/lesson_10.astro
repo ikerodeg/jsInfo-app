@@ -1,0 +1,165 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__10" h2Title="Funciones" slot="mainContent">
+    <ChaptrSect h3Title="Creación de funciones" codeText="">
+      <ChaptrSubSect h4Title="Declaración de función" codeText="">
+        <p class="chaptrSubSect__p">Para crear una función usamos una <mark>declaración</mark> de función. Es la <mark>recomendada</mark> por legibilidad y poder llamarlas antes de ser declaradas</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">function</span> <span class="func">myFunction</span><span class="warp">() &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">"Hola mundo!"</span>)</span>;
+            &#125;</span>
+          
+            <span class="commnt">Ejecución de la función</span>
+            <span class="func">myFunction</span><span class="warp">()</span>;
+            <span class="result">Hola mundo!</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Expresión de función" codeText="">
+        <p class="chaptrSubSect__p">Asignar una función a una variable. Puede no tener un nombre <span class="bttn">anónima</span> o tener un nombre para referencia interna. No son <span class="bttn">hoisted</span>, esto significa que no se pueden invocar antes de que se definan</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">let</span> <span class="var">sayHi</span> <span class="opera">=</span> <span class="key">function</span><span class="warp">() &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">"Hola mundo!"</span>)</span>;
+            &#125;</span>;
+
+            <span class="commnt">Ejecución de la función</span>
+            <span class="func">sayHi</span><span class="warp">()</span>
+            <span class="result">Hola mundo!</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Expresión de función" codeText="NFE">
+        <p class="chaptrSubSect__p">Es una función que tiene nombre (Named Function Expression). Este nombre es local a la función y se puede utilizar dentro de la función para hacer referencia a sí misma, lo que es útil como en la recursión</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">const</span> <span class="var">contar</span> <span class="opera">=</span> <span class="key">function</span> <span class="var">cuenta</span><span class="warp">(<span class="params">n</span>) &#123;
+            <span class="key">if</span><span class="warp">(<span class="params">n</span> <span class="opera">&gt;</span> <span class="nums">0</span>) &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">n</span>)</span>;
+              <span class="func">cuenta</span><span class="warp">(<span class="var">n</span> <span class="opera">-</span> <span class="nums">1</span>)</span>;
+              &#125;</span> <span class="key">else</span> <span class="warp">&#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">"Listo!"</span>)</span>;
+                &#125;</span>;
+            &#125;</span>;
+
+            <span class="commnt">Ejecución de la función</span>
+            <span class="func">contar</span><span class="warp">(<span class="nums">3</span>)</span>
+            <span class="result">3 2 1 Listo!</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Constructor de función" codeText="new">
+        <p class="chaptrSubSect__p">Son nombradas con la primera palabra en <mark>mayúscula</mark> y sólo deben ejecutarse con el operador <code>new</code>. Se crea literalmente con un string y es pasada en tiempo de ejecución (dinámicamente)</p>
+        <p class="chaptrSubSect__p">Hoy en día su uso es muy poco común y generalmente <mark>se desaconseja</mark>, debido a que puede hacer el código difícil de leer y mantener, además de que puede tener implicaciones de seguridad</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">let</span> <span class="var">suma</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Function</span><span class="warp">(<span class="args">'a', 'b', 'return a + b;'</span>);
+
+            <span class="func">suma</span><span class="warp">(<span class="nums">2, 3</span>)</span>;
+            <span class="result">5</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Retornando valores" codeText="return">
+      <ChaptrSubSect h4Title="Sintaxis" codeText="">
+        <p class="chaptrSubSect__p">Una función con un <code>return</code> vacio o sin el, devuelve <code>undefined</code>. Si una función no devuelve un valor, es lo mismo que si devuelve <code>undefined</code></p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">function</span> <span class="func">suma</span><span class="warp">(<span class="params">param1, param2</span>) &#123;
+              <span class="key">return</span> <span class="params">param1</span> <span class="opera">+</span> <span class="params">param2</span>;
+            &#125;</span>;
+          
+            <span class="key">let</span> <span class="key">result</span> <span class="opera">=</span> <span class="func">suma</span><span class="warp">(<span class="nums">10, 40</span>)</span>;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+            <span class="result">50</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Parametros vs Argumentos" codeText="">
+      <ChaptrSubSect h4Title="Parametros" codeText="">
+        <p class="chaptrSubSect__p">Un <span class="bttn">parámetro</span> es una variable que <mark>se define en la declaración de una función</mark> entre paréntesis. Se utiliza para especificar los valores que se esperan como entrada en la función.</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Argumentos" codeText="">
+        <p class="chaptrSubSect__p">Un <span class="bttn">argumento</span> es el valor real que se pasa a la función <mark>cuando se la invoca</mark>. Los argumentos se especifican entre paréntesis en la llamada a la función</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">function</span> <span class="func">suma</span><span class="warp">(<span class="params">param1, param2</span>) &#123;
+              <span class="key">return</span> <span class="params">param1</span> <span class="opera">+</span> <span class="params">param2</span>;
+            &#125;</span>;
+          
+            <span class="func">suma</span><span class="warp">(<span class="var">argumento1, argumento2</span>)</span>;</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El objeto" codeText="arguments">
+        <p class="chaptrSubSect__p">Es un objeto <strong>parecido a un array</strong> que se encuentra <strong>disponible dentro de </strong><mark>todas</mark><strong> las funciones no flecha</strong>, y que contiene todos los argumentos que se pasan a esa función. Es útil cuando no sabes cuántos argumentos se van a pasar a una función</p>
+        <p class="chaptrSubSect__p">A quedado en deshuso por el parámetro más moderno <code>...rest</code></p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">function</span> <span class="func">calculations</span><span class="warp">(<span class="params">a, b, c</span>) &#123; <span class="commnt">o dinámicamente</span>
+              <span class="let">let</span> <span class="var">operation</span> <span class="opera">=</span> <span class="var">arguments</span><span class="warp">[<span class="nums">0</span>]</span> <span class="opera">+</span> <span class="var">arguments</span><span class="warp">[<span class="nums">2</span>]</span> <span class="opera">-</span> <span class="var">arguments</span><span class="warp">[<span class="nums">1</span>]</span>;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">operation</span>)</span>
+            &#125;</span>;
+          
+            <span class="func">calculations</span><span class="warp">(<span class="nums">5, 3, 6</span>)</span>;
+            <span class="result">8</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El parámetro" codeText="..rest">
+        <p class="chaptrSubSect__p">El parámetro <code>rest</code> nos permite representar un número indefinido de <mark>argumentos</mark> como un array</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">function</span> <span class="func">printNumbers</span><span class="warp">(<span class="opera">...</span><span class="var">numbers</span>) &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">numbers</span>)</span>
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">numbers</span><span class="warp">[<span class="nums">0</span>]</span>)</span>;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">numbers</span><span class="warp">[<span class="nums">2</span>]</span>)</span>;
+            &#125;</span>;
+          
+            <span class="func">printNumbers</span><span class="warp">(<span class="nums">2, 4, 6, 8</span>)</span>;
+            <span class="result">2, 4, 6, 8</span>
+            <span class="result">2</span>
+            <span class="result">5</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Valores predeterminados" codeText="">
+        <p class="chaptrSubSect__p">Si no se proporcionase un parámetro, su valor se conviertiría en <code>undefined</code>, de esta manera se puede pasar un valor por defecto</p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">function</span> <span class="func">showMessage</span><span class="warp">(<span class="params">from, text</span> <span class="opera">=</span> <span class="args">'Guest'</span>) &#123;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`$<span class="warp">&#123;<span class="var">from</span>&#125;</span>: $<span class="warp">&#123;<span class="var">text</span>&#125;</span>`</span>)</span>;
+            &#125;</span>;
+          
+            <span class="func">showMessage</span><span class="warp">(<span class="args">'Eder, Member'</span>)</span>;
+            <span class="result">Eder: Member</span>
+            <span class="func">showMessage</span><span class="warp">(<span class="args">'Iker'</span>)</span>;
+            <span class="result">Iker: Guest</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Las funciones flecha" codeText="=>">
+      <p class="chaptrSubSect__p">Las funciones flecha no tienen <code>this</code></p>
+      <p class="chaptrSubSect__p">Como no tienen <code>this</code> no pueden ejecutarse como constructores con <code>new</code></p>
+      <ChaptrSubSect h4Title="Con argumentoss" codeText="">
+        <p class="chaptrSubSect__p">Son <mark><b>siempre</b></mark> funciones <mark>anónimas</mark> y <mark>function expressions</mark>, porque no tienen nombre y <mark><b>se asignan a una variable</b></mark>. Se llaman <mark>función de flecha</mark>, porque se ve así</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">sum</span> <span class="opera">=</span> <span class="warp">(<span class="params">a, b</span>) <span class="opera">=&gt;</span> &#123;
+            <span class="key">return</span> <span class="params">a <span class="opera">+</span> b</span>;
+          &#125;</span>;
+
+          <span class="func">sum</span><span class="warp">(<span class="nums">5, 4</span>)</span>;
+          <span class="result">9</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Con argumentos SIN" codeText="&#123; return &#125;">
+        <p class="chaptrSubSect__p">Si la función tiene solo una expresión, puedes omitir las llaves <code>&#123;&#125;</code> y la palabra clave <code>return</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">sum</span> <span class="opera">=</span> <span class="warp">(<span class="params">a, b</span>) <span class="opera">=&gt;</span> <span class="params">a <span class="opera">+</span> b</span>;
+
+          <span class="func">sum</span><span class="warp">(<span class="nums">5, 4</span>)</span>;
+          <span class="result">9</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Un argumento SIN" codeText="()&#123; return &#125;">
+        <p class="chaptrSubSect__p">Si solo hay un parámetro, los paréntesis pueden omitirse, aunque <mark>no es recomendable</mark> por legibilidad</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">cuadrado</span> <span class="opera">=</span> <span class="var">x</span> <span class="opera">=&gt;</span> <span class="var">x</span> <span class="opera">*</span> <span class="var">x</span>;
+
+          <span class="func">cuadrado</span><span class="warp">(<span class="nums">4</span>)</span>;
+          <span class="result">16</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Sin argumentos SIN" codeText="&#123; return &#125;">
+        <p class="chaptrSubSect__p">Si no hay parámetros <mark>deben usarse siempre</mark> los paréntesis</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">sayHi</span> <span class="opera">=</span> <span class="warp">()</span> <span class="opera">=&gt;</span> <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Hello world!'</span>)</span>;
+
+          <span class="func">sayHi</span><span class="warp">()</span>;
+          <span class="result">Hello world!</span></pre>
+      </ChaptrSubSect>
+
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>

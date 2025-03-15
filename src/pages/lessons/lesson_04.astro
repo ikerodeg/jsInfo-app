@@ -1,0 +1,160 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__04" h2Title="Conversión de tipos" slot="mainContent">
+    <ChaptrSect h3Title="Conversión a" codeText="String">
+      <ChaptrSubSect h4Title="Usando el operador unario" codeText="+">
+        <p class="chaptrSubSect__p">Si uno de los operandos es una cadena de texto, JavaScript convertirá automáticamente el otro operando a una cadena de texto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="args">'2'</span> <span class="opera">+</span> <span class="nums">4</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+          <span class="result">'24'</span>     <span class="commnt">Lo concatena</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Usando la función" codeText="String()">
+        <p class="chaptrSubSect__p">Lo convierte todo</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="func">String</span> <span class="warp">(<span class="nums">2</span><span class="opera">+</span><span class="nums">4</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+          <span class="result">'6'</span>     <span class="commnt">Suma y convierte a String</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Usando el método" codeText="toString()">
+        <p class="chaptrSubSect__p">Da error al convertir <code>null</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">num</span> <span class="opera">=</span> <span class="nums">6</span>;
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="var">num</span><span class="dot">.</span><span class="func">toString</span><span class="warp">()</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+          <span class="result">'6'</span>     <span class="commnt">Convierte a String</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Conversión a" codeText="Number">
+      <ChaptrSubSect h4Title="Con operadores" codeText="-, /, *">
+        <p class="chaptrSubSect__p">De <code>String</code> a <code>Number</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="args">'4'</span> <span class="opera">-</span> <span class="args">'2'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+          <span class="result">2</span>
+
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="args">'4'</span> <span class="opera">-</span> <span class="nums">2</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+          <span class="result">2</span>
+
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="args">'4'</span> <span class="opera">*</span> <span class="nums">2</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+          <span class="result">8</span>
+
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="args">'4'</span> <span class="opera">/</span> <span class="nums">2</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+          <span class="result">2</span></pre>
+
+          <p class="chaptrSubSect__p">De <code>Boolean</code> a <code>Number</code></p>
+          <pre class="chaptrSubSect__console">
+            <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="args">'4'</span> <span class="opera">-</span> <span class="key">true</span>;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+            <span class="result">3</span>     <span class="commnt">true = 1</span>
+  
+            <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="args">'4'</span> <span class="opera">-</span> <span class="key">false</span>;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+            <span class="result">0</span>
+  
+            <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="args">'4'</span> <span class="opera">*</span> <span class="key">true</span>;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+            <span class="result">4</span>
+  
+            <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="args">'4'</span> <span class="opera">/</span> <span class="key">true</span>;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+            <span class="result">4</span></pre>
+
+            <p class="chaptrSubSect__p">De <code>null</code> a <code>Number</code></p>
+            <pre class="chaptrSubSect__console">
+              <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="args">'4'</span> <span class="opera">-</span> <span class="key">null</span>;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+              <span class="result">4</span>     <span class="commnt">null = 0</span>
+    
+              <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="args">'4'</span> <span class="opera">*</span> <span class="key">null</span>;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+              <span class="result">0</span>
+    
+              <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="args">'4'</span> <span class="opera">/</span> <span class="key">null</span>;
+              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+              <span class="result">Infinity</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Usando la función" codeText="Number()">
+        <p class="chaptrSubSect__p">Las cadenas vacías y los valores <code>null</code> al convertirlos a <code>Number</code> devuelven: <code>0</code>. Si una cadena es un número inválido, el resultado será <code>NaN</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="func">Number</span><span class="warp">(<span class="args">'324'</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+          <span class="result">324</span>
+
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="func">Number</span><span class="warp">(<span class="key">true</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+          <span class="result">1</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Usando la función" codeText="parseInt()">
+        <p class="chaptrSubSect__p">Lee el número desde un string hasta que dejan de poder hacerlo. Cuando se topa con un error devuelve el número que haya registrado hasta ese momento. La función <code>parseInt()</code> devuelve un entero</p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="func">parseInt</span><span class="warp">(<span class="args">'100px'</span>)</span>)</span>;
+          <span class="result">100</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="func">parseInt</span><span class="warp">(<span class="args">'12.3'</span>)</span>)</span>;
+          <span class="result">12</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Usando la función" codeText="parseFloat()">
+        <p class="chaptrSubSect__p">Devuelve un número con su decimal hasta que pueda dejar de leer</p>
+        <pre class="chaptrSubSect__console">
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="func">parseFloat</span><span class="warp">(<span class="args">'12.5em'</span>)</span>)</span>;
+          <span class="result">12.5</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="func">parseFloat</span><span class="warp">(<span class="args">'12.3.4'</span>)</span>)</span>;
+          <span class="result">12.3</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Con el operador unario" codeText="+">
+        <p class="chaptrSubSect__p">Forma sencilla y rápida. Se coloca antes de un valor o expresión</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">num</span> <span class="opera">=</span> <span class="opera">+</span><span class="args">'42'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">num</span>)</span>;
+          <span class="result">42</span>
+
+          <span class="key">let</span> <span class="var">num</span> <span class="opera">=</span> <span class="opera">+</span><span class="key">null</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">num</span>)</span>;
+          <span class="result">0</span>
+
+          <span class="key">let</span> <span class="var">num</span> <span class="opera">=</span> <span class="opera">+</span><span class="key">true</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">num</span>)</span>;
+          <span class="result">1</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Con la función" codeText="Math.floor()">
+        <p class="chaptrSubSect__p">Aunque <mark>no es recomendable</mark>, si se puede convertir directamente. Devuelve un número entero redondeado hacia abajo</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">strNum</span> <span class="opera">=</span> <span class="args">'12.7'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Math</span><span class="dot">.</span><span class="meth">floor</span><span class="warp">(<span class="var">strNum</span>)</span>)</span>;
+          <span class="result">12</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Con la función" codeText="Math.ceil()">
+        <p class="chaptrSubSect__p">Aunque <mark>no es recomendable</mark>, si se puede convertir directamente. Devuelve un número entero redondeado hacia arriba</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">strNum</span> <span class="opera">=</span> <span class="args">'12.7'</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Math</span><span class="dot">.</span><span class="meth">ceil</span><span class="warp">(<span class="var">strNum</span>)</span>)</span>;
+          <span class="result">13</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Conversión a" codeText="Boolean">
+      <ChaptrSubSect h4Title="Con la función" codeText="Boolean()">
+        <p class="chaptrSubSect__p">En JavaScript, <code>undefined</code>, <code>null</code>, <code>0</code>, <code>NaN</code> y <code>''</code> se convierten a <code>false</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="func">Boolean</span><span class="warp">(<span class="args">''</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+          <span class="result">false</span>
+
+          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="func">Boolean</span><span class="warp">(<span class="key">NaN</span>)</span>;
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
+          <span class="result">false</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>

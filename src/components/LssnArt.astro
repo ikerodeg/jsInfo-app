@@ -1,0 +1,8 @@
+---
+const {h2Title, artClass, codeText} = Astro.props
+---
+
+<article class=`lssnArt ${artClass}`>
+  <h2 class="lssnArt__h2">{h2Title} {codeText && <code>{codeText}</code>}</h2>
+  <slot />
+</article>

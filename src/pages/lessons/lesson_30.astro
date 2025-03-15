@@ -1,0 +1,188 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__30" h2Title="Módulos" slot="mainContent">
+    <ChaptrSect h3Title="Introducción" codeText="">
+      <ChaptrSubSect h4Title="Definición" codeText="">
+        <p class="chaptrSubSect__p">Un módulo es simplemente un archivo. Un script es un módulo. Tan sencillo como eso</p>
+        <p class="chaptrSubSect__p">Los módulos pueden cargarse entre sí y usar directivas especiales <code>export</code> e <code>import</code> para intercambiar funcionalidad, llamar a funciones de un módulo de otro</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>export</code> etiqueta las variables y funciones que necesitan ser accesibles desde fuera del módulo actual.</li>
+          <li class="chaptrSubSectUl__li"><code>import</code> permite importar funcionalidades desde otros módulos.</li>
+        </ul>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">📂 sayHi.js</span>
+          <span class="key">export function</span> <span class="func">sayHi</span><span class="warp">(<span class="params">user</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Hello, $&#123;<span class="params">user</span>&#125;!`</span>)</span>;
+          &#125;</span>;</pre>
+        <p class="chaptrSubSect__p">Luego en otro archivo se importa</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">📂 main.js</span>
+          <span class="key">import</span> <span class="warp">&#123;<span class="func">sayHi</span>&#125;</span> <span class="key">from</span> <span class="args">'./sayHi.js'</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="func">sayHi</span>)</span>;
+          <span class="result">ƒ sayHi(user)...</span>
+          <span class="func">sayHi</span><span class="warp">(<span class="args">'Iker'</span>)</span>;
+          <span class="result">Hello Iker!</span></pre>
+        <p class="chaptrSubSect__p">Como los módulos admiten palabras clave y características especiales, debemos decirle al navegador que un script debe tratarse como un módulo, utilizando el atributo <code>module</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="opera">&lt;<span class="obj">script</span> <span class="objProp">src</span>=<span class="args">"./sayHi.js"</span> <span class="objProp">type</span>=<span class="args">"module"</span>&gt;</span><span class="opera">&lt;<span class="obj">/script</span>&gt;</span></pre>
+        <p class="chaptrSubSect__p">Si se intenta abrir una página web localmente a través del protocolo <code>file://</code> las directivas <code>import</code> y <code>export</code> no funcionan. Se debe usar un servidor web local, como static-server, o VS Code Live Server Extension para probar los módulos.</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="import.meta">
+        <p class="chaptrSubSect__p">El objeto <code>import.meta</code> contiene la información sobre el módulo actual.Su contenido depende del entorno. En el navegador, contiene la URL del script, o la URL de la página web actual si está dentro de HTML</p>
+        <pre class="chaptrSubSect__console">
+          <span class="opera">&lt;<span class="obj">script</span> <span class="objProp">type</span>=<span class="args">"module"</span>&gt;</span>
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">import</span><span class="dot">.</span><span class="objProp">meta</span><span class="dot">.</span><span class="objProp">url</span>)</span>; <span class="commnt">URL del script o página actual</span>
+          <span class="opera">&lt;<span class="obj">/script</span>&gt;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Módulos son diferidos" codeText="">
+        <p class="chaptrSubSect__p">Los módulos están siempre diferidos, el mismo efecto que el atributo <code>defer</code>, para ambos scripts, externos y en línea</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Descargar módulos de script externos <code>&lt;script type="module" src="..."&gt;</code> no bloquea el procesamiento de HTML, se cargan en paralelo junto con otros recursos.</li>
+          <li class="chaptrSubSectUl__li">Los módulos esperan hasta que el documento HTML esté completamente listo (incluso si son pequeños y cargan más rápido que HTML), y luego lo ejecuta.</li>
+          <li class="chaptrSubSectUl__li">Se mantiene el orden relativo de los scripts: los scripts que van primero en el documento, se ejecutan primero.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Para los scripts que no son módulos, el atributo <code>async</code> solo funciona en scripts externos. Los scripts asíncronos se ejecutan inmediatamente cuando están listos, independientemente de otros scripts o del documento HTML. Para los scripts de módulo, esto también funciona en scripts en línea</p>
+        <pre class="chaptrSubSect__console">
+          <span class="opera">&lt;<span class="obj">script</span> <span class="key">async</span> <span class="objProp">type</span>=<span class="args">"module"</span>&gt;</span>
+            <span class="obj">import</span> <span class="warp">&#123;<span class="params">counter</span>&#125;</span> <span class="key">from</span> <span class="args">'./analytics.js'</span>
+            <span class="params">counter</span><span class="dot">.</span><span class="meth">count</span><span class="warp2">()</span>;
+          <span class="opera">&lt;<span class="obj">/script</span>&gt;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Scripts externos" codeText="">
+        <p class="chaptrSubSect__p">Los scripts externos que se buscan desde otro origen requieren encabezados <code>CORS</code> (Cross-Origin Requests), el servidor remoto debe proporcionar un encabezado <span class="bttn">Access-Control-Allow-Origin</span> permitiendo la búsqueda.</p>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Export e Import" codeText="">
+      <ChaptrSubSect h4Title="Export antes de las sentencias" codeText="">
+        <p class="chaptrSubSect__p">Podemos etiquetar cualquier sentencia como exportada colocando ‘export’ antes, ya sea una variable, función o clase</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">exportar un array</span>
+          <span class="key">export let</span> <span class="var">months</span> <span class="opera">=</span> <span class="warp">[<span class="args">'Jan', 'Feb', 'Mar'</span>]</span>;
+          
+          <span class="commnt">exportar una constante</span>
+          <span class="key">export const</span> <span class="var">MOD_BEC_STAN_YEAR</span> <span class="opera">=</span> <span class="nums">2015</span>;
+
+          <span class="commnt">exportar una clase</span>
+          <span class="key">export class</span> <span class="obj">User</span> <span class="warp">&#123;
+            <span class="func">constructor</span><span class="warp2">(<span class="params">name</span>) &#123;
+              <span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="params">name</span>;
+            &#125;</span>
+          &#125;</span></pre>
+        <p class="chaptrSubSect__p">⚠️⚠️ Sin punto y coma después de export clase/función ⚠️⚠️</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">export function</span> <span class="func">sayHi</span><span class="warp">(<span class="params">user</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Hello $&#123;<span class="params">user</span>&#125;`</span>)</span>;
+          &#125;</span>   <span class="commnt">Sin punto y coma aquí</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Export separado" codeText="">
+        <p class="chaptrSubSect__p">También podemos colocar <code>export</code> por separado</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">function</span> <span class="func">sayHi</span><span class="warp">(<span class="params">user</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Hello, $&#123;<span class="params">user</span>&#125;`</span>)</span>;
+          &#125;</span>
+
+          <span class="key">function</span> <span class="func">sayBye</span><span class="warp">(<span class="params">user</span>) &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">`Bye, $&#123;<span class="params">user</span>&#125;`</span>)</span>;
+          &#125;</span>
+        
+          <span class="key">export</span> <span class="warp">&#123;<span class="func">sayHi, sayBye</span>&#125;</span>;</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="import*">
+        <p class="chaptrSubSect__p">Generalmente, colocamos una lista de lo que queremos importar en llaves de esta manera</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">import</span> <span class="warp">&#123;<span class="func">sayHi, sayBye</span>&#125;</span> <span class="key">from</span> <span class="args">'./say.js'</span></pre>
+        <p class="chaptrSubSect__p">Pero si hay mucho para importar, podemos importar todo como un objeto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">import</span> <span class="opera">*</span> <span class="key">from</span> <span class="args">'./say.js'</span></pre>
+        <p class="chaptrSubSect__p"><mark>Pero no es recomendable</mark></p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="import as">
+        <p class="chaptrSubSect__p">También podemos utilizar <code>as</code> para importar bajo nombres diferentes</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">import</span> <span class="warp">&#123;<span class="func">sayHi</span> <span class="key">as</span> <span class="func">hi</span>, <span class="func">sayBye</span> <span class="key">as</span> <span class="func">bye</span>&#125;</span> <span class="key">from</span> <span class="args">'./say.js'</span>
+        
+          <span class="func">hi</span><span class="warp">(<span class="args">'Iker'</span>)</span>;     <span class="result">Hello, Iker</span>
+          <span class="func">bye</span><span class="warp">(<span class="args">'Éder'</span>)</span>;   <span class="result">Bye, Éder</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="export as">
+        <p class="chaptrSubSect__p">Existe un sintaxis similar para <code>export</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">📂 say.js</span>
+          ...
+          <span class="key">export</span> <span class="warp">&#123;<span class="func">sayHi</span> <span class="key">as</span> <span class="func">hi</span>, <span class="func">sayBye</span> <span class="key">as</span> <span class="func">bye</span>&#125;</span></pre>
+        <p class="chaptrSubSect__p">Ahora <code>hi</code> y <code>bye</code> son los nombres oficiales para desconocidos, a ser utilizados en importaciones</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">📂 main.js</span>
+          <span class="key">import</span> <span class="opera">*</span> <span class="key">as</span> <span class="obj">say</span> <span class="key">from</span> <span class="args">'./say.js'</span>
+        
+          <span class="obj">say</span><span class="dot">.</span><span class="func">hi</span><span class="warp">(<span class="args">'Iker'</span>)</span>;     <span class="result">Hello, Iker</span>
+          <span class="obj">say</span><span class="dot">.</span><span class="func">bye</span><span class="warp">(<span class="args">'Éder'</span>)</span>;   <span class="result">Bye, Éder</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="" codeText="export default">
+        <p class="chaptrSubSect__p"><code>export default</code> es una sintaxis en ES Modules que permite exportar una entidad principal de un módulo, de modo que cada archivo (módulo) exporta una “cosa principal” y esa exportación es fácil de importar sin necesidad de llaves <code>&#123;&#125;</code></p>
+        <p class="chaptrSubSect__p">Características Clave</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Exportación única:</strong> Solo puede haber un <code>export default</code> por archivo, ya que indica el "valor predeterminado" que ese archivo exporta.</li>
+          <pre class="chaptrSubSect__console">
+            <span class="commnt">📂 user.js</span>
+            <span class="key">export default class</span> <span class="func">User</span> <span class="warp">&#123;
+              <span class="func">constructor</span><span class="warp2">(<span class="params">name</span>)&#123;
+                <span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="params">name</span>;
+              &#125;</span>
+            &#125;</span></pre>
+          <li class="chaptrSubSectUl__li"><strong>Importación sin llaves:</strong> La entidad exportada con <code>export default</code> se importa sin llaves, y puedes nombrarla como prefieras.</li>
+          <pre class="chaptrSubSect__console">
+            <span class="commnt">📂 main.js</span>
+            <span class="key">import</span> <span class="func">User</span> <span class="key">from</span> <span class="args">'./user.js'</span></pre>
+          <li class="chaptrSubSectUl__li"><strong>Sin nombre en exportación predeterminada:</strong> La entidad exportada con <code>export default</code> no requiere un nombre, ya que es la única exportación predeterminada en el archivo</li>
+          <pre class="chaptrSubSect__console">
+            <span class="commnt">📂 user.js</span>
+            <span class="key">export default class</span> <span class="warp">&#123;
+              <span class="func">constructor</span><span class="warp2">()&#123;...&#125;</span>
+            &#125;</span></pre>
+          <li class="chaptrSubSectUl__li">Si un módulo tiene tanto una exportación predeterminada como exportaciones con nombre, puedes importarlas juntas:</li>
+          <pre class="chaptrSubSect__console">
+            <span class="commnt">📂 user.js</span>
+            <span class="key">export default class</span> <span class="func">User</span> <span class="warp">&#123;...&#125;</span>
+            <span class="key">export function</span> <span class="func">sayHi</span><span class="warp">(<span class="params">user</span>)&#123;...&#125;</span>
+          
+            <span class="commnt">📂 main.js</span>
+            <span class="key">import</span> <span class="warp">&#123; <span class="key">default as</span> <span class="func">User, sayHi</span>&#125;</span> <span class="key">from</span> <span class="args">'./user.js'</span>;
+          
+            <span class="commnt">O se puede importar todo el módulo como un objeto</span>
+            <span class="key">import</span> <span class="opera">*</span> <span class="key">as</span> <span class="func">user</span> <span class="key">from</span> <span class="args">'./user.js'</span>;
+            <span class="key">let</span> <span class="obj">User</span> <span class="opera">=</span> <span class="obj">user</span><span class="dot">.</span><span class="key">default</span>;</pre>
+        </ul>
+        <p class="chaptrSubSect__p"><code>export default</code> facilita la importación, ya que puedes usar cualquier nombre, pero puede llevar a inconsistencias en los nombres <mark>y no es recomendable usarlo</mark></p>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Importaciones dinámicas" codeText="">
+      <ChaptrSubSect h4Title="La expresión" codeText="import()">
+        <p class="chaptrSubSect__p">La expresión <code>import(module)</code> carga el módulo y devuelve una promesa que se resuelve en un objeto de módulo que contiene todas sus exportaciones</p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">📂 say.js</span>
+          <span class="key">export function</span> <span class="func">hi</span><span class="warp">() &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">'Hola!'</span>)</span>;
+          &#125;</span>
+
+          <span class="key">export function</span> <span class="func">bye</span><span class="warp">() &#123;
+            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp2">(<span class="args">'Adiós!'</span>)</span>;
+          &#125;</span>
+        
+          <span class="commnt">📂 main.js</span>
+          <span class="key">let</span> <span class="warp">&#123;<span class="func">hi, bye</span>&#125;</span> <span class="opera">=</span> <span class="key">await import</span><span class="warp">(<span class="args">'./say.js'</span>)</span>;
+        
+          <span class="func">hi</span><span class="warp">()</span>;   <span class="result">Hola!</span>
+          <span class="func">bye</span><span class="warp">()</span>;   <span class="result">Adiós!</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>

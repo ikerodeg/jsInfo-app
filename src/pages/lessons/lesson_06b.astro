@@ -1,0 +1,315 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+const ruta = '../../src/assets/img/'
+---
+<MainLayout>
+  <LssnArt artClass="lssn__06b" h2Title="Temas diversos" slot="mainContent">
+    <ChaptrSect h3Title="" codeText="MutationObserver">
+      <ChaptrSubSect h4Title="Definición y Sintaxis" codeText="">
+        <p class="chaptrSubSect__p">Es como un "vigía" que observa un elemento del <span class="bttn">DOM</span> y te avisa inmediatamente si algo cambia (agregas hijos, modificas atributos, etc.).</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* /º Paso 1: Crear el vigilante º/ */
+          const ·observer = new ªMutationObserver(#funcionCallback);</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>funcionCallback:</code> Es la función que se ejecuta cuando detecta algún cambio.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Al recien creado observador, le decimos que parte del <span class="bttn">DOM</span> vigilar con el método <code>.observe()</code> al que le pasamos como parámetros el <mark>nodo</mark> a vigilar y una <mark>configuración</mark></p>
+        <pre class="chaptrSubSect__console wScript">
+          /* /º Paso 2: Vigilar el elemento º/ */
+          ·observer.ªobserve(#elemento, #opciones);</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>elemento:</strong> El elemento HTML que quieres observar.</li>
+          <li class="chaptrSubSectUl__li"><strong>opciones:</strong> Un objeto con opciones para especificar qué tipos de cambios te interesan.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Opciones de configuración</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>childList:</code> Detecta cambios en los hijos directos del elemento.</li>
+          <li class="chaptrSubSectUl__li"><code>subtree:</code> Detecta cambios en los todos los descendientes del elemento.</li>
+          <li class="chaptrSubSectUl__li"><code>attributes:</code> Detecta cambios en los atributos del elemento.</li>
+          <li class="chaptrSubSectUl__li"><code>attributeFilter:</code>  ["color", "tamaño"] (solo vigila estos atributos).</li>
+          <li class="chaptrSubSectUl__li"><code>attributeOldValue:</code> Guarda el valor anterior de un atributo modificado.</li>
+          <li class="chaptrSubSectUl__li"><code>characterData:</code> Cambios en el contenido de texto del elemento.</li>
+          <li class="chaptrSubSectUl__li"><code>characterDataOldValue:</code> Guarda el texto anterior en cambios de texto.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Ejemplo Publicidad" codeText="">
+        <p class="chaptrSubSect__p">Imagina que usas una aplicación útil, pero muestra anuncios molestos. Con <code>MutationObserver</code> puedes crear un "filtro" que los elimine automáticamente</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·antiPublicidad = new ªMutationObserver(#cambios =&gt; &#123;
+            #cambios.forEach(#cambio =&gt; &#123;
+              /* /º Busca elementos nuevos que sean publicidad º/ */
+              #cambio.•addedNodes.forEach(#nodo =&gt; &#123;
+                if (#nodo.classList && #nodo.classList.ªcontains('publicidad')) &#123;
+                  /* /º ¡Adiós publicidad! º/ */
+                  #nodo.ªremove();
+                &#125;
+              &#125;);
+            &#125;);
+          &#125;);
+          
+          /* /º Vigila toda la página º/ */
+          ·antiPublicidad.ªobserve(document.body, &#123;
+            childList: true,
+            subtree: true
+          &#125;);</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Ejemplo Div editable" codeText="">
+        <p class="chaptrSubSect__p">Imagina un cartel de "anuncios" en el que la gente puede escribir mensajes. Si quieres saber cada vez que alguien edita el texto, puedes hacer lo siguiente</p>
+        <pre class="chaptrSubSect__console wScript">
+          /*/º html º/*/
+          /º &lt;div id="miDiv" contentEditable="true"&gt;Escribe aquí tu mensaje...&lt;/div&gt; º/
+
+          /*/º js º/*/
+          let ·miDiv = document.getElementById('miDiv');
+          let ·observer = new ªMutationObserver(#mutations =&gt; &#123;
+            #mutations.forEach(#mutation =&gt; &#123;
+              console.log('Cambio detectado:', #mutation);
+            &#125;);
+          &#125;);
+        
+          ·observer.ªobserve(·miDiv, &#123;
+            childList: true,
+            subtree: true,
+            characterData: true,
+            characterDataOldValue: true
+          &#125;);</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Métodos adicionales" codeText="">
+        <p class="chaptrSubSect__p">Hay más métodos a parte de <code>.observe()</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Detener la observación:</strong> Si ya no necesitas que se vigilen los cambios, puedes detener el observer:</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          ·observer.ªdisconnect();</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Obtener cambios pendientes:</strong> Si quieres recoger los cambios que aún no se han procesado antes de desconectar:</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          let ·registrosPendientes = ·observer.ªtakeRecords();
+          console.log('Registros sin procesar:', ·registrosPendientes);</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Selection y Range" codeText="">
+      <ChaptrSubSect h4Title="Definición" codeText="">
+        <p class="chaptrSubSect__p"><code>Range</code> y <code>Selection</code> son dos herramientas que nos permiten “marcar” partes de una página web, muy parecido a cómo usarías un resaltador en un libro</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* Range */
+          let ·myRange = new @Range();
+
+          /* Selection */
+          let ·mySelection = document.ªgetSelection();</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Range:</strong> define un tramo concreto, estableciendo un punto de inicio y otro de fin, sin que se vea nada en pantalla por sí solo.</li>
+          <li class="chaptrSubSectUl__li"><strong>Selection:</strong> es lo que el usuario ve resaltado en la página; es el “resultado visual” de aplicar uno o varios rangos.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Marcando un tramo del contenido" codeText="Range">
+        <p class="chaptrSubSect__p">Imagina que quieres copiar o editar una parte específica de un texto. Un <code>Range</code> es como poner dos marcas (inicio y fin) en ese texto</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·range = new @Range();
+
+          /* Si el contenido es un nodo de texto, el offset es la posición del carácter */
+          ·range.ªsetStart(#nodoDeTexto, #posicionInicio);
+          ·range.ªsetEnd(#nodoDeTexto, #posicionFin);</pre>
+        <p class="chaptrSubSect__p">Seleccionar parte de un texto en un párrafo</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;p&gt;Hello&lt;/p&gt; º/
+
+          /* js */
+          let ·parrafo = document.querySelector('p');
+          let ·range = new @Range();
+
+          ·range.ªsetStart(·parrafo.•firstChild, ¬1);    /*/º "e" (índice 1) º/*/
+          ·range.ªsetEnd(·parrafo.•firstChild, ¬3);    /*/º "o" (índice 3) º/*/
+
+          console.log(·range.ªtoString()); /* "el" */</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Propiedades y métodos" codeText="Range">
+        <p class="chaptrSubSect__p">Propiedades de <code>Range</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>startContainer</code>, <code>startOffset</code>: nodo y desplazamiento del inicio</li>
+          <li class="chaptrSubSectUl__li"><code>endContainer</code>, <code>endOffset</code>: nodo y desplazamiento del fin</li>
+          <li class="chaptrSubSectUl__li"><code>commonAncestorContainer</code>: el ancestro común más cercano</li>
+          <li class="chaptrSubSectUl__li"><code>collapsed</code>: si el rango está colapsado (es decir, el inicio y el fin son el mismo punto)</li>
+        </ul>
+        <p class="chaptrSubSect__p">Métodos de <code>Range</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>setStart(node, offset)</code>: establecer inicio en: posición offset en node</li>
+          <li class="chaptrSubSectUl__li"><code>setStartBefore(node)</code>: establecer inicio en: justo antes node</li>
+          <li class="chaptrSubSectUl__li"><code>setStartAfter(node)</code>: establecer inicio en: justo después node</li>
+          <li class="chaptrSubSectUl__li"><code>setEnd(node, offset)</code>: establecer fin en: posición offset en node</li>
+          <li class="chaptrSubSectUl__li"><code>setEndBefore(node)</code>: establecer fin en: justo antes node</li>
+          <li class="chaptrSubSectUl__li"><code>setEndAfter(node)</code>: establecer fin en: justo después node</li>
+          <li class="chaptrSubSectUl__li"><code>selectNode(node)</code>: establecer rango completo de node</li>
+          <li class="chaptrSubSectUl__li"><code>selectNodeContents(node)</code>: establecer rango completo de los contenidos de node</li>
+          <li class="chaptrSubSectUl__li"><code>collapse(toStart)</code>: colapsar el rango al inicio o al fin</li>
+          <li class="chaptrSubSectUl__li"><code>cloneRange()</code>: crea un nuevo rango con el mismo inicio/final</li>
+          <li class="chaptrSubSectUl__li"><code>deleteContents()</code>: elimina el contenido del rango</li>
+          <li class="chaptrSubSectUl__li"><code>extractContents()</code>: extrae el contenido del rango</li>
+          <li class="chaptrSubSectUl__li"><code>insertNode(node)</code>: inserta un nodo en el rango</li>
+          <li class="chaptrSubSectUl__li"><code>surroundContents(node)</code>: envuelve el rango con un nuevo nodo</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Lo que se ve en pantalla" codeText="Selection">
+        <p class="chaptrSubSect__p">La selección de documento está representada por el objeto <code>Selection</code>, que se puede obtener como <code>window.getSelection()</code> o <code>document.getSelection()</code>. Una selección puede incluir cero o más rangos. Al menos, la especificación <code>Selection API</code> lo dice. Sin embargo, en la práctica, solo Firefox permite seleccionar múltiples rangos en el documento usando <code>Ctrl+click</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·selection = window.ªgetSelection();</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Propiedades y Eventos de " codeText="Selection">
+        <p class="chaptrSubSect__p">Propiedades de <code>Selection</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>anchorNode</code>: el nodo donde comienza la selección.</li>
+          <li class="chaptrSubSectUl__li"><code>anchorOffset</code>: el desplazamiento donde comienza la selección.</li>
+          <li class="chaptrSubSectUl__li"><code>focusNode</code>: el nodo donde termina la selección.</li>
+          <li class="chaptrSubSectUl__li"><code>focusOffset</code>: el desplazamiento donde termina la selección.</li>
+          <li class="chaptrSubSectUl__li"><code>isCollapsed</code>: si la selección está colapsada (es decir, el inicio y el fin son el mismo punto).</li>
+          <li class="chaptrSubSectUl__li"><code>rangeCount</code>: el número de rangos en la selección.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Eventos de <code>Selection</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>elem.onselectstart</code>: cuando una selección comienza en elem, ej. el usuario comienza a mover el mouse con el botón presionado.</li>
+          <li class="chaptrSubSectUl__li"><code>document.onselectionchange</code>: siempre que cambie una selección.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Métodos de <code>Selection</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>getRangeAt(index)</code>: obtener el rango i-ésimo, comenzando desde “0”.</li>
+          <li class="chaptrSubSectUl__li"><code>addRange(range)</code>: agregar un rango a la selección.</li>
+          <li class="chaptrSubSectUl__li"><code>removeRange(range)</code>: eliminar un rango de la selección.</li>
+          <li class="chaptrSubSectUl__li"><code>removeAllRanges()</code>: eliminar todos los rangos de la selección.</li>
+          <li class="chaptrSubSectUl__li"><code>empty()</code>: eliminar la selección.</li>
+          <li class="chaptrSubSectUl__li"><code>collapse(node, offset)</code>: Reemplazar el rango seleccionado con uno nuevo que comienza y termina en el node dado, en posición offset.</li>
+          <li class="chaptrSubSectUl__li"><code>setPosition(node, offset)</code>: establecer el punto de la selección en el node dado, en posición offset.</li>
+          <li class="chaptrSubSectUl__li"><code>collapseToStart()</code>: colapsar la selección al inicio.</li>
+          <li class="chaptrSubSectUl__li"><code>collapseToEnd()</code>: colapsar la selección al final.</li>
+          <li class="chaptrSubSectUl__li"><code>extend(node, offset)</code>: mover el foco de la selección al node dado, posición offset.</li>
+          <li class="chaptrSubSectUl__li"><code>setBaseAndExtent(startNode, startOffset, endNode, endOffset)</code>: establecer el rango de la selección.</li>
+          <li class="chaptrSubSectUl__li"><code>selectAllChildren(node)</code>: seleccionar todos los hijos de node.</li>
+          <li class="chaptrSubSectUl__li"><code>deleteFromDocument()</code>: eliminar la selección.</li>
+          <li class="chaptrSubSectUl__li"><code>containsNode(node, allowPartialContainment)</code>: devolver true si el rango contiene el node.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Selección en campos de formulario" codeText="">
+        <p class="chaptrSubSect__p">Los elementos como <code>&lt;input&gt;</code> y <code>&lt;textarea&gt;</code> trabajan con textos planos y tienen su propia API para la selección</p>
+        <p class="chaptrSubSect__p"><strong>Propiedades</strong></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>input.selectionStart</code>: posición de inicio de selección (escribible).</li>
+          <li class="chaptrSubSectUl__li"><code>input.selectionEnd</code>: posición de fin de selección (escribible).</li>
+          <li class="chaptrSubSectUl__li"><code>input.selectionDirection</code>: dirección de la selección (escribible).</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>Eventos</strong></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>input.onselect</code>: cuando se selecciona un texto.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>Métodos</strong></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>input.select()</code>: seleccionar todo el texto.</li>
+          <li class="chaptrSubSectUl__li"><code>input.setSelectionRange(start, end, direction)</code>: cambiar la selección para abarcar desde la posición start hasta end, en la dirección indicada (opcional).</li>
+          <li class="chaptrSubSectUl__li"><code>input.setRangeText(text, start, end, direction)</code>: reemplazar el texto seleccionado por el texto indicado.</li>
+        </ul>
+
+        <p class="chaptrSubSect__p"><strong>Ejemplo:</strong> Seguimiento de selección</p>
+        <pre class="chaptrSubSect__console wScript">
+          /*/º html º/*/
+          /º &lt;p id="parag"&gt;Hello, world!&lt;/p&gt; º/
+
+          /*/º js º/*/
+          const ·myParag = document.querySelector('＃parag');
+          let ·myRange = new @Range();
+          ·myRange.ªsetStart(·myParag.•firstChild, ¬0);
+          ·myRange.ªsetEnd(·myParag.•firstChild, ¬5);
+
+          console.log(·myRange.ªtoString());
+
+          let ·mySelection = çwindow.ªgetSelection();
+          ·mySelection.ªremoveAllRanges();
+          ·mySelection.ªaddRange(·myRange);
+
+          console.log(·mySelection.ªtoString());</pre>
+        <p class="chaptrSubSect__p"><strong>Ejemplo:</strong> Haciendo no seleccionable</p>
+        <pre class="chaptrSubSect__console wScript">
+          /*/º html º/*/
+          /º &lt;div&gt;Selectable - &lt;span id="elem"&gt;Unselectable&lt;/span&gt; - Selectable&lt;/div&gt; º/
+
+          /*/º js º/*/
+          let ·elem = document.querySelector('＃elem');
+
+          ·elem.addEventListener('selectstart', çevent =&gt; &#123;
+            çevent.ªpreventDefault();
+          &#125;);</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Loop de eventos" codeText="">
+      <ChaptrSubSect h4Title="Definición del Event Loop" codeText="">
+        <p class="chaptrSubSect__p">Imaginemos una cafetería</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Event Loop</strong> es como el encargado de una cafetería que organiza la atención de los pedidos. Organiza la ejecución de tareas para que el navegador no se "congele".</li>
+          <li class="chaptrSubSectUl__li"><strong>Macrotareas</strong> son pedidos grandes (como un setTimeout, eventos, clics o scripts) que se atienden en orden de llegada.</li>
+          <li class="chaptrSubSectUl__li"><strong>Microtareas</strong> son pequeñas acciones, como ajustar el sabor de un café (por ejemplo, los callbacks de promesas), que se realizan justo después de terminar un pedido grande y antes de comenzar el siguiente.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          console.log('Inicio');
+
+          /*/º Macrotarea (la orden llega y se atiende luego) º/*/
+          @setTimeout(() =&gt; &#123;
+            console.log('/º Café hecho en la máquina (Macrotarea) º/');
+          &#125;, ¬0);
+
+          /*/º Microtarea (se ajusta el sabor del café) º/*/
+          çPromise.ªresolve().then(() =&gt; &#123;
+            console.log('/º Leche añadida (Microtarea) º/');
+          &#125;);
+
+          console.log('Fin');
+        
+          ⋗ inicio
+          ⋗ fin
+          ⋗ leche añadida
+          ⋗ café hecho en la máquina</pre>
+        <p class="chaptrSubSect__p">¿Por qué ocurre esto?</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Primero se ejecutan las líneas de código sincrónicas.</li>
+          <li class="chaptrSubSectUl__li">Luego se atiende la microtarea (la promesa), que se completa antes de empezar la siguiente macrotarea.</li>
+          <li class="chaptrSubSectUl__li">Finalmente, se ejecuta la macrotarea del setTimeout.</li>
+        </ul>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>
+
+<!-- 
+&lt;&gt;
+&#123;&#125;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<img class="chaptrSubSect__img" src=`${ruta}img13.webp` alt="captura del evento">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li"></li>
+＃
+-->

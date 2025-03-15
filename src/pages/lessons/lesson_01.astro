@@ -1,0 +1,32 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__01" h2Title="Ejecutando JavaScript" slot="mainContent">
+    <ChaptrSect h3Title="Maneras de ejecutar JavaScript">
+      <ChaptrSubSect h4Title="Incrustado en el" codeText="html">
+        <p class="chaptrSubSect__p">Usando la etiqueta <code>&lt;script&gt;</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="opera">&lt;</span><span class="etiq">script</span><span class="opera">&gt;</span>
+            <span class="obj">console</span><span class="opera">.</span><span class="meth">log</span><span class="warp">(<span class="args">"Hola mundo!"</span>)</span>;
+          <span class="opera">&lt;/</span><span class="etiq">script</span><span class="opera">&gt;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Enlazando a un archivo externo">
+        <p class="chaptrSubSect__p">Colocar antes del cierre de la etiqueta <code>&lt;body&gt;</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="opera">&lt;</span><span class="etiq">script</span> <span class="atrib">src</span><span class="opera">=</span><span class="valor">"javaScript/scripts.js"</span><span class="opera">&gt;&lt;/</span><span class="etiq">script</span><span class="opera">&gt;</span></pre>
+          <p class="chaptrSubSect__p">Una nueva funcionalidad permite poner el acceso al archivo dentro de la etiqueta <code>&lt;head&gt;</code> con el atributo <code>defer</code> que hace que primero se cargue la pagina y una vez cargada ejecute el JavaScript</p>
+          <pre class="chaptrSubSect__console">
+            <span class="opera">&lt;</span><span class="etiq">script</span> <span class="atrib">src</span><span class="opera">=</span><span class="valor">"javaScript/scripts.js"</span> <span class="atrib">defer</span><span class="opera">&gt;&lt;/</span><span class="etiq">script</span><span class="opera">&gt;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="En la consola del navegador">
+        <p class="chaptrSubSect__p">Se accede pulsando la tecla <span class="bttn">F12</span></p>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>

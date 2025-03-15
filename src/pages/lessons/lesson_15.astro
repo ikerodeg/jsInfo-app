@@ -1,0 +1,246 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+---
+<MainLayout>
+  <LssnArt artClass="lssn__15" h2Title="Configuración de props" slot="mainContent">
+    <ChaptrSect h3Title="Descriptores de propiedad" codeText="">
+      <ChaptrSubSect h4Title="El método" codeText=".getOwnPropertyDescriptor">
+        <p class="chaptrSubSect__p">Un descriptor de propiedad en JavaScript es un objeto que describe las características de una propiedad en un objeto. Estas características incluyen</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>value</code>: El valor actual de la propiedad.</li>
+          <li class="chaptrSubSectUl__li"><code>writable</code>: Si la propiedad puede ser modificada (<code>true</code> o <code>false</code>).</li>
+          <li class="chaptrSubSectUl__li"><code>enumerable</code>: Si la propiedad aparecerá en las iteraciones.</li>
+          <li class="chaptrSubSectUl__li"><code>configurable</code>: Si la propiedad puede ser eliminada o modificada en su descriptor.</li>
+        </ul>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
+            <span class="objProp">age</span>: <span class="nums">4</span>
+          &#125;</span>;
+        
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">getOwnPropertyDescriptor</span>(<span class="obj">user</span>, <span class="args">'name'</span>))</span>;
+          <span class="result">&#123;
+            value: 'Eder', 
+            writable: true, 
+            enumerable: true, 
+            configurable: true
+          &#125;</span>
+        </pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Modificación de descriptores" codeText="">
+      <ChaptrSubSect h4Title="El método" codeText=".defineProperty()">
+        <p class="chaptrSubSect__p">Por defecto en esta manera de crear las propiedades (en vez de con la notacion del punto o la literal), los indicadores se establecen por defecto en <code>false</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="commnt">Sintaxis</span>
+          <span class="obj">Object</span><span class="dot">.</span><span class="meth">defineProperty</span><span class="warp">(<span class="obj">obj</span>, <span class="args">'propName'</span>, <span class="params">descript</span>)</span>;
+
+          <span class="commnt">Ejemplo</span>
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;&#125;</span>;
+          <span class="obj">Object</span><span class="dot">.</span><span class="meth">defineProperty</span><span class="warp">(<span class="obj">user</span>, <span class="args">'name'</span>, &#123;
+            <span class="key">value</span>: <span class="args">'Éder'</span>
+          &#125;)</span>;
+        
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">getOwnPropertyDescriptor</span>(<span class="obj">user</span>, <span class="args">'name'</span>))</span>;
+          <span class="result">&#123;
+            value: 'Eder', 
+            writable: false, 
+            enumerable: false, 
+            configurable: false
+          &#125;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText=".defineProperties()">
+        <p class="chaptrSubSect__p">Con esto, podemos hacer que cada una de esas propiedades tenga un valor u otro</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>
+          &#125;</span>;
+
+          <span class="obj">Object</span><span class="dot">.</span><span class="meth">defineProperties</span><span class="warp">(<span class="obj">user</span>, &#123;
+            <span class="objProp">name</span>: &#123;
+              <span class="key">writable</span>: <span class="key">false</span>,
+              <span class="key">enumerable</span>: <span class="key">true</span>,
+              <span class="key">configurable</span>: <span class="key">false</span>,
+            &#125;
+          &#125;)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">getOwnPropertyDescriptor</span>(<span class="obj">user</span>, <span class="args">'name'</span>))</span>;
+          <span class="result">&#123;
+            value: 'Eder', 
+            writable: false, 
+            enumerable: true, 
+            configurable: false
+          &#125;</span>
+
+          <span class="obj">user</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="args">'Iker'</span>; <span class="commnt">No funciona</span>
+        
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">user</span>)</span>;
+          <span class="result">&#123;name: 'Eder'&#125;</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Obtener todos los descriptores" codeText="">
+      <ChaptrSubSect h4Title="El método" codeText=".getOwnPropertyDescriptors()">
+        <p class="chaptrSubSect__p">Para obtener todos los descriptores al mismo tiempo</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;&#125;</span>;
+
+          <span class="obj">Object</span><span class="dot">.</span><span class="meth">defineProperties</span><span class="warp">(<span class="obj">user</span>, &#123;
+            <span class="objProp">name</span>: &#123;
+              <span class="key">value</span>: <span class="args">'Éder'</span>,
+              <span class="key">writable</span>: <span class="key">false</span>,
+              <span class="key">enumerable</span>: <span class="key">true</span>,
+              <span class="key">configurable</span>: <span class="key">false</span>
+            &#125;,
+            <span class="objProp">age</span>: &#123;
+              <span class="key">value</span>: <span class="nums">4</span>,
+              <span class="key">writable</span>: <span class="key">true</span>,
+              <span class="key">enumerable</span>: <span class="key">true</span>,
+              <span class="key">configurable</span>: <span class="key">false</span>
+            &#125;
+          &#125;)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">getOwnPropertyDescriptors</span>(<span class="obj">user</span>))</span>;
+          <span class="result">&#123;name: &#123;...&#125;, age&#123;...&#125;&#125;</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">user</span>)</span>;
+          <span class="result">&#123;name: 'Eder', age: 4&#125;</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Sellando objetos globalmente" codeText="">
+      <ChaptrSubSect h4Title="El método" codeText="preventExtensions()">
+        <p class="chaptrSubSect__p">Impide añadir propiedades al objeto</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>
+          &#125;</span>;
+
+          <span class="obj">Object</span><span class="dot">.</span><span class="meth">preventExtensions</span><span class="warp">(<span class="obj">user</span>)</span>;</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText="seal()">
+        <p class="chaptrSubSect__p">Impide añadir/eliminar propiedades al objeto y establece todas las propiedades a <code>configurable: false</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>
+          &#125;</span>;
+
+          <span class="obj">Object</span><span class="dot">.</span><span class="meth">seal</span><span class="warp">(<span class="obj">user</span>)</span>;</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText="freeze()">
+        <p class="chaptrSubSect__p">Impide añadir/eliminar/modificar propiedades al objeto y establece todas las propiedades a <code>configurable: false</code> y <code>writable: false</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>
+          &#125;</span>;
+
+          <span class="obj">Object</span><span class="dot">.</span><span class="meth">freeze</span><span class="warp">(<span class="obj">user</span>)</span>;</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText="isExtensible()">
+        <p class="chaptrSubSect__p">Devuelve <code>true</code>/<code>false</code> si esta permitido añadir propiedades</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>
+          &#125;</span>;
+
+          <span class="obj">Object</span><span class="dot">.</span><span class="meth">seal</span><span class="warp">(<span class="obj">user</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">isExtensible</span><span class="warp">(<span class="obj">user</span>)</span>)</span>;
+          <span class="result">false</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText="isSealed()">
+        <p class="chaptrSubSect__p">Devuelve <code>true</code>/<code>false</code> si esta <code>seal</code> (prohibido añadir/eliminar propiedades)</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>
+          &#125;</span>;
+
+          <span class="obj">Object</span><span class="dot">.</span><span class="meth">seal</span><span class="warp">(<span class="obj">user</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">isSealed</span><span class="warp">(<span class="obj">user</span>)</span>)</span>;
+          <span class="result">true</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="El método" codeText="isFrozen()">
+        <p class="chaptrSubSect__p">Devuelve <code>true</code>/<code>false</code> si esta <code>freeze</code> (prohibido añadir/eliminar/modificar propiedades)</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="args">'Éder'</span>
+          &#125;</span>;
+
+          <span class="obj">Object</span><span class="dot">.</span><span class="meth">seal</span><span class="warp">(<span class="obj">user</span>)</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">isFrozen</span><span class="warp">(<span class="obj">user</span>)</span>)</span>;
+          <span class="result">false</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="Getters y Setters" codeText="">
+      <ChaptrSubSect h4Title="Setters" codeText="">
+        <p class="chaptrSubSect__p">En un objeto normal, podemos añadir de cualquier manera y tipo un valor a una propiedad existente</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="key">undefined</span>
+          &#125;</span>;
+
+          <span class="obj">user</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="nums">300</span>;
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">user</span>)</span>;
+          <span class="result">&#123;name: 300&#125;</span></pre>
+        <p class="chaptrSubSect__p">Con los Setters tenemos un mayor control sobre cómo se establecen y cambian los valores de las propiedades en un objeto. Por convención las propiedades privadas se nombran precedidas de un guión bajo <code>_propName</code></p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="key">undefined</span>,
+
+            <span class="key">set</span> <span class="meth">name</span><span class="warp2">(<span class="params">newName</span>)&#123;
+              <span class="func">if</span><span class="warp">(<span class="key">typeof</span> <span class="params">newName</span> <span class="opera">===</span> <span class="args">'string'</span> <span class="opera">&&</span> <span class="params">newName</span><span class="dot">.</span><span class="meth">length</span> <span class="opera">&gt;</span> <span class="nums">0</span>)&#123;
+                <span class="obj">this</span><span class="dot">.</span><span class="objProp">_name</span> <span class="opera">=</span> <span class="params">newName</span>;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'✔ Valor actualizado'</span>);</span>
+              &#125; <span class="key">else</span> &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'✘ Debe ser un string'</span>);</span>
+              &#125;</span>
+            &#125;</span>
+          &#125;</span>;
+
+          <span class="obj">user</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="nums">300</span>;
+          <span class="result">✘ Debe ser un string</span>
+
+          <span class="obj">user</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="args">'Éder'</span>;
+          <span class="result">✔ Valor actualizado</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">user</span>)</span>;
+          <span class="result">&#123;name: 'Éder'&#125;</span></pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Getters" codeText="">
+        <p class="chaptrSubSect__p">Cuando deseas obtener el valor de una propiedad de un objeto de una manera que parezca como si estuvieras accediendo directamente a una propiedad, pero puede estar involucrando lógica adicional si es necesario</p>
+        <pre class="chaptrSubSect__console">
+          <span class="key">const</span> <span class="var">user</span> <span class="opera">=</span> <span class="warp">&#123;
+            <span class="objProp">name</span>: <span class="key">undefined</span>,
+
+            <span class="key">set</span> <span class="meth">name</span><span class="warp2">(<span class="params">newName</span>)&#123;
+              <span class="func">if</span><span class="warp">(<span class="key">typeof</span> <span class="params">newName</span> <span class="opera">===</span> <span class="args">'string'</span> <span class="opera">&&</span> <span class="params">newName</span><span class="dot">.</span><span class="meth">length</span> <span class="opera">&gt;</span> <span class="nums">0</span>)&#123;
+                <span class="obj">this</span><span class="dot">.</span><span class="objProp">_name</span> <span class="opera">=</span> <span class="params">newName</span>;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'✔ Valor actualizado'</span>);</span>
+              &#125; <span class="key">else</span> &#123;
+                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'✘ Debe ser un string'</span>);</span>
+              &#125;</span>
+            &#125;</span>,
+
+            <span class="key">get</span> <span class="meth">name</span><span class="warp2">()&#123;
+                <span class="key">return</span> <span class="obj">this</span><span class="dot">.</span><span class="objProp">_name</span>;
+              &#125;</span>
+          &#125;</span>;
+
+          <span class="obj">user</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="nums">300</span>;
+          <span class="result">✘ Debe ser un string</span>
+
+          <span class="obj">user</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="args">'Éder'</span>;
+          <span class="result">✔ Valor actualizado</span>
+
+          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">user</span>)</span>;
+          <span class="result">&#123;name: 'Éder'&#125;</span></pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" />
+</MainLayout>
