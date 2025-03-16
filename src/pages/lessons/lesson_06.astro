@@ -10,11 +10,12 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
     <ChaptrSect h3Title="Buscar igualdad" codeText="">
       <ChaptrSubSect h4Title="Igualdad débil" codeText="==">
         <p class="chaptrSubSect__p">Compara los valores de las variables, pero <mark>no sus tipos</mark>. Intentará convertir uno o ambos valores a un tipo común antes de hacer la comparación</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">first</span> <span class="opera">=</span> <span class="nums">2</span>;
-          <span class="key">let</span> <span class="var">second</span> <span class="opera">=</span> <span class="args">'2'</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">first</span> <span class="opera">==</span> <span class="var">second</span>)</span>;
-          <span class="result">true</span>     <span class="commnt">Convierte a Num el String '2'</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·first = ¬2;
+          let ·second = '2';
+
+          console.log(·first == ·second);
+          ⋗ /º true º/     /*/º Convierte a Num el String '2' º/*/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Igualdad estricta" codeText="===">
         <p class="chaptrSubSect__p">Compara tanto el valor como el tipo. No intenta convertir los tipos</p>
@@ -68,5 +69,33 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
       </ChaptrSubSect>
     </ChaptrSect>
   </LssnArt>
-	<Footer slot="mainFooter" />
+	<Footer slot="mainFooter" prevPage="/lessons/lesson_05" nextPage="/lessons/lesson_07"/>
 </MainLayout>
+
+
+
+<!-- 
+&lt;&gt;
+&#123;&#125;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<img class="chaptrSubSect__img" src=`${ruta}img13.webp` alt="captura del evento">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li"></li>
+＃
+-->
