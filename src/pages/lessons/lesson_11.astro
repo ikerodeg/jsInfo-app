@@ -8,320 +8,323 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
 <MainLayout>
   <LssnArt artClass="lssn__11" h2Title="Arrays" slot="mainContent">
     <ChaptrSect h3Title="Creación de arrays" codeText="">
-      <ChaptrSubSect h4Title="Notación corchetes" codeText="[]">
+      <ChaptrSubSect h4Title="Notación corchetes" codeText="[]" hint="#métodoRecomendada">
         <p class="chaptrSubSect__p">Es la forma <mark>recomendada</mark></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[ <span class="nums">1, 2, 3, 4, 5</span> ];</pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·numbers = [¬1, ¬2, ¬3, ¬4, ¬5];</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="Contructor de arrays" codeText="new">
+      <ChaptrSubSect h4Title="Contructor de arrays" codeText="new" hint="#noRecomendada">
         <p class="chaptrSubSect__p">Se utiliza para crear instancias de arrays, no es <mark>nada recomendable</mark>. Los únicos usos serían crear un array vacio con un tamaño específico, y crear un array dinámicamente</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Creado dinámicamente</span>
-          <span class="key">let</span> <span class="var">arrWithContent</span> <span class="opera">=</span> <span class="key">new</span> <span class="obj">Array</span><span class="warp">(<span class="nums">5, 4, 3, 2, 1</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">arrWithContent</span>)</span>;
-          <span class="result">[5, 4, 3, 2, 1]</span>
+        <pre class="chaptrSubSect__console wScript">
+          /* Creado dinámicamente */
+          let ·arrWithContent = new Array(¬5, ¬4, ¬3, ¬2, ¬1);
+          console.log(·arrWithContent);
+          ⋗ [5, 4, 3, 2, 1]
 
-          <span class="commnt">Array vacio con x posiciones</span>
-          <span class="key">let</span> <span class="var">arrWithSize</span> <span class="opera">=</span> <span class="key">new</span> <span class="obj">Array</span><span class="warp">(<span class="nums">5</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">arrWithSize</span>)</span>;
-          <span class="result">[ &lt;5 empty items&gt; ]</span>
-        
-          <span class="var">arrWithSize</span><span class="dot">.</span><span class="meth">fill</span><span class="warp">(<span class="args">'💡'</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">arrWithSize</span>)</span>;
-          <span class="result">[<span class="args">'💡', '💡', '💡', '💡', '💡'</span>]</span></pre>
+          /*/º Array vacio con x posiciones º/*/
+          let ·arrWithSize = new Array(¬5);
+          console.log(·arrWithSize);
+          ⋗ /º[ &lt;5 empty items&gt; ] º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Acceso a elementos" codeText="[]">
       <ChaptrSubSect h4Title="Notación corchetes" codeText="[]">
         <p class="chaptrSubSect__p">Poniendo la posición que ocupa en el array entre corchetes</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·fruits = ['kiwi', 'piña', 'uva'];
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span><span class="warp">[<span class="nums">0</span>]</span>)</span>;
-          <span class="result">'kiwi'</span>
+          console.log(·fruits[¬0]);
+          ⋗ "kiwi"
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span><span class="warp">[<span class="nums">2</span>]</span>)</span>;
-          <span class="result">'uva'</span></pre>
+          console.log(·fruits[¬2]);
+          ⋗ "uva"</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Agregar elementos" codeText="">
-      <ChaptrSubSect h4Title="Notación de corchete" codeText="[]">
+      <ChaptrSubSect h4Title="Notación de corchete" codeText="[]" hint="#mejorPerformance #añadeEnPosicionDada">
         <p class="chaptrSubSect__p">Agrega elementos poniendo la posición entre corchetes. <mark>Mejor performance</mark> de todos porque no desplaza elementos ni otra operación.</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
-          <span class="var">fruits</span><span class="warp">[<span class="nums">3</span>]</span> <span class="opera">=</span> <span class="args">'pera'</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·fruits = [ 'kiwi', 'piña', 'uva' ];
+          ·fruits[¬3] = 'pera';
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
-          <span class="result">'kiwi', 'piña', 'uva', 'pera'</span></pre>
+          console.log(·fruits);
+          ⋗ /º ['kiwi', 'piña', 'uva', 'pera'] º/</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".push()">
+      <ChaptrSubSect h4Title="El método" codeText=".push()" hint="#añadeAlFinal #segundoMejorPerformance">
         <p class="chaptrSubSect__p">Agrega elementos <mark>al final</mark> del array. Tiene la segunda mejor performance porque solo añade al final sin desplazar ningun otro</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
-          <span class="var">fruits</span><span class="dot">.</span><span class="meth">push</span><span class="warp">(<span class="args">'pera'</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·fruits = ['kiwi', 'piña', 'uva'];
+          ·fruits.ªpush('pera');
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
-          <span class="result">'kiwi', 'piña', 'uva', 'pera'</span></pre>
+          console.log(·fruits);
+          ⋗ /º ['kiwi', 'piña', 'uva', 'pera'] º/</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".unshift()">
+      <ChaptrSubSect h4Title="El método" codeText=".unshift()" hint="#añadeAlPrincipio">
         <p class="chaptrSubSect__p">Agrega elementos <mark>al principio</mark> del array. Tercera mejor performance porque al agregar al inicio tiene que desplazar todos los elementos hacia el final</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
-          <span class="var">fruits</span><span class="dot">.</span><span class="meth">unshift</span><span class="warp">(<span class="args">'pera'</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·fruits = ['kiwi', 'piña', 'uva'];
+          ·fruits.ªunshift('pera');
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
-          <span class="result">'kiwi', 'piña', 'uva', 'pera'</span></pre>
+          console.log(·fruits);
+          ⋗ /º ['pera', 'kiwi', 'piña', 'uva'] º/</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".splice()">
+      <ChaptrSubSect h4Title="El método" codeText=".splice()" hint="#añadeEnPosicionDada #peorPerformance">
         <p class="chaptrSubSect__p">Agrega un elemento en una posición dada. <mark>Peor performance</mark> de todos porque implica multiples operaciones: mover elementos, ajustar tamaño, etc</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
-          <span class="var">fruits</span><span class="dot">.</span><span class="meth">splice</span><span class="warp">(<span class="nums">2, 0, </span><span class="args">'🍏'</span>)</span>;
-          <span class="commnt">(start, deleteCount, ...items)</span>
+        <pre class="chaptrSubSect__console wScript">
+          let ·fruits = ['kiwi', 'piña', 'uva'];
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
-          <span class="result">'kiwi', 'piña', '🍏', 'uva'</span></pre>
+          ·fruits.ªsplice(¬2, ¬0, '🍏');
+          /* /º start, deleteCount, ...items º/*/
+
+          console.log(·fruits);
+          ⋗ /º ['kiwi', 'piña', '🍏', 'uva'] º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Sustituir elementos" codeText="">
       <ChaptrSubSect h4Title="Notación de corchete" codeText="[]">
         <p class="chaptrSubSect__p">Sustituye elementos poniendo la posición entre corchetes</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
-          <span class="var">fruits</span><span class="warp">[<span class="nums">1</span>]</span> <span class="opera">=</span> <span class="args">'🍍'</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·fruits = ['kiwi', 'piña', 'uva'];
+          ·fruits[¬1] = '🍍';
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
-          <span class="result">'kiwi', '🍍', 'uva'</span></pre>
+          console.log(·fruits);
+          ⋗ /º ['kiwi', '🍍', 'uva'] º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="El método" codeText=".splice()">
         <p class="chaptrSubSect__p">Sustituye un elemento en una posición dada</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
-          <span class="var">fruits</span><span class="dot">.</span><span class="meth">splice</span><span class="warp">(<span class="nums">0, 1, </span><span class="args">'🥝'</span>)</span>;
-          <span class="commnt">(start, deleteCount, ...items)</span>
+        <pre class="chaptrSubSect__console wScript">
+          let ·fruits = ['kiwi', 'piña', 'uva'];
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
-          <span class="result">'🥝', 'piña', 'uva'</span></pre>
+          ·fruits.ªsplice(¬0, ¬1, '🥝');
+          /*/º start, deleteCount, ...items º/*/
+
+          console.log(·fruits);
+          ⋗ /º ['🥝', 'piña', 'uva'] º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Eliminar elementos" codeText="">
-      <ChaptrSubSect h4Title="El método" codeText=".pop()">
+      <ChaptrSubSect h4Title="El método" codeText=".pop()" hint="#extraeRetornaUltimoElemento">
         <p class="chaptrSubSect__p">Extrae un elemento del final y lo devuelve</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
-          <span class="key">let</span> <span class="var">extracted</span> <span class="opera">=</span> <span class="var">fruits</span><span class="dot">.</span><span class="meth">pop</span><span class="warp">()</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·fruits = ['kiwi', 'piña', 'uva'];
+          let ·extracted = ·fruits.ªpop();
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
-          <span class="result">'kiwi', 'piña'</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">extracted</span>)</span>;
-          <span class="result">'uva'</span></pre>
+          console.log(·fruits);
+          ⋗ /º ['kiwi', 'piña'] º/
+
+          console.log(·extracted);
+          ⋗ /º ['uva'] º/</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".shift()">
+      <ChaptrSubSect h4Title="El método" codeText=".shift()" hint="#extraeRetornaPrimerElemento">
         <p class="chaptrSubSect__p">Extrae un elemento del inicio y lo devuelve</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
-          <span class="key">let</span> <span class="var">extracted</span> <span class="opera">=</span> <span class="var">fruits</span><span class="dot">.</span><span class="meth">shift</span><span class="warp">()</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·fruits = ['kiwi', 'piña', 'uva'];
+          let ·extracted = ·fruits.ªshift();
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
-          <span class="result">'piña', 'uva'</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">extracted</span>)</span>;
-          <span class="result">'kiwi'</span></pre>
+          console.log(·fruits);
+          ⋗ /º ['piña', 'uva'] º/
+
+          console.log(·extracted);
+          ⋗ "kiwi"</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".splice()">
+      <ChaptrSubSect h4Title="El método" codeText=".splice()" hint="#extraeRetornaElementoPosicionDada">
         <p class="chaptrSubSect__p">Elimina un elemento (y su posición) en una posición dada</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[ <span class="args">'kiwi', 'piña', 'uva'</span> ]</span>;
-          <span class="key">let</span> <span class="var">extracted</span> <span class="opera">=</span> <span class="var">fruits</span><span class="dot">.</span><span class="meth">splice</span><span class="warp">(<span class="nums">1, 1</span>)</span>;
-          <span class="commnt">(start, deleteCount, ...items)</span>
+        <pre class="chaptrSubSect__console wScript">
+          let ·fruits = ['kiwi', 'piña', 'uva'];
+          let ·extracted = ·fruits.ªsplice(¬1, ¬1);
+          /*/º start, deleteCount, ...items º/*/
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
-          <span class="result">'kiwi', 'uva'</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">extracted</span>)</span>;
-          <span class="result">'piña'</span></pre>
+          console.log(·fruits);
+          ⋗ /º ['kiwi', 'uva'] º/
+
+          console.log(·extracted);
+          ⋗ "piña"</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="La orden" codeText="delete">
+      <ChaptrSubSect h4Title="La orden" codeText="delete" hint="#borraValorDejaEspacio">
         <p class="chaptrSubSect__p">Borra el valor, dejandolo vacio, pero el espacio del elemento todavía sigue y pasa a ser <code>undefined</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'kiwi', 'piña', 'uva'</span>]</span>;
-          <span class="key">delete</span> <span class="var">fruits</span><span class="warp">[<span class="nums">1</span>]</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·fruits = ['kiwi', 'piña', 'uva'];
+          delete ·fruits[¬1];
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span>)</span>;
-          <span class="result">(3) ['kiwi', vacío, 'uva']</span></pre>
+          console.log(·fruits);
+          ⋗ /º ['kiwi', vacío, 'uva'] º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Buscar elementos" codeText="">
-      <ChaptrSubSect h4Title="El método" codeText=".find()">
+      <ChaptrSubSect h4Title="El método" codeText=".find()" hint="#buscaRetornaPrimerElementoCondición">
         <p class="chaptrSubSect__p">Busca el primer elemento en un array que cumpla con una condición específica, y lo retorna</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Sintaxis</span>
-          <span class="obj">Array</span><span class="dot">.</span><span class="meth">find</span><span class="warp">(<span class="func">callback</span><span class="warp">(<span class="params">element, index*, array*</span>), <span class="params">this*</span></span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          /* Sintaxis */
+          Array.ªfind(@callback(#element, #index*, #array*), this*);
 
-          <span class="commnt">Ejemplo</span>
-          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">8567, 4321, 7432, 5555</span>]</span>;
-          <span class="key">let</span> <span class="var">resultado</span> <span class="opera">=</span> <span class="var">numbers</span><span class="dot">.</span><span class="meth">find</span><span class="warp">(<span class="params">num</span> <span class="opera">=&gt;</span> <span class="params">num</span> <span class="opera">%</span> <span class="nums">2</span> <span class="opera">===</span> <span class="nums">0</span>)</span>;
+          /* Ejemplo */
+          let ·numbers = [¬8567, ¬4321, ¬7432, ¬5555];
+          let ·resultado = ·numbers.ªfind(#num =&gt; #num % ¬2 === ¬0);
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">resultado</span>)</span>;
-          <span class="result">7432</span></pre>
+          console.log(·resultado);
+          ⋗ 7432</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".includes()">
+      <ChaptrSubSect h4Title="El método" codeText=".includes()" hint="#retornaBooleanSiCoincideValor">
         <p class="chaptrSubSect__p">Determina si un array contiene un elemento específico, devolviendo un valor booleano</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Sintaxis</span>
-          <span class="obj">Array</span><span class="dot">.</span><span class="meth">includes</span><span class="warp">(<span class="params">element, fromIndex*</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          /* Sintaxis */
+          Array.ªincludes(#element, #fromIndex*);
 
-          <span class="commnt">Ejemplo</span>
-          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">8567, 4321, 7432, 5555</span>]</span>;
-          <span class="key">let</span> <span class="var">resultado</span> <span class="opera">=</span> <span class="var">numbers</span><span class="dot">.</span><span class="meth">includes</span><span class="warp">(<span class="nums">4321</span>)</span>;
+          /* Ejemplo */
+          let ·numbers = [¬8567, ¬4321, ¬7432, ¬5555];
+          let ·resultado = ·numbers.ªincludes(¬4321);
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">resultado</span>)</span>;
-          <span class="result">true</span></pre>
+          console.log(·resultado);
+          ⋗ /º true º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Buscar posición de un elemento" codeText="">
-      <ChaptrSubSect h4Title="El método" codeText=".indexOf()">
+      <ChaptrSubSect h4Title="El método" codeText=".indexOf()" hint="#retornaIndicePrimeraCoincidenciaValor">
         <p class="chaptrSubSect__p">Obtiene el índice de la primera aparición de un elemento y lo retorna, o <code>-1</code> si el elemento no se encuentra. Este método usa igualdad estricta</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Sintaxis</span>
-          <span class="obj">Array</span><span class="dot">.</span><span class="meth">indexOf</span><span class="warp">(<span class="params">element, fromIndex*</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          /* Sintaxis */
+          Array.ªindexOf(#element, #fromIndex*);
 
-          <span class="commnt">Ejemplo</span>
-          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'🥝', '🍏', '🍍', '🍌', '🍉'</span>]</span>;
-          <span class="key">let</span> <span class="var">fruitIndex</span> <span class="opera">=</span> <span class="var">fruits</span><span class="dot">.</span><span class="meth">indexOf</span><span class="warp">(<span class="args">'🍌'</span>)</span>;
+          /* Ejemplo */
+          let ·fruits = ['🥝', '🍏', '🍍', '🍌', '🍉'];
+          let ·fruitIndex = ·fruits.ªindexOf('🍌');
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruitIndex</span>)</span>;
-          <span class="result">3</span></pre>
+          console.log(·fruitIndex);
+          ⋗ 3</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".lastIndexOf()">
+      <ChaptrSubSect h4Title="El método" codeText=".lastIndexOf()" hint="#retornaIndiceUltimaCoincidenciaValor">
         <p class="chaptrSubSect__p">Obtiene el índice de la última aparición de un elemento y lo  retorna, o <code>-1</code> si el elemento no se encuentra</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Sintaxis</span>
-          <span class="obj">Array</span><span class="dot">.</span><span class="meth">lastIndexOf</span><span class="warp">(<span class="params">element, fromIndex*</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          /* Sintaxis */
+          Array.ªlastIndexOf(#element, #fromIndex*);
 
-          <span class="commnt">Ejemplo</span>
-          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'🍉', '🍏', '🍉', '🍌', '🍉'</span>]</span>;
-          <span class="key">let</span> <span class="var">fruitIndex</span> <span class="opera">=</span> <span class="var">fruits</span><span class="dot">.</span><span class="meth">lastIndexOf</span><span class="warp">(<span class="args">'🍉'</span>)</span>;
+          /* Ejemplo */
+          let ·fruits = ['🍉', '🍏', '🍉', '🍌', '🍉'];
+          let ·fruitIndex = ·fruits.ªlastIndexOf('🍉');
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruitIndex</span>)</span>;
-          <span class="result">4</span></pre>
+          console.log(·fruitIndex);
+          ⋗ 4</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".findIndexOf()">
+      <ChaptrSubSect h4Title="El método" codeText=".findIndex()" hint="#retornaIndicePrimeraCoincidenciaCallback">
         <p class="chaptrSubSect__p">Obtiene el indice del primer elemento de un array que satisface una condición proporcionada en forma de una función de prueba o callback</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Sintaxis</span>
-          <span class="obj">Array</span><span class="dot">.</span><span class="meth">findIndexOf</span><span class="warp">(<span class="func">callback</span><span class="warp">(<span class="params">element, index*, array*</span>) <span class="params">this*</span></span>;
+        <pre class="chaptrSubSect__console wScript">
+          /* Sintaxis */
+          Array.ªfindIndex(@callback(#element, #index*, #array*) #this*;
 
-          <span class="commnt">Ejemplo</span>
-          <span class="key">let</span> <span class="var">nums</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 3, 6, 7, 9, 10</span>]</span>;
-          <span class="key">let</span> <span class="var">coincidence</span> <span class="opera">=</span> <span class="var">nums</span><span class="dot">.</span><span class="meth">findIndex</span><span class="warp">(<span class="var">nums</span> <span class="opera">=&gt;</span> <span class="var">nums</span> <span class="opera">%</span> <span class="nums">2</span> <span class="opera">===</span> <span class="nums">0</span>)</span>;
+          /* Ejemplo */
+          let ·nums = [¬1, ¬3, ¬6, ¬7, ¬9, ¬10];
+          let ·coincidence = ·nums.ªfindIndex(#num =&gt; #num % ¬2 === ¬0);
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">coincidence</span>)</span>;
-          <span class="result">2</span></pre>
+          console.log(·coincidence);
+          ⋗ 2</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Longitud de un array" codeText="">
-      <ChaptrSubSect h4Title="El método" codeText=".length">
+      <ChaptrSubSect h4Title="El método" codeText=".length" hint="#retornaTotalElementos">
         <p class="chaptrSubSect__p">Devuelve la cantidad de elementos en un array. La cuenta total de elementos en el array es su longitud, no su index</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'🥝', '🍏', '🍍', '🍌', '🍉'</span>]</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·fruits = ['🥝', '🍏', '🍍', '🍌', '🍉'];
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span><span class="dot">.</span><span class="meth">length</span>)</span>;
-          <span class="result">5</span></pre>
+          console.log(·fruits.length);
+          ⋗ 5</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Info de un Array" codeText="">
       <ChaptrSubSect h4Title="La orden" codeText=".typeof">
         <p class="chaptrSubSect__p"><b>NO</b> ayuda a distinguir un objeto de un array</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'🥝', '🍏', '🍍', '🍌', '🍉'</span>]</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·fruits = ['🥝', '🍏', '🍍', '🍌', '🍉'];
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="key">typeof</span> <span class="var">fruits</span>)</span>;
-          <span class="result">'object'</span></pre>
+          console.log(typeof ·fruits);
+          ⋗ /º "object" º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="El método" codeText="Array.isArray()">
         <p class="chaptrSubSect__p">Devuelve <code>true</code> si el valor es un array y <code>false</code> si no lo es</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'🥝', '🍏', '🍍', '🍌', '🍉'</span>]</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·fruits = ['🥝', '🍏', '🍍', '🍌', '🍉'];
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Array</span><span class="dot">.</span><span class="meth">isArray</span><span class="warp">(<span class="var">fruits</span>)</span>)</span>;
-          <span class="result">true</span></pre>
+          console.log(Array.ªisArray(·fruits));
+          ⋗ /º true º/</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".constructor.name()">
+      <ChaptrSubSect h4Title="El método" codeText=".constructor.name" hint="#métodoRecomendado">
         <p class="chaptrSubSect__p">Nos dice realmente que tipo es, <mark>el recomendado</mark></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'🥝', '🍏', '🍍', '🍌', '🍉'</span>]</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·fruits = ['🥝', '🍏', '🍍', '🍌', '🍉'];
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">fruits</span><span class="dot">.</span><span class="obj">constructor</span><span class="dot">.</span><span class="meth">name</span>)</span>;
-          <span class="result">'Array'</span></pre>
+          console.log(·fruits.constructor.•name);
+          ⋗ /º "Array" º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Vaciar/truncar un array" codeText="">
       <ChaptrSubSect h4Title="Truncar array con" codeText=".length">
         <p class="chaptrSubSect__p">Si la incrementamos manualmente, se añaden elementos vacios. Si la decrementamos, el array se trunca</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
-          <span class="var">numbers</span><span class="dot">.</span><span class="meth">length</span> <span class="opera">=</span> <span class="nums">2</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·numbers = [¬1, ¬2, ¬3, ¬4, ¬5];
+          ·numbers.length = ¬2;
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">numbers</span>)</span>;
-          <span class="result">[1, 2]</span></pre>
+          console.log(·numbers);
+          ⋗ /º [1, 2] º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Vaciar array con" codeText=".length">
         <p class="chaptrSubSect__p">La forma más simple de limpiar un array es igualar a <code>0</code> la propiedad <code>length</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
-          <span class="var">numbers</span><span class="dot">.</span><span class="meth">length</span> <span class="opera">=</span> <span class="nums">0</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·numbers = [¬1, ¬2, ¬3, ¬4, ¬5];
+          ·numbers.length = ¬0;
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">numbers</span>)</span>;
-          <span class="result">[]</span></pre>
+          console.log(·numbers);
+          ⋗ /º [] º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Unir/combinar arrays" codeText="">
       <ChaptrSubSect h4Title="El método" codeText=".concat()">
         <p class="chaptrSubSect__p">Combina dos o más arrays en uno nuevo. No muta los arrays originales</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">ceroAlDos</span> <span class="opera">=</span> <span class="warp">[<span class="nums">0, 1, 2</span>]</span>;
-          <span class="key">let</span> <span class="var">tresAlCinco</span> <span class="opera">=</span> <span class="warp">[<span class="nums">3, 4, 5</span>]</span>;
-          <span class="key">let</span> <span class="var">seisAlOcho</span> <span class="opera">=</span> <span class="warp">[<span class="nums">6, 7, 8</span>]</span>;
-          <span class="key">let</span> <span class="var">ceroAlOcho</span> <span class="opera">=</span> <span class="var">ceroAlDos</span><span class="dot">.</span><span class="meth">concat</span><span class="warp">(<span class="var">tresAlCinco</span>, <span class="var">seisAlOcho</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·ceroAlDos = [¬0, ¬1, ¬2];
+          let ·tresAlCinco = [¬3, ¬4, ¬5];
+          let ·seisAlOcho = [¬6, ¬7, ¬8];
+          let ·ceroAlOcho = ·ceroAlDos.ªconcat(·tresAlCinco, ·seisAlOcho);
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">ceroAlOcho</span>)</span>;
-          <span class="result">[0, 1, 2, 3, 4, 5, 6, 7, 8]</span></pre>
+          console.log(·ceroAlOcho);
+          ⋗ /º [0, 1, 2, 3, 4, 5, 6, 7, 8] º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="El operador" codeText="...spread">
         <p class="chaptrSubSect__p">Combina dos o más arrays en uno nuevo. No muta los arrays originales</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">ceroAlDos</span> <span class="opera">=</span> <span class="warp">[<span class="nums">0, 1, 2</span>]</span>;
-          <span class="key">let</span> <span class="var">tresAlCinco</span> <span class="opera">=</span> <span class="warp">[<span class="nums">3, 4, 5</span>]</span>;
-          <span class="key">let</span> <span class="var">seisAlOcho</span> <span class="opera">=</span> <span class="warp">[<span class="nums">6, 7, 8</span>]</span>;
-          <span class="key">let</span> <span class="var">ceroAlOcho</span> <span class="opera">=</span> <span class="warp">[<span class="opera">...</span><span class="var">ceroAlDos</span>, <span class="opera">...</span><span class="var">tresAlCinco</span>, <span class="opera">...</span><span class="var">seisAlOcho</span>]</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·ceroAlDos = [¬0, ¬1, ¬2];
+          let ·tresAlCinco = [¬3, ¬4, ¬5];
+          let ·seisAlOcho = [¬6, ¬7, ¬8];
+          let ·ceroAlOcho = [...·ceroAlDos, ...·tresAlCinco, ...·seisAlOcho];
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">ceroAlOcho</span>)</span>;
-          <span class="result">[0, 1, 2, 3, 4, 5, 6, 7, 8]</span></pre>
+          console.log(·ceroAlOcho);
+          ⋗ /º [0, 1, 2, 3, 4, 5, 6, 7, 8] º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Ordenar array" codeText="">
-      <ChaptrSubSect h4Title="El método" codeText=".sort()">
+      <ChaptrSubSect h4Title="El método" codeText=".sort()" hint="#ordenaOrdenAlfabético">
         <p class="chaptrSubSect__p">Se utiliza para ordenar los elementos de un array. Este método <mark>modifica</mark> el array. Por defecto, ordena los elementos del array como cadenas de texto en orden alfabético ascendente</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">De mayor a menor</span>
-          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">5, 3, 1, 4, 2</span>]</span>;
-          <span class="var">numbers</span><span class="dot">.</span><span class="meth">sort</span><span class="warp">()</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">numbers</span>)</span>;
-          <span class="result">[1, 2, 3, 4, 5]</span>
+        <pre class="chaptrSubSect__console wScript">
+          let ·numbers = [¬5, ¬3, ¬1, ¬4, ¬2];
+          
+          /* De mayor a menor */
+          ·numbers.ªsort();
+          console.log(·numbers);
+          ⋗ /º [1, 2, 3, 4, 5] º/
         
-          <span class="commnt">De menor a mayor</span>
-          <span class="var">numbers</span><span class="dot">.</span><span class="meth">sort</span><span class="warp">((<span class="params">a, b</span>) <span class="opera">=&gt;</span> <span class="params">b <span class="opera">-</span> a</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">numbers</span>)</span>;
-          <span class="result">[5, 4, 3, 2, 1]</span></pre>
+          /* De menor a mayor */
+          ·numbers.ªsort((#a, #b) =&gt; #b - #a);
+          console.log(·numbers);
+          ⋗ /º [5, 4, 3, 2, 1] º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Invertir array" codeText="">
-      <ChaptrSubSect h4Title="El método" codeText=".reverse()">
+      <ChaptrSubSect h4Title="El método" codeText=".reverse()" hint="#invierteArrayNoOrdena">
         <p class="chaptrSubSect__p">Este método <mark>invierte</mark> (sólo le da la vuelta) los elementos en el array original. Lo <mark>muta</mark> pero <mark>no lo ordena</mark></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">nums</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
-          <span class="var">nums</span><span class="dot">.</span><span class="meth">reverse</span><span class="warp">()</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">nums</span>)</span>;
-          <span class="result">[5, 4, 3, 2, 1]</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·nums = [¬1, ¬2, ¬3, ¬4, ¬5];
+
+          ·nums.ªreverse();
+          console.log(·nums);
+          ⋗ /º [5, 4, 3, 2, 1] º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Métodos de array" codeText="">
@@ -841,5 +844,33 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
       </ChaptrSubSect>
     </ChaptrSect>
   </LssnArt>
-	<Footer slot="mainFooter" />
+	<Footer slot="mainFooter" prevPage="/lessons/lesson_10" nextPage="/lessons/lesson_12"/>
 </MainLayout>
+
+
+
+<!-- 
+&lt;&gt;
+&#123;&#125;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<img class="chaptrSubSect__img" src=`${ruta}img13.webp` alt="captura del evento">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li"></li>
+＃
+-->

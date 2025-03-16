@@ -308,7 +308,7 @@ html{
   border-radius: var(--brdrRad_Main);
   font-size: var(--fntSz_P);
   line-height: 3.5vw;
-  text-indent: -3vw;
+  text-indent: -1.3em;
 }
 .chaptrSubSect__p::before {
   position: relative;
