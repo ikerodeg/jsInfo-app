@@ -19,53 +19,59 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Igualdad estricta" codeText="===">
         <p class="chaptrSubSect__p">Compara tanto el valor como el tipo. No intenta convertir los tipos</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">first</span> <span class="opera">=</span> <span class="nums">2</span>;
-          <span class="key">let</span> <span class="var">second</span> <span class="opera">=</span> <span class="args">'2'</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">first</span> <span class="opera">===</span> <span class="var">second</span>)</span>;
-          <span class="result">false</span>     <span class="commnt">Num vs String</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·first = ¬2;
+          let ·second = '2';
+
+          console.log(·first === ·second);
+          ⋗ /º false º/     /* Num vs String */</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="Comparación de valores" codeText="Object.is()">
+      <ChaptrSubSect h4Title="Comparación de valores" codeText="Object.is()" hint="#másConfiableQue===">
         <p class="chaptrSubSect__p">Más confiable que <code>===</code> y funciona con <code>NaN</code>, <code>0</code> y <code>-0</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">first</span> <span class="opera">=</span> <span class="nums">2</span>;
-          <span class="key">let</span> <span class="var">second</span> <span class="opera">=</span> <span class="args">'2'</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">is</span><span class="warp">(<span class="var">first</span><span class="opera">,</span> <span class="var">second</span>)</span>)</span>;
-          <span class="result">false</span>     <span class="commnt">Num vs String</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·first = ¬2;
+          let ·second = '2';
+
+          console.log(Object.ªis(·first, ·second));
+          ⋗ /º false º/     /* Num vs String */</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Mayor o igual que" codeText=">=">
         <p class="chaptrSubSect__p">Devuelve <code>true</code> si el operando de la izquierda es mayor o igual al operando de la derecha</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">first</span> <span class="opera">=</span> <span class="nums">20</span>;
-          <span class="key">let</span> <span class="var">second</span> <span class="opera">=</span> <span class="nums">10</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">first</span> <span class="opera">≧</span> <span class="var">second</span>)</span>;
-          <span class="result">true</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·first = ¬20;
+          let ·second = ¬10;
+
+          console.log(·first ≧ ·second);
+          ⋗ /º true º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Menor o igual que" codeText="<=">
         <p class="chaptrSubSect__p">Devuelve <code>true</code> si el operando de la izquierda es menor o igual al operando de la derecha</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">first</span> <span class="opera">=</span> <span class="nums">20</span>;
-          <span class="key">let</span> <span class="var">second</span> <span class="opera">=</span> <span class="nums">10</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">first</span> <span class="opera">≦</span> <span class="var">second</span>)</span>;
-          <span class="result">false</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·first = ¬20;
+          let ·second = ¬10;
+
+          console.log(·first ≦ ·second);
+          ⋗ /º false º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Buscar desigualdad" codeText="">
       <ChaptrSubSect h4Title="Desigualdad débil" codeText="!=">
         <p class="chaptrSubSect__p">Compara los valores de las variables, pero <mark>no sus tipos</mark>. Intentará convertir uno o ambos valores a un tipo común antes de hacer la comparación</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">first</span> <span class="opera">=</span> <span class="nums">2</span>;
-          <span class="key">let</span> <span class="var">second</span> <span class="opera">=</span> <span class="args">'2'</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">first</span> <span class="opera">≠</span> <span class="var">second</span>)</span>;
-          <span class="result">false</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·first = ¬2;
+          let ·second = '2';
+
+          console.log(·first ≠ ·second);
+          ⋗ /º false º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Desigualdad estricta" codeText="!==">
         <p class="chaptrSubSect__p">Compara tanto el valor como el tipo. No intenta convertir los tipos</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">first</span> <span class="opera">=</span> <span class="nums">2</span>;
-          <span class="key">let</span> <span class="var">second</span> <span class="opera">=</span> <span class="args">'2'</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">first</span> <span class="opera">≢</span> <span class="var">second</span>)</span>;
-          <span class="result">true</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·first = ¬2;
+          let ·second = '2';
+
+          console.log(·first ≢ ·second);
+          ⋗ /º true º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
   </LssnArt>

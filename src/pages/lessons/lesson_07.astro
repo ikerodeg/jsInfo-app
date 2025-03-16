@@ -10,121 +10,159 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
     <ChaptrSect h3Title="La setencia" codeText="if">
       <ChaptrSubSect h4Title="Sintaxis" codeText="">
         <p class="chaptrSubSect__p">Es recomendable siempre encerrar nuestro bloque de código entre llaves <code>&#123;&#125;</code>, inclusive si solo se va a ejecutar una sola sentencia para mejora la legibilidad</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">edad</span> <span class="opera">=</span> <span class="nums">18</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const ·edad = ¬18;
 
-          <span class="key">if</span><span class="warp">(<span class="var">edad</span> <span class="opera">≧</span> <span class="nums">18</span>)</span> <span class="warp">&#123; 
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Ola q ase!'</span>)</span>;
-          &#125</span>;
-          <span class="result">Ola q ase!</span>     <span class="commnt">Es true, se cumple</span></pre>
+          if(·edad ≧ ¬18) &#123;
+            console.log('/º Ola q ase! º/');
+          &#125;;
+          ⋗ /º "Ola q ase!" º/     /*/º Es true, se cumple º/*/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Conversion booleana" codeText="==">
         <p class="chaptrSubSect__p">La sentencia <code>if(…)</code> evalúa la expresión dentro de sus paréntesis y convierte el resultado en booleano</p>
-        <p class="chaptrSubSect__p">El número <code>0</code>, un string vacio <code>""</code>, <code>null</code>, <code>undefined</code>, y <code>NaN</code> se convierten en <code>false</code>. Por esto son llamados valores <span class="bttn">falsy</span>. El resto de los valores se convierten en <code>true</code>, entonces los llamaremos valores <span class="bttn">truthy</span></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">if</span><span class="warp">(<span class="args">""</span>)</span> <span class="warp">&#123; 
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Ola q ase!'</span>)</span>;
-          &#125</span>;
-          <span class="result"></span>     <span class="commnt">Es false no se ejecutará el log</span></pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">El número <code>0</code>, un string vacio <code>""</code>, <code>null</code>, <code>undefined</code>, y <code>NaN</code> se convierten en <code>false</code>.</li>
+          <li class="chaptrSubSectUl__li">Son llamados valores <span class="bttn">falsy</span>.</li>
+          <li class="chaptrSubSectUl__li">El resto de los valores se convierten en <code>true</code>, son valores llamados<span class="bttn">truthy</span></li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          if('') &#123; 
+            console.log('/º Ola q ase! º/');
+          &#125;;
+
+          ⋗       /*/º Es false no se ejecutará el log º/*/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="La sentencia" codeText="else">
         <p class="chaptrSubSect__p">Cuando la condición sea <code>false</code> se puede poner opcionalmente un bloque de código que se ejecutará con <code>else</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">year</span> <span class="opera">=</span> <span class="nums">2020</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const ·year = ¬2020;
 
-          <span class="key">if</span><span class="warp">(<span class="var">year</span> <span class="opera">==</span> <span class="nums">2020</span>)</span> <span class="warp">&#123; 
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'El año de Éder!'</span>)</span>;
-          &#125</span> <span class="key">else</span> <span class="warp">&#123; 
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Otro año cualquiera'</span>)</span>;
-          &#125</span>;
-          <span class="result">El año de Éder!</span></pre>
+          if(·year == ¬2020) &#123; 
+            console.log('/º El año de Éder! º/');
+          &#125; else &#123; 
+            console.log('Otro año cualquiera');
+          &#125;;
+
+          ⋗ /º "El año de Éder!" º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="La clausula" codeText="else if">
         <p class="chaptrSubSect__p">Es una extensión de la estructura <code>if...else</code> que permite manejar múltiples condiciones de manera secuencial.</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">year</span> <span class="opera">=</span> <span class="nums">1976</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const ·year = ¬1976;
           
-          <span class="key">if</span><span class="warp">(<span class="var">year</span> <span class="opera">==</span> <span class="nums">2020</span>)</span> <span class="warp">&#123; 
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'El año de Éder!'</span>)</span>;
-          &#125</span> <span class="key">else if</span><span class="warp">(<span class="var">year</span> <span class="opera">==</span> <span class="nums">1976</span>)</span> <span class="warp">&#123; 
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'El año de Iker!'</span>)</span>;
-          &#125</span> <span class="key">else</span> <span class="warp">&#123; 
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Otro año cualquiera'</span>)</span>;
-          &#125</span>;
-          <span class="result">El año de Iker!</span></pre>
+          if(·year == ¬2020) &#123; 
+            console.log('/º El año de Éder! º/');
+          &#125; else if(·year == ¬1976) &#123; 
+            console.log('/º El año de Iker! º/');
+          &#125; else &#123; 
+            console.log('Otro año cualquiera');
+          &#125;;
+
+          ⋗ /º"El año de Iker!"º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="El operador ternario" codeText="?">
       <ChaptrSubSect h4Title="Versión moderna de" codeText="if">
         <p class="chaptrSubSect__p">Es la versión moderna de la clausula <code>if</code> y es el único operador con tres opeandos</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">accesAllowed</span>;
-          <span class="key">let</span> <span class="var">age</span> <span class="opera">=</span> <span class="nums">21</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·accesAllowed;
+          let ·age = ¬21;
 
-          <span class="commnt">Versión tradicional con if</span>
-          <span class="key">if</span><span class="warp">(<span class="var">age</span> <span class="opera">&gt;</span> <span class="nums">18</span>)</span> <span class="warp">&#123; 
-            <span class="var">accesAllowed</span> <span class="opera">=</span> <span class="key">true</span>;
-          &#125</span> <span class="key">else</span> <span class="warp">&#123; 
-            <span class="var">accesAllowed</span> <span class="opera">=</span> <span class="key">false</span>;
-          &#125</span>;
+          /* Versión tradicional con /º if º/ */
+          if(·age &gt; ¬18) &#123; 
+            ·accesAllowed = true;
+          &#125; else &#123; 
+            ·accesAllowed = false;
+          &#125;;
           
-          <span class="commnt">Versión operador ternario</span>
-          <span class="key">let</span> <span class="var">accesAllowed</span> <span class="opera">=</span> <span class="warp">(<span class="var">age</span> <span class="opera">&gt;</span> <span class="nums">18</span>)</span> <span class="opera">?</span> <span class="key">true</span> <span class="opera">:</span> <span class="key">false</span>;</pre>
+          /* Versión operador ternario */
+          let ·accesAllowed = (·age &gt; ¬18) ? true : false;</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Múltiples" codeText="?">
         <p class="chaptrSubSect__p">Aunque se pueden usar, <mark>no es recomendable</mark> por legibilidad</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">age</span> <span class="opera">=</span> <span class="nums">18</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·age = ¬18;
 
-          <span class="key">let</span> <span class="var">message</span> <span class="opera">=</span> <span class="warp">(<span class="var">age</span> <span class="opera">&lt;</span> <span class="nums">3</span>)</span> <span class="opera">?</span> <span class="args">'Hola bebé!'</span> <span class="opera">:</span> 
-          <span class="warp">(<span class="var">age</span> <span class="opera">&lt;</span> <span class="nums">18</span>)</span> <span class="opera">?</span> <span class="args">'Muy joven todavía!'</span> <span class="opera">:</span>
-          <span class="warp">(<span class="var">age</span> <span class="opera">&gt;</span> <span class="nums">70</span>)</span> <span class="opera">?</span> <span class="args">'Cuanta sabiduría!'</span> <span class="opera">:</span> 
-          <span class="args">'Eres un adulto!'</span>;
+          let ·message = (·age &lt; ¬3) ? '/º Hola bebé! º/' : 
+          (·age &lt; ¬18) ? '/º Muy joven todavía! º/' :
+          (·age &gt; ¬70) ? '/º Cuanta sabiduría! º/' : 
+          '/º Eres un adulto! º/';
         
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">message</span>)</span>;
-          <span class="result">Eres un adulto!</span>
-        </pre>
+          console.log(·message);
+          ⋗ /º "Eres un adulto!" º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="La sentencia" codeText="switch">
       <ChaptrSubSect h4Title="Sintaxis" codeText="">
         <p class="chaptrSubSect__p">Evalúa una expresión y ejecuta diferentes bloques de código según el valor de dicha expresión. Es útil cuando tienes múltiples condiciones que deseas evaluar de manera más limpia que con múltiples <code>if...else if</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="opera">+</span><span class="func">prompt</span><span class="warp">(<span class="args">'Un número del 1 al 3'</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·result = +prompt('Un número del 1 al 3');    /* Introducimos 2 */
       
-          <span class="key">switch</span><span class="warp"><span class="cnsl-ylw">(<span class="var">result</span>) <span class="warp">&#123;
-              <span class="key">case</span> <span class="nums">1</span><span class="opera">:</span>
-                  <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Muy pequeño'</span>)</span>;
-                  <span class="key">break</span>;
-              <span class="key">case</span> <span class="nums">2</span><span class="opera">:</span>
-                  <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Exacto'</span>)</span>;
-                  <span class="key">break</span>;
-              <span class="key">case</span> <span class="nums">3</span><span class="opera">:</span>
-                  <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Muy grande'</span>)</span>;
-                  <span class="key">break</span>;
-              <span class="key">default:</span>
-                  <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Número inválido'</span>)</span>;
-          &#125;</span>;</pre>
-          <p class="chaptrSubSect__p"> La sentencia <code>switch</code> utiliza comparación estricta (<code>===</code>), lo que puede causar problemas si no se tiene en cuenta el tipo de datos</p>
+          switch(·result) &#123;
+              case ¬1/º:º/
+                  console.log('Muy pequeño');
+                  break;
+              case ¬2/º:º/
+                  console.log('Exacto');
+                  break;
+              case ¬3/º:º/
+                  console.log('Muy grande');
+                  break;
+              default:
+                  console.log('Número inválido');
+          &#125;;
+        
+          ⋗ "Exacto"</pre>
+        <p class="chaptrSubSect__p"> La sentencia <code>switch</code> utiliza comparación estricta <code>===</code>, lo que puede causar problemas si no se tiene en cuenta el tipo de datos</p>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Agrupamiento de" codeText="case">
         <p class="chaptrSubSect__p">Si queremos que se ejecute el mismo código para <code>case 1</code> y <code>case 3</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="opera">+</span><span class="func">prompt</span><span class="warp">(<span class="args">'Un número del 1 al 3'</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·result = +prompt('Un número del 1 al 3');       /* Introducimos 3 */
       
-          <span class="key">switch</span><span class="warp"><span class="cnsl-ylw">(<span class="var">result</span>) <span class="warp">&#123;
-              <span class="key">case</span> <span class="nums">2</span><span class="opera">:</span>
-                  <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Exacto'</span>)</span>;
-                  <span class="key">break</span>;
-              <span class="key">case</span> <span class="nums">1</span><span class="opera">:</span>
-              <span class="key">case</span> <span class="nums">3</span><span class="opera">:</span>
-                  <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Muy grande'</span>)</span>;
-                  <span class="key">break</span>;
-              <span class="key">default:</span>
-                  <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Número inválido'</span>)</span>;
-          &#125;</span>;</pre>
+          switch(·result) &#123;
+              case ¬2/º:º/
+                  console.log('Exacto');
+                  break;
+              case ¬1/º:º/
+              case ¬3/º:º/
+                  console.log('Sigue probando');
+                  break;
+              default:
+                  console.log('Número inválido');
+          &#125;;
+        
+          ⋗ "Sigue probando"</pre>
       </ChaptrSubSect>
     </ChaptrSect>
   </LssnArt>
-	<Footer slot="mainFooter" />
+	<Footer slot="mainFooter" prevPage="/lessons/lesson_06" nextPage="/lessons/lesson_08"/>
 </MainLayout>
+
+
+
+<!-- 
+&lt;&gt;
+&#123;&#125;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<img class="chaptrSubSect__img" src=`${ruta}img13.webp` alt="captura del evento">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li"></li>
+＃
+-->
