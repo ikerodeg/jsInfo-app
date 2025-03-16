@@ -81,7 +81,7 @@ function resaltarPalabras() {
     .replace(/\b(true|false|undefined|null|Infinity|NaN)\b/g, '<span class="lim3">$1</span>')
     .replace(/`([^`]*)`/g, '<span class="lim1">\`$1\`</span>')
     .replace(/'([^']*)'/g, '<span class="lim1">\'$1\'</span>')
-    .replace(/(?<!\S)(return|break|break;|new|throw|of|instanceof|debugger;|return;)(?!\S)/g, '<span class="fuc2">$&</span>')  //keys
+    .replace(/(?<!\S)(return|continue;|break|break;|new|throw|of|instanceof|debugger;|return;)(?!\S)/g, '<span class="fuc2">$&</span>')  //keys
     .replace(/(?<!\S)(function|class)(?!\S)/g, '<span class="verd1">$&</span>')
     .replace(/(\w+:\s)/g, '<span class="verd2">$1</span>') //ObjProperties
     .replace(/(_\w+)/g, '<span class="verd2">$1</span>')

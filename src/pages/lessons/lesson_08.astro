@@ -9,84 +9,115 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
   <LssnArt artClass="lssn__08" h2Title="Condicionales" slot="mainContent">
     <ChaptrSect h3Title="El operador OR" codeText="||">
       <ChaptrSubSect h4Title="Buscando el primer valor" codeText="true">
-        <p class="chaptrSubSect__p">Una cadena de <code>||</code> devuelve <mark>el primer valor</mark> <code>true</code>, y si todos son <code>false</code> devuelve <mark>el último</mark> valor</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">a</span> <span class="opera">=</span> <span class="nums">0</span>;
-          <span class="key">let</span> <span class="var">b</span> <span class="opera">=</span> <span class="key">null</span>;
-          <span class="key">let</span> <span class="var">a</span> <span class="opera">=</span> <span class="args">"Hello"</span>;
-          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="var">a</span> <span class="opera">||</span> <span class="var">b</span> <span class="opera">||</span> <span class="var">c</span>;
+        <p class="chaptrSubSect__p">Una cadena de <code>||</code> devuelve <mark>el primer valor</mark> <code>true</code>, y si todos son <code>false</code> devuelve <mark style="white-space: nowrap">el último</mark> valor</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·a = ¬0;
+          let ·b = null;
+          let ·a = 'Hello';
+          let ·result = ·a || ·b || ·c;
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
-          <span class="result">Hello</span></pre>
+          console.log(·result);
+          ⋗ "Hello"</pre>
           <p class="chaptrSubSect__p">Es comúnmente usado para establecer valores predeterminados o manejar valores opcionales en código</p>
-          <pre class="chaptrSubSect__console">
-            <span class="key">let</span> <span class="var">userInput</span> <span class="opera">=</span> <span class="args">""</span>;
-            <span class="key">let</span> <span class="var">defaultText</span> <span class="opera">=</span> <span class="args">"Default Text"</span>;
-            <span class="key">let</span> <span class="var">a</span> <span class="opera">=</span> <span class="args">"Hello"</span>;
-            <span class="key">let</span> <span class="var">text</span> <span class="opera">=</span> <span class="var">userInput</span> <span class="opera">||</span> <span class="var">defautlText</span>;
+          <pre class="chaptrSubSect__console wScript">
+            let ·userInput = '';
+            let ·defaultText = 'Default Text';
+            let ·a = 'Hello';
+            let ·text = ·userInput || ·defautlText;
   
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">text</span>)</span>;
-            <span class="result">Default Text</span></pre>
+            console.log(·text);
+            ⋗ "Default Text"</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="El operador AND" codeText="&&">
       <ChaptrSubSect h4Title="Buscando el primer valor" codeText="false">
         <p class="chaptrSubSect__p">Devuelve el primer valor <code>false</code> que encuentra. Si todas las expresiones son <code>true</code>, <mark>devuelve el último valor</mark> evaluado.</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">a</span> <span class="opera">=</span> <span class="key">true</span>;
-          <span class="key">let</span> <span class="var">b</span> <span class="opera">=</span> <span class="nums">0</span>;
-          <span class="key">let</span> <span class="var">a</span> <span class="opera">=</span> <span class="args">"Hello"</span>;
-          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="var">a</span> <span class="opera">&&</span> <span class="var">b</span> <span class="opera">&&</span> <span class="var">c</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·a = true;
+          let ·b = ¬0;
+          let ·c = 'Hello';
+          let ·result = ·a && ·b && ·c;
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
-          <span class="result">0</span></pre>
-          <p class="chaptrSubSect__p">Evaluación de todas las expresiones verdaderas, toma el valor de la última expresión evaluada, que es 'JavaScript'</p>
-          <pre class="chaptrSubSect__console">
-            <span class="key">let</span> <span class="var">a</span> <span class="opera">=</span> <span class="nums">1</span>;
-            <span class="key">let</span> <span class="var">b</span> <span class="opera">=</span> <span class="key">true</span>;
-            <span class="key">let</span> <span class="var">a</span> <span class="opera">=</span> <span class="args">"JavaScript"</span>;
-            <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="var">a</span> <span class="opera">&&</span> <span class="var">b</span> <span class="opera">&&</span> <span class="var">c</span>;
+          console.log(·result);
+          ⋗ 0</pre>
+          <p class="chaptrSubSect__p">Si todas las expresiones son verdaderas, toma el valor de la última expresión evaluada</p>
+          <pre class="chaptrSubSect__console wScript">
+            let ·a = ¬1;
+            let ·b = true;
+            let ·c = 'JavaScript';
+            let ·result = ·a && ·b && ·c;
   
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
-            <span class="result">JavaScript</span></pre>
+            console.log(·result);
+            ⋗ "JavaScript"</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="El operador NOT" codeText="!">
       <ChaptrSubSect h4Title="Invirtiendo el valor" codeText="">
         <p class="chaptrSubSect__p">Invierte el valor de una expresión. Es útil para comprobar si una condición no es verdadera, o para convertir valores en sus equivalentes booleanos.</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">cajonRopaVacio</span> <span class="opera">=</span> <span class="key">false</span>;
-          <span class="key">if</span><span class="warp">(<span class="opera">!</span><span class="var">cajonRopaVacio</span>)</span> <span class="warp">&#123;    <span class="commnt">El cajón NO está vacio?</span>
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">"Lleno, no cabe más ropa"</span>)</span>;
-            &#125;</span> <span class="key">else</span> <span class="warp">&#123;
-              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">"Puedes meter mas ropa"</span>)</span>;
-            &#125;</span>;
-          <span class="result">Lleno, no cabe más ropa</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·cajonRopaVacio = false;
+
+          if(!·cajonRopaVacio) &#123;    /*/º El cajón NO está vacio? º/*/
+            console.log('Lleno, no cabe más ropa');
+            &#125; else &#123;
+              console.log('Puedes meter mas ropa');
+            &#125;;
+
+          ⋗ "Lleno, no cabe más ropa"</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="El operador Doble-NOT" codeText="!!">
       <ChaptrSubSect h4Title="Convirtiendo un valor en" codeText="Boolean">
         <p class="chaptrSubSect__p">Se utiliza comúnmente para convertir cualquier valor en un <code>Boolean</code>, que es útil para verificar si un valor es <code>true</code> o <code>false</code>en términos de su existencia o contenido. Por ejemplo, si quieres asegurarte de que una variable tiene un valor antes de realizar una acción, puedes usar <code>!!</code> para simplificar la verificación</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">caja</span> <span class="opera">=</span> <span class="args">""</span>;
-          <span class="key">let</span> <span class="var">tieneContenido</span> <span class="opera">=</span> <span class="opera">!!</span><span class="var">caja</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">tieneContenido</span>)</span>;
-          <span class="result">false</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·caja = '';
+          let ·tieneContenido = !!·caja;
+
+          console.log(·tieneContenido);
+          ⋗ /º false º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="El operador Nullish coalescing" codeText="??">
       <ChaptrSubSect h4Title="Asignando valores por defecto" codeText="">
         <p class="chaptrSubSect__p">Permite manejar valores <code>null</code> o <code>undefined</code>. Proporciona una manera segura de asignar valores por defecto sin confundir valores válidos como <code>0</code> o <code>""</code> con "ausencia" de valor</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">userInput</span> <span class="opera">=</span> <span class="args">""</span>; 
-          <span class="commnt">El usuario a pulsado enter sin escribir nada</span>
-          <span class="key">let</span> <span class="var">defaultText</span> <span class="opera">=</span> <span class="args">"Texto por defecto"</span>;
-          <span class="key">let</span> <span class="var">textToDisplay</span> <span class="opera">=</span> <span class="var">userInput</span> <span class="opera">??</span> <span class="var">defaultText</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·userInput = '';    /* El usuario a introducido nada */
           
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">textToDisplay</span>)</span>;
-          <span class="result">""</span> <span class="commnt">cadena vacia</span></pre>
+          let ·defaultText = 'Texto por defecto';
+          let ·textToDisplay = ·userInput ?? ·defaultText;
+          
+          console.log(·textToDisplay);
+          ⋗ ""    /* cadena vacia */</pre>
       </ChaptrSubSect>
     </ChaptrSect>
   </LssnArt>
-	<Footer slot="mainFooter" />
+	<Footer slot="mainFooter" prevPage="/lessons/lesson_07" nextPage="/lessons/lesson_09"/>
 </MainLayout>
+
+
+
+<!-- 
+&lt;&gt;
+&#123;&#125;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<img class="chaptrSubSect__img" src=`${ruta}img13.webp` alt="captura del evento">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li"></li>
+＃
+-->

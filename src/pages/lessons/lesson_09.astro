@@ -10,187 +10,215 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
     <ChaptrSect h3Title="El bucle" codeText="while">
       <ChaptrSubSect h4Title="Sintaxis" codeText="">
         <p class="chaptrSubSect__p">Ejecuta el bloque de código mientras la condición especificada es <code>true</code></p>
-          <pre class="chaptrSubSect__console">
-            <span class="key">let</span> <span class="var">contador</span> <span class="opera">=</span> <span class="nums">0</span>;
-            <span class="key">while</span> <span class="warp">(<span class="var">contador</span> <span class="opera">&lt;</span> <span class="nums">3</span>)</span> <span class="warp">&#123;
-              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Contador: <span class="opera">$</span><span class="warp">&#123;<span class="var">contador</span>&#125;</span>`</span>)</span>;
-              <span class="var">contador</span><span class="opera">++</span>
-            &#125;</span>;
-            
-            <span class="result">Contador: 0</span>
-            <span class="result">Contador: 1</span>
-            <span class="result">Contador: 2</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·contador = ¬0;
+          while (·contador &lt; ¬3) &#123;
+            console.log(`/º Contador: $&#123;·contador&#125; º/`);
+            ·contador++
+          &#125;;
+          
+          ⋗ "/º Contador: 0 º/"
+          ⋗ "/º Contador: 1 º/"
+          ⋗ "/º Contador: 2 º/"</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="El bucle" codeText="do...while">
       <ChaptrSubSect h4Title="Sintaxis" codeText="">
         <p class="chaptrSubSect__p">Primero ejecuta el bloque de codigo y luego, pasa a valorar la condición dada, aunque no se cumpla</p>
-          <pre class="chaptrSubSect__console">
-            <span class="key">let</span> <span class="var">contador</span> <span class="opera">=</span> <span class="nums">0</span>;
-            <span class="key">do</span> <span class="warp">&#123;
-              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Contador: <span class="opera">$</span><span class="warp">&#123;<span class="var">contador</span>&#125;</span>`</span>)</span>;
-              <span class="var">contador</span><span class="opera">++</span>
-            &#125;</span> <span class="key">while</span> <span class="warp">(<span class="var">contador</span> <span class="opera">&lt;</span> <span class="nums">0</span>)</span>
-            
-            <span class="result">Contador: 0</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·contador = ¬0;
+          @do &#123;
+            console.log(`/º Contador: $&#123;contador&#125; º/`);
+            ·contador++
+          &#125; while (·contador &lt; ¬0)
+          
+          ⋗ "/º Contador: 0 º/"</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="El bucle" codeText="for">
       <ChaptrSubSect h4Title="Sintaxis" codeText="">
         <p class="chaptrSubSect__p">El ciclo <code>for</code> tiene cuatro ccomponentes clave</p>
         <ul class="chaptrSubSect__ul">
-          <li class="chaptrSubSectUl__li"><span class="bttn">Inicializacion:</span> La variable se declara o se asigna un valor inicial.</li>
-          <li class="chaptrSubSectUl__li"><span class="bttn">Condición:</span> Se evalúa una expresión booleana que determina si el ciclo continúa o se detiene.</li>
-          <li class="chaptrSubSectUl__li"><span class="bttn">Cuerpo:</span> El bloque de código que se ejecuta en cada iteración.</li>
-          <li class="chaptrSubSectUl__li"><span class="bttn">Actualización:</span> Se ejecuta una expresión que usualmente incrementa o modifica la variable de control.</li>
+          <li class="chaptrSubSectUl__li"><strong>Inicializacion:</strong> La variable se declara o se asigna un valor inicial.</li>
+          <li class="chaptrSubSectUl__li"><strong>Condición:</strong> Se evalúa una expresión booleana que determina si el ciclo continúa o se detiene.</li>
+          <li class="chaptrSubSectUl__li"><strong>Cuerpo:</strong> El bloque de código que se ejecuta en cada iteración.</li>
+          <li class="chaptrSubSectUl__li"><strong>Actualización:</strong> Se ejecuta una expresión que usualmente incrementa o modifica la variable de control.</li>
         </ul>
-          <pre class="chaptrSubSect__console">
-            <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="params">seg</span> <span class="opera">=</span> <span class="nums">0</span>; <span class="params">seg</span> <span class="opera">&lt;</span> <span class="nums">3</span>; <span class="params">seg</span><span class="opera">++</span>)</span> <span class="warp">&#123;
-              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Han pasado $<span class="warp">&#123;<span class="params">seg</span>&#125;</span> segundos`</span>)</span>;
-            &#125;</span>;
-            
-            <span class="result">Han pasado 0 segundos</span>
-            <span class="result">Han pasado 1 segundos</span>
-            <span class="result">Han pasado 2 segundos</span></pre>
-          <p class="chaptrSubSect__p"><span class="bttn">Inicialización</span> <code>(let seg = 0)</code></p>
-          <ul class="chaptrSubSect__ul">
-            <li class="chaptrSubSectUl__li">Comienza ejecutando la fase de <span class="bttn">inicialización</span>. En este caso, <code>let seg = 0</code> declara una nueva variable llamada <code>seg</code> y le asigna el valor inicial de <code>0</code>.</li>
-            <li class="chaptrSubSectUl__li">Si se declara la variable con <code>let</code> o <code>const</code>, esta tiene un <mark>alcance local</mark> (solo está disponible dentro del ciclo).</li>
-            <li class="chaptrSubSectUl__li">Esta inicialización <mark>solo se ejecuta una vez</mark>, al inicio del ciclo, antes de que se ejecute el resto.</li>
-          </ul>
-          <p class="chaptrSubSect__p"><span class="bttn">Comprobación</span> de la condición <code>(seg &lt; 0)</code></p>
-          <ul class="chaptrSubSect__ul">
-            <li class="chaptrSubSectUl__li">Una vez la variable ha sido inicializada, el ciclo pasa a comprobar la condición..</li>
-            <li class="chaptrSubSectUl__li">Aquí se evalúa la expresión <code>seg &lt; 3</code>. Si el resultado es <code>true</code>, el ciclo continúa con la primera ejecución del cuerpo. Si es <code>false</code>, el ciclo termina y salta al siguiente bloque de código fuera del ciclo.</li>
-            <li class="chaptrSubSectUl__li">Al principio del ciclo, <code>seg</code> vale <code>0</code>, por lo que <code>seg &lt; 3</code> es <code>true</code></li>
-          </ul>
-          <p class="chaptrSubSect__p"><span class="bttn">Ejecución</span> del cuerpo del ciclo</p>
-          <ul class="chaptrSubSect__ul">
-            <li class="chaptrSubSectUl__li">Dado que la condición fue <code>true</code>, el ciclo ahora ejecuta el cuerpo.</li>
-            <li class="chaptrSubSectUl__li">Aquí, el valor de <code>seg</code> es <code>0</code>, así que la consola imprimirá:</li>
-          </ul>
-          <pre class="chaptrSubSect__console">
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Han pasado $<span class="warp">&#123;<span class="params">seg</span>&#125;</span> segundos`</span>)</span>;
-            
-            <span class="result">Han pasado 0 segundos</span></pre>
-          <p class="chaptrSubSect__p"><span class="bttn">Actualización</span> <code>(seg++)</code></p>
-          <ul class="chaptrSubSect__ul">
-            <li class="chaptrSubSectUl__li">Después de ejecutar el cuerpo del ciclo, el valor de <code>seg</code> se incrementa en 1 por el operador <code>++</code>.</li>
-            <li class="chaptrSubSectUl__li">Ahora, <code>seg</code> es igual a 1.</li>
-            <li class="chaptrSubSectUl__li">Una vez realizada esta actualización, el flujo vuelve a la fase de <span class="bttn">comprobación</span> de la condición</li>
-          </ul>
-          <p class="chaptrSubSect__p"><mark>2ª</mark><span class="bttn">Comprobación</span> de la condición <code>(seg &lt; 3)</code></p>
-          <ul class="chaptrSubSect__ul">
-            <li class="chaptrSubSectUl__li">Después de actualizar <code>seg</code>, volvemos a comprobar la condición: <code>seg &lt; 3</code>.</li>
-            <li class="chaptrSubSectUl__li">Ahora, <code>seg</code> vale 1, por lo que la expresión sigue siendo <code>true</code>.</li>
-            <li class="chaptrSubSectUl__li">Como la condición es verdadera, el ciclo vuelve a ejecutar el cuerpo del ciclo.
-            </li>
-          </ul>
-          <p class="chaptrSubSect__p"><mark>2ª</mark><span class="bttn">Ejecución</span> del cuerpo del ciclo</p>
-          <ul class="chaptrSubSect__ul">
-            <li class="chaptrSubSectUl__li">Dado que la condición fue <code>true</code>, el ciclo ahora ejecuta el cuerpo.</li>
-            <li class="chaptrSubSectUl__li">Aquí, el valor de <code>seg</code> es <code>1</code>, así que la consola imprimirá:</li>
-          </ul>
-          <pre class="chaptrSubSect__console">
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Han pasado $<span class="warp">&#123;<span class="params">seg</span>&#125;</span> segundos`</span>)</span>;
-            
-            <span class="result">Han pasado 1 segundos</span></pre>
-          <p class="chaptrSubSect__p"><mark>2ª</mark><span class="bttn">Actualización</span> <code>(seg++)</code></p>
-          <ul class="chaptrSubSect__ul">
-            <li class="chaptrSubSectUl__li">Después de ejecutar el cuerpo del ciclo, el valor de <code>seg</code> se incrementa en 1 por el operador <code>++</code>.</li>
-            <li class="chaptrSubSectUl__li">Ahora, <code>seg</code> es igual a 2.</li>
-            <li class="chaptrSubSectUl__li">Una vez realizada esta actualización, el flujo vuelve a la fase de <span class="bttn">comprobación</span> de la condición</li>
-          </ul>
-          <p class="chaptrSubSect__p"><mark>3ª</mark><span class="bttn">Comprobación</span> de la condición <code>(seg &lt; 3)</code></p>
-          <ul class="chaptrSubSect__ul">
-            <li class="chaptrSubSectUl__li">Después de actualizar <code>seg</code>, volvemos a comprobar la condición: <code>seg &lt; 3</code>.</li>
-            <li class="chaptrSubSectUl__li">Ahora, <code>seg</code> vale 2, por lo que la expresión sigue siendo <code>true</code>.</li>
-            <li class="chaptrSubSectUl__li">Como la condición es verdadera, el ciclo vuelve a ejecutar el cuerpo del ciclo.
-            </li>
-          </ul>
-          <p class="chaptrSubSect__p"><mark>3ª</mark><span class="bttn">Ejecución</span> del cuerpo del ciclo</p>
-          <ul class="chaptrSubSect__ul">
-            <li class="chaptrSubSectUl__li">Dado que la condición fue <code>true</code>, el ciclo ahora ejecuta el cuerpo.</li>
-            <li class="chaptrSubSectUl__li">Aquí, el valor de <code>seg</code> es <code>2</code>, así que la consola imprimirá:</li>
-          </ul>
-          <pre class="chaptrSubSect__console">
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Han pasado $<span class="warp">&#123;<span class="params">seg</span>&#125;</span> segundos`</span>)</span>;
-            
-            <span class="result">Han pasado 2 segundos</span></pre>
-          </ul>
-          <p class="chaptrSubSect__p"><mark>3ª</mark><span class="bttn">Actualización</span> <code>(seg++)</code></p>
-          <ul class="chaptrSubSect__ul">
-            <li class="chaptrSubSectUl__li">Después de ejecutar el cuerpo del ciclo, el valor de <code>seg</code> se incrementa en 1 por el operador <code>++</code>.</li>
-            <li class="chaptrSubSectUl__li">Ahora, <code>seg</code> es igual a 3.</li>
-            <li class="chaptrSubSectUl__li">Una vez realizada esta actualización, el flujo vuelve a la fase de <span class="bttn">comprobación</span> de la condición</li>
-          </ul>
-          <p class="chaptrSubSect__p"><mark>4ª</mark><span class="bttn">Comprobación</span> de la condición <code>(seg &lt; 3)</code></p>
-          <ul class="chaptrSubSect__ul">
-            <li class="chaptrSubSectUl__li">Después de actualizar <code>seg</code>, volvemos a comprobar la condición: <code>seg &lt; 3</code>.</li>
-            <li class="chaptrSubSectUl__li">Ahora, <code>seg</code> vale 3, por lo que la expresión es  <code>false</code>.</li>
-            <li class="chaptrSubSectUl__li">Dado que la condición ya no es verdadera, el ciclo termina y el flujo de control sale del bucle</li>
-          </ul>
+        <pre class="chaptrSubSect__console wScript">
+          for(let #seg = ¬0; #seg &lt; ¬3; #seg++) &#123;
+            console.log(`/º Han pasado $&#123;#seg&#125; segundos º/`);
+          &#125;;
+          
+          ⋗ "/º Han pasado 0 segundos º/"
+          ⋗ "/º Han pasado 1 segundos º/"
+          ⋗ "/º Han pasado 2 segundos º/"</pre>
+        <p class="chaptrSubSect__p"><strong>Inicialización</strong> <code>(let seg = 0)</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>let seg = 0</code> declara una nueva variable llamada <code>seg</code> y le asigna el valor inicial de <code>0</code>.</li>
+          <li class="chaptrSubSectUl__li">La variable tiene un <mark>alcance local</mark> (solo está disponible dentro del bucle).</li>
+          <li class="chaptrSubSectUl__li">Esta inicialización <mark>solo se ejecuta una vez</mark>, al inicio del ciclo, antes de que se ejecute el resto.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>Comprobación</strong> de la condición <code>(seg &lt; 0)</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Una vez la variable ha sido inicializada, el ciclo pasa a comprobar la condición..</li>
+          <li class="chaptrSubSectUl__li">Si la expresión <code>seg &lt; 3</code> es <code>true</code>, el ciclo continúa con la primera ejecución del cuerpo. Si es <code>false</code>, el ciclo termina y salta al siguiente bloque de código fuera del ciclo.</li>
+          <li class="chaptrSubSectUl__li">Al principio del ciclo, <code>seg</code> vale <code>0</code>, por lo que <code>seg &lt; 3</code> es <code>true</code>.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>Ejecución</strong> del cuerpo del ciclo</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Dado que la condición fue <code>true</code>, el ciclo ahora ejecuta el cuerpo.</li>
+          <li class="chaptrSubSectUl__li">Aquí, el valor de <code>seg</code> es <code>0</code>, así que la consola imprimirá:</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(`/º Han pasado $&#123;seg&#125; segundos º/`);
+          ⋗ "/º Han pasado 0 segundos º/""</pre>
+        <p class="chaptrSubSect__p"><strong>Actualización</strong> <code>(seg++)</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Tras ejecutar el cuerpo del ciclo, <code>seg</code> se incrementa en 1 por el operador <code>++</code>.</li>
+          <li class="chaptrSubSectUl__li">Ahora, <code>seg</code> es igual a 1.</li>
+          <li class="chaptrSubSectUl__li">Una vez actualizado, vuelve a la fase de <strong>comprobación</strong> de la condición.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>2ª Comprobación</strong> de la condición <code>(seg &lt; 3)</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Después de actualizar <code>seg</code>, volvemos a comprobar la condición: <code>seg &lt; 3</code>.</li>
+          <li class="chaptrSubSectUl__li">Ahora, <code>seg</code> vale 1, por lo que la expresión sigue siendo <code>true</code>.</li>
+          <li class="chaptrSubSectUl__li">Como la condición es verdadera, el ciclo vuelve a ejecutar el cuerpo del ciclo.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>2ª Ejecución</strong> del cuerpo del ciclo</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Dado que la condición fue <code>true</code>, el ciclo ahora ejecuta el cuerpo.</li>
+          <li class="chaptrSubSectUl__li">Aquí, el valor de <code>seg</code> es <code>1</code>, así que la consola imprimirá:</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(`/º Han pasado $&#123;seg&#125; segundos º/`);
+          ⋗ "/º Han pasado 1 segundos º/""</pre>
+        <p class="chaptrSubSect__p"><strong>2ª Actualización</strong> <code>(seg++)</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Tras ejecutar el cuerpo del ciclo, <code>seg</code> se incrementa en 1 por el operador <code>++</code>.</li>
+          <li class="chaptrSubSectUl__li">Ahora, <code>seg</code> es igual a 2.</li>
+          <li class="chaptrSubSectUl__li">Una vez actualizado, el flujo vuelve a la fase de <strong>comprobación</strong> de la condición.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>3ª Comprobación</strong> de la condición <code>(seg &lt; 3)</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Tras actualizar <code>seg</code>, volvemos a comprobar la condición: <code>seg &lt; 3</code>.</li>
+          <li class="chaptrSubSectUl__li">Ahora, <code>seg</code> vale 2, por lo que la expresión sigue siendo <code>true</code>.</li>
+          <li class="chaptrSubSectUl__li">Como la condición es verdadera, el ciclo vuelve a ejecutar el cuerpo del ciclo.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>3ª Ejecución</strong> del cuerpo del ciclo</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Dado que la condición fue <code>true</code>, el ciclo ahora ejecuta el cuerpo.</li>
+          <li class="chaptrSubSectUl__li">Aquí, el valor de <code>seg</code> es <code>2</code>, así que la consola imprimirá:</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(`/º Han pasado $&#123;seg&#125; segundos º/`);
+          ⋗ "/º Han pasado 2 segundos º/""</pre>
+        <p class="chaptrSubSect__p"><strong>3ª Actualización</strong> <code>(seg++)</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Tras ejecutar el cuerpo del ciclo, <code>seg</code> se incrementa en 1 por el operador <code>++</code>.</li>
+          <li class="chaptrSubSectUl__li">Ahora, <code>seg</code> es igual a 3.</li>
+          <li class="chaptrSubSectUl__li">Tras esta actualización, el flujo vuelve a la fase de <strong>comprobación</strong> de la condición.</li>
+        </ul>
+        <p class="chaptrSubSect__p"><strong>4ª Comprobación</strong> de la condición <code>(seg &lt; 3)</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Tras actualizar <code>seg</code>, volvemos a comprobar la condición: <code>seg &lt; 3</code>.</li>
+          <li class="chaptrSubSectUl__li">Ahora, <code>seg</code> vale 3, por lo que la expresión es  <code>false</code>.</li>
+          <li class="chaptrSubSectUl__li">La condición ya no es verdadera, el ciclo termina y el flujo de control sale del bucle.</li>
+        </ul>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Variable exterior" codeText="">
-        <p class="chaptrSubSect__p">Este estilo se utiliza a menudo cuando la variable del contador ya ha sido declarada y posiblemente inicializada en alguna parte del código anterior al bucle. Se considera <mark>buenas prácticas</mark> declarar las variables de cualquier parte de la <span class="bttn">inicializacion</span>, <span class="bttn">condicion</span> y  <span class="bttn">actualizacion</span> antes del bucle, para que <code>for</code> no tenga que estar comprobando/comparando en cada iteración y así mejorar el rendimiento</p>
-          <pre class="chaptrSubSect__console">
-            <span class="key">let</span> <span class="var">counter</span> <span class="opera">=</span> <span class="nums">0</span>;
+        <p class="chaptrSubSect__p">Este estilo se utiliza a menudo cuando la variable del contador ya ha sido declarada y posiblemente inicializada en alguna parte del código anterior al bucle. Se considera <mark>buenas prácticas</mark> declarar las variables de cualquier parte de la <strong>inicializacion</strong>, <strong>condicion</strong> y  <strong>actualizacion</strong> antes del bucle, para que <code>for</code> no tenga que estar comprobando y comparando en cada iteración y así mejorar el rendimiento</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·seconds = ¬0;
 
-            <span class="func">for</span><span class="warp">(; <span class="params">seg</span> <span class="opera">&lt;</span> <span class="nums">3</span>; <span class="params">seg</span><span class="opera">++</span>)</span> <span class="warp">&#123;
-              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Llevas <span class="opera">$</span><span class="warp">&#123;<span class="params">seg</span>&#125;</span> segundos`</span>)</span>;
-            &#125;</span>
-            
-            <span class="result">Llevas 0 segundos</span>
-            <span class="result">Llevas 1 segundos</span>
-            <span class="result">Llevas 2 segundos</span></pre>
+          for(; ·seconds &lt; ¬3; ·seconds++) &#123;
+            console.log(`/º Llevas $&#123;·seconds&#125; segundos º/`);
+          &#125;
+          
+          ⋗ "/º Llevas 0 segundos º/"
+          ⋗ "/º Llevas 1 segundos º/"
+          ⋗ "/º Llevas 2 segundos º/"</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Saltando el bucle con" codeText="continue">
         <p class="chaptrSubSect__p">Detiene la iteración actual y fuerza al bucle a comenzar de nuevo (si la condición lo permite) saltando una iteración</p>
-          <pre class="chaptrSubSect__console">
-            <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="var">i</span> <span class="opera">=</span> <span class="nums">1</span>; <span class="var">i</span> <span class="opera">&lt;=</span> <span class="nums">10</span>; <span class="var">i</span><span class="opera">++</span>)</span> <span class="warp">&#123;
-              <span class="key">if</span><span class="warp">(<span class="var">i</span> <span class="opera">%</span> <span class="nums">2</span> <span class="opera">!==</span> <span class="nums">0</span>)</span> <span class="obj">&#123;
-                <span class="key">continue</span>;
-                &#125;</span>
-              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">i</span>)</span>;
-            &#125;</span>;
-            
-            <span class="result">2 4 6 8 10</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          for(let #i = ¬1/º;º/ #i ≤ ¬10; #i++) &#123;
+            if(#i % ¬2 !== ¬0) &#123;
+              continue;
+              &#125;
+            console.log(#i);
+          &#125;;
+          
+          ⋗ 2
+          ⋗ 4
+          ⋗ 6
+          ⋗ 8
+          ⋗ 10</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Rompiendo el bucle con" codeText="break">
         <p class="chaptrSubSect__p">Podemos forzar una salida en cualquier momento usando la palabra reservada <code>break</code></p>
-          <pre class="chaptrSubSect__console">
-            <span class="key">const</span> <span class="var">frutas</span> <span class="opera">=</span> <span class="warp">[<span class="args">'pera', 'uva', 'kiwi', 'piña'</span>]</span>
-            <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="var">i</span> <span class="opera">=</span> <span class="nums">1</span>; <span class="var">i</span> <span class="opera">&lt;</span> <span class="var">frutas</span><span class="dot">.</span><span class="meth">length</span>; <span class="var">i</span><span class="opera">++</span>)</span> <span class="warp">&#123;
-              <span class="keyr">const</span> <span class="var">fruta</span> <span class="opera">=</span> <span class="var">frutas</span><span class="warp">[<span class="var">i</span>]</span>;
-              <span class="key">if</span><span class="warp">(<span class="var">fruta</span> <span class="opera">===</span> <span class="args">'kiwi'</span>)</span> <span class="warp">&#123;
-                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Fruta <span class="opera">$</span><span class="warp">&#123;<span class="var">fruta</span>&#125;</span> encontrada!`</span>)</span>;
-                <span class="key">break</span>;
-                &#125;</span>;
-            &#125;</span>;
-            
-            <span class="result">Fruta kiwi encontrada!</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          const ·frutas = ['pera', 'uva', 'kiwi', 'piña'];
+
+          for (let #i = ¬1; #i &lt; ·frutas.length; #i++) &#123;
+            const #fruta = ·frutas[#i];
+            if(#fruta === 'kiwi') &#123;
+              console.log(`/º Fruta $&#123;#fruta&#125; encontrada! º/`);
+              break;
+              &#125;;
+          &#125;;
+          
+          ⋗ /º "Fruta kiwi encontrada!" º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Etiquetas" codeText="">
         <p class="chaptrSubSect__p">En el código de abajo, <code>break coordenadasZ</code> busca a la etiqueta llamada <code>coordenadasZ</code> y nos saca del bucle actual hacia el de la etiqueta. Así que el control va directamente de <code>(*)</code> a <code>Bucle terminado!</code></p>
-          <pre class="chaptrSubSect__console">
-            <span class="params">coordenadasZ</span>:
-            <span class="func">for</span><span class="warp"> (<span class="key">let</span> <span class="var">i</span> <span class="opera">=</span> <span class="nums">0</span>; <span class="var">i</span> <span class="opera">&lt;</span> <span class="nums">3</span>; <span class="var">i</span><span class="opera">++</span>) &#123;
-            
-                <span class="params">coordenadasY</span>:
-                <span class="func">for</span> (<span class="key">let</span> <span class="var">j</span> <span class="opera">=</span> <span class="nums">0</span>; <span class="var">j</span> <span class="opera">&lt;</span> <span class="nums">3</span>; <span class="var">j</span><span class="opera">++</span>) &#123;
-                    <span class="key">let</span> <span class="var">input</span> <span class="opera">=</span> <span class="func">propmt</span>(<span class="args">`Valor en las coordenadas ($<span class="warp">&#123;<span class="var">i</span>&#125;,$&#123;<span class="var">j</span>&#125;)</span>`, ''</span>)</span>;
-                    <span class="commnt">cadena de texto vacía o se canceló, sale de ambos bucles</span>
-                    
-                    <span class="key">if</span><span class="warp">(<span class="opera">!</span><span class="var">input</span>) &#123;
-                        <span class="key">break</span> <span class="params">coordenadasZ</span></span>; <span class="commnt">(*)</span>
-                        <span class="commnt">hacer algo con ese valor</span>
-                    <span class="warp">&#125;
-                &#125;
+        <pre class="chaptrSubSect__console wScript">
+          coordenadasZ:
+          for (let #i = ¬0; #i &lt; ¬3; #i++) &#123;
+          
+            coordenadasY:
+            for (let #j = ¬0; #j &lt; ¬3; #j++) &#123;
+              let #input = @prompt(`/º Valor en las coordenadas ($&#123;i&#125;,$&#123;j&#125;) º/`, '');
+              /* cadena de texto vacía o se canceló, sale de ambos bucles */
+              
+              if(!#input) &#123;
+                  console.log('Saliendo de CoordenadasZ');
+                  break •coordenadasZ;
+                  /* hacer algo con ese valor */
+              &#125;
+            &#125;
 
-                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Bucle terminado!</span>)</span>;
-            &#125;</span>;</pre>
+            console.log('/º Bucle terminado! º/');
+          &#125;;</pre>
       </ChaptrSubSect>
     </ChaptrSect>
   </LssnArt>
-	<Footer slot="mainFooter" />
+	<Footer slot="mainFooter" prevPage="/lessons/lesson_08" nextPage="/lessons/lesson_10"/>
 </MainLayout>
+
+
+
+<!-- 
+&lt;&gt;
+&#123;&#125;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<img class="chaptrSubSect__img" src=`${ruta}img13.webp` alt="captura del evento">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li"></li>
+＃
+-->
