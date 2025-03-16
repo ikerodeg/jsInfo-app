@@ -1,65 +1,53 @@
-/*************************** VARIABLES ****************************/
-:root{
-/* ------------------ Backgrounds ----------------- */
-  --bgClr_Main: hsl(213, 44%, 11%);
-  --bgClr_Lssn: hsl(214, 43%, 15%);
+:root {
+    /* Color Fondo */
   --bgClr_ChapSect: hsl(214, 43%, 12%);
-  --bgClr_SubSect: hsl(213, 44%, 11%);
-  --bgClr_P: hsla(223, 34%, 12%, 0.466);
   --bgClr_ConsolePre: hsl(223, 16%, 9%);
   --bgClr_Hover: hsla(49, 100%, 50%, 0.781);
-
-
-/* -------------------- Texto -------------------- */
-/* ................. texto.fuentes ............... */
-  --fntFmly_Main: 'Neucha';
-  --fntFmly_Console: 'Ranga';
-  --fntFmly_PCode: 'NovaMono';
-
-/* .................. texto.tamaños ............... */
-  --fntBase: 1rem;
-  --fntSz_H1: calc(var(--fntBase) + 5vw);
-  --fntSz_H2: calc(var(--fntBase) + 2.5vw);
-  --fntSz_H2_Link: calc(var(--fntBase) + 1vw);
-  --fntSz_H3: calc(var(--fntBase) + 1.4vw);
-  --fntSz_H4: calc(var(--fntBase) + 0.7vw);
-  --fntSz_P: calc(var(--fntBase) + 0.15vw);
-  --fntSz_Li: calc(var(--fntBase) - 0.1vw);
-  --fntSz_P--code: calc(var(--fntBase) - 0.1vw);
-
-/* .................. texto.colores ............... */
-  --clrTxt_Main: hsl(0, 0%, 55%);
+  --bgClr_Lssn: hsl(214, 43%, 15%);
+  --bgClr_Main: hsl(213, 44%, 11%);
+  --bgClr_P: hsla(223, 34%, 12%, 0.466);
+  --bgClr_SubSect: hsl(213, 44%, 11%);
+    /* Bordes */
+  --brdrArtLssn: 1px solid hsla(204, 100%, 50%, 0.274);
+  --brdrRad_Main: 0.3em;
+    /* Sombreado */
+  --bxSdw_chptrSect: 0 0 2px rgba(255, 213, 0, 0.350);
+  --bxSdw_chptrSubSect: 0 0 2px rgba(255, 213, 0, 0.300);
+  --bxSdw_Hover: 0 0 10px hsl(49, 100%, 50%);
+  --bxSdw_lssnArt: 0 0 2px rgba(255, 213, 0, 0.400);
+  --bxSdw_Main: 1px 1px 3px hsla(0, 0%, 0%, 0.278);
+  --bxSdw_p: 0 0 2px rgba(255, 213, 0, 0.250);
+  --bxSdw_pre: 0 0 2px rgba(255, 213, 0, 0.250);
+  --bxSdw_ul: 0 0 2px rgba(255, 213, 0, 0.250);
+    /* Color texto */
   --clrTxt_H1: hsl(50, 100%, 50%);
   --clrTxt_H2: hsl(199, 100%, 50%);
   --clrTxt_H3: hsl(50, 30%, 50%);
   --clrTxt_H4: hsl(0, 0%, 100%);
   --clrTxt_Li: hsl(0, 0%, 50%);
   --clrTxt_Li--sub: hsl(32, 100%, 50%);
-
-/* ................ texto.background ............. */
-  
-/* .................. texto.sombra ................. */
+  --clrTxt_Main: hsl(0, 0%, 55%);
+    /* Tipo de fuentes */
+  --fntFmly_Console: 'Ranga';
+  --fntFmly_Main: 'Neucha';
+  --fntFmly_PCode: 'NovaMono';
+    /* Tamaños de fuentes */
+  --fntBase: 1rem;
+  --fntSz_H1: calc(var(--fntBase) + 5vw);
+  --fntSz_H2: calc(var(--fntBase) + 2.5vw);
+  --fntSz_H2_Link: calc(var(--fntBase) + 1vw);
+  --fntSz_H3: calc(var(--fntBase) + 1.4vw);
+  --fntSz_H4: calc(var(--fntBase) + 0.7vw);
+  --fntSz_Li: calc(var(--fntBase) - 0.1vw);
+  --fntSz_P: calc(var(--fntBase) + 0.15vw);
+  --fntSz_P--code: calc(var(--fntBase) - 0.1vw);
+/* Sombreado de texto */
+  --txtSdw_Code: 0 0 3px hsl(0, 0%, 69%);
   --txtSdw_H1: 0 0 5px hsl(50, 100%, 50%);
   --txtSdw_H2: 0 0 5px hsl(199, 100%, 50%);
   --txtSdw_H3: 0 0 3px hsl(50, 100%, 50%);
   --txtSdw_H4: 0 0 2px hsl(0, 0%, 100%);
   --txtSdw_P: 0 0 5px hsl(0, 0%, 69%);
-  --txtSdw_Code: 0 0 3px hsl(0, 0%, 69%);
-
-/* ----------------------- Cajas -------------------- */
-/* ................... caja.medidas ................. */
-/* ................... caja.bordes .................. */
-  --brdrRad_Main: 0.3em;
-  --brdrArtLssn: 1px solid hsla(204, 100%, 50%, 0.274);
-/* ................... caja.sombra .................. */
-  --bxSdw_lssnArt: 0 0 2px rgba(255, 213, 0, 0.400);
-  --bxSdw_chptrSect: 0 0 2px rgba(255, 213, 0, 0.350);
-  --bxSdw_chptrSubSect: 0 0 2px rgba(255, 213, 0, 0.300);
-  --bxSdw_p: 0 0 2px rgba(255, 213, 0, 0.250);
-  --bxSdw_pre: 0 0 2px rgba(255, 213, 0, 0.250);
-  --bxSdw_ul: 0 0 2px rgba(255, 213, 0, 0.250);
-  --bxSdw_Main: 1px 1px 3px hsla(0, 0%, 0%, 0.278);
-  --bxSdw_Hover: 0 0 10px hsl(49, 100%, 50%);
 }
 /****************************** HTML ******************************/
 html{
@@ -77,6 +65,33 @@ html{
   margin-inline: auto;
   inline-size: clamp(640px, 80vw, 1024px);
 }
+/************************ MAIN-HEADER & H1 *************************/
+.mainHeader{
+  display: flex;
+  align-items:flex-end;
+  background-color: var(--bgClr_Main);
+  margin:0;
+  padding-block: 2vh;
+  justify-content: center;
+  gap: 2vw;
+  margin-block: 2vh 8vh;
+  filter: drop-shadow(1px 1px 15px hsla(0, 0%, 0%, 0.534));
+}
+.mainHeader__h1{
+  margin:0;
+  padding: 0;
+  line-height: 3vh;
+  font-size: calc(var(--fntSz_H1) - 2vw);
+  color: var(--clrTxt_H1);
+  text-shadow: var(--txtSdw_H1);
+  font-weight: 600;
+}
+.mainHeader svg{
+  margin: 0;
+  padding: 0;
+  inline-size: 7vh;
+  border-radius: 0.2em;
+}
 /************************* HEADER-NAVMAIN ***************************/
 .header-NavMain{
   display: flex;
@@ -85,38 +100,28 @@ html{
   padding-inline: 2vw;
   box-sizing: content-box;
   border-block-end: 2px solid var(--clrTxt_H1);
-  margin-bottom: 4vh;
-  
-
-  .h2__main{
-    padding: 0;
-    margin: 0;
-    font-size: var(--fntSz_H2_Link);
-  }
-
-  .h2__main::before{
-    content: "·";
-    margin-inline-end: 1vw;
-  }
-
-  .h2__main:hover{
-    cursor: default;
-
-  }
-
-  p{
-    font-size: 2.5vw;
-    padding: 0;
-    margin: 0;
-  }
-  
-  p:hover{
-    cursor: pointer;
-    color: var(--clrTxt_H1);
-    text-shadow: var(--txtSdw_H1);
-  }
+  margin-block-end: 10vh;
 }
-
+.header-NavMain .h2__main{
+  padding: 0;
+  margin: 0;
+  font-size: var(--fntSz_H2_Link);
+}
+.header-NavMain .h2__main::before{
+  content: "꥟";
+  margin-inline-end: 1.5vw;
+  font-size: 1.4rem;
+}
+.header-NavMain p{
+  font-size: 2.5vw;
+  padding-inline: 3vw;
+  margin: 0;
+}
+.header-NavMain p:hover{
+  cursor: pointer;
+  color: var(--clrTxt_H1);
+  text-shadow: var(--txtSdw_H1);
+}
 /**************************** NAV-MAIN ******************************/
 .nav-main{
   display: flex;
@@ -157,81 +162,35 @@ html{
   padding: 0 0.5em 0.5em 1.5em;
   margin: 0;
   block-size: fit-content;
-  ul{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    column-gap: 2vh;
-    padding: 0;
-    margin: 0;
-
-    li {
-      box-sizing: border-box;
-      flex: 1 1 30%;
-      max-inline-size: 100%;
-      margin: 0;
-      padding-block: 0;
-      padding-inline: 0.5vh;
-      list-style-type: '⬝';
-      color: hsl(210, 1%, 65%);
-      /*    
-      font-weight: 600;
-      text-shadow: 0 0 10px hsla(209, 100%, 50%, 0.349);
-      padding-block: 0.8vh 0.5vh; */
-    }
-  }
 }
-.artLesson:nth-of-type(1) li, .artLesson:nth-of-type(2) li{
-  inline-size: 100%;
-}
-/************************ MAIN-HEADER & H1 *************************/
-.mainHeader{
+.lssnIndice ul{
   display: flex;
-  inline-size: 100%;
-  block-size: 12vh;
-  justify-content: center;
-  align-items: center;
-  gap: 2vw;
-  padding:0;
-  margin-block: 2vw;
-  background-color: var(--bgClr_Main);
-  filter: drop-shadow(1px 1px 15px hsla(0, 0%, 0%, 0.534));
-}
-.mainHeader__h1{          
+  flex-wrap: wrap;
+  justify-content: space-between;
+  column-gap: 2vh;
+  padding: 0;
   margin: 0;
-  padding: 0;
-  font-size: calc(var(--fntSz_H1) - 0.5vw);
-  color: var(--clrTxt_H1);
-  text-shadow: var(--txtSdw_H1);
-  text-align: center;
-  font-weight: 400;
-  line-height: 0;
 }
-.mainHeader svg{
+.lssnIndice li {
+  box-sizing: border-box;
+  flex: 1 1 35%;
+  max-inline-size: 100%;
   margin: 0;
-  padding: 0;
-  inline-size: 6vw;
-  border-radius: 0.2em;
-
-}
-.mainHeader p{
-  margin-inline: 8vw;
-  padding: 0;
-  font-size: calc(var(--fntSz_H1) - 1vw);
-  color: var(--clrTxt_H1);
+  padding-block: 0;
+  padding-inline: 0.5vh;
+  list-style-type: '⬝';
 }
 /*************************** LESSON ARTICLE *************************/
-/* ============================ Article =========================== */
 .lssnArt{
+  padding-inline: 1vw;
+  padding-block: 2vw;
+  margin-block-end: 10vh;
   border-radius: var(--brdrRad_Main);
-  padding: 1em 0.5em 0.1em 0.5em;
-  margin-block: 6vw;
   box-shadow: var(--bxSdw_lssnArt);
 }
-/* ============================== H2 ============================== */
 .lssnArt__h2{
-  position: relative;
-  margin-block: 0.8vw 1vw;
+  margin-block: 0 1vw;
+  padding-block: 1vw;
   font-size: var(--fntSz_H2);
   font-weight: 400;
   color: var(--clrTxt_H1);
@@ -239,20 +198,18 @@ html{
   text-shadow: var(--txtSdw_H1);
 }
 .lssnArt__h2::before, .lssnArt__h2::after{
-  content: '·';
+  content: '〃';
   margin-inline: 0.5em;
   font-size: 2rem;
 }
 /*************************** CHAPTER SECTION *************************/
-/* ============================ Section =========================== */
 .chaptrSect{
   background-color: var(--bgClr_ChapSect);
   border-radius: var(--brdrRad_Main);
   box-shadow: var(--bxSdw_chptrSect);
-  padding: 1vw 1vw 3vw 1vw;
-  margin-bottom: 2em;
+  padding: 0.5vh 2vh;
+  margin-block-end: 6vh;
 }
-/* ============================== H3 ============================== */
 .chaptrSect__h3{
   margin-block: 2vw;
   color: var(--clrTxt_H3);
@@ -262,7 +219,7 @@ html{
 }
 .chaptrSect__h3::before {
   position: relative;
-  content: '꥟ ';
+  content: '‣ ';
   margin-inline: 0.2em;
   text-shadow: var(--txtSdw_H3);
   color: var(--clrTxt_H3);
@@ -281,23 +238,27 @@ html{
   font-size: 1.4rem;
   background-color: var(--bgClr_ConsolePre);
   border-radius: var(--brdrRad_Main);
-  padding-inline: 0.2em; 
-  padding-block: 0 0.1em;
+  padding: 0rem 0.1rem 0.1rem 0.2rem; 
   border: 1px dotted var(--clrTxt_H1);
   text-shadow: none;
 }
 /************************ CHAPTER SUB-SECTION **********************/
-/* ============================ Section =========================== */
 .chaptrSubSect{
   padding: 1vw;
   border-radius: var(--brdrRad_Main);
   background-color: var(--bgClr_SubSect);
   box-shadow: var(--bxSdw_chptrSubSect);
-}
-.chaptrSubSect:not(:last-child){
   margin-block-end: calc(1em + 1vw);
 }
-/* ============================== H4 ============================== */
+.chaptrSubSect header{
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+}
+.chaptrSubSect .hint{
+  color: darkslategrey;
+  font-size: calc(var(--fntBase) - 0.3vw);
+}
 .chaptrSubSect__titleH4{
   padding-inline-start: 0.5em;
   padding-block: 1vw;
@@ -317,7 +278,7 @@ html{
   text-shadow: var(--txtSdw_H4);
 }
 .chaptrSubSect__titleH4.open::before {
-  content: '▿'; /* Cambia el icono cuando está abierto */
+  content: '▿';
 }
 .chaptrSubSect__titleH4::after {
   position: relative;
@@ -326,7 +287,7 @@ html{
 }
 .chaptrSubSect__titleH4 > code {
   font-family: var(--fntFmly_PCode);
-  font-size: 1.1rem;
+  font-size: calc(var(--fntBase) + 0.1vw);
   background-color: var(--bgClr_ConsolePre);
   border-radius: var(--brdrRad_Main);
   padding-inline: 0.3em; 
@@ -339,7 +300,6 @@ html{
   color: var(--clrTxt_H1);
   text-shadow: var(--txtSdw_H1);
 }
-/* =========================== Paragraph ========================== */
 .chaptrSubSect__p {
   background-color: var(--bgClr_ChapSect);
   box-shadow: var(--bxSdw_p);
@@ -352,7 +312,7 @@ html{
 }
 .chaptrSubSect__p::before {
   position: relative;
-  content: '🖇 ';
+  content: '𑗃 ';
   margin-inline-end: 0.5vw;
   text-shadow: var(--txtSdw_P);
   color: var(--clrTxt_H1);
@@ -370,7 +330,7 @@ html{
   background-color: var(--bgClr_ConsolePre);
   border-radius: var(--brdrRad_Main);
   padding: 0 0.15em 0.2em 0.15em; 
-  border: 1px dashed gray;
+  border: 1px dashed hsl(0, 0%, 50%);
   color: white;
   text-shadow: var(--txtSdw_P);
 }
@@ -393,7 +353,6 @@ html{
 }
 /* ======================== Unordered List ======================== */
 .chaptrSubSect__ul{
-  background-color: var(--bgClr_ChapSect);
   box-shadow: var(--bxSdw_ul);
   padding-inline-start: 5vw;
   padding-inline-end: 2vw;
@@ -401,69 +360,68 @@ html{
   border-radius: var(--brdrRad_Main);
   line-height: 2.6em;
   list-style: none;
-  .chaptrSubSectUl__li{
-    font-size: var(--fntSz_Li);
-    color: var(--clrTxt_Li);
-    text-indent: -2vw;
-  }
-  .chaptrSubSectUl__li > .bttn {
-    color: hsl(0, 0%, 0%);
-    text-shadow: 1px 1px 3px hsl(0, 0%, 11%);
-    margin-inline: 0.2em;
-    border-radius: var(--brdrRad_Main);
-    background: hsla(0, 0%, 83%, 0.492);
-    padding: 0.25em 0.3em 0.1em 0.3em;
-  }
-  .chaptrSubSectUl__li code {
-    color: hsl(0, 0%, 69%);
-    margin-inline: 0.3vw;
-    font-family: var(--fntFmly_PCode);
-    font-size: 0.8rem;
-    background-color: var(--bgClr_ConsolePre);
-    border-radius: var(--brdrRad_Main);
-    padding: 0 0.15em 0.2em 0.25em; 
-    border: 1px dotted gray;
-  }
-  .chaptrSubSectUl__li mark{
-    margin-inline: 0.2em;
-    border-radius: var(--brdrRad_Main);
-    background: hsla(69, 100%, 50%, 0.492);
-    padding: 0.3vw 0.4vw 0.2vw 0.3vw;
-  }
-  .chaptrSubSectUl__li > strong{
-    color: hsl(23, 32%, 70%);
-    text-shadow: 0 0 8px hsla(24, 100%, 50%, 0.692);
-  }
-  .chaptrSubSectUl__li::before {
-    position: relative;
-    content: '➣ ';
-    color: var(--clrTxt_Li--sub);
-    font-size: calc(var(--fntSz_Li) + 0.1vw);
-    text-shadow: var(--txtSdw_H3);
-  }
-  .chaptrSubSectUl__li--sub{
-    font-size: calc(var(--fntSz_Li) - 0.15em);
-    color: var(--clrTxt_Li);
-    margin-inline-start: 1em;
-  }
-  .chaptrSubSectUl__li--sub code {
-    margin-inline: 0.3vw;
-    font-family: var(--fntFmly_PCode);
-    font-size: 0.75rem;
-    background-color: var(--bgClr_ConsolePre);
-    border-radius: var(--brdrRad_Main);
-    padding: 0 0.15em 0.2em 0.25em; 
-    border: 1px dotted gray;
-    color: hsl(0, 0%, 63%);
-  }
-  .chaptrSubSectUl__li--sub::before {
-    position: relative;
-    content: '⹈ ';
-    font-size: calc(var(--fntSz_Li) + 0.1vw);
-    color: var(--clrTxt_Li--sub);
-    text-shadow: var(--txtSdw_H3);
-  }
-
+}
+.chaptrSubSectUl__li{
+  font-size: var(--fntSz_Li);
+  color: var(--clrTxt_Li);
+  text-indent: -1vw;
+}
+.chaptrSubSectUl__li::before {
+  position: relative;
+  content: '➣ ';
+  color: var(--clrTxt_Li--sub);
+  font-size: calc(var(--fntSz_Li) + 0.1vw);
+  text-shadow: var(--txtSdw_H3);
+}
+.chaptrSubSectUl__li > .bttn {
+  color: hsl(0, 0%, 0%);
+  text-shadow: 1px 1px 3px hsl(0, 0%, 11%);
+  margin-inline: 0.2em;
+  border-radius: var(--brdrRad_Main);
+  background: hsla(0, 0%, 83%, 0.492);
+  padding: 0.25em 0.3em 0.1em 0.3em;
+}
+.chaptrSubSectUl__li code {
+  color: hsl(0, 0%, 69%);
+  margin-inline: 0.3vw;
+  font-family: var(--fntFmly_PCode);
+  font-size: 0.8rem;
+  background-color: var(--bgClr_ConsolePre);
+  border-radius: var(--brdrRad_Main);
+  padding: 0 0.15em 0.2em 0.25em; 
+  border: 1px dotted gray;
+}
+.chaptrSubSectUl__li mark{
+  margin-inline: 0.2em;
+  border-radius: var(--brdrRad_Main);
+  background: hsla(69, 100%, 50%, 0.492);
+  padding: 0.3vw 0.4vw 0.2vw 0.3vw;
+}
+.chaptrSubSectUl__li > strong{
+  color: hsl(23, 32%, 70%);
+  text-shadow: 0 0 8px hsla(24, 100%, 50%, 0.692);
+}
+.chaptrSubSectUl__li--sub{
+  font-size: calc(var(--fntSz_Li) - 0.15em);
+  color: var(--clrTxt_Li);
+  margin-inline-start: 1em;
+}
+.chaptrSubSectUl__li--sub code {
+  margin-inline: 0.3vw;
+  font-family: var(--fntFmly_PCode);
+  font-size: 0.75rem;
+  background-color: var(--bgClr_ConsolePre);
+  border-radius: var(--brdrRad_Main);
+  padding: 0 0.15em 0.2em 0.25em; 
+  border: 1px dotted gray;
+  color: hsl(0, 0%, 63%);
+}
+.chaptrSubSectUl__li--sub::before {
+  position: relative;
+  content: '⹈ ';
+  font-size: calc(var(--fntSz_Li) + 0.1vw);
+  color: var(--clrTxt_Li--sub);
+  text-shadow: var(--txtSdw_H3);
 }
 /* ============================ tables ============================ */
 .chaptrSubSect__table{
@@ -474,32 +432,25 @@ html{
   border-spacing: 0.5vw;
   inline-size: fit-content;
   margin-block-end: 1vh;
-
-  thead{
-    background-color: hsl(207, 49%, 14%);
-    
-    th{
-      padding-block: 1vw;
-    }
-  }
-
-  tbody{
-    tr{
-      td{
-        inline-size: 30%;
-        padding-inline-start: 0.8vw;
-        padding-block-start: 0.6vh;
-        border: 1px solid hsl(207, 49%, 14%);
-      }
-      .tdCenter{
-        text-align: center;
-        padding-block-end: 0.3em;
-      }
-      .tdBold{
-        text-shadow:0 0 2px rgb(255, 241, 47);
-      }
-    }
-  }
+}
+.chaptrSubSect__table thead{
+  background-color: hsl(207, 49%, 14%);
+}
+.chaptrSubSect__table th{
+  padding-block: 1vw;
+}
+.chaptrSubSect__table tbody td{
+  inline-size: 30%;
+  padding-inline-start: 0.8vw;
+  padding-block-start: 0.6vh;
+  border: 1px solid hsl(207, 49%, 14%);
+}
+.chaptrSubSect__table tbody .tdCenter{
+  text-align: center;
+  padding-block-end: 0.3em;
+}
+.chaptrSubSect__table tbody .tdBold{
+  text-shadow:0 0 2px rgb(255, 241, 47);
 }
 /* ============================ Images ============================ */
 .chaptrSubSect__img{
@@ -511,14 +462,12 @@ html{
   margin-inline: auto;
 }
 /* =========================== CONSOLE ============================ */
-/* --------------------------- ConsolePre ----------------------- */
 .chaptrSubSect__console{
   position: relative;
   background-color: var(--bgClr_ConsolePre);
   border-radius: var(--brdrRad_Main);
   box-shadow: var(--bxSdw_Main);
   box-shadow: var(--bxSdw_pre);
-  padding-inline-start: 2vw;
   padding-block-start: 1vw;
   padding-block-end: 0.8vw;
   font-family: var(--fntFmly_Console);
@@ -531,238 +480,80 @@ html{
   content: " ";
   block-size: 100%;
   border-radius: 0.3em 0 0em 0.3em;
-  inline-size: clamp(2rem, 3.25vw + 1.16rem, 5rem);
+  inline-size: clamp(1.1rem, 2.15vw + 1.06rem, 4rem);
   left: 0;
   top: 0;
   background-color: hsl(210, 32%, 12%);
 }
-/* --------------------------- SpanColors ----------------------- */
-.commnt{    /*comentarios*/
-  color: hsl(0, 0%, 30%);
-  text-shadow: none;
-}
-.commnt::before{
-  position: relative;
-  content: '//';
-}
-.warp{      /*paréntesis, corchetes, llaves*/
-  color: hsl(175, 65%, 46%);
-  text-shadow: 0 0 3px hsla(175, 100%, 50%, 0.5);
-}
-.warp2{      /*paréntesis, corchetes, llaves*/
-  color: hsl(64, 65%, 45%);
-  text-shadow: 0 0 3px hsla(64, 73%, 58%, 0.5);
-}
-.params{    /*parámetros que se pasan a funciones*/
-  color: hsl(0, 0%, 70%);
-  text-shadow: 0 0 3px hsla(0, 0%, 70%, 0.5);
-}
-.result{    /*resultado en consola*/
-  color: hsl(208, 6%, 49%);
-}
-.result::before{
-  position: relative;
-  content: '⋗';
-  margin-inline-end: 0.5vw;
-}
-.elmnt{     /*este falta decidir*/
-  color: hsl(128, 53%, 83%);
-}
-.etiq, .dot{    /*etiquetaHtml, punto de separacion metodos*/
-  color: hsl(81, 100%, 50%);
-  text-shadow: 0 0 5px hsla(0, 100%, 74%, 0.671);
-}
-.atrib, .nums{    /*números*/
-  color: hsl(21, 100%, 62%);
-  text-shadow: 0 0 4px hsla(22, 100%, 50%, 0.6);
-}
-.valor, .args{    /*valores HTML, argumentos javaScript strings*/
-  color: hsl(80, 53%, 46%);
-  text-shadow: 0 0 3px hsla(80, 53%, 46%, 0.6);
-}
-.opera{         /*Operadores aritmeticos*/
-  color: hsl(0, 100%, 64%);
-  text-shadow: 0 0 3px hsl(0, 100%, 64%);
-}
-.obj{         /*Objetos (precedidos antes del punto)*/
-  color: hsl(45, 61%, 61%);
-  text-shadow: 0 0 3px hsla(45, 61%, 61%, 0.5);
-}
-.meth, .assign{     /*Métodos(después del punto), */
-  color: hsl(209, 74%, 65%);
-  text-shadow: 0 0 3px hsla(209, 74%, 65%, 0.5);
-}
-.func{      /*Funciones antes de paréntesis*/
-  color: hsl(216, 86%, 66%);
-  text-shadow: 0 0 3px hsla(216, 86%, 66%, 0.5);
-}
-.key{       /*Palabras clave*/
-  color: hsl(274, 100%, 71%);
-  text-shadow: 0 0 3px hsla(274, 100%, 71%, 0.5);
-}
-.var{ /*variables a la que se les ha asignado algo*/
-  color: hsl(0, 80%, 62%);
-  text-shadow: 0 0 3px hsla(0, 80%, 62%, 0.5);
-}
-.objProp {
-  color: hsl(0, 60%, 69%);
-  text-shadow: 0 0 3px hsla(0, 60%, 69%, 0.5);
-}
-/* ---------------------------------- new SpanColors ---------------------------------- */
-/* ================ turquesa ================ */
-.turq1{
-  color: hsl(180, 100%, 35%);
-}
-.turq2{
-  color: hsl(180, 100%, 50%);     /*warp*/
-}
-.turq3{
-  color: hsl(180, 100%, 70%);
-}
-/* ================ azules ================ */
-.azu2{
-  color: hsl(210, 100%, 50%);
-}
-.azu1{
-  color: hsl(210, 100%, 70%);
-}
-/* ================ rojos ================ */
-.roj1{
-  color: hsl(0, 100%, 65%);     /*opera*/
-}
-.roj2{
-  color: hsl(38, 21%, 64%);     
-}
-/* ================ naranja ================ */
-.nar1{
-  color: hsl(34, 74%, 48%);      
-}
-.nar2{
-  color: hsl(128, 72%, 39%);      
-}
-.nar3{
-  color: hsl(29, 26%, 56%);      
-}
-/* ================ huevo ================ */
-.huev1{
-  color: hsl(44, 67%, 47%);      
-}
-.huev2{
-  color: hsl(44, 78%, 38%);      
-}
+/* ==================== CONSOLE COLORS ============================ */
 .huev3{
   color: hsl(44, 100%, 70%);      
 }
-/* ================ fosforito ================ */
-.fosf1{
-  color: hsl(64, 100%, 35%);
+.roj1{
+  color: hsl(0, 100%, 65%);
 }
-.fosf2{
-  color: hsl(64, 100%, 50%);      
+.turq1{
+  color: hsl(180, 100%, 35%);
 }
-.fosf3{
-  color: hsl(64, 46%, 42%);      
-}
-/* ================ lima ================ */
 .lim1{
   color: hsl(76, 100%, 35%);
-}
-.lim2{
-  color: hsl(76, 100%, 50%);      
 }
 .lim3{
   color: hsl(0, 18%, 45%);
   text-shadow: 0 0 2px hsla(0, 92%, 36%, 0.836);   
 }
-/* ================ verde ================ */
-.verd1{
-  color: hsl(135, 62%, 65%);
-}
-.verd2{
-  color: hsl(135, 26%, 51%);     
-}
-.verd3{
-  color: hsl(135, 86%, 36%);
-}
-/* ================ marino ================ */
 .mari3{
   color: hsl(229, 100%, 70%);       
 }
-/* ================ violeta ================ */
-.viol1{
-  color: hsl(278, 40%, 62%);
+.azu2{
+  color: hsl(210, 100%, 50%);
+}
+.nar1{
+  color: hsl(34, 74%, 48%);      
 }
 .viol2{
   color: hsl(278, 100%, 70%);   
 }
-/* ================ funcsia ================ */
-.fuc1{
-  color: hsl(293, 100%, 35%);     
+.gris1{
+  color: hsl(0, 0%, 43%);
+}
+.huev3{
+  color: hsl(44, 100%, 70%);      
+}
+.verd1{
+  color: hsl(135, 62%, 65%);
 }
 .fuc2{
   color: hsl(313, 75%, 58%);    
-} 
-.fuc3{
-  color: hsl(293, 100%, 70%);   
 }
-/* ================ pink ================ */
-.pink1{
-  color: hsl(320, 100%, 50%);   
-}
-.pink2{
-  color: hsl(320, 100%, 70%);
-}
-/* ================ blancos ================ */
-.blan1{
-  color: hsl(0, 2%, 58%);
-  text-shadow: 0 0 3px rgb(145, 118, 68);
-}
-.blan2{
-  color: hsl(0, 0%, 76%);     
-}
-.blan3{
-  color: hsl(0, 0%, 58%);     
-}
-.reset{
-  color: gray !important;
-}
-
-.gris1{
-  color: hsl(0, 0%, 43%);
+.verd2{
+  color: hsl(135, 26%, 51%);     
 }
 .gris2{
   color: hsl(0, 0%, 57%);
   text-shadow: 0 0 4px hsl(293, 100%, 64%);
 }
-
-
-/************************** FOOTER **********************/
+/******************************** FOOTER *****************************/
 .mainFooter{
   margin-inline: auto;
   margin-block: 6vw;
   text-align: center;
-
-  a{
-    font-size: 2em;
-  }
 }
-
-.aLinkLssn:hover{
-  color: black;
+.mainFooter .footerNav{
+  inline-size: fit-content;
+  margin-inline: auto;
+  display: flex;
 }
-
-/*    pink1   + - ? : !  < > => = .  */
-/*    viol2   && ||   */
-/*    turq1       {} [] ()   */
-/*    verd3   var|let|const   */
-/*    verd2   return|break|function|new|throw    */
-/*    mari3   if|else|for|switch|forEach|log|@*/
-/*    fosf1   true|false|undefined|null   */
-/*    huev2   '' ``  objProp:  */
-/*    nar2    6846844    */
-/*    huev1   Array, Object, this, Error, Proxy, console   */
-/*    roj2    ·nombreVariable    */
-/*    blan1   •parametros    */
-
-
-
+.mainFooter .homeFooter{
+  font-size: 2em;
+}
+.mainFooter .arrowFooter{
+  display: block;
+  font-size: calc(var(--fntBase) + 1em);
+  margin-inline: 2vw;
+}
+.mainFooter .arrowFooter:hover{
+  transform: scale(120%);
+  color: var(--clrTxt_H1);
+  text-shadow: var(--txtSdw_H1);
+}

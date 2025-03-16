@@ -10,22 +10,49 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
     <ChaptrSect h3Title="Mostrar información al usuario">
       <ChaptrSubSect h4Title="La función" codeText="alert()">
         <p class="chaptrSubSect__p">Muestra una ventana <mark>modal</mark> con un mensaje tipo <mark><b>String</b></mark>, y espera que el usuario presione <span class="bttn">Aceptar</span></p>
-        <pre class="chaptrSubSect__console">
-          <span class="func">alert</span><span class="warp">(</span><span class="args">"¿Deseas salir?"</span><span class="warp">)</span>;</pre>
+        <pre class="chaptrSubSect__console wScript">
+          alert('/º ¿Deseas salir? º/');</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="La función" codeText="prompt()">
         <p class="chaptrSubSect__p">Muestra una ventana <mark>modal</mark> con un mensaje de texto, un campo de entrada de datos para el usuario y los botones <span class="bttn">Ok</span> y <span class="bttn">Cancelar</span></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">age</span> <span class="opera">=</span> <span class="func">prompt</span><span class="warp">(</span><span class="args">"¿Cuántos años tienes?"</span>, <span class="nums">25</span><span class="warp">)</span>;
-          <span class="func">alert</span><span class="warp">(</span><span class="args">`Tienes <span class="key">$&#123;<span class="var">age</span>&#125;</span> años!`</span><span class="warp">)</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·age = prompt('/º ¿Cuántos años tienes? º/', ¬25);
+          alert(`/º Tienes $&#123;·age&#125; años! º/`);</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="La función" codeText="confirm()">
         <p class="chaptrSubSect__p">Muestra una ventana <mark>modal</mark> con un mensaje de texto, y los botones <span class="bttn">Ok</span> y <span class="bttn">Cancelar</span>. El resultado es <code>true</code> si se pulsa <span class="bttn">Ok</span>, y <code>false</code> si se pulsa <span class="bttn">Cancelar</span></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">eresElJefe</span> <span class="opera">=</span> <span class="func">confirm</span><span class="warp">(</span><span class="args">"¿Eres el jefe?"</span><span class="warp">)</span>;
-          <span class="result">true</span>          <span class="commnt">si pulsas Ok</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·eresElJefe = confirm('/º ¿Eres el jefe? º/');
+          ⋗ true          /* si pulsas Ok */</pre>
       </ChaptrSubSect>
     </ChaptrSect>
   </LssnArt>
-	<Footer slot="mainFooter" />
+	<Footer slot="mainFooter" prevPage="/lessons/lesson_01" nextPage="/lessons/lesson_03"/>
 </MainLayout>
+
+
+<!-- 
+&lt;&gt;
+&#123;&#125;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<img class="chaptrSubSect__img" src=`${ruta}img13.webp` alt="captura del evento">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li"></li>
+＃
+-->

@@ -1,7 +1,9 @@
 ---
-
+const { prevPage, nextPage } = Astro.props
 ---
 <footer class="mainFooter">
-  <a href="/">🏠</a>
-  <p>Desarrollado por Iker Rodríguez Egidua</p>
+  <section class="footerNav">
+    <a class="arrowFooter arrowFooter--left" href={prevPage}>⤌</a> <a class="homeFooter" href="/">🏠</a> <a class="arrowFooter arrowFooter--rigth" href={nextPage}>⤍</a>
+  </section>
+    <p>Desarrollado por Iker Rodríguez Egidua</p>
 </footer>

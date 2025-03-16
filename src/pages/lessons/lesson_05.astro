@@ -10,89 +10,122 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
     <ChaptrSect h3Title="Resto" codeText="%">
       <ChaptrSubSect h4Title="Explicación y uso" codeText="">
         <p class="chaptrSubSect__p">El resultado de <code>a % b</code> es el resto de la división entera de <code>a / b</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="nums">5</span> <span class="opera">%</span> <span class="nums">2</span>)</span>;
-          <span class="result">1</span>     <span class="commnt">5 / 2 = 2 y resto 1</span>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(5 % 2);
+          ⋗ 1     /*/º 5 / 2 = 2 y resto 1 º/*/
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="nums">8</span> <span class="opera">%</span> <span class="nums">2</span>)</span>;
-          <span class="result">0</span>     <span class="commnt">8 / 2 = 4 y resto 0</span></pre>
+          console.log(8 % 2);
+          ⋗ 0     /*/º 8 / 2 = 4 y resto 0 º/*/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Exponenciación" codeText="**">
       <ChaptrSubSect h4Title="Explicación y uso" codeText="">
         <p class="chaptrSubSect__p">El operador exponenciación <code>a ** b</code> eleva <code>a</code> a la potencia de <code>b</code>. En matemáticas de la escuela, lo escribimos como <code>a<sup>b</sup></code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="nums">2</span> <span class="opera">**</span> <span class="nums">4</span>)</span>;
-          <span class="result">16</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          console.log(2 ** 4);
+          ⋗ 16</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Asignación y modificación" codeText="+">
       <ChaptrSubSect h4Title="Explicación y uso" codeText="">
         <p class="chaptrSubSect__p">Cuando queremos agregar un valor a una variable que ya contiene uno</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">num</span> <span class="opera">=</span> <span class="nums">4</span>
-          <span class="var">num</span> <span class="opera">=</span> <span class="var">num</span> <span class="opera">+</span> <span class="nums">2</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">num</span>)</span>;
-          <span class="result">6</span></pre>
-        <p class="chaptrSubSect__p">Esta notación puede ser acortada utilizando los operadores <code>+=</code>, <code>─=</code>, <code>*=</code>, <code>/=</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">num</span> <span class="opera">=</span> <span class="nums">4</span>
-          <span class="var">num</span> <span class="opera">+=</span> <span class="nums">2</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">num</span>)</span>;
-          <span class="result">6</span>
+        <pre class="chaptrSubSect__console wScript">
+          let ·num = ¬4;
+          ·num = ·num + ¬2;
 
-          <span class="var">num</span> <span class="opera">*=</span> <span class="nums">2</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">num</span>)</span>;
-          <span class="result">12</span></pre>
+          console.log(·num);
+          ⋗ 6</pre>
+        <p class="chaptrSubSect__p">Esta notación puede ser acortada utilizando los operadores <code>+=</code>, <code>─=</code>, <code>*=</code>, <code>/=</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·num = ¬4;
+
+          ·num += ¬2;
+          console.log(·num);
+          ⋗ 6
+
+          ·num *= ¬2;
+          console.log(·num);
+          ⋗ 12</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Incremento y decremento" codeText="+">
       <ChaptrSubSect h4Title="Incremento" codeText="++">
         <p class="chaptrSubSect__p">Incrementa el valor de una variable en 1. Sólo puede ser aplicado a variables, no a valores directamente</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">counter</span> <span class="opera">=</span> <span class="nums">4</span>
-          <span class="var">counter</span><span class="opera">++</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">counter</span>)</span>;
-          <span class="result">5</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·counter = ¬4;
+
+          ·counter++;
+          console.log(·counter);
+          ⋗ 5</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Decremento" codeText="--">
         <p class="chaptrSubSect__p">Decrementa el valor de una variable en 1. Sólo puede ser aplicado a variables, no a valores directamente</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">counter</span> <span class="opera">=</span> <span class="nums">4</span>
-          <span class="var">counter</span><span class="opera">--</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">counter</span>)</span>;
-          <span class="result">3</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·counter = ¬4;
+
+          ·counter--;
+          console.log(·counter);
+          ⋗ 3</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="Sufijo vs prefijo" codeText="--">
+      <ChaptrSubSect h4Title="Sufijo vs prefijo" codeText="">
         <p class="chaptrSubSect__p">La forma <span class="bttn">sufijo</span> va <mark>después</mark> de la variable. Primero se devuelve el valor original de la variable y luego se incrementa. Útil cuando necesitas usar el valor actual antes de incrementarlo, como al contar elementos durante un proceso.</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">myArr</span> <span class="opera">=</span> <span class="warp">[<span class="nums">2, 4, 6</span>]</span>;
-          <span class="key">let</span> <span class="var">count</span> <span class="opera">=</span> <span class="nums">0</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·myArr = [¬2, ¬4, ¬6];
+          let ·count = ¬0;
 
-          <span class="var">myArr</span><span class="dot">.</span><span class="meth">forEach</span><span class="warp">(<span class="elmnt">elemnt</span> <span class="opera">=&gt;</span> <span class="warp">&#123;
-            <span class="key">if</span> <span class="wrap">(<span class="elmnt">elemnt</span> <span class="opera">&gt;</span> <span class="nums">2</span>)&#123;
-              <span class="var">count</span><span class="opera">++</span>;
-            &#125;</span>
-          &#125;</span>)</span>;
+          ·myArr.forEach(#elemnt =&gt; &#123;
+            if (#elemnt &gt; ¬2)&#123;
+              ·count++;
+            &#125;
+          &#125;);
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">count</span>)</span>;
-          <span class="result">2</span></pre>
+          console.log(·count);
+          ⋗ 2</pre>
 
           <p class="chaptrSubSect__p">La forma <span class="bttn">prefijo</span> va <mark>antes</mark> de la variable. Primero se incrementa el valor original de la variable y luego se imprime. Útil cuando necesitas incrementar primero y usar el valor incrementado inmediatamente, como al generar identificadores únicos</p>
-          <pre class="chaptrSubSect__console">
-            <span class="key">let</span> <span class="var">lastId</span> <span class="opera">=</span> <span class="nums">0</span>
+          <pre class="chaptrSubSect__console wScript">
+            let ·lastId = ¬0;
   
-            <span class="key">function</span> <span class="var">addItem</span><span class="warp">(<span class="var">name</span>)</span> <span class="warp">&#123;
-              <span class="key">let</span> <span class="var">id</span> <span class="opera">= ++</span><span class="var">lastId</span>;
-              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Adding item =&gt; id:$&#123;<span class="var">id</span>&#125; - $&#123;<span class="var">name</span>&#125;`</span>)</span>;
-              &#125;</span>
+            function @addItem(•name) &#123;
+              let ·id = ++·lastId;
+              console.log(`/º Adding item =&gt; id:$&#123;·id&#125; - $&#123;•name&#125; º/`);
+              &#125;
 
-            <span class="func">addItem</span><span class="warp">(<span class="args">'Libro'</span>)</span>;
-            <span class="result">Adding item =&gt; id:1 - Libro</span>
-            <span class="func">addItem</span><span class="warp">(<span class="args">'Lápiz'</span>)</span>;
-            <span class="result">Adding item =&gt; id:2 - Lápiz</span></pre>
+            @addItem('Libro');
+            ⋗ /º Adding item =&gt; id:1 - Libro º/
+
+            @addItem('Lápiz');
+            ⋗ /º Adding item =&gt; id:2 - Lápiz º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
   </LssnArt>
-	<Footer slot="mainFooter" />
+	<Footer slot="mainFooter" prevPage="/lessons/lesson_04" nextPage="/lessons/lesson_06"/>
 </MainLayout>
+
+
+
+<!-- 
+&lt;&gt;
+&#123;&#125;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<img class="chaptrSubSect__img" src=`${ruta}img13.webp` alt="captura del evento">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li"></li>
+＃
+-->

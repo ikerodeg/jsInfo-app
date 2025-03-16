@@ -10,23 +10,50 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
     <ChaptrSect h3Title="Maneras de ejecutar JavaScript">
       <ChaptrSubSect h4Title="Incrustado en el" codeText="html">
         <p class="chaptrSubSect__p">Usando la etiqueta <code>&lt;script&gt;</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="opera">&lt;</span><span class="etiq">script</span><span class="opera">&gt;</span>
-            <span class="obj">console</span><span class="opera">.</span><span class="meth">log</span><span class="warp">(<span class="args">"Hola mundo!"</span>)</span>;
-          <span class="opera">&lt;/</span><span class="etiq">script</span><span class="opera">&gt;</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          /º &lt;script&gt; º/
+            console.log('/º Hola mundo! º/');
+          /º &lt;/script&gt; º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Enlazando a un archivo externo">
         <p class="chaptrSubSect__p">Colocar antes del cierre de la etiqueta <code>&lt;body&gt;</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="opera">&lt;</span><span class="etiq">script</span> <span class="atrib">src</span><span class="opera">=</span><span class="valor">"javaScript/scripts.js"</span><span class="opera">&gt;&lt;/</span><span class="etiq">script</span><span class="opera">&gt;</span></pre>
-          <p class="chaptrSubSect__p">Una nueva funcionalidad permite poner el acceso al archivo dentro de la etiqueta <code>&lt;head&gt;</code> con el atributo <code>defer</code> que hace que primero se cargue la pagina y una vez cargada ejecute el JavaScript</p>
-          <pre class="chaptrSubSect__console">
-            <span class="opera">&lt;</span><span class="etiq">script</span> <span class="atrib">src</span><span class="opera">=</span><span class="valor">"javaScript/scripts.js"</span> <span class="atrib">defer</span><span class="opera">&gt;&lt;/</span><span class="etiq">script</span><span class="opera">&gt;</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          /º &lt;script src="javaScript/scripts.js"&gt;&lt;/script&gt; º/</pre>
+        <p class="chaptrSubSect__p">Una nueva funcionalidad permite poner el acceso al archivo dentro de la etiqueta <code>&lt;head&gt;</code> con el atributo <code>defer</code> que hace que primero se cargue la pagina y una vez cargada ejecute el JavaScript</p>
+        <pre class="chaptrSubSect__console wScript">
+          /º &lt;script src="javaScript/scripts.js"º/ /º defer&gt;&lt;/script&gt; º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="En la consola del navegador">
         <p class="chaptrSubSect__p">Se accede pulsando la tecla <span class="bttn">F12</span></p>
       </ChaptrSubSect>
     </ChaptrSect>
   </LssnArt>
-	<Footer slot="mainFooter" />
+	<Footer slot="mainFooter" prevPage="#" nextPage="/lessons/lesson_02"/>
 </MainLayout>
+
+
+<!-- 
+&lt;&gt;
+&#123;&#125;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<img class="chaptrSubSect__img" src=`${ruta}img13.webp` alt="captura del evento">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li"></li>
+＃
+-->
