@@ -328,217 +328,255 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Métodos de array" codeText="">
-      <ChaptrSubSect h4Title="El método" codeText=".filter()">
+      <ChaptrSubSect h4Title="El método" codeText=".filter()" hint="#retornaArrayElementosCondición">
         <p class="chaptrSubSect__p">Devuelve un array filtrando elementos que cumplan con una cierta condición</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
-          <span class="key">let</span> <span class="var">mayoresTres</span> <span class="opera">=</span> <span class="var">numbers</span><span class="dot">.</span><span class="meth">filter</span><span class="warp">(<span class="params">num</span> <span class="opera">=&gt;</span> <span class="params">num</span> <span class="opera">&gt;</span> <span class="nums">3</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">mayoresTres</span>)</span>;
-          <span class="result">[4, 5]</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·nums = [¬1, ¬2, ¬3, ¬4, ¬5];
+          let ·mayoresTres = ·nums.ªfilter(#num =&gt; #num &gt; ¬3);
+
+          console.log(·mayoresTres);
+          ⋗ /º [4, 5] º/</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".map()">
+      <ChaptrSubSect h4Title="El método" codeText=".map()" hint="#operaCadaElemento #retornaArrayElementosCondición">
         <p class="chaptrSubSect__p"><mark>Opera</mark> sobre cada elemento del array existente y ejecuta una función callback para cada uno. Devuelve un array con los elementos encontrados que cumplen la condición</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
-          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="var">numbers</span><span class="dot">.</span><span class="meth">map</span><span class="warp">(<span class="params">num</span> <span class="opera">=&gt;</span> <span class="params">num</span> <span class="opera">*</span> <span class="nums">10</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
-          <span class="result">[10, 20, 30, 40, 50]</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          let ·nums = [¬1, ¬2, ¬3, ¬4, ¬5];
+          let ·result = ·nums.ªmap(#num =&gt; #num * ¬10);
+
+          console.log(·result);
+          ⋗ /º [10, 20, 30, 40, 50] º/</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".reduce()">
+      <ChaptrSubSect h4Title="El método" codeText=".reduce()" hint="#reduceElementosArrayaUno #malaPerformance">
         <p class="chaptrSubSect__p">Se utiliza para reducir los elementos de un array a un solo valor. Este método toma una función callback como primer argumento y un valor inicial como segundo argumento</p>
-        <p class="chaptrSubSect__p">Según dos conocidos ingenieros de Google, <mark>evita usar</mark> <code>reduce</code>. Tiene poca legibilidad y mala performance</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Sintaxis</span>
-          <span class="obj">Array</span><span class="dot">.</span><span class="meth">reduce</span><span class="warp">(<span class="func">callback</span>(
-          (<span class="params">acumu, actualValue, index, arrayOrigin</span>), <span class="params">acumuStart</span>)</span>;
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Según dos conocidos ingenieros de Google, <mark>evita usar</mark> <code>reduce</code>. Tiene poca legibilidad y mala performance</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          /* Sintaxis */
+          /º Array.reduce(callback((acumu, actualValue, index, arrayOrigin), acumuStart); º/
 
-          <span class="commnt">Ejemplo</span>
-          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
-          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="var">numbers</span><span class="dot">.</span><span class="meth">reduce</span><span class="warp">((
-            <span class="params">acumu, actualValue</span>) <span class="opera">=&gt;</span> <span class="params">acumu</span> <span class="opera">+</span> <span class="params">actualValue</span>;
-          )</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
-          <span class="result">15</span></pre>
-        <p class="chaptrSubSect__p"><code>acumu</code> = Es el valor acumulado durante el proceso, comienza siendo el primer elemento del array</p>
-        <p class="chaptrSubSect__p"><code>actualValue</code> = Es el valor actual del array que se está procesando</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Primera iteración:
-            acumu = 1 (primer elemento del array)
-            actualValue = 2 (segundo elemento del array)
-            Operación= 1 + 2 = 3
-            Nuevo valor de acumu = 3
+          /* Ejemplo */
+          let ·nums = [¬1, ¬2, ¬3, ¬4, ¬5];
+          let ·result = ·nums.ªreduce((#acumu, #actualValue) =&gt; #acumu + #actualValue;);
 
-            Segunda iteración:
-            acumu = 3 (resultado de la primera iteración)
-            actualValue = 3 (tercer elemento del array)
-            Operación= 3 + 3 = 6
-            Nuevo valor de acumu = 6
-
-            Tercera iteración:
-            acumu = 6 (resultado de la segunda iteración)
-            actualValue = 4 (cuarto elemento del array)
-            Operación= 6 + 4 = 10
-            Nuevo valor de acumu = 10
-
-            Cuarta iteración:
-            acumu = 10 (resultado de la tercera iteración)
-            actualValue = 5 (cuarto elemento del array)
-            Operación= 10 + 5 = 10
-            Nuevo valor de acumu = 15
-
-            Resultado final = 15</span></pre>
+          console.log(·result);
+          ⋗ 15</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>1ª iteración:</strong></li>
+          <li class="chaptrSubSectUl__li--sub"><code>acumu</code> = 1 (primer elemento del array).</li>
+          <li class="chaptrSubSectUl__li--sub"><code>actualValue</code> = 2 (segundo elemento del array).</li>
+          <li class="chaptrSubSectUl__li--sub">Operación= 1 + 2 = 3.</li>
+          <li class="chaptrSubSectUl__li--sub">Nuevo valor de <code>acumu</code> = 3.</li>
+          <li class="chaptrSubSectUl__li"><strong>2ª iteración:</strong></li>
+          <li class="chaptrSubSectUl__li--sub"><code>acumu</code> = 3 (resultado de la primera iteración).</li>
+          <li class="chaptrSubSectUl__li--sub"><code>actualValue</code> = 3 (tercer elemento del array).</li>
+          <li class="chaptrSubSectUl__li--sub">Operación= 3 + 3 = 6.</li>
+          <li class="chaptrSubSectUl__li--sub">Nuevo valor de <code>acumu</code> = 6.</li>
+          <li class="chaptrSubSectUl__li"><strong>3ª iteración:</strong></li>
+          <li class="chaptrSubSectUl__li--sub"><code>acumu</code> = 6 (resultado de la segunda iteración).</li>
+          <li class="chaptrSubSectUl__li--sub"><code>actualValue</code> = 4 (cuarto elemento del array).</li>
+          <li class="chaptrSubSectUl__li--sub">Operación= 6 + 4 = 10.</li>
+          <li class="chaptrSubSectUl__li--sub">Nuevo valor de <code>acumu</code> = 10.</li>
+          <li class="chaptrSubSectUl__li"><strong>4ª iteración:</strong></li>
+          <li class="chaptrSubSectUl__li--sub"><code>acumu</code> = 10 (resultado de la tercera iteración).</li>
+          <li class="chaptrSubSectUl__li--sub"><code>actualValue</code> = 5 (cuarto elemento del array).</li>
+          <li class="chaptrSubSectUl__li--sub">Operación= 10 + 5 = 10.</li>
+          <li class="chaptrSubSectUl__li--sub">Nuevo valor de <code>acumu</code> = 15.</li>
+          <li class="chaptrSubSectUl__li">Resultado final = 15.</li>
+        </ul>
         <p class="chaptrSubSect__p">Recomendado usar en: Suma, producto o reducción a un solo valor, contar elementos cumpliendo una condicion, agrupación de datos, aplanar arrays anidados</p>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".every()">
+      <ChaptrSubSect h4Title="El método" codeText=".every()" hint="#retornaBooleanTodosElementosCondición">
         <p class="chaptrSubSect__p">Verifica si <mark>todos</mark> los elementos de un array cumplen una condición determinada. Si <mark>todos</mark> los elementos pasan la prueba <mark>retorna</mark> <code>true</code>, si algún elemento no pasa la prueba detiene la ejecución y <mark>retorna</mark> <code>false</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Sintaxis</span>
-          <span class="obj">Array</span><span class="dot">.</span><span class="meth">every</span><span class="warp">(<span class="func">callback</span>(
-          (<span class="params">element, index*, arrayOrigin*</span>), <span class="params">this*</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          /* Sintaxis */
+          /º Array.every(callback((element, index*, arrayOrigin*), this*); º/
 
-          <span class="commnt">Ejemplo</span>
-          <span class="key">let</span> <span class="var">colors</span> <span class="opera">=</span> <span class="warp">[<span class="args">'red', 'green', 'blue', 'white'</span>]</span>;
-          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="var">colors</span><span class="dot">.</span><span class="meth">every</span><span class="warp">(<span class="params">element</span> <span class="opera">=&gt;</span> <span class="params">element</span><span class="dot">.</span><span class="meth">length</span> <span class="opera">&gt;</span> <span class="nums">2</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
-          <span class="result">true</span></pre>
+          /* Ejemplo */
+          let ·colors = ['red', 'green', 'blue', 'white'];
+          let ·result = ·colors.ªevery(#element =&gt; #element.length &gt; ¬2);
+
+          console.log(·result);
+          ⋗ /º true º/</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".some()">
+      <ChaptrSubSect h4Title="El método" codeText=".some()" hint="#retornaBooleanUnElementoCondición">
         <p class="chaptrSubSect__p">Verifica si al menos <mark>uno</mark> de los elementos del array cumple con la condición especificada en la función de callback que se pasa como argumento</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Sintaxis</span>
-          <span class="obj">Array</span><span class="dot">.</span><span class="meth">every</span><span class="warp">(<span class="func">callback</span>(
-          (<span class="params">element, index*, arrayOrigin*</span>), <span class="params">this*</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          /* Sintaxis */
+          /º Array.every(callback((element, index*, arrayOrigin*), this*); º/
 
-          <span class="commnt">Ejemplo</span>
-          <span class="key">let</span> <span class="var">colors</span> <span class="opera">=</span> <span class="warp">[<span class="args">'red', 'green', 'blue', 'white'</span>]</span>;
-          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="var">colors</span><span class="dot">.</span><span class="meth">some</span><span class="warp">(<span class="params">element</span> <span class="opera">=&gt;</span> <span class="params">element</span> <span class="opera">===</span> <span class="args">'blue'</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
-          <span class="result">true</span></pre>
+          /* Ejemplo */
+          let ·colors = ['red', 'green', 'blue', 'white'];
+          let ·result = ·colors.ªsome(#element =&gt; #element === 'blue');
+
+          console.log(·result);
+           ⋗ /º true º/</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".fill()">
+      <ChaptrSubSect h4Title="El método" codeText=".fill()" hint="#rellenaArrayValorEnPosiciónDada">
         <p class="chaptrSubSect__p">Es utilizado para llenar todos los elementos de un array con un valor estático desde una posición de inicio hasta una posición de fin especificada. Este método <mark>modifica</mark> el array original</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Sintaxis</span>
-          <span class="obj">Array</span><span class="dot">.</span><span class="meth">fill</span><span class="warp">(<span class="params">newValue, start*, end*</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          /* Sintaxis */
+          /º Array.fill(newValue, start*, end*); º/
 
-          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 2, 3, 4, 5</span>]</span>;
-          <span class="var">numbers</span><span class="dot">.</span><span class="meth">fill</span><span class="warp">(<span class="args">'👑'</span>, <span class="nums">1, 4</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">numbers</span>)</span>;
-          <span class="result">[1, '👑', '👑', '👑', 5]</span></pre>
+          /* Ejemplo */
+          let ·nums = [¬1, ¬2, ¬3, ¬4, ¬5];
+          ·nums.ªfill('👑', ¬1, ¬4);
+
+          console.log(·nums);
+          ⋗ /º [1, '👑', '👑', '👑', 5] º/</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".copyWithin()">
+      <ChaptrSubSect h4Title="El método" codeText=".copyWithin()" hint="#copiaParteArrayDentroArray">
         <p class="chaptrSubSect__p">Copia una parte de un array a otra ubicación dentro del mismo array, sin modificar su tamaño. Esto significa que toma elementos de un rango del array y los pega en otra posición dentro del mismo array, sobrescribiendo los elementos existentes. Este método no agrega ni elimina elementos del array, simplemente cambia sus posiciones</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Sintaxis</span>
-          <span class="obj">Array</span><span class="dot">.</span><span class="meth">copyWithin</span><span class="warp">(<span class="params">target, start*, end*</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          /* Sintaxis */
+          /º Array.copyWithin(target, start*, end*); º/
 
-          <span class="key">let</span> <span class="var">vocals</span> <span class="opera">=</span> <span class="warp">[<span class="args">'a', 'e', 'i', 'o', 'u'</span>]</span>;
-          <span class="var">vocals</span><span class="dot">.</span><span class="meth">copyWithin</span><span class="warp">(<span class="nums">2, 0, 2</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">vocals</span>)</span>;
-          <span class="result">['a', 'e', 'a', 'e', 'u']</span>
+          /* Ejemplo */
+          let ·vocals = ['a', 'e', 'i', 'o', 'u'];
+          ·vocals.ªcopyWithin(¬2, ¬0, ¬2);
+
+          console.log(·vocals);
+          ⋗ /º ['a', 'e', 'a', 'e', 'u'] º/
           
-          <span class="commnt">Empieza a pegar desde la posicion 2 incluida = i</span>
-          <span class="commnt">Empieza a copiar desde la posicion 0 incluida = a</span>
-          <span class="commnt">Termina de copiar desde la posicion 2 no incluida = e</span>
-        </pre>
-        <p class="chaptrSubSect__p">El <code>target</code> es el indice donde comienza a pegar</p>
-        <p class="chaptrSubSect__p">El <code>start</code> es el indice desde el que empieza a copiar</p>
-        <p class="chaptrSubSect__p">El <code>end</code> es el indice hasta el que copia <mark>no incluido</mark></p>
+          /*/º "target" Empieza a pegar desde la posicion 2 incluida = i º/*/
+          /*/º "start" Empieza a copiar desde la posicion 0 incluida = a º/*/
+          /*/º "end" Termina de copiar desde la posicion 2 no incluida = e º/*/</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>target</code> es el indice donde comienza a pegar.</li>   
+          <li class="chaptrSubSectUl__li"><code>start</code> es el indice desde el que empieza a copiar.</li>   
+          <li class="chaptrSubSectUl__li"><code>end</code> es el indice hasta el que copia <mark>no incluido</mark>.</li>   
+        </ul>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".flat()">
+      <ChaptrSubSect h4Title="El método" codeText=".flat()" hint="#retornaArrayAplanado">
         <p class="chaptrSubSect__p">Se utiliza para aplanar arrays anidados. Este método crea una nueva matriz con todos los elementos de sub-array concatenados en ella de manera recursiva hasta la profundidad especificada</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Sintaxis</span>
-          <span class="obj">Array</span><span class="dot">.</span><span class="meth">flat</span><span class="warp">(<span class="params">depth</span>*)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          /* Sintaxis */
+          /º Array.flat(depth*); º/
 
-          <span class="key">let</span> <span class="var">numbers</span> <span class="opera">=</span> <span class="warp">[</span><span class="nums">1, 2, <span class="warp">[</span>3, 4, <span class="warp">[</span>5, 6</span><span class="warp">]]]</span>;
-          <span class="key">let</span> <span class="var">plainNumbers</span> <span class="opera">=</span> <span class="var">numbers</span><span class="dot">.</span><span class="meth">flat</span><span class="warp">(<span class="key">Infinity</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">plainNumbers</span>)</span>;
-          <span class="result">[1, 2, 3, 4, 5]</span></pre>
+          /* Ejemplo */
+          let ·numbers = [¬1, ¬2, [¬3, ¬4, [¬5, ¬6]]];
+          let ·plainNumbers = ·numbers.ªflat(Infinity);
+
+          console.log(·plainNumbers);
+          ⋗ /º [1, 2, 3, 4, 5] º/</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".flatMap()">
+      <ChaptrSubSect h4Title="El método" codeText=".flatMap()" hint="#1ºMap2ºFlat #operaCadaElementoAplana">
         <p class="chaptrSubSect__p">Es una combinación de los métodos <code>map()</code> y <code>flat()</code>. Este método se utiliza para aplanar un array a un nivel de profundidad y luego aplicar una función a cada elemento del array aplanado. Es equivalente a ejecutar primero <code>map()</code> y luego <code>flat()</code> de <mark>profundidad 1</mark> en un array, pero es ligeramente más eficiente que llamar a estos dos métodos por separado</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Sintaxis</span>
-          <span class="obj">Array</span><span class="dot">.</span><span class="meth">flatMap</span><span class="warp">(<span class="func">callback</span><span class="warp">(<span class="params">element, index*, array*</span>)</span>, <span class="params">this*</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          /* Sintaxis */
+          /º Array.flatMap(callback(element, index*, array*), this*); º/
 
-          <span class="key">let</span> <span class="var">prizes</span> <span class="opera">=</span> <span class="warp">[<span class="nums">250, 340, <span class="warp">[</span>560</span>]]</span></span>;
-          <span class="key">let</span> <span class="var">result</span> <span class="opera">=</span> <span class="var">prizes</span><span class="dot">.</span><span class="meth">flatMap</span><span class="warp">(<span class="params">element</span> <span class="opera">=&gt;</span> <span class="params">element</span> <span class="opera">+</span> <span class="args">'€'</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
-          <span class="result">['250€', '340€', '560€']</span></pre>
+          /* Ejemplo */
+          const ·cart = [
+          &#123; verduras: ¬2, items: ['lechuga', 'puerros'] &#125;,
+          &#123; frutas: ¬2, items: ['uvas', 'kiwis'] &#125;,
+          &#123; bebidas: ¬1, items: ['vino'] &#125;
+        ];
+        
+        const ·allProducts = ·cart.ªflatMap(#section =&gt; #section.•items);
+        
+        console.log(·allProducts);
+        ⋗ /º ['lechuga', 'puerros', 'uvas', 'kiwis', 'vino'] º/</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".Array.from()">
+      <ChaptrSubSect h4Title="El método" codeText=".Array.from()" hint="#retornaArrayDeIterableoCadena">
         <p class="chaptrSubSect__p">Crea un Array a partir de un <mark><b>objeto iterable o similar a un array</b></mark>. Este método es muy útil cuando se necesita convertir datos que no son un array (como un conjunto de nodos del DOM o una cadena de texto) en un array</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">cadena</span> <span class="opera">=</span> <span class="args">'olaqase'</span>;
-          <span class="key">const</span> <span class="var">cadenaToArray</span> <span class="opera">=</span> <span class="obj">Array</span><span class="dot">.</span><span class="meth">from</span><span class="warp">(<span class="var">cadena</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">cadenaToArray</span>)</span>;
-          <span class="result">['o', 'l', 'a', 'q', 'a', 's', 'e']</span>
-        
-          <span class="key">const</span> <span class="var">$allDivs</span> <span class="opera">=</span> <span class="obj">document</span><span class="dot">.</span><span class="meth">querySelectorAll</span><span class="warp">(<span class="args">'div'</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">$allDivs</span>)</span>;
-          <span class="result">[div.box-1, div.box-2, div.box-3]</span> <span class="commnt">(Objeto arrayLike)</span>
+        <pre class="chaptrSubSect__console wScript">
+          const ·cadena = 'olaqase';
+          const ·cadenaToArray = Array.from(·cadena);
 
-          <span class="key">const</span> <span class="var">$allDivsToArray</span> <span class="opera">=</span> <span class="obj">Array</span><span class="dot">.</span><span class="meth">from</span><span class="warp">(<span class="var">$allDivs</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">$allDivsToArray</span>)</span>;
-          <span class="result">['div.box-1', 'div.box-2', 'div.box-3']</span></pre>
+          console.log(·cadenaToArray);
+          ⋗ /º ['o', 'l', 'a', 'q', 'a', 's', 'e'] º/
+        
+          const ·allDivs = document.querySelectorAll('div');
+          console.log(·allDivs);
+          ⋗ /º [div.box-1, div.box-2, div.box-3] (Objeto arrayLike) º/
+
+          const ·allDivsToArray = Array.from(·allDivs);
+          console.log(·allDivsToArray);
+          ⋗ /º["div.box-1", "div.box-2", "div.box-3"]º/</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".Array.of()">
+      <ChaptrSubSect h4Title="El método" codeText=".Array.of()" hint="#retornaArrayDeElementos">
         <p class="chaptrSubSect__p">Se utiliza para crear un nuevo arreglo con una cantidad variable de elementos, independientemente de su tipo</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">str</span> <span class="opera">=</span> <span class="args">'Hola'</span>;
-          <span class="key">const</span> <span class="var">num</span> <span class="opera">=</span> <span class="nums">5</span>;
-          <span class="key">const</span> <span class="var">char</span> <span class="opera">=</span> <span class="args">'$'</span>;
-          <span class="key">const</span> <span class="var">bool</span> <span class="opera">=</span> <span class="args">true</span>;
-          <span class="key">const</span> <span class="var">empt</span> <span class="opera">=</span> <span class="args">null</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const ·str = 'Hola';
+          const ·num = ¬5;
+          const ·char = '$';
+          const ·bool = true;
+          const ·empt = null;
 
-          <span class="key">const</span> <span class="var">newArr</span> <span class="opera">=</span> <span class="obj">Array</span><span class="dot">.</span><span class="meth">of</span><span class="warp">(<span class="var">str, num, char, bool, empt</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">newArr</span>)</span>;
-          <span class="result">['Hola', 5, '$', true, null]</span></pre>
+          const ·newArr = Array.ªof(·str, ·num, ·char, ·bool, ·empt);
+          console.log(·newArr);
+          ⋗ /º['Hola', 5, '$', true, null]º/</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".keys()">
+      <ChaptrSubSect h4Title="El método" codeText=".keys()" hint="#retornaIteradorClavesIndices">
         <p class="chaptrSubSect__p">Devuelve un nuevo objeto <mark>iterador</mark> de Array que contiene las claves para cada índice en el array</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'apple', 'kiwi', 'orange', 'banana'</span>]</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const ·fruits = ['apple', 'kiwi', 'orange', 'banana'];
 
-          <span class="key">const</span> <span class="var">newIterator</span> <span class="opera">=</span> <span class="var">fruits</span><span class="dot">.</span><span class="meth">keys</span><span class="warp">()</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">newIterator</span>)</span>;
-          <span class="result">Object [Array Iterator] &#123__proto__: &#123 next: ƒ next() &#125&#125</span>
+          const ·newIterator = ·fruits.ªkeys();
+          console.log(·newIterator);
+          ⋗ /ºObject [Array Iterator] &#123;__proto__ &#123; next: ƒ next() &#125;&#125;º/
         
-          <span class="key">const</span> <span class="var">newArray</span> <span class="opera">=</span> <span class="var">Array</span><span class="dot">.</span><span class="meth">from</span><span class="warp">(<span class="var">newIterator</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">newArray</span>)</span>;
-          <span class="result">[0, 1, 2, 3]</span></pre>
+          const ·newArray = Array.from(·newIterator);
+          console.log(·newArray);
+          ⋗ /º[0, 1, 2, 3]º/</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".values()">
+      <ChaptrSubSect h4Title="El método" codeText=".values()" hint="#retornaIteradorValoresIndices">
         <p class="chaptrSubSect__p">Devuelve un nuevo objeto <mark>iterador</mark> de Array que contiene los valores para cada índice en el array. Este método es útil cuando quieres convertir un objeto iterable en un array para poder usar los métodos de array en él. Por ejemplo, si tienes un objeto <mark>NodeList</mark></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'apple', 'kiwi', 'orange', 'banana'</span>]</span>;
+        <pre class="chaptrSubSect__console wScript">
+          /* html */
+          /º &lt;p&gt;1&lt;/p&gt; º/
+          /º &lt;p&gt;2&lt;/p&gt; º/
+          /º &lt;p&gt;3&lt;/p&gt; º/
+          /º &lt;p&gt;4&lt;/p&gt; º/
+          /º &lt;p&gt;5&lt;/p&gt; º/
 
-          <span class="key">const</span> <span class="var">newIterator</span> <span class="opera">=</span> <span class="var">fruits</span><span class="dot">.</span><span class="meth">values</span><span class="warp">()</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">newIterator</span>)</span>;
-          <span class="result">Object [Array Iterator] &#123__proto__: &#123 next: ƒ next() &#125&#125</span>
-        
-          <span class="key">const</span> <span class="var">newArray</span> <span class="opera">=</span> <span class="var">Array</span><span class="dot">.</span><span class="meth">from</span><span class="warp">(<span class="var">newIterator</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">newArray</span>)</span>;
-          <span class="result">['apple', 'kiwi', 'orange', 'banana']</span>
-
-          <span class="commnt">Modo abreviado</span>
-          <span class="key">const</span> <span class="var">newArray</span> <span class="opera">=</span> <span class="var">Array</span><span class="dot">.</span><span class="meth">from</span><span class="warp">(<span class="var">fruits</span><span class="dot">.</span><span class="meth">values</span><span class="warp">()</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">newArray</span>)</span>;
-          <span class="result">['apple', 'kiwi', 'orange', 'banana']</span></pre>
+          /* js*/
+          const ·allP = document.querySelectorAll('p');
+          const ·arrPValues = ·allP.ªvalues();    /*/º array de elementos &lt;p&gt; º/*/
+          
+          for (const #p of ·arrPValues)&#123;     /*/º necesitamos entrar(iterar) en cada &lt;p&gt; º/*/
+            console.log(#p.•textContent)
+          &#125;
+          
+          ⋗ /º "1" º/
+          ⋗ /º "2" º/
+          ⋗ /º "3" º/
+          ⋗ /º "4" º/
+          ⋗ /º "5" º/</pre>
       </ChaptrSubSect>
-      <ChaptrSubSect h4Title="El método" codeText=".entries()">
+      <ChaptrSubSect h4Title="El método" codeText=".entries()" hint="#retornaArrayArrays[Clave,Valor]">
         <p class="chaptrSubSect__p">Devuelve un nuevo objeto <mark>iterador</mark> de Array que contiene pares clave/valor para cada índice en el array. En otras palabras, genera un array de arrays, donde cada array interno tiene dos elementos: el primer elemento es el índice y el segundo elemento es el valor en ese índice</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">fruits</span> <span class="opera">=</span> <span class="warp">[<span class="args">'apple', 'kiwi', 'orange', 'banana'</span>]</span>;
+          <pre class="chaptrSubSect__console wScript">
+            /* html */
+            /º &lt;p&gt;'uno'&lt;/p&gt; º/
+            /º &lt;p&gt;'dos'&lt;/p&gt; º/
+            /º &lt;p&gt;'tres'&lt;/p&gt; º/
+            /º &lt;p&gt;'cuatro'&lt;/p&gt; º/
+            /º &lt;p&gt;'cinco'&lt;/p&gt; º/
+  
+            /* js*/
+            /*/º NodeList de los &lt;p&gt; º/*/
+            const ·allP = document.querySelectorAll('p');
 
-          <span class="key">const</span> <span class="var">newIterator</span> <span class="opera">=</span> <span class="var">fruits</span><span class="dot">.</span><span class="meth">entries</span><span class="warp">()</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">newIterator</span>)</span>;
-          <span class="result">Object [Array Iterator] &#123__proto__: &#123 next: ƒ next() &#125&#125</span>
-        
-          <span class="key">const</span> <span class="var">newArray</span> <span class="opera">=</span> <span class="var">Array</span><span class="dot">.</span><span class="meth">from</span><span class="warp">(<span class="var">newIterator</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">newArray</span>)</span>;
-          <span class="result">[[0, 'apple'], [1, 'kiwi'], [2, 'orange'], [3, 'banana']]</span></pre>
+            /*/º Convertimos a array para usar .entries() º/*/
+            const ·pArray = Array.from(·allP);
+            
+            /*/º Usamos .entries() para obtener array de arrays [índice, elemento] º/*/
+            const ·entries = ·pArray.ªentries();
+            
+            /*/º Iteramos sobre los pares [índice, elemento] º/*/
+            for (const [#index, #p] of ·entries) &#123;
+              console.log(`/ºÍndice: $&#123;#index&#125; → Texto: $&#123;#p.•textContent&#125;º/`);
+            &#125;
+            
+            ⋗ /º "Índice: 1 → 'uno'" º/
+            ⋗ /º "Índice: 2 → 'dos'" º/
+            ⋗ /º "Índice: 3 → 'tres'" º/
+            ⋗ /º "Índice: 4 → 'cuatro'" º/
+            ⋗ /º "Índice: 5 → 'cinco'" º/
+          
+          </pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Bucles de array" codeText="">
