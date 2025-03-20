@@ -1,0 +1,347 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import Footer from "@/components/Footer.astro"
+import LssnArt from "@/components/LssnArt.astro"
+import ChaptrSect from "@/components/ChaptrSect.astro"
+import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
+const ruta = '../../src/assets/img/'
+---
+<MainLayout>
+  <LssnArt artClass="lssn__02c" h2Title="Datos Binarios y Archivos" slot="mainContent">
+    <ChaptrSect h3Title="ArrayBuffer, arrays binarios" codeText="">
+      <ChaptrSubSect h4Title="Qué es un" codeText="ArrayBuffer">
+        <p class="chaptrSubSect__p">Es como un pedazo de papel en blanco en la memoria de tu pc, con un tamaño fijo, donde puedes guardar datos binarios (ceros y unos). Es el núcleo de todo lo que haremos aquí</p>
+        <pre class="chaptrSubSect__console wScript">
+          let ·buffer = new @ArrayBuffer(¬16);   /* reserva 16b ytes de memoria */
+          console.log(·buffer.•byteLength);
+          ⋗ 16      /* dice cuantos bytes tiene */</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Este código crea un espacio de 16 bytes y lo llena con ceros.</li>
+          <li class="chaptrSubSectUl__li">Un byte = 8 bits, así que 16 bytes son 128 bits en total.</li>
+        </ul>
+        <p class="chaptrSubSect__p">No es un array normal</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Tamaño fijo:</strong> No puedes añadir ni quitar espacio.</li>
+          <li class="chaptrSubSectUl__li"><strong>Solo memoria cruda:</strong> No sabes qué hay dentro hasta que usas una "vista".</li>
+          <li class="chaptrSubSectUl__li"><strong>No puedes acceder directamente:</strong> No funciona buffer[0]. Necesitas una herramienta especial.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Es como una caja fuerte: tiene espacio, pero necesitas una llave (una "vista") para abrirla y trabajar con lo que hay dentro</p>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Vistas: Las llaves para trabajar con" codeText="ArrayBuffer">
+        <p class="chaptrSubSect__p">Cuando creas un <code>ArrayBuffer</code> con <code>new ArrayBuffer(3)</code>, obtienes un bloque de memoria cruda de 3 bytes. Sin embargo, no puedes trabajar directamente con ese bloque porque <code>ArrayBuffer</code> no tiene métodos para leer o escribir datos. Es como una caja vacía sin manijas. Como <code>ArrayBuffer</code> es solo memoria cruda, usamos vistas para interpretarla. Estas vistas son como lentes que te permiten leer o escribir los datos de diferentes maneras</p>
+        <p class="chaptrSubSect__p"><mark>Tipos de vistas:</mark> <code>TypedArray</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Es un término general para varias clases que "ven" los bytes del <code>TypedArray</code> como números. Hay varios tipos, dependiendo de cuántos bytes quieras agrupar y cómo interpretarlos.</li>
+          <li class="chaptrSubSectUl__li--sub"><code>Uint8Array:</code> Te permite interpretar y manipular el <code>ArrayBuffer</code> como una secuencia de números enteros de 8 bits (1 byte cada uno). Cada byte (8 bits) es un número de 0 a 255.</li>
+          <li class="chaptrSubSectUl__li--sub"><code>Uint16Array:</code> Cada 2 bytes (16 bits) son un número de 0 a 65,535.</li>
+          <li class="chaptrSubSectUl__li--sub"><code>Uint32Array:</code> Cada 4 bytes (32 bits) son un número de 0 a 4,294,967,295.</li>
+          <li class="chaptrSubSectUl__li--sub"><code>Float64Array:</code> Cada 8 bytes (64 bits) son un número decimal (punto flotante) con mucha precisión.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Ejemplo: Una Paleta de Colores</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Imagina que quieres guardar colores en formato RGB (rojo, verde, azul), donde cada color usa un byte (0-255):</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          let ·buffer = new @ArrayBuffer(¬3);     /* 3 bytes, uno por color */
+          let ·colores = new @Uint8Array(·buffer);    /* Vista de 8 bits */
+
+          ·colores[¬0] = ¬255;          /* Rojo al máximo */
+          ·colores[¬1] = ¬128;          /* Verde a la mitad */
+          ·colores[¬2] = ¬0;            /* Azul apagado */
+
+          for (let #valor of ·colores) &#123;
+            console.log(#valor);
+          &#125;;
+
+          ⋗ 255, 128, 0</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Aquí, <code>colores</code> ve el buffer como 3 números de 8 bits.</li>
+          <li class="chaptrSubSectUl__li">Si usas <code>Uint16Array</code> en el mismo <code>buffer</code>, verías solo 1 número de 16 bits (porque 3 bytes no alcanzan para 2 números de 16 bits).</li>
+        </ul>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Propiedades Útiles:</li>
+          <li class="chaptrSubSectUl__li--sub"><code>TypedArray.BYTES_PER_ELEMENT</code>: Cuántos bytes usa cada elemento (ejemplo: 4 para <code>Uint32Array</code>).</li>
+          <li class="chaptrSubSectUl__li--sub"><code>length</code>: Cantidad de elementos que caben.</li>
+          <li class="chaptrSubSectUl__li--sub"><code>byteLength</code>: Tamaño total en bytes.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Porque no usar un array tradicional" codeText="">
+        <p class="chaptrSubSect__p">Para un caso simple como guardar un solo color <code>RGB</code>, un array normal como <code style="white-space: nowrap;">const arrayColorsRGB = [255, 128, 0]</code> funcionaría perfectamente. Sin embargo, hay razones prácticas y técnicas para usar <code>ArrayBuffer</code> y <code>Uint8Array</code> en lugar de un array tradicional, especialmente en contextos más avanzados</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Eficiencia en memoria:</strong></li>
+          <li class="chaptrSubSectUl__li--sub">En un array normal, cada número (como 255) se almacena como un objeto Number de JavaScript, que internamente usa 64 bits (8 bytes) por elemento, incluso si el valor solo necesita 8 bits. Para un solo color no importa mucho, pero si tienes millones de colores (como en una imagen), esto desperdicia memoria.</li>
+          <li class="chaptrSubSectUl__li--sub">Con Uint8Array, cada elemento usa exactamente 1 byte, lo que es mucho más eficiente.</li>
+          <li class="chaptrSubSectUl__li"><strong>Rendimiento:</strong></li>
+          <li class="chaptrSubSectUl__li--sub">Las operaciones en <code>TypedArray</code> son más rápidas porque están diseñadas para datos numéricos crudos y contiguos en memoria, mientras que los arrays normales son más flexibles pero menos optimizados.</li>
+          <li class="chaptrSubSectUl__li"><strong>Interoperabilidad con APIs:</strong></li>
+          <li class="chaptrSubSectUl__li--sub">Muchas herramientas de JavaScript (como fetch, Canvas, o WebGL) trabajan con datos binarios en formato <code>ArrayBuffer</code> o <code>TypedArray</code>. Por ejemplo, si lees una imagen con <code>FileReader</code>, obtienes un <code>ArrayBuffer</code>, no un array normal. Usar <code>Uint8Array</code> te permite integrarte directamente con estas APIs.</li>
+          <li class="chaptrSubSectUl__li"><strong>Control preciso:</strong></li>
+          <li class="chaptrSubSectUl__li--sub">Con <code>Uint8Array</code>, puedes garantizar que cada valor esté entre 0 y 255 (si intentas asignar 300, se trunca automáticamente). En un array normal, no hay restricción, lo que podría causar errores.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Creando un" codeText="TypedArray">
+        <p class="chaptrSubSect__p">Hay varias formas de crear un TypedArray. Vamos a verlas todas con ejemplos claros</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>a)</strong> Desde un <code>ArrayBuffer</code>:</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          let ·buffer = new @ArrayBuffer(¬8);         /* 8 bytes */
+          let ·vista = new @Uint32Array(·buffer);     /* Cada elemento usa 4 bytes */
+          console.log(·vista.length);                 /*/º 2 (8 bytes / 4 = 2 elementos) º/*/
+          ·vista[¬0] = ¬123456;
+          console.log(·vista[¬0]);
+          ⋗ 123456</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>b)</strong> Desde un Array Normal:</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          let ·numeros = new @Uint8Array([¬10, ¬20, ¬30]);
+          console.log(·numeros.length); ⋗ 3
+          console.log(·numeros[¬1]); ⋗ 20</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>c)</strong> Copiando otro <code>TypedArray</code>:</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          let ·original = new @Uint16Array([¬1, ¬1000]);
+          let ·copia = new @Uint8Array(·original);
+          console.log(·copia[¬0]);
+          ⋗  1
+          console.log(·copia[¬1]);
+          ⋗  232    /*/º (1000 no cabe en 8 bits, se recorta) º/*/</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>d)</strong> Con una Longitud:</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          let ·arreglo = new @Uint16Array(¬3);      /* 3 elementos de 16 bits */
+          console.log(·arreglo.•byteLength);
+          ⋗ 6       /*/º (3 * 2 bytes) º/*/</pre>
+        <img class="chaptrSubSect__img" src=`${ruta}img16.webp` alt="Esquema bits/byte">
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>e)</strong> Sin argumentos:</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          let ·vacio = new @Uint8Array();     /* Longitud 0 */
+          console.log(·vacio.length);
+          ⋗ 0</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Tipos de" codeText="TypedArray">
+        <p class="chaptrSubSect__p">Esta es la lista completa</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>Sin signo</strong> (solo positivos): <code>Uint8Array</code>, <code>Uint16Array</code>, <code>Uint32Array</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>Con signo</strong> (positivos y negativos): <code>Int8Array</code> (-128 a 127), <code>Int16Array</code>, <code>Int32Array</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>Punto flotante</strong>: <code>Float32Array</code>, <code>Float64Array</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>Especial</strong>: <code>Uint8ClampedArray</code> (0 a 255, "sujeta" valores fuera de rango).</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Comportamiento Fuera de Límites" codeText="">
+        <p class="chaptrSubSect__p">¿Qué pasa si intentas guardar un número demasiado grande? Los bits extras se recortan, cogen los 8 de la derecha, empieza a contar de derecha a izquierda y lo que sobra lo recorta</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Ejemplo: Guardando 256 en <code>Uint8Array</code>.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          let ·arreglo = new @Uint8Array(¬1);
+          ·arreglo[¬0] = ¬256;        /*/º 256 en binario es 100000000 (9 bits) º/*/
+          console.log(·arreglo[¬0]); 
+          ⋗ 0                   /*/º solo caben 8 bits, se queda con 00000000 º/*/</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">256 no cabe en 8 bits (máximo 255), así que se recorta a 0.</li>
+          <li class="chaptrSubSectUl__li">Para 257 (100000001), se queda con 1 (00000001).</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Métodos de" codeText="TypedArray">
+        <p class="chaptrSubSect__p"><code>TypedArray</code> actúa como un array normal, con métodos como map, forEach, slice, etc. Pero hay limitaciones</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>No hay</strong> <code>splice</code>: No puedes borrar elementos, porque el tamaño es fijo.</li>
+          <li class="chaptrSubSectUl__li"><strong>No hay</strong> <code>concat</code>: No puedes unir dos TypedArray directamente.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Métodos especiales</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>set</code>: Copia datos de otro array.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          let ·destino = new @Uint8Array(¬3);
+          ·destino.ªset([¬10, ¬20, ¬30]);
+          console.log(·destino);
+          ⋗ 10, 20, 30</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>subarray</code>: Crea una vista de una parte sin copiar.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          let ·original = new @Uint8Array([¬1, ¬2, ¬3, ¬4]);
+          let ·parte = ·original.ªsubarray(¬1, ¬3);
+          console.log(·parte);
+          ⋗ 2, 3</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Flexibilidad total con" codeText="DataView">
+        <p class="chaptrSubSect__p"><code>DataView</code> es otra vista, pero más flexible. No fija un formato (como <code>Uint8Array</code>), sino que tú decides cómo leer o escribir en cada momento.</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Creando un <code>DataView</code></li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          let ·buffer = new @ArrayBuffer(¬4);
+          let ·vista = new @DataView(·buffer);</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Métodos:</li>
+            <li class="chaptrSubSectUl__li--sub"><code>getUint8(offset)</code>: Lee 1 byte.</li>
+            <li class="chaptrSubSectUl__li--sub"><code>getUint16(offset)</code>: Lee 2 bytes.</li>
+            <li class="chaptrSubSectUl__li--sub"><code>setUint32(offset, valor)</code>: Escribe 4 bytes, etc.</li>
+        </ul>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Ejemplo: Una Caja de Regalos:</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          let ·buffer = new @ArrayBuffer(¬8);
+          let ·vista = new @DataView(·buffer);
+          
+          /*/º Guardar un número pequeño (8 bits) º/*/
+          ·vista.ªsetUint8(¬0, ¬100);
+          
+          /*/º Guardar un número grande (32 bits) º/*/
+          ·vista.ªsetUint32(¬4, ¬12345678);
+          
+          console.log(·vista.ªgetUint8(¬0));
+          ⋗ 100
+          console.log(·vista.ªgetUint32(¬4));
+          ⋗ 12345678</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>DataView</code> es ideal para mezclar formatos en el mismo buffer.</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Términos extra" codeText="ArrayBufferView">
+        <p class="chaptrSubSect__p">Son como "etiquetas" que agrupan conceptos relacionados con <code>ArrayBuffer</code>, <code>TypedArray</code> y <code>DataView</code>. Aunque no los uses directamente en tu código todo el tiempo, aparecen en la documentación de muchas APIs de JavaScript (como <code>fetch</code>, <code>WebSocket</code> o <code>Canvas</code>), y entenderlos te dará una visión más completa de cómo funcionan los datos binarios</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>a)</strong> <code>ArrayBufferView</code>: Término general para cualquier vista.</li>
+            <li class="chaptrSubSectUl__li--sub"><strong>Definición</strong>: <code>ArrayBufferView</code> es un término "paraguas" que incluye todas las vistas que puedes usar para trabajar con un <code>ArrayBuffer</code>. Es decir, cualquier objeto que te permita "ver" o "manipular" los datos binarios almacenados en un <code>ArrayBuffer</code>.</li>
+          <li class="chaptrSubSectUl__li">¿Qué incluye?</li>
+            <li class="chaptrSubSectUl__li--sub"><code>TypedArray</code>: Todas las variantes como <code>Uint8Array</code>, <code>Uint16Array</code>, <code>Int32Array</code>, <code>Float64Array</code>, etc.</li>
+            <li class="chaptrSubSectUl__li--sub"><code>DataView</code>: La vista flexible que te permite leer o escribir datos en diferentes formatos.</li>
+          <li class="chaptrSubSectUl__li">Por qué es útil este término:</li>
+            <li class="chaptrSubSectUl__li--sub">Imagina que tienes una función que necesita aceptar "cualquier tipo de vista" sobre un <code>ArrayBuffer</code>. En lugar de listar cada posibilidad (<code>Uint8Array</code>, <code>Uint16Array</code>, etc.), la documentación simplemente dice "acepta un <code>ArrayBufferView</code>". Esto simplifica las cosas.</li>
+          <li class="chaptrSubSectUl__li"><strong>Ejemplo práctico:</strong> Una función que usa <code>ArrayBufferView</code>.</li>
+          <li class="chaptrSubSectUl__li--sub">Supongamos que quieres una función que imprima el primer valor de cualquier vista:</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          function @mostrarPrimerValor(·vista) &#123;
+            console.log('Primer valor:', ·vista[¬0]); 
+            /* Funciona con cualquier ArrayBufferView */
+          &#125;;
+          
+          let ·buffer = new @ArrayBuffer(4);
+          /* 4 bytes */
+
+          let ·vista1 = new @Uint8Array(·buffer);
+          /* vista de 8 bits */
+
+          ·vista1[¬0] = ¬42;
+
+          let ·vista2 = new @Uint16Array(·buffer);
+          /* vista de 16 bits */
+
+          ·vista2[¬0] = ¬300;
+          
+          @mostrarPrimerValor(·vista1);
+          ⋗ 42        /* Primer valor */
+          @mostrarPrimerValor(·vista2);
+          ⋗ 300       /* Primer valor */</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li--sub">Aquí, vista puede ser un <code>Uint8Array</code> o un <code>Uint16Array</code> (o cualquier otro <code>TypedArray</code>), porque todos son <code>ArrayBufferView</code>. La función no necesita saber el tipo exacto de vista, solo que es una forma de acceder al <code>ArrayBuffer</code>.</li>
+          <li class="chaptrSubSectUl__li">En resumen:</li>
+          <li class="chaptrSubSectUl__li--sub"><code>ArrayBufferView</code> es como decir "cualquier lente que uses para mirar un <code>ArrayBuffer</code>". Incluye tanto los <code>TypedArray</code> (con formatos fijos) como <code>DataView</code> (flexible).</li>
+        </ul>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Términos extra" codeText="BufferSource">
+        <p class="chaptrSubSect__p"><code>BufferSource</code>: Cualquier cosa que sea <code>ArrayBuffer</code> o una vista
+          Definición: <code>BufferSource</code> es un término aún más amplio que <code>ArrayBufferView</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>ArrayBuffer</code>: El bloque de memoria cruda en sí.</li>
+          <li class="chaptrSubSectUl__li"><code>ArrayBufferView</code>: Todas las vistas sobre ese bloque (es decir, <code>TypedArray</code> y <code>DataView</code>).</li>
+        </ul>
+        <p class="chaptrSubSect__p">En otras palabras, <code>BufferSource</code> abarca cualquier cosa que represente datos binarios directamente, ya sea el contenedor (<code>ArrayBuffer</code>) o las herramientas para verlo/manipularlo (<code>ArrayBufferView</code>).</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Se ven en APIs modernas como <code>fetch</code>, <code>FileReader</code>, WebSocket, etc., que trabajan con datos binarios. Estas APIs suelen aceptar un <code>BufferSource</code> como argumento o devolverlo como resultado.</li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+          /*/º Opción 1: Enviar un ArrayBuffer directamente º/*/
+          let ·buffer = new @ArrayBuffer(¬2);
+          let ·vista = new @Uint8Array(·buffer);
+          ·vista[¬0] = ¬65;         /*/º Letra "A" en ASCII º/*/
+          ·vista[¬1] = ¬66;         /*/º Letra "B" en ASCII º/*/
+          
+          @fetch('https://ejemplo.com/datos', &#123;
+            method: 'POST',
+            body: ·buffer         /*/º BufferSource: un ArrayBuffer º/*/
+          &#125;);
+          
+          /*/º Opción 2: Enviar una vista (Uint8Array) º/*/
+          @fetch('https://ejemplo.com/datos', &#123;
+            method: 'POST',
+            body: ·vista        /*/º BufferSource: un ArrayBufferView º/*/
+          &#125;);</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">En ambos casos, <code>fetch</code> acepta un <code>BufferSource</code>, ya sea el <code>ArrayBuffer</code> crudo (buffer) o la vista <code>Uint8Array</code> (vista). Esto muestra cómo <code>BufferSource</code> es flexible y abarca ambas posibilidades.</li>
+        </ul>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="" codeText="TextDecoder/TextEncoder">
+      <ChaptrSubSect h4Title="" codeText="">
+        <p class="chaptrSubSect__p"></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+
+        </pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="" codeText="Blob">
+      <ChaptrSubSect h4Title="" codeText="">
+        <p class="chaptrSubSect__p"></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+
+        </pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+    <ChaptrSect h3Title="" codeText="File/FileReader">
+      <ChaptrSubSect h4Title="" codeText="">
+        <p class="chaptrSubSect__p"></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"></li>
+        </ul>
+        <pre class="chaptrSubSect__console wScript">
+
+        </pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
+  </LssnArt>
+	<Footer slot="mainFooter" prevPage="/lessons/lesson_01c" nextPage="/lessons/lesson_03c"/>
+</MainLayout>
+
+<!-- 
+&lt;&gt;          < > no estilados
+()&#123;&#125;    ( ) { } no estilados
+﹛﹜              { } Llaves no estilados
+﹕                : 2 puntos no estilados
+＃                # Rejilla no estilada
+
+ªmétodos
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li">
+
+-->
