@@ -76,12 +76,12 @@ function resaltarPalabras() {
     .replace(/[\[\]]/g, '<span class="turq1">$&</span>')
     .replace(/\b(let|const|var)\b/g, '<span class="viol2">$1</span>') //const|let|var
     .replace(/@(\w+)/g, '<span class="mari3">$1</span>')
-    .replace(/\b(for|forEach|switch|if|else|get|set|typeof|bind|constructor|add|has|revocable|eval|alert|confirm|prompt|Event|fetch|XMLHttpRequest|parseFloat|parseInt|isNaN|isFinite|BigInt|while|Boolean)\b/g, '<span class="mari3">$1</span>') //funciones
-    .replace(/\b(apply|length|log|getElementById|querySelector|querySelectorAll|getElementByTagName|getElementsByTagName|getElementByClassName|getElementsByClassName|getElementsByName|matches|closest|createElement|append|appendChild|createTextNode|createComment|classList|from|className|addEventListener|onclick|removeEventListener|dispatchEvent|warn|debug|then|toFixed|round|trunc|ceil|floor|random|startsWith|endsWith|replaceAll|codePointAt|toLowerCase|toUpperCase|localeCompare|valueOf|toString)\b/g, '<span class="turq1">$1</span>')  //métodos
+    .replace(/\b(for|forEach|switch|if|else|get|set|typeof|bind|constructor|add|has|revocable|eval|alert|confirm|prompt|Event|fetch|async|try|await|XMLHttpRequest|parseFloat|parseInt|isNaN|isFinite|BigInt|while|structuredClone|Boolean)\b/g, '<span class="mari3">$1</span>') //funciones
+    .replace(/\b(apply|length|log|getElementById|querySelector|querySelectorAll|getElementByTagName|getElementsByTagName|getElementByClassName|getElementsByClassName|getElementsByName|matches|closest|createElement|append|appendChild|createTextNode|createComment|classList|from|className|addEventListener|onclick|removeEventListener|dispatchEvent|warn|debug|then|catch|finally|toFixed|round|trunc|ceil|floor|random|startsWith|endsWith|replaceAll|codePointAt|toLowerCase|toUpperCase|localeCompare|valueOf|toString)\b/g, '<span class="turq1">$1</span>')  //métodos
     .replace(/\b(true|false|undefined|null|Infinity|NaN)\b/g, '<span class="lim3">$1</span>')
     .replace(/`([^`]*)`/g, '<span class="lim1">\`$1\`</span>')
     .replace(/'([^']*)'/g, '<span class="lim1">\'$1\'</span>')
-    .replace(/(?<!\S)(return|continue;|break|break;|new|delete|throw|of|instanceof|debugger;|return;)(?!\S)/g, '<span class="fuc2">$&</span>')  //keys
+    .replace(/(?<!\S)(return|continue;|break|break;|new|delete|throw|export|import|extends|static|of|instanceof|debugger;|return;)(?!\S)/g, '<span class="fuc2">$&</span>')  //keys
     .replace(/(?<!\S)(function|class)(?!\S)/g, '<span class="verd1">$&</span>')
     .replace(/(\w+:\s)/g, '<span class="verd2">$1</span>') //ObjProperties
     .replace(/(_\w+)/g, '<span class="verd2">$1</span>')

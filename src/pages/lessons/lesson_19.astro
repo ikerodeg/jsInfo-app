@@ -11,168 +11,192 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
       <ChaptrSubSect h4Title="Utilizando su constructor" codeText="new Set()">
         <p class="chaptrSubSect__p">Es una colección de tipo especial: “conjunto de valores” (sin claves), donde cada valor puede aparecer solo una vez y estas son sus características principales</p>
         <ul class="chaptrSubSect__ul">
-          <li class="chaptrSubSectUl__li"><b>Valores únicos</b>: No puede contener valores duplicados. Si intentas agregar el mismo valor más de una vez, lo ignorará.</li>
-          <li class="chaptrSubSectUl__li"><b>Orden de inserción</b>: Los elementos se mantienen en el orden en que se insertan.</li>
-          <li class="chaptrSubSectUl__li"><b>Iterabilidad</b>: Son iterables.</li>
+          <li class="chaptrSubSectUl__li"><strong>Valores únicos</strong>: No puede contener valores duplicados. Si intentas agregar el mismo valor más de una vez, lo ignorará.</li>
+          <li class="chaptrSubSectUl__li"><strong>Orden de inserción</strong>: Los elementos se mantienen en el orden en que se insertan.</li>
+          <li class="chaptrSubSectUl__li"><strong>Iterabilidad</strong>: Son iterables.</li>
+          <li class="chaptrSubSectUl__li"><strong>Tamaño</strong>: Tienen una propiedad <code>.size</code> que indica el número de elementos del conjunto.</li>
         </ul>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">bagShopSET</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Set</span><span class="warp">()</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const ·bagShopSET = new Set();
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">bagShopSET</span>)</span>;
-          <span class="result">Set(0) &#123;size: 0&#125;</span></pre>
+          console.log(·bagShopSET);           ⋗ /º Set(0) &#123;&#125; º/
+          console.log(·bagShopSET.ªsize);      ⋗ /º 0 º/</pre>
+        <p class="chaptrSubSect__p">Internamente, los <code>Set</code> funcionan de manera similar a los <code>Map</code>, pero solo almacenan valores sin claves. De hecho, puedes pensar que un <code>Set</code> es como un <code>Map</code> donde la clave y el valor son el mismo elemento</p>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Agregar elementos" codeText="">
       <ChaptrSubSect h4Title="Utilizando su constructor" codeText="new Set()">
-        <p class="chaptrSubSect__p">Cuando lo estamos creando podemos pasarle también unos valores iniciales</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">primeNumSET</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Set</span><span class="warp">(<span class="warp2">[<span class="nums">1, 3, 5, 7, 11</span>]</span>)</span>;
+        <p class="chaptrSubSect__p">Cuando lo estamos creando podemos pasarle también unos valores iniciales como argumento. Cada valor será añadido al conjunto, y los duplicados <b>se eliminarán automáticamente</b></p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·primeNumSET = new Set([¬1, ¬3, ¬5, ¬7, ¬11]);
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">primeNumSET</span>)</span>;
-          <span class="result">Set(5) &#123;1, 3, 5, 7, 11&#125;</span></pre>
+          console.log(·primeNumSET);
+          ⋗ /º Set(5) &#123;1, 3, 5, 7, 11&#125; º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Utilizando el método" codeText=".add()">
-        <p class="chaptrSubSect__p">Cómo argumento le pasaremos valores</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">primeNumSET</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Set</span><span class="warp">()</span>;
-          
-          <span class="obj">primeNumSET</span><span class="dot">.</span><span class="meth">add</span><span class="warp">(<span class="nums">1</span>)</span>;
-          <span class="obj">primeNumSET</span><span class="dot">.</span><span class="meth">add</span><span class="warp">(<span class="nums">3</span>)</span>;
-          <span class="obj">primeNumSET</span><span class="dot">.</span><span class="meth">add</span><span class="warp">(<span class="nums">5</span>)</span>;
-          <span class="obj">primeNumSET</span><span class="dot">.</span><span class="meth">add</span><span class="warp">(<span class="nums">7</span>)</span>;
-          <span class="obj">primeNumSET</span><span class="dot">.</span><span class="meth">add</span><span class="warp">(<span class="nums">11</span>)</span>;
+        <p class="chaptrSubSect__p">Podemos agregar elementos al <code>Set</code> con el método <code>.add(valor)</code>. Si el valor ya existe, simplemente lo ignora (no se genera error)</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·primeNumSET = new Set();
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">primeNumSET</span>)</span>;
-          <span class="result">Set(5) &#123;1, 3, 5, 7, 11&#125;</pre>
-          <p class="chaptrSubSect__p">Podemos usar el encadenamiento para añadir varios valores a la vez</p>
-          <pre class="chaptrSubSect__console">
-            <span class="key">const</span> <span class="var">primeNumSET</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Set</span><span class="warp">()</span>;
-            
-            <span class="obj">primeNumSET</span><span class="dot">.</span><span class="meth">add</span><span class="warp">(<span class="nums">1</span>)</span>
-                            <span class="dot">.</span><span class="meth">add</span><span class="warp">(<span class="nums">3</span>)</span>
-                            <span class="dot">.</span><span class="meth">add</span><span class="warp">(<span class="nums">5</span>)</span>
-                            <span class="dot">.</span><span class="meth">add</span><span class="warp">(<span class="nums">7</span>)</span>
-                            <span class="dot">.</span><span class="meth">add</span><span class="warp">(<span class="nums">11</span>)</span>;
-  
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">primeNumSET</span>)</span>;
-            <span class="result">Set(5) &#123;1, 3, 5, 7, 11&#125;</pre>
+          ·primeNumSET.add(¬1);
+          ·primeNumSET.add(¬3);
+          ·primeNumSET.add(¬5);
+          ·primeNumSET.add(¬7);
+          ·primeNumSET.add(¬11);
+
+          console.log(·primeNumSET);
+          ⋗ /º Set(5) &#123;1, 3, 5, 7, 11&#125; º/</pre>
+        <p class="chaptrSubSect__p">Podemos usar el encadenamiento para añadir varios valores a la vez</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·primeNumSET = new Set();
+
+          ·primeNumSET
+            .add(¬1)
+            .add(¬3)
+            .add(¬5)
+            .add(¬7)
+            .add(¬11);
+
+          console.log(·primeNumSET);
+          ⋗ /º Set(5) &#123;1, 3, 5, 7, 11&#125; º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Array como argumento a" codeText="new Set()">
         <p class="chaptrSubSect__p">Podemos pasar un array valores al constructor <code>new Set()</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">primeNumARR</span> <span class="opera">=</span> <span class="warp">[<span class="nums">1, 3, 5, 7, 11</span>]</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const ·primeNumARR = [¬1, ¬3, ¬5, ¬7, ¬11];
 
-          <span class="key">const</span> <span class="var">primeNumSET</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Set</span><span class="warp">(<span class="obj">primeNumARR</span>)</span>;
+          const ·primeNumSET = new Set(·primeNumARR);
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">primeNumSET</span>)</span>;
-          <span class="result">Set(5) &#123;1, 3, 5, 7, 11&#125;</span></pre>
+          console.log(·primeNumSET);
+          ⋗ /º Set(5) &#123;1, 3, 5, 7, 11&#125; º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="String como argumento a" codeText="new Set()">
         <p class="chaptrSubSect__p">Podemos pasar un string al constructor <code>new Set()</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">sonNameSTR</span> <span class="opera">=</span> <span class="args">'Éderr'</span>;  <span class="commnt">A propósito la r</span>
+        <pre class="chaptrSubSect__console wScript">
+          const ·sonNameSTR = 'Éderr';      /* A propósito la r repetida */
 
-          <span class="key">const</span> <span class="var">sonNameSET</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Set</span><span class="warp">(<span class="obj">sonNameSTR</span>)</span>;
+          const ·sonNameSET = new Set(·sonNameSTR);
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">sonNameSET</span>)</span>;
-          <span class="result">Set(5) &#123;'É', 'd', 'e', 'r'&#125;</span>
-          <span class="commnt">Set elimina valores duplicados (r)</span></pre>
+          console.log(·sonNameSET);
+          ⋗ /º Set(5) &#123;'É', 'd', 'e', 'r'&#125; º/       /*/º Set elimina valores duplicados (r) º/*/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Existencia valores" codeText="">
       <ChaptrSubSect h4Title="Verifica si existe una clave con" codeText=".has()">
-          <p class="chaptrSubSect__p">Devuelve un booleano</p>
-          <pre class="chaptrSubSect__console">
-            <span class="key">const</span> <span class="var">primeNumSET</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Set</span><span class="warp">(<span class="warp2">[<span class="nums">1, 3, 5, 7, 11</span>]</span>)</span>;
-  
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">primeNumSET</span><span class="dot">.</span><span class="meth">has</span><span class="warp">(<span class="nums">7</span>)</span>)</span>;
-            <span class="result">true</span></pre>
+        <p class="chaptrSubSect__p">Comprueba si un valor está presente en el <code>Set</code> y devuelve un booleano</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·primeNumSET = new Set([¬1, ¬3, ¬5, ¬7, ¬11]);
+
+          console.log(·primeNumSET.has(¬7));
+          ⋗ /º true º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Eliminar elementos" codeText="">
       <ChaptrSubSect h4Title="Elimina elemento con clave con" codeText=".delete()">
-          <p class="chaptrSubSect__p">Devuelve <code>true</code> si el valor existía y fue eliminado, o <code>false</code> si el valor no estaba</p>
-          <pre class="chaptrSubSect__console">
-            <span class="key">const</span> <span class="var">primeNumSET</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Set</span><span class="warp">(<span class="warp2">[<span class="nums">1, 3, 5, 7, 11</span>]</span>)</span>;
+        <p class="chaptrSubSect__p">Devuelve <code>true</code> si el valor existía y fue eliminado, o <code>false</code> si el valor no estaba</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·primeNumSET = new Set([¬1, ¬3, ¬5, ¬7, ¬11]);
 
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">primeNumSET</span><span class="dot">.</span><span class="meth">delete</span><span class="warp">(<span class="nums">7</span>)</span>)</span>;
-            <span class="result">true</span>
-  
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">primeNumSET</span>)</span>)</span>;
-            <span class="result">Set(4) &#123;1, 3, 5, 11&#125;</span></pre>
+          console.log(·primeNumSET.ªdelete(¬5));       ⋗ /º true º/
+
+          console.log(·primeNumSET);
+          ⋗ /º Set(4) &#123;1, 3, 7, 11&#125; º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Vaciar el Set" codeText="">
       <ChaptrSubSect h4Title="Vacia completamente con" codeText=".clear()">
-          <p class="chaptrSubSect__p">Vacia completamente el <code>Set</code> de elementos</p>
-          <pre class="chaptrSubSect__console">
-            <span class="key">const</span> <span class="var">primeNumSET</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Set</span><span class="warp">(<span class="warp2">[<span class="nums">1, 3, 5, 7, 11</span>]</span>)</span>;
+        <p class="chaptrSubSect__p">Vacia completamente el <code>Set</code> de elementos</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·primeNumSET = new Set([¬1, ¬3, ¬5, ¬7, ¬11]);
 
-            <span class="obj">primeNumSET</span><span class="dot">.</span><span class="meth">clear</span><span class="warp">()</span>;
-  
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">primeNumSET</span>)</span>)</span>;
-            <span class="result">Set(0) &#123;size: 0&#125;</span></pre>
+          ·primeNumSET.ªclear();
+
+          console.log(·primeNumSET);          ⋗ /º Set(0) &#123;&#125; º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Verificar tamaño" codeText="">
       <ChaptrSubSect h4Title="El método" codeText="size">
         <p class="chaptrSubSect__p">Aunque al hacer un <code>console.log()</code> lo primero que nos muestra la consola es la palabra <code>Set</code> seguido de entre paréntesis el tamaño de este</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">primeNumSET</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Set</span><span class="warp">(<span class="warp2">[<span class="nums">1, 3, 5, 7, 11</span>]</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const ·primeNumSET = new Set([¬1, ¬3, ¬5, ¬7, ¬11]);
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">primeNumSET</span><span class="dot">.</span><span class="meth">size</span>)</span>)</span>;
-          <span class="result">5</span></pre>
+          console.log(·primeNumSET.•size);
+          ⋗ /º 5 º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Iterando un Set" codeText="">
       <ChaptrSubSect h4Title="Devolviendo un" codeText="iterator">
         <p class="chaptrSubSect__p">Podemos usar el método <code>.values()</code> directamente sobre el <code>Set()</code> para iterarlo. El método <code>.keys()</code>, es un <mark>alias</mark> por lo que dará el mismo resultado, y <code>.entries()</code> retorna un iterador de pares [valor, valor] sólo por compatibilidad de la <span class="bttn">API</span></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">primeNumSET</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Set</span><span class="warp">(<span class="warp2">[<span class="nums">1, 3, 5, 7, 11</span>]</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const ·primeNumSET = new Set([¬1, ¬3, ¬5, ¬7, ¬11]);
 
-          <span class="commnt">Usando .values()</span>
-          <span class="key">const</span> <span class="var">primeNumITE</span> <span class="opera">=</span> <span class="var">primeNumSET</span><span class="dot">.</span><span class="meth">values</span><span class="warp">()</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">primeNumITE</span>)</span>;
-          <span class="result">SetIterator &#123;1, 3, 5, 7, 9&#125;</span>
-        
-          <span class="commnt">Usando .entries()</span>
-          <span class="key">const</span> <span class="var">primeNumITE</span> <span class="opera">=</span> <span class="var">primeNumSET</span><span class="dot">.</span><span class="meth">entries</span><span class="warp">()</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">primeNumITE</span>)</span>;
-          <span class="result">SetIterator &#123;1 =&gt; 1, 3 =&gt; 3, 5 =&gt; 5, 7 =&gt; 7, 9 =&gt; 9&#125;</span></pre>
+          /*/º Usando .values() º/*/
+          const ·primeNumITE = ·primeNumSET.ªvalues();
+          console.log(·primeNumITE);
+          ⋗ /º SetIterator &#123;1, 3, 5, 7, 9&#125; º/
+
+          /*/º Usando .entries() º/*/
+          const ·primeNumITE = ·primeNumSET.ªentries();
+          console.log(·primeNumITE);
+          ⋗ /º SetIterator &#123;1 =&gt; 1, 3 =&gt; 3, 5 =&gt; 5, 7 =&gt; 7, 9 =&gt; 9&#125; º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="El bucle" codeText="for..of">
-        <p class="chaptrSubSect__p">Devuelve los valores del <code>Set</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">primeNumSET</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Set</span><span class="warp">(<span class="warp2">[<span class="nums">1, 3, 5, 7, 11</span>]</span>)</span>;
-          
-          <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="params">num</span> <span class="key">of</span> <span class="obj">primeNumSET</span>) &#123;
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">num</span>)</span>;
-          &#125;</span>
-          <span class="result">1 3 5 7 11</span></pre>
+        <p class="chaptrSubSect__p">Recorre directamente los valores del <code>Set</code>, en orden de inserción</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·primeNumSET = new Set([¬1, ¬3, ¬5, ¬7, ¬11]);
+
+          for (const ·num of ·primeNumSET) &#123;
+            console.log(·num);
+          &#125;
+          ⋗ /º 1 3 5 7 11 º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Usando directamente" codeText=".forEach()">
-        <p class="chaptrSubSect__p">Devuelve los valores del <code>Set</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">primeNumSET</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Set</span><span class="warp">(<span class="warp2">[<span class="nums">1, 3, 5, 7, 11</span>]</span>)</span>;
-          
-          <span class="obj">primeNumSET</span><span class="dot">.</span><span class="meth">forEach</span><span class="warp">(<span class="warp2">(<span class="params">num</span>) <span class="opera">=&gt;</span> &#123;
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">num</span>)</span>;
-          &#125;</span>)</span>;
-          <span class="result">1 3 5 7 11</span></pre>
+        <p class="chaptrSubSect__p">También podemos iterar con el método <code>.forEach()</code>. Este recibe una función de <code>callback</code> que se ejecuta para cada valor del <code>Set</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·primeNumSET = new Set([¬1, ¬3, ¬5, ¬7, ¬11]);
+
+          ·primeNumSET.forEach(·num =&gt; console.log(·num));
+          ⋗ /º 1 3 5 7 11 º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Conversiones" codeText="">
       <ChaptrSubSect h4Title="De Set a Array con" codeText="Array.from()">
         <p class="chaptrSubSect__p">Usando el método <code>Array.from()</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">primeNumSET</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Set</span><span class="warp">(<span class="warp2">[<span class="nums">1, 3, 5, 7, 11</span>]</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const ·primeNumSET = new Set([¬1, ¬3, ¬5, ¬7, ¬11]);
+        
+          const ·primeNumARR = Array.from(·primeNumSET);
 
-          <span class="key">const</span> <span class="var">primeNumARR</span> <span class="opera">=</span> <span class="obj">Array</span><span class="dot">.</span><span class="meth">from</span><span class="warp">(<span class="obj">primeNumSET</span>)</span>;
-
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">primeNumARR</span>)</span>;
-          <span class="result">[1, 3, 5, 7, 11]</span></pre>
+          console.log(·primeNumARR);
+          ⋗ /º [1, 3, 5, 7, 11] º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
   </LssnArt>
-	<Footer slot="mainFooter" />
+	<Footer slot="mainFooter" prevPage="/lessons/lesson_18" nextPage="/lessons/lesson_20"/>
 </MainLayout>
+
+
+<!-- 
+&lt;&gt;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+ªmétodos
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li">
+＃
+-->

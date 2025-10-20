@@ -10,184 +10,210 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
     <ChaptrSect h3Title="Las Callbacks" codeText="">
       <ChaptrSubSect h4Title="Introducción" codeText="">
         <p class="chaptrSubSect__p">Un <span class="bttn">Callback</span> es una función que se pasa como argumento a otra función y se ejecuta después de que la primera función haya completado su tarea. Esto permite que el código se ejecute de manera asíncrona, es decir, sin bloquear la ejecución de otras operaciones</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">function</span> <span class="func">fnName</span><span class="warp">(<span class="params">parametro, callback</span>)&#123;
-            <span class="commnt">Código de la función</span>
-            <span class="func">callback</span><span class="warp2">()</span>;
-          &#125;</span>;</pre>
+        <pre class="chaptrSubSect__console wScript">
+          function @fnName(#parametro, @callback)&#123;
+            /*/º Código de la función º/*/
+            @callback();
+          &#125;;</pre>
         <p class="chaptrSubSect__p">Veamos un ejemplo del mundo real de acciones asincrónicas, p. ej.: la carga de scripts y módulos (a cubrirse en capítulos posteriores).</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">function</span> <span class="func">loadScript</span><span class="warp">(<span class="params">src</span>)&#123;    <span class="commnt">(*)</span>
-            <span class="key">let</span> <span class="var">script</span> <span class="opera">=</span> <span class="obj">document</span><span class="dot">.</span><span class="meth">createElement</span><span class="warp2">(<span class="args">'script'</span>)</span>;    <span class="commnt">(**)</span>
-            <span class="obj">script</span><span class="dot">.</span><span class="objProp">src</span> <span class="opera">=</span> <span class="params">src</span>;   <span class="commnt">(***)</span>
-            <span class="obj">document</span><span class="dot">.</span><span class="obj">head</span><span class="dot">.</span><span class="meth">append</span><span class="warp2">(<span class="obj">script</span>)</span>;   <span class="commnt">(****)</span>
-          &#125;</span>;</pre>
+        <pre class="chaptrSubSect__console wScript">
+          function @loadScript(#src)&#123;    /* ➀ */
+            let ·script = document.createElement('script');    /* ➁ */
+            ·script.•src = #src;   /* ➂ */
+            document.•head.append(#script);   /* ➃ */
+          &#125;;</pre>
         <ul class="chaptrSubSect__ul">
-          <li class="chaptrSubSectUl__li"><code>(*)</code> La función <code>loadScript</code> acepta un argumento <code>src</code>, el cual representa la URL del archivo JavaScript externo que desea cargar.</li>
-          <li class="chaptrSubSectUl__li"><code>(**)</code> Se crea dinámicamente una etiqueta <code>&lt;script&gt;</code> utilizando el método <code>document.createElement()</code>.</li>
-          <li class="chaptrSubSectUl__li"><code>(***)</code> El archivo JavaScript que se desea cargar se especifica al establecer el atributo <code>src</code> del nuevo elemento <code>&lt;script&gt;</code>. El valor de <code>src</code> proviene del argumento pasado a la función <code>loadScript</code>.</li>
-          <li class="chaptrSubSectUl__li"><code>(****)</code> La etiqueta <code>&lt;script&gt;</code> creada se inserta en el elemento <code>&lt;head&gt;</code> del documento mediante el método <code>append()</code>. Esto añade el <code>&lt;script&gt;</code> al DOM (Document Object Model), lo que hace que el navegador comience a descargar y ejecutar el archivo JavaScript especificado en <code>src</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>➀</strong>: La función <code>loadScript</code> acepta un argumento <code>src</code>, el cual representa la URL del archivo JavaScript externo que desea cargar.</li>
+          <li class="chaptrSubSectUl__li"><strong>➁</strong>: Se crea dinámicamente una etiqueta <code>&lt;script&gt;</code> utilizando el método <code>document.createElement()</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>➂</strong>: El archivo JavaScript que se desea cargar se especifica al establecer el atributo <code>src</code> del nuevo elemento <code>&lt;script&gt;</code>. El valor de <code>src</code> proviene del argumento pasado a la función <code>loadScript</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>➃</strong>: La etiqueta <code>&lt;script&gt;</code> creada se inserta en el elemento <code>&lt;head&gt;</code> del documento mediante el método <code>append()</code>. Esto añade el <code>&lt;script&gt;</code> al DOM (Document Object Model), lo que hace que el navegador comience a descargar y ejecutar el archivo JavaScript especificado en <code>src</code>.</li>
         </ul>
         <p class="chaptrSubSect__p">Esto inserta en el documento una etiqueta nueva, creada dinámicamente, <code>&lt;script src = "..."&gt;</code> con el código <code>src</code> dado. El navegador comienza a cargarlo automáticamente y lo ejecuta cuando la carga se completa.</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">cargar y ejecutar el script en la ruta dada</span>
-          <span class="func">loadScript</span><span class="warp">(<span class="args">'/my/script.js'</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          /*/º cargar y ejecutar el script en la ruta dada º/*/
+          @loadScript('/º /my/script.js º/');
           
-          <span class="commnt">Funcion dentro del archivo script.js</span>
-          <span class="func">newFunction</span><span class="warp">()</span>; <span class="commnt">error, no existe!</span></pre>
+          /*/º Funcion dentro del archivo script.js º/*/
+          @newFunction();       ⋗ /º error, no existe! º/</pre>
         <p class="chaptrSubSect__p">El script se ejecuta “asincrónicamente”, ya que comienza a cargarse ahora, pero se ejecuta más tarde, cuando la función ya ha finalizado. El código debajo de <code>loadScript (...)</code>, no espera que finalice la carga del script.</p>
         <p class="chaptrSubSect__p">Digamos que necesitamos usar el nuevo script tan pronto como se cargue. Este script declara nuevas funciones, y las queremos ejecutar. Si lo hacemos inmediatamente después de llamar a <code>loadScript (...)</code>, no funcionarán:</p>
         <p class="chaptrSubSect__p">Agreguemos a <code>loadScript</code> un segundo argumento: una función <span class="bttn">callback</span> que se ejecuta cuando se completa la carga el script</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">function</span> <span class="func">loadScript</span><span class="warp">(<span class="params">src, callback</span>)&#123;
-            <span class="key">let</span> <span class="var">script</span> <span class="opera">=</span> <span class="obj">document</span><span class="dot">.</span><span class="meth">createElement</span><span class="warp2">(<span class="args">'script'</span>)</span>;
-            <span class="obj">script</span><span class="dot">.</span><span class="objProp">src</span> <span class="opera">=</span> <span class="params">src</span>;
-            <span class="var">script</span><span class="dot">.</span><span class="meth">onload</span> <span class="opera">=</span> <span class="warp2">() =&gt; <span class="func">callback</span><span class="warp">(<span class="var">script</span>)</span></span>;
-            <span class="obj">document</span><span class="dot">.</span><span class="obj">head</span><span class="dot">.</span><span class="meth">append</span><span class="warp2">(<span class="obj">script</span>)</span>;
-          &#125;</span>;</pre>
-        <p class="chaptrSubSect__p">El evento <code>onload</code> ejecuta una función después de que el script fue cargado y ejecutado. Ahora, si queremos llamar las nuevas funciones desde el script, lo hacemos dentro de la callback:</p>
-        <pre class="chaptrSubSect__console">
-          <span class="func">loadScript</span><span class="warp">(<span class="args">'/my/script.js'</span>, <span class="func">function</span><span class="warp2">() &#123;
-            <span class="func">newFunction</span><span class="warp">()</span>;
-          &#125;</span> )</span>;</pre>
+        <pre class="chaptrSubSect__console wScript">
+          function @loadScript(#src, @callback)&#123;
+            let ·script = document.createElement('script');
+            ·script.•src = #src;
+            ·script.ªonload = () =&gt; @callback(#script);
+            document.•head.append(#script);
+          &#125;;</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Ejemplos síncronos" codeText="">
         <p class="chaptrSubSect__p">Vamos con un ejemplo sencillo</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">operation</span> <span class="opera">=</span> <span class="func">function</span><span class="warp">(<span class="params">num1, num2, callback</span>)&#123;
-              <span class="key">return</span> <span class="func">callback</span><span class="warp2">(<span class="params">num1, num2</span>)</span>;
-          &#125;</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const ·operation = @function(#num1, #num2, @callback)&#123;
+              return @callback(#num1, #num2);
+          &#125;;
 
-          <span class="key">function</span> <span class="func">suma</span> <span class="warp">(<span class="params">num1, num2</span>)&#123;
-            <span class="key">return</span> <span class="params">num1</span> <span class="opera">+</span> <span class="params">num2</span>
-          &#125;</span>;
+          function @suma(#num1, #num2)&#123;
+            return #num1 + #num2;
+          &#125;;
         
-          <span class="key">const</span> <span class="var">result</span> <span class="opera">=</span> <span class="func">operation</span><span class="warp">(<span class="nums">5, 4,</span> <span class="params">suma</span>)</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">result</span>)</span>;
-          <span class="result">9</span></pre>
+          const ·result = @operation(¬5, ¬4, @suma);
+          console.log(·result);
+          ⋗ /º 9 º/</pre>
         <p class="chaptrSubSect__p">Y con otro muy visual</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">saludar</span> <span class="opera">=</span> <span class="func">function</span><span class="warp">(<span class="params">name, callback</span>)&#123;
-            <span class="key">return</span> <span class="func">callback</span><span class="warp2">(<span class="params">name</span>)</span>
-          &#125;</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const ·saludar = @function(#name, @callback)&#123;
+              return @callback(#name);
+          &#125;;
 
-          <span class="key">function</span> <span class="func">saludoFormal</span><span class="warp">(<span class="params">name</span>)&#123;
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Hola, mi nombre es $&#123;<span class="params">name</span>&#125;`</span>)</span>
-          &#125;</span>;
+          function @saludoFormal(#name)&#123;
+            console.log(`/º Buenas tardes, mi nombre es $&#123;#name&#125; º/`);
+          &#125;;
         
-          <span class="func">saludar</span><span class="warp">(<span class="args">'Éder', </span><span class="params">saludoFormal</span>)</span>;  <span class="comnt">(*)</span>
-          <span class="result">Hola, mi nombre es Éder</span></pre>
-          <p class="chaptrSubSect__p">(*) Cuando escribes <code>saludoFormal</code>, estás pasando la función misma como argumento para que <code>saludar</code> la ejecute más tarde. Si escribieras <code>saludoFormal()</code>, estarías ejecutando la función inmediatamente y pasando su resultado (que en este caso sería undefined porque <code>saludoFormal</code> no retorna nada) a <code>saludar</code></p>
+          @saludar('/º Éder º/', @saludoFormal);
+          ⋗ /º 'Buenas tardes, mi nombre es Éder' º/</pre>
+        <p class="chaptrSubSect__p">(*) Cuando escribes <code>saludoFormal</code>, estás pasando la función misma como argumento para que <code>saludar</code> la ejecute más tarde. Si escribieras <code>saludoFormal()</code>, estarías ejecutando la función inmediatamente y pasando su resultado (que en este caso sería undefined porque <code>saludoFormal</code> no retorna nada) a <code>saludar</code></p>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Ejemplos asíncronos" codeText="">
         <p class="chaptrSubSect__p">Este ejemplo es asíncrono</p>
-        <pre class="chaptrSubSect__console">
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Hola, ¿Cómo se llama usted?`</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          console.log(`/º Hola, ¿Cómo se llama usted? º/`);
 
-          <span class="key">const</span> <span class="var">saludar</span> <span class="opera">=</span> <span class="func">function</span><span class="warp">(<span class="params">name, callback</span>)&#123;
-            <span class="key">return</span> <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
-              <span class="func">callback</span><span class="warp2">(<span class="params">name</span>)</span>
-              &#125;, <span class="nums">3000</span></span>)</span>
-          &#125;</span>;
+          const ·saludar = @function(#name, @callback)&#123;
+            return @setTimeout(() =&gt; &#123;
+              @callback(#name)
+              &#125;, ¬3000)
+          &#125;;
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Esperando respuesta...`</span>)</span>
+          console.log(`/º Esperando respuesta...º/`)
 
-          <span class="key">function</span> <span class="func">saludoFormal</span><span class="warp">(<span class="params">name</span>)&#123;
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Hola, mi nombre es $&#123;<span class="params">name</span>&#125;`</span>)</span>
-          &#125;</span>;
+          function @saludoFormal(#name)&#123;
+            console.log(`/º Hola, mi nombre es $&#123;name&#125; º/`)
+          &#125;;
         
-          <span class="func">saludar</span><span class="warp">(<span class="args">'Éder', </span><span class="params">saludoFormal</span>)</span>;  <span class="comnt">(*)</span>
-          <span class="result">Hola, ¿Cómo se llama usted?</span>
-          <span class="result">Esperando respuesta...</span>
-          <span class="result">Hola, mi nombre es Éder</span> <span class="commnt">después de 3seg</span></pre>
+          @saludar('/º Éder º/', @saludoFormal);
+          ⋗ /º Hola, ¿Cómo se llama usted? º/
+          ⋗ /º Esperando respuesta... º/
+          ⋗ /º Hola, mi nombre es Éder º/       /*/º después de 3seg º/*/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Manejo de errores" codeText="">
         <p class="chaptrSubSect__p">¿Qué pasa si falla la carga del script? Nuestra callback debería poder reaccionar ante eso. Utilizaremos el <mark>error first callback</mark>. Aquí una versión mejorada de <code>loadScript</code> que monitorea los errores de carga:</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">function</span> <span class="func">loadScript</span><span class="warp">(<span class="params">src, callback</span>)&#123;
-            <span class="key">let</span> <span class="var">script</span> <span class="opera">=</span> <span class="obj">document</span><span class="dot">.</span><span class="meth">createElement</span><span class="warp2">(<span class="args">'script'</span>)</span>;
-            <span class="obj">script</span><span class="dot">.</span><span class="objProp">src</span> <span class="opera">=</span> <span class="params">src</span>;
-            <span class="var">script</span><span class="dot">.</span><span class="meth">onload</span> <span class="opera">=</span> <span class="warp2">() =&gt; <span class="func">callback</span><span class="warp">(<span class="key">null</span>, <span class="var">script</span>)</span></span>;
-            <span class="var">script</span><span class="dot">.</span><span class="meth">onerror</span> <span class="opera">=</span> <span class="warp2">() =&gt; <span class="func">callback</span><span class="warp">(<span class="key">new</span>, <span class="func">Error</span><span class="warp2">(<span class="args">`Error de carga con $&#123;<span class="params">src</span>&#125;`</span>)</span>)</span></span>;
-            <span class="obj">document</span><span class="dot">.</span><span class="obj">head</span><span class="dot">.</span><span class="meth">append</span><span class="warp2">(<span class="obj">script</span>)</span>;
-          &#125;</span>;</pre>
+        <pre class="chaptrSubSect__console wScript">
+          function @loadScript(#src, @callback)&#123;
+            let ·script = document.createElement('script');
+            ·script.•src = #src;
+            ·script.ªonload = () =&gt; @callback(null, ·script);
+            ·script.ªonerror = () =&gt; @callback( new Error(`/º Error de carga con $&#123;src&#125;º/`));
+            document.•head.append(·script);
+          &#125;;</pre>
         <p class="chaptrSubSect__p">Para una carga exitosa llama a <code>callback(null, script)</code> y de lo contrario a <code>callback(error)</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="func">loadScript</span><span class="warp">(<span class="args">'/my/script.js'</span>, <span class="func">function</span><span class="warp2">(<span class="params">error, script</span>) &#123;
-            <span class="func">if</span><span class="warp">(<span class="params">error</span>) &#123;
-              <span class="commnt">maneja el error</span>
-            &#125;</span> <span class="key">else</span> <span class="warp">&#123;
-              <span class="commnt">script cargado exitosamente</span>
-            &#125;</span>
-          &#125;</span> )</span>;</pre>
+        <pre class="chaptrSubSect__console wScript">
+          @loadScript('/º /my/script.js º/', @function(çerror, ·script) &#123;
+            if(çerror) &#123;
+              /*/º maneja el error º/*/
+            &#125; else &#123;
+              /*/º script cargado exitosamente º/*/
+            &#125;
+          &#125;);</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Callback Hell" codeText="">
         <p class="chaptrSubSect__p">A medida que las llamadas se anidan más, el código se vuelve más profundo y difícil de administrar, que puede incluir más bucles, declaraciones condicionales, etc. A esto se le llama “infierno de callbacks” o “pirámide infernal” (“callback hell”, “pyramid of doom”).</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">function</span> <span class="func">task1</span><span class="warp">(<span class="params">callback</span>)&#123;
-            <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
-              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Suena el despertador`</span>)</span>;
-            &#125;, <span class="nums">1000</span></span>)</span>;
-            <span class="func">callback</span><span class="warp2">()</span>;
-          &#125;</span>;
+        <pre class="chaptrSubSect__console wScript">
+          function @task1(@callback)&#123;
+             @setTimeout(() => &#123;
+              console.log(`Suena el despertador`);
+            &#125;, ¬1000);
+             @callback();
+          &#125;;
 
-          <span class="key">function</span> <span class="func">task2</span><span class="warp">(<span class="params">callback</span>)&#123;
-          <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Me levanto y voy a mear`</span>)</span>;
-            &#125;, <span class="nums">2000</span></span>)</span>;
-            <span class="func">callback</span><span class="warp2">()</span>;
-          &#125;</span>;
+          function @task2(@callback)&#123;
+           @setTimeout(() =&gt; &#123;
+            console.log(`Me levanto y voy a mear`);
+            &#125;, ¬2000);
+             @callback();
+          &#125;;
 
-          <span class="key">function</span> <span class="func">task3</span><span class="warp">(<span class="params">callback</span>)&#123;
-          <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Me visto`</span>)</span>;
-            &#125;, <span class="nums">3000</span></span>)</span>;
-            <span class="func">callback</span><span class="warp2">()</span>;
-          &#125;</span>;
+          function @task3(@callback)&#123;
+           @setTimeout(() =&gt; &#123;
+            console.log(`Me visto`);
+            &#125;, ¬3000);
+             @callback();
+          &#125;;
 
-          <span class="key">function</span> <span class="func">task4</span><span class="warp">(<span class="params">callback</span>)&#123;
-          <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Preparo un café`</span>)</span>;
-            &#125;, <span class="nums">4000</span></span>)</span>;
-            <span class="func">callback</span><span class="warp2">()</span>;
-          &#125;</span>;
+          function @task4(@callback)&#123;
+           @setTimeout(() =&gt; &#123;
+            console.log(`Preparo un café`);
+            &#125;, ¬4000);
+             @callback();
+          &#125;;
 
-          <span class="key">function</span> <span class="func">task5</span><span class="warp">(<span class="params">callback</span>)&#123;
-          <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Mientras bebo el café miro el móvil`</span>)</span>;
-            &#125;, <span class="nums">5000</span></span>)</span>;
-            <span class="func">callback</span><span class="warp2">()</span>;
-          &#125;</span>;
+          function @task5(@callback)&#123;
+           @setTimeout(() =&gt; &#123;
+            console.log(`Mientras bebo el café miro el móvil`);
+            &#125;, ¬5000);
+             @callback();
+          &#125;;
 
-          <span class="key">function</span> <span class="func">task6</span><span class="warp">(<span class="params">callback</span>)&#123;
-          <span class="func">setTimeout</span><span class="warp2">(<span class="warp">() =&gt; &#123;
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Me voy a trabajar`</span>)</span>;
-            &#125;, <span class="nums">6000</span></span>)</span>;
-            <span class="func">callback</span><span class="warp2">()</span>;
-          &#125;</span>;
+          function @task6(@callback)&#123;
+           @setTimeout(() =&gt; &#123;
+            console.log(`Me voy a trabajar`);
+            &#125;, ¬6000);
+             @callback();
+          &#125;;
 
-          <span class="func">task1</span><span class="warp">(<span class="warp2">() =&gt; &#123;
-            <span class="func">task2</span><span class="warp">(<span class="warp2">() =&gt; &#123;
-              <span class="func">task3</span><span class="warp">(<span class="warp2">() =&gt; &#123;
-                <span class="func">task4</span><span class="warp">(<span class="warp2">() =&gt; &#123;
-                  <span class="func">task5</span><span class="warp">(<span class="warp2">() =&gt; &#123;
-                    <span class="func">task6</span><span class="warp">(<span class="warp2">() =&gt; &#123;
+          @task1(() =&gt; &#123;
+            @task2(() =&gt; &#123;
+              @task3(() =&gt; &#123;
+                @task4(() =&gt; &#123;
+                  @task5(() =&gt; &#123;
+                    @task6(() =&gt; &#123;
             
-                      &#125;</span> )</span>;
-                    &#125;</span> )</span>;
-                  &#125;</span> )</span>;
-                &#125;</span> )</span>;
-              &#125;</span> )</span>;
-          &#125;</span> )</span>;
+                      &#125;);
+                    &#125;);
+                  &#125;);
+                &#125;);
+              &#125;);
+          &#125;);
         
-          <span class="result">Suena el despertador</span>
-          <span class="result">Me levanto y voy a mear</span>
-          <span class="result">Me visto</span>
-          <span class="result">Preparo un café</span>
-          <span class="result">Mientras bebo el café miro el móvil</span>
-          <span class="result">Me voy a trabajar</span></pre>
+          ⋗ /º Suena el despertador º/
+          ⋗ /º Me levanto y voy a mear º/
+          ⋗ /º Me visto º/
+          ⋗ /º Preparo un café º/
+          ⋗ /º Mientras bebo el café miro el móvil º/
+          ⋗ /º Me voy a trabajar º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
   </LssnArt>
-	<Footer slot="mainFooter" />
+	<Footer slot="mainFooter" prevPage="/lessons/lesson_23" nextPage="/lessons/lesson_27"/>
 </MainLayout>
+
+
+
+
+
+
+<!-- 
+&lt;&gt;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+ªmétodos
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li">
+＃
+﹘
+-->

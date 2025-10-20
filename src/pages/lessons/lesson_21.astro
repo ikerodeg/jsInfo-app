@@ -7,192 +7,260 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
 ---
 <MainLayout>
   <LssnArt artClass="lssn__21" h2Title="Fecha y Hora" slot="mainContent">
+    <ChaptrSect h3Title="Informacion de Fecha y hora" codeText="">
+      <ChaptrSubSect h4Title="Lo nuevo que viene" codeText="">
+        <p class="chaptrSubSect__p">JavaScript ha tenido durante mucho tiempo un problema con el manejo de fechas y horas: el objeto <code>Date</code> tiene limitaciones importantes (mutabilidad, errores con zonas horarias, parsing complicado, etc.). Para abordar esto se está introduciendo la Temporal API, una nueva propuesta que</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Proporciona objetos inmutables para fechas, horas y duraciones.</li>
+          <li class="chaptrSubSectUl__li">Permite manejar zonas horarias con más precisión.</li>
+          <li class="chaptrSubSectUl__li">Ofrece una API más clara para operaciones con fechas (sumar días, comparar, etc.)</li>
+          <li class="chaptrSubSectUl__li">Mejora la legibilidad y seguridad del código con fechas.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Aún no está implementada en todos los navegadores, pero se puede usar mediante el polyfill oficial</p>
+        <pre class="chaptrSubSect__console wScript">
+          /º npm install @js-temporal/polyfill º/</pre>
+      </ChaptrSubSect>
+    </ChaptrSect>
     <ChaptrSect h3Title="Creación" codeText="">
       <ChaptrSubSect h4Title="Sin argumentos" codeText="Date()">
         <p class="chaptrSubSect__p">Crea un objeto para la fecha y la hora actuales</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">now</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Date</span><span class="warp">()</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const ·now = new @Date();
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span>)</span>;
-          <span class="result">Wed Sep 18 2024 15:05:42 GMT+0200</span></pre>
+          console.log(·now);
+          ⋗ /º Sun Oct 12 2025 22:17:13 GMT+0200 º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Desde un timeStamp" codeText="">
-        <p class="chaptrSubSect__p">milisegundos pasados desde el 1 de enero de 1970</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">dateFromTimeStamp</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Date</span><span class="warp">(<span class="nums">1727000000000</span>)</span>;
+        <p class="chaptrSubSect__p">Un timestamp es la cantidad de milisegundos transcurridos desde el 1 de enero de 1970 00:00:00 UTC (época Unix).</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·dateFromTimeStamp = new @Date(¬1727000000000);
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">dateFromTimeStamp</span>)</span>;
-          <span class="result">Sun Sep 22 2024 12:13:20 GMT+0200</span></pre>
+          console.log(·dateFromTimeStamp);
+          ⋗ /º Sun Sep 22 2024 12:13:20 GMT+0200 º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Desde cadena de texto" codeText="">
-        <p class="chaptrSubSect__p">Puedes crear una fecha a partir de una cadena de texto válida</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">dateFromString</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Date</span><span class="warp">(<span class="args">'2024-09-18T15:00:00'</span>)</span>;
+        <p class="chaptrSubSect__p">Puedes crear una fecha a partir de una cadena con formato válido ISO (u otros compatibles)</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·dateFromString = new @Date('2024-09-18T15:00:00');
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">dateFromString</span>)</span>;
-          <span class="result">Wed Sep 18 2024 15:00:00 GMT+0200</span></pre>
+          console.log(·dateFromString);
+          ⋗ /º Wed Sep 18 2024 15:00:00 GMT+0200 º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Especificando año, mes, dia, etc" codeText="">
-        <p class="chaptrSubSect__p">Los meses en JavaScript son basados en cero, es decir, enero es el mes 0, febrero es 1, etc.</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">dateFromString</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Date</span><span class="warp">(<span class="nums">2024, 8, 18, 15, 16, 0</span>)</span>;
+        <p class="chaptrSubSect__p">Los meses en JavaScript son basados en cero, es decir, enero es el mes 0, febrero es 1, etc</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·dateFromComponents = new @Date(¬2024, ¬8, ¬18, ¬15, ¬16, ¬0);
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">dateFromString</span>)</span>;
-          <span class="result">Wed Sep 18 2024 15:16:00 GMT+0200</span></pre>
+          console.log(·dateFromComponents);
+          ⋗ /º Wed Sep 18 2024 15:16:00 GMT+0200 º/</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Desde una fecha existente (clon)" codeText="">
+        <p class="chaptrSubSect__p">Puedes crear una nueva fecha copiando otra existente (útil para evitar mutar la original)</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·originalDate = new @Date();
+          const ·copyDate = new @Date(·originalDate);
+
+          console.log(·copyDate);
+          ⋗ /º misma fecha/hora que originalDate º/</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="Desde una fecha UTC (universal)" codeText="">
+        <p class="chaptrSubSect__p">Si necesitas trabajar con zonas horarias internacionales, puedes crear la fecha directamente en formato UTC</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·utcDate = new @Date(çDate.•UTC(¬2024, ¬8, ¬18, ¬13, ¬0, ¬0));
+
+          console.log(·utcDate);
+          ⋗ /º Wed Sep 18 2024 15:00:00 GMT+0200 º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Acceso a componentes" codeText="">
       <ChaptrSubSect h4Title="Obtener componentes" codeText=".get()">
-        <p class="chaptrSubSect__p">De una fecha, devuelve el dato con el método asociado</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">now</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Date</span><span class="warp">()</span>;
+        <p class="chaptrSubSect__p">Los objetos Date proporcionan varios métodos para leer sus distintos componentes (año, mes, día, hora, etc.). Cada método devuelve un número que representa la parte solicitada de la fecha actual</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·now = new @Date();
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span><span class="dot">.</span><span class="meth">getFullYear</span><span class="warp2">()</span>)</span>;
-          <span class="result">2024</span>  <span class="commnt">Año</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span><span class="dot">.</span><span class="meth">getMonth</span><span class="warp2">()</span>)</span>;
-          <span class="result">8</span>   <span class="commnt">Mes</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span><span class="dot">.</span><span class="meth">getDate</span><span class="warp2">()</span>)</span>;
-          <span class="result">18</span>   <span class="commnt">Día del mes</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span><span class="dot">.</span><span class="meth">getDay</span><span class="warp2">()</span>)</span>;
-          <span class="result">3</span>   <span class="commnt">Día de la semana</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span><span class="dot">.</span><span class="meth">getHours</span><span class="warp2">()</span>)</span>;
-          <span class="result">21</span>   <span class="commnt">Horas</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span><span class="dot">.</span><span class="meth">getMinutes</span><span class="warp2">()</span>)</span>;
-          <span class="result">36</span>   <span class="commnt">Minutos</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span><span class="dot">.</span><span class="meth">getSeconds</span><span class="warp2">()</span>)</span>;
-          <span class="result">42</span>   <span class="commnt">Segundos</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span><span class="dot">.</span><span class="meth">getTime</span><span class="warp2">()</span>)</span>;
-          <span class="result">1726689580142</span>   <span class="commnt">timeStamp desde 1970 en mls</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span><span class="dot">.</span><span class="meth">getTimezoneOffset</span><span class="warp2">()</span>)</span>;
-          <span class="result">-120</span>   <span class="commnt">Diferencia UTC</span></pre>
+          console.log(·now.ªgetFullYear());       
+          ⋗ 2025 /*/º Año completo º/*/
+          console.log(·now.ªgetMonth());          
+          ⋗ 9 /*/º Mes (0 = enero, 11 = diciembre) º/*/
+          console.log(·now.ªgetDate());           
+          ⋗ 10 /*/º Día del mes (1–31) º/*/
+          console.log(·now.ªgetDay());            
+          ⋗ 5 /*/º Día de la semana (0 = domingo, 6 = sábado) º/*/
+          console.log(·now.ªgetHours());          
+          ⋗ 14 /*/º Horas (0–23) º/*/
+          console.log(·now.ªgetMinutes());        
+          ⋗ 22 /*/º Minutos (0–59) º/*/
+          console.log(·now.ªgetSeconds());        
+          ⋗ 47 /*/º Segundos (0–59) º/*/
+          console.log(·now.ªgetMilliseconds());   
+          ⋗ 523 /*/º Milisegundos (0–999) º/*/
+          console.log(·now.ªgetTime());           
+          ⋗ 1750060967523 /*/º timeStamp desde 1970 (en milisegundos) º/*/
+          console.log(·now.ªgetTimezoneOffset()); 
+          ⋗ -120 /*/º Diferencia en minutos con UTC º/*/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Estableciendo componentes" codeText="">
       <ChaptrSubSect h4Title="Estableciendo componentes" codeText=".set()">
-        <p class="chaptrSubSect__p">Los siguientes métodos permiten establecer los componentes de fecha y hora, devuelven un <mark>timestamp</mark></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">now</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Date</span><span class="warp">()</span>;
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span>)</span>;
-          <span class="result">Thu Sep 19 2024 22:03:43 GMT+0200</span>
-
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span><span class="dot">.</span><span class="meth">setFullYear</span><span class="warp2">(<span class="nums">2000</span>)</span>)</span>;
-          <span class="result">1600508077745</span>   <span class="commnt">Devuelve timeStamp</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span>)</span>;
-          <span class="result">Thu Sep 19 2000 22:03:43 GMT+0200</span>
-          <span class="commnt">Nuevo año seteado</span>
-
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span><span class="dot">.</span><span class="meth">setMonth</span><span class="warp2">(<span class="nums">0</span>)</span>)</span>;
-          <span class="result">1705662756551</span>   <span class="commnt">Devuelve timeStamp</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span>)</span>;
-          <span class="result">Thu Jan 19 2024 22:03:43 GMT+0200</span>
-          <span class="commnt">Nuevo mes seteado</span>
-
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span><span class="dot">.</span><span class="meth">setDate</span><span class="warp2">(<span class="nums">1</span>)</span>)</span>;
-          <span class="result">1705662756551</span>   <span class="commnt">Devuelve timeStamp</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span>)</span>;
-          <span class="result">Thu Sep 01 2024 22:03:43 GMT+0200</span>
-          <span class="commnt">Nuevo día del mes seteado</span>
-
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span><span class="dot">.</span><span class="meth">setHours</span><span class="warp2">(<span class="nums">00</span>)</span>)</span>;
-          <span class="result">1705662756551</span>   <span class="commnt">Devuelve timeStamp</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span>)</span>;
-          <span class="result">Thu Sep 19 2024 00:03:43 GMT+0200</span>
-          <span class="commnt">Nueva hora seteada</span>
-
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span><span class="dot">.</span><span class="meth">setMinutes</span><span class="warp2">(<span class="nums">00</span>)</span>)</span>;
-          <span class="result">1705662756551</span>   <span class="commnt">Devuelve timeStamp</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span>)</span>;
-          <span class="result">Thu Sep 19 2024 22:00:43 GMT+0200</span>
-          <span class="commnt">Nuevos minutos seteados</span>
-
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span><span class="dot">.</span><span class="meth">setSeconds</span><span class="warp2">(<span class="nums">00</span>)</span>)</span>;
-          <span class="result">1705662756551</span>   <span class="commnt">Devuelve timeStamp</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span>)</span>;
-          <span class="result">Thu Sep 19 2024 22:03:00 GMT+0200</span>
-          <span class="commnt">Nuevos segundos seteados</span>
-
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span><span class="dot">.</span><span class="meth">setTime</span><span class="warp2">(<span class="nums">1726741560628</span>)</span>)</span>;
-          <span class="result">1726741560628</span>   <span class="commnt">Establece timeStamp</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">now</span>)</span>;
-          <span class="result">Thu Sep 19 2024 22:03:00 GMT+0200</span>
-          <span class="commnt">seteado timeStamp desde 1970</span></pre>
+        <p class="chaptrSubSect__p">Los objetos <code>Date</code> también permiten modificar sus componentes (año, mes, día, hora, minutos, etc.) mediante los métodos .set(). Cada método devuelve el <code>timestamp</code> actualizado (milisegundos desde el 1 de enero de 1970</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·now = new @Date();
+          console.log(·now);
+          ⋗ /º Thu Sep 19 2024 22:03:43 GMT+0200 º/</pre>
+        <p class="chaptrSubSect__p"><code>.setFullYear()</code> Establece un nuevo año.</p>
+        <pre class="chaptrSubSect__console wScript">
+          ·now.ªsetFullYear(¬2025);
+          console.log(·now);
+          ⋗ /º Thu Sep 19 2025 22:03:43 GMT+0200 º/</pre>
+        <p class="chaptrSubSect__p"><code>.setMonth()</code> Establece un nuevo mes (0-11).</p>
+        <pre class="chaptrSubSect__console wScript">
+          ·now.ªsetMonth(¬11);
+          console.log(·now);
+          ⋗ /º Thu Dec 19 2025 22:03:43 GMT+0200 º/</pre>
+        <p class="chaptrSubSect__p"><code>.setDate()</code> Establece un nuevo día del mes (1-31).</p>
+        <pre class="chaptrSubSect__console wScript">
+          ·now.ªsetDate(¬25);
+          console.log(·now);
+          ⋗ /º Thu Dec 25 2025 22:03:43 GMT+0200 º/</pre>
+        <p class="chaptrSubSect__p"><code>.setHours()</code> Establece una nueva hora (0-23).</p>
+        <pre class="chaptrSubSect__console wScript">
+          ·now.ªsetHours(¬10);
+          console.log(·now);
+          ⋗ /º Thu Dec 25 2025 10:03:43 GMT+0200 º/</pre>
+        <p class="chaptrSubSect__p"><code>.setMinutes()</code> Establece nuevos minutos (0-59).</p>
+        <pre class="chaptrSubSect__console wScript">
+          ·now.ªsetMinutes(¬30);
+          console.log(·now);
+          ⋗ /º Thu Dec 25 2025 10:30:43 GMT+0200 º/</pre>
+        <p class="chaptrSubSect__p"><code>.setSeconds()</code> Establece nuevos segundos (0-59).</p>
+        <pre class="chaptrSubSect__console wScript">
+          ·now.ªsetSeconds(¬0);
+          console.log(·now);
+          ⋗ /º Thu Dec 25 2025 10:30:00 GMT+0200 º/</pre>
+        <p class="chaptrSubSect__p"><code>.setMilliseconds()</code> Establece nuevos milisegundos (0-999).</p>
+        <pre class="chaptrSubSect__console wScript">
+          ·now.ªsetMilliseconds(¬500);
+          console.log(·now);
+          ⋗ /º Thu Dec 25 2025 10:30:00.500 GMT+0200 º/</pre>
+        <p class="chaptrSubSect__p"><code>.setTime()</code> Establece una nueva fecha a partir de un <code>timestamp</code> (milisegundos desde 1970).</p>
+        <pre class="chaptrSubSect__console wScript">
+          ·now.ªsetTime(¬1760000000000);
+          console.log(·now);
+          ⋗ /º Mon Sep 09 2024 17:33:20 GMT+0200 º/</pre>
+        <p class="chaptrSubSect__p">Todos los métodos <code>.set()</code> modifican el objeto <code>Date</code> original, no devuelven una copia. Si un valor se sale de su rango (por ejemplo, <code>setMonth(15)</code>), JavaScript ajusta automáticamente la fecha</p>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Medición y Beanchmarking" codeText="">
       <ChaptrSubSect h4Title="Tiempo transcurrido" codeText="Date.now()">
-        <p class="chaptrSubSect__p">Si lo único que queremos es medir el tiempo transcurrido, no es necesario utilizar el constructor de <code>Date()</code>. Podemos utilizar el método especial Date.now() que nos devuelve el timestamp actual</mark></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">start</span> <span class="opera">=</span> <span class="key">new</span> <span class="obj">Date</span><span class="dot">.</span><span class="meth">now</span><span class="warp">()</span>;
+        <p class="chaptrSubSect__p">Si lo único que queremos es medir el tiempo transcurrido, no es necesario utilizar el constructor de <code>Date()</code>. Podemos utilizar el método especial <code>Date.now()</code> que nos devuelve el <code>timestamp</code> actual</mark></p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·start = çDate.ªnow();        /* ⏱ Marca de inicio */
 
-          <span class="func">for</span> <span class="warp">(<span class="key">let</span> <span class="params">i</span> <span class="opera">=</span> <span class="nums">0</span>;<span class="params">i</span> <span class="opera">&lt;</span> <span class="nums">5000000000</span>;<span class="params">i</span><span class="opera">++</span>) &#123;
-            <span class="key">let</span> <span class="var">doSomething</span> <span class="opera">=</span> <span class="params">i <span class="opera">*</span> i <span class="opera">*</span> i</span>;
-          &#125;</span>;
+          for (let i = ¬0; #i &lt; /º 5_000_000_000 º/; i++) &#123;
+            const ·doSomething = #i * #i * #i;
+          &#125;
 
-          <span class="key">const</span> <span class="var">end</span> <span class="opera">=</span> <span class="key">new</span> <span class="obj">Date</span><span class="dot">.</span><span class="meth">now</span><span class="warp">()</span>;
+          const ·end = çDate.ªnow();        /* ⏱ Marca de finalización */
 
-          <span class="obj">console</span><span class="meth">log</span><span class="warp">(<span class="args">`Pasaron $&#123;<span class="warp2">(<span class="var">end</span> <span class="opera">-</span> <span class="var">start</span>)</span> <span class="opera">/</span> <span class="nums">1000</span>&#125;seg`</span>)</span>;
-          <span class="result">Pasaron 5.441seg</span></pre>
+          console.log(`Pasaron $&#123;(·end - ·start) / 1000&#125; seg`);
+          ⋗ /º Pasaron 5.441 seg º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Beanchmarking" codeText="performance.now()">
         <p class="chaptrSubSect__p">Usando este método es más rápido debido a que no se produce ninguna conversión de tipo de dato</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">start</span> <span class="opera">=</span> <span class="obj">performance</span><span class="dot">.</span><span class="meth">now</span><span class="warp">()</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const ·start = çperformance.ªnow();        /* ⏱ Marca de inicio */
 
-          <span class="func">for</span> <span class="warp">(<span class="key">let</span> <span class="params">i</span> <span class="opera">=</span> <span class="nums">0</span>;<span class="params">i</span> <span class="opera">&lt;</span> <span class="nums">5000000000</span>;<span class="params">i</span><span class="opera">++</span>) &#123;
-            <span class="key">let</span> <span class="var">doSomething</span> <span class="opera">=</span> <span class="params">i <span class="opera">*</span> i <span class="opera">*</span> i</span>;
-          &#125;</span>;
+          for (let i = ¬0; #i &lt; /º 5_000_000_000 º/; i++) &#123;
+            const ·doSomething = #i * #i * #i;
+          &#125;
 
-          <span class="key">let</span> <span class="var">end</span> <span class="opera">=</span> <span class="obj">performance</span><span class="dot">.</span><span class="meth">now</span><span class="warp">()</span>;
+          const ·end = çperformance.ªnow();        /* ⏱ Marca de finalización */
 
-          <span class="obj">console</span><span class="meth">log</span><span class="warp">(<span class="args">`La operación tardó $&#123;<span class="warp2">(<span class="var">end</span> <span class="opera">-</span> <span class="var">start</span>)</span> <span class="opera">/</span> <span class="nums">1000</span>&#125;seg`</span>)</span>;
-          <span class="result">La operación tardó 5.441seg</span></pre>
+          console.log(`Pasaron $&#123;(·end - ·start) / 1000&#125; seg`);
+          ⋗ /º Pasaron 5.441 seg º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Conversión" codeText="">
       <ChaptrSubSect h4Title="de String a timeStamp" codeText="Date.parse()">
-        <p class="chaptrSubSect__p">El formato del string debe ser <code>YYYY-MM-DDTHH:mm:ss.sssZ</code> y devuelve un <mark>timestamp</mark></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">timeStamp</span> <span class="opera">=</span> <span class="obj">Date</span><span class="dot">.</span><span class="meth">parse</span><span class="warp">(<span class="args">'1976-11-14T03:30'</span> )</span>;
+        <p class="chaptrSubSect__p">El formato del string debe ser <code>YYYY-MM-DDTHH:mm:ss.sssZ</code> (ISO 8601) y devuelve un <code>timestamp</code> en milisegundos desde el 1 de enero de 1970 (UTC). ⚠️ Nota: Algunos navegadores pueden comportarse de forma diferente si el formato no es ISO, por lo que se recomienda siempre usar este formato</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·timeStamp = çDate.ªparse('/º 1976-11-14T03:30 º/');
 
-          <span class="obj">console</span><span class="meth">log</span><span class="warp">(<span class="var">timeStamp</span>)</span>;
-          <span class="result">216786600000</span></pre>
+          console.log(·timeStamp);
+          ⋗ /º 216786600000 º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="de timeStamp a fecha" codeText="new Date()">
         <p class="chaptrSubSect__p">Para pasar de un <mark>timeStamp</mark> a fecha</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">timeStamp</span> <span class="opera">=</span> <span class="obj">Date</span><span class="dot">.</span><span class="meth">parse</span><span class="warp">(<span class="args">'1976-11-14T03:30'</span> )</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const ·timeStamp = çDate.ªparse('/º 1976-11-14T03:30 º/');
 
-          <span class="key">let</span> <span class="var">dateResult</span> <span class="opera">=</span> <span class="key">new</span> <span class="obj">Date</span><span class="warp">(<span class="var">timeStamp</span>)</span>;
+          let ·dateResult = new Date(·timeStamp);
 
-          <span class="obj">console</span><span class="meth">log</span><span class="warp">(<span class="var">dateResult</span>)</span>;
-          <span class="result">Sun Nov 14 1976 03:30:00 GMT+0100</span></pre>
+          console.log(·dateResult);
+          ⋗ /º Sun Nov 14 1976 03:30:00 GMT+0100 º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="a fecha local con" codeText=".toLocaleDateString()">
         <p class="chaptrSubSect__p">Devuelve una cadena con una representación de la fecha (día, mes, año), sensible al idioma, en la zona horaria local del usuario. Puedes personalizar el formato de la fecha utilizando parámetros opcionales.</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">date</span> <span class="opera">=</span> <span class="key">new</span> <span class="obj">Date</span><span class="warp">()</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·date = new Date();
 
-          <span class="key">let</span> <span class="var">formattedData</span> <span class="opera">=</span> <span class="var">date</span><span class="dot">.</span><span class="meth">toLocaleDateString</span><span class="warp">(<span class="args">'es-ES', &#123;
-            <span class="objProp">dateStyle</span>: 'full'
-          &#125;</span>)</span>;
+          let ·formattedData = ·date.toLocaleDateString('es-ES', &#123;
+            dateStyle: 'full'
+          &#125;);
 
-          <span class="obj">console</span><span class="meth">log</span><span class="warp">(<span class="var">formattedData</span>)</span>;
-          <span class="result">jueves, 19 de septiembre de 2024</span></pre>
+          console.log(·formattedData);
+          ⋗ /º jueves, 19 de septiembre de 2024 º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="a fecha local con" codeText=".toLocaleString()">
         <p class="chaptrSubSect__p">Devuelve una cadena con una representación de la fecha (día, mes, año, hora), sensible al idioma, en la zona horaria local del usuario. Puedes personalizar el formato de la fecha utilizando parámetros opcionales.</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">date</span> <span class="opera">=</span> <span class="key">new</span> <span class="obj">Date</span><span class="warp">()</span>;
+        <pre class="chaptrSubSect__console wScript">
+          let ·date = new Date();
 
-          <span class="key">let</span> <span class="var">formattedData</span> <span class="opera">=</span> <span class="var">date</span><span class="dot">.</span><span class="meth">toLocaleString</span><span class="warp">(<span class="args">'es-ES', &#123;
-            <span class="objProp">dateStyle</span>: 'full', 
-            <span class="objProp">timeStyle</span>: 'medium'
-          &#125;</span>)</span>;
+          let ·formattedData = ·date.toLocaleString('es-ES', &#123;
+            dateStyle: 'full',
+            timeStyle: 'medium'
+          &#125;);
 
-          <span class="obj">console</span><span class="meth">log</span><span class="warp">(<span class="var">formattedData</span>)</span>;
-          <span class="result">jueves, 19 de septiembre de 2024 15:19:36</span></pre>
+          console.log(·formattedData);
+          ⋗ /º jueves, 19 de septiembre de 2024 15:19:36 º/</pre>
+      </ChaptrSubSect>
+      <ChaptrSubSect h4Title="A formato estándar UTC" codeText=".toUTCString()">
+        <p class="chaptrSubSect__p">Devuelve una cadena con la fecha y hora en formato ISO 8601 (UTC). Este formato es el más usado para almacenar o enviar fechas en APIs y bases de datos, ya que es independiente de la zona horaria del usuario.</p>
+        <pre class="chaptrSubSect__console wScript">
+          const ·now = new @Date();
+
+          console.log(·now.ªtoISOString());
+          ⋗ /º 2024-09-19T13:19:36.789Z º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
   </LssnArt>
-	<Footer slot="mainFooter" />
+	<Footer slot="mainFooter" prevPage="/lessons/lesson_20" nextPage="/lessons/lesson_22"/>
 </MainLayout>
+
+
+
+
+<!-- 
+&lt;&gt;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+ªmétodos
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li">
+＃
+-->

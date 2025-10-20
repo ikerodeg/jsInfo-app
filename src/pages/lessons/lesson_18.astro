@@ -7,149 +7,158 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
 ---
 <MainLayout>
   <LssnArt artClass="lssn__18" h2Title="WeakMap" slot="mainContent">
+    <ChaptrSect h3Title="Qué es un WeakMap" codeText="">
+      <ChaptrSubSect h4Title="Definición" codeText="">
+        <p class="chaptrSubSect__p">Es una colección de pares clave/valor similar a Map pero con diferencias importantes</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Las claves solo pueden ser objetos y las referencias a estos objetos son débiles</li>
+          <li class="chaptrSubSectUl__li">No es iterable</li>
+          <li class="chaptrSubSectUl__li">No tiene la propiedad size</li>
+          <li class="chaptrSubSectUl__li">No tiene métodos para iterar como keys(), values() o entries()</li>
+          <li class="chaptrSubSectUl__li">No se puede limpiar con clear()</li>
+        </ul>
+        <p class="chaptrSubSect__p">El recolector de basura puede eliminar un objeto si no hay otras referencias fuertes a él, incluso si está en un WeakMap</p>
+      </ChaptrSubSect>
+    </ChaptrSect>
     <ChaptrSect h3Title="Creación de un WeakMap" codeText="">
       <ChaptrSubSect h4Title="Utilizando su constructor" codeText="new WeakMap()">
         <p class="chaptrSubSect__p">Es la única forma de crearlo, <mark>no existe la forma literal</mark> como en los objetos</p>
-        <p class="chaptrSubSect__p">Las claves de un <code>WeakMap</code> <mark>sólo pueden ser objetos</mark></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">myWeakMap</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakMap</span><span class="warp">()</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const ·myWeakMap = new WeakMap();
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">myWeakMap</span>)</span>;
-          <span class="result">WeakMap(0) &#123;&#125;</span></pre>
+          console.log(·myWeakMap);
+          ⋗ /º WeakMap(0) &#123;&#125; º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Agregar elementos" codeText="">
       <ChaptrSubSect h4Title="Utilizando su constructor" codeText="new WeakMap()">
         <p class="chaptrSubSect__p">Cuando lo estamos creando podemos pasarle también unos valores iniciales</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">jug_11</span> <span class="opera">=</span> <span class="warp">&#123;
-            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
-            <span class="objProp">pie</span>: <span class="args">'Izq'</span>,
-          &#125;</span>
+        <pre class="chaptrSubSect__console wScript">
+          const çjug_11 = &#123; name: 'Éder', pie: 'Izq' &#125;;
+          const çjug_21 = &#123; name: 'Iker', pie: 'Der' &#125;;
 
-          <span class="key">const</span> <span class="var">jug_21</span> <span class="opera">=</span> <span class="warp">&#123;
-            <span class="objProp">name</span>: <span class="args">'Iker'</span>,
-            <span class="objProp">pie</span>: <span class="args">'Der'</span>,
-          &#125;</span>
-
-          <span class="key">const</span> <span class="var">firstTeam</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakMap</span><span class="warp">([
-            [<span class="obj">jug_11</span>, <span class="args">'ExtIzq'</span>],
-            [<span class="obj">jug_21</span>, <span class="args">'MedCentDef'</span>]
-          ])</span>;
-          
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">firstTeam</span>)</span>;
-          <span class="result">WeakMap &#123;&#123;...&#125; =&gt; 'MedCentDef', &#123;...&#125; =&gt; 'ExtIzq'&#125;</span></pre>
+          const ·firstTeam = new WeakMap([
+            [çjug_11, 'ExtIzq'],
+            [çjug_21, 'MedCentDef']
+          ]);
+          console.log(·firstTeam);
+          ⋗ /º WeakMap &#123;&#123;...&#125; =&gt; 'ExtIzq', &#123;...&#125; =&gt; 'MedCentDef'&#125; º/
+          /*/º En Chrome se muestre una vista previa del contenido º/*/
+          /*/º del WeakMap pero no podemos acceder a él directamente. º/*/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Utilizando el método" codeText=".set()">
-        <p class="chaptrSubSect__p">Cómo argumento le pasaremos un objeto y un valor</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">jug_11</span> <span class="opera">=</span> <span class="warp">&#123;
-            <span class="objProp">name</span>: <span class="args">'Éder'</span>,
-            <span class="objProp">pie</span>: <span class="args">'Izq'</span>,
-          &#125;</span>
+        <p class="chaptrSubSect__p">También se pueden agregar elementos después de crear el <code>WeakMap</code> usando el método <code>.set(objeto, valor)</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          const çjug_11 = &#123; name: 'Éder', pie: 'Izq' &#125;;
+          const çjug_21 = &#123; name: 'Iker', pie: 'Der' &#125;;
 
-          <span class="key">const</span> <span class="var">jug_21</span> <span class="opera">=</span> <span class="warp">&#123;
-            <span class="objProp">name</span>: <span class="args">'Iker'</span>,
-            <span class="objProp">pie</span>: <span class="args">'Der'</span>,
-          &#125;</span>
+          const ·firstTeam = new WeakMap();
 
-          <span class="key">const</span> <span class="var">firstTeam</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakMap</span><span class="warp">([
-            [<span class="obj">jug_11</span>, <span class="args">'ExtIzq'</span>],
-          ])</span>;
+          ·firstTeam.set(çjug_11, 'ExtIzq');
+          ·firstTeam.set(çjug_21, 'MedCentDef');
 
-          <span class="obj">firstTeam</span><span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="obj">jug_21</span>, <span class="args">'MedCentDef'</span>)</span>;
-          
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">firstTeam</span>)</span>;
-          <span class="result">WeakMap &#123;&#123;...&#125; =&gt; 'MedCentDef', &#123;...&#125; =&gt; 'ExtIzq'&#125;</span></pre>
+          console.log(·firstTeam);
+          ⋗ /º WeakMap &#123;&#123;...&#125; =&gt; 'ExtIzq', &#123;...&#125; =&gt; 'MedCentDef'&#125; º/
+          /*/º En Chrome se muestre una vista previa del contenido º/*/
+          /*/º del WeakMap pero no podemos acceder a él directamente. º/*/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Acceso a elementos" codeText="">
       <ChaptrSubSect h4Title="Devuelve el value de key con" codeText=".get()">
-          <p class="chaptrSubSect__p">Devuelve el valor de un key que es un objeto</p>
-          <pre class="chaptrSubSect__console">
-            <span class="key">const</span> <span class="var">jug_11</span> <span class="opera">=</span> <span class="warp">&#123;
-              <span class="objProp">name</span>: <span class="args">'Éder'</span>,
-              <span class="objProp">pie</span>: <span class="args">'Izq'</span>,
-            &#125;</span>
-  
-            <span class="key">const</span> <span class="var">jug_21</span> <span class="opera">=</span> <span class="warp">&#123;
-              <span class="objProp">name</span>: <span class="args">'Iker'</span>,
-              <span class="objProp">pie</span>: <span class="args">'Der'</span>,
-            &#125;</span>
-  
-            <span class="key">const</span> <span class="var">firstTeam</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakMap</span><span class="warp">([
-              [<span class="obj">jug_11</span>, <span class="args">'ExtIzq'</span>],
-              [<span class="obj">jug_21</span>, <span class="args">'MedCentDef'</span>]
-            ])</span>;
-            
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">firstTeam</span><span class="dot">.</span><span class="meth">get</span><span class="warp2">(<span class="obj">jug_11</span>)</span>)</span>;
-            <span class="result">'ExtIzq'</span></pre>
+        <p class="chaptrSubSect__p">El método <code>.get(objKey)</code> devuelve el valor asociado a una clave específica (que debe ser un objeto). Si la clave no existe en el <code>WeakMap</code>, devuelve <code>undefined</code>.</p>
+        <pre class="chaptrSubSect__console wScript">
+          const çjug_11 = &#123; name: 'Éder', pie: 'Izq' &#125;;
+          const çjug_21 = &#123; name: 'Iker', pie: 'Der' &#125;;
+
+          const ·firstTeam = new WeakMap([
+            [çjug_11, 'ExtIzq'],
+            [çjug_21, 'MedCentDef']
+          ]);
+
+          console.log(·firstTeam.get(çjug_11));       ⋗ /º 'ExtIzq' º/
+          console.log(·firstTeam.get(çjug_21));       ⋗ /º 'MedCentDef' º/
+          console.log(·firstTeam.get(&#123; name: 'Fake' &#125;));        ⋗ /º undefined º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Existencia claves" codeText="">
       <ChaptrSubSect h4Title="Verifica si existe una clave con" codeText=".has()">
-          <p class="chaptrSubSect__p">Devuelve un booleano</p>
-          <pre class="chaptrSubSect__console">
-            <span class="key">const</span> <span class="var">jug_11</span> <span class="opera">=</span> <span class="warp">&#123;
-              <span class="objProp">name</span>: <span class="args">'Éder'</span>,
-              <span class="objProp">pie</span>: <span class="args">'Izq'</span>,
-            &#125;</span>
-  
-            <span class="key">const</span> <span class="var">jug_21</span> <span class="opera">=</span> <span class="warp">&#123;
-              <span class="objProp">name</span>: <span class="args">'Iker'</span>,
-              <span class="objProp">pie</span>: <span class="args">'Der'</span>,
-            &#125;</span>
-  
-            <span class="key">const</span> <span class="var">firstTeam</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakMap</span><span class="warp">([
-              [<span class="obj">jug_11</span>, <span class="args">'ExtIzq'</span>],
-              [<span class="obj">jug_21</span>, <span class="args">'MedCentDef'</span>]
-            ])</span>;
-            
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">firstTeam</span><span class="dot">.</span><span class="meth">has</span><span class="warp2">(<span class="obj">jug_11</span>)</span>)</span>;
-            <span class="result">true</span></pre>
+        <p class="chaptrSubSect__p">Devuelve un booleano</p>
+        <pre class="chaptrSubSect__console wScript">
+          const çjug_11 = &#123; name: 'Éder', pie: 'Izq' &#125;;
+          const çjug_21 = &#123; name: 'Iker', pie: 'Der' &#125;;
+
+          const ·firstTeam = new WeakMap([
+            [çjug_11, 'ExtIzq'],
+            [çjug_21, 'MedCentDef']
+          ]);
+
+          console.log(·firstTeam.has(çjug_11));       ⋗ /º true º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Eliminar elementos" codeText="">
       <ChaptrSubSect h4Title="Elimina elemento con clave con" codeText=".delete()">
-          <p class="chaptrSubSect__p">Elmina el elemento que contiene esa clave</p>
-          <pre class="chaptrSubSect__console">
-            <span class="key">const</span> <span class="var">jug_11</span> <span class="opera">=</span> <span class="warp">&#123;
-              <span class="objProp">name</span>: <span class="args">'Éder'</span>,
-              <span class="objProp">pie</span>: <span class="args">'Izq'</span>,
-            &#125;</span>
-  
-            <span class="key">const</span> <span class="var">jug_21</span> <span class="opera">=</span> <span class="warp">&#123;
-              <span class="objProp">name</span>: <span class="args">'Iker'</span>,
-              <span class="objProp">pie</span>: <span class="args">'Der'</span>,
-            &#125;</span>
-  
-            <span class="key">const</span> <span class="var">firstTeam</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakMap</span><span class="warp">([
-              [<span class="obj">jug_11</span>, <span class="args">'ExtIzq'</span>],
-              [<span class="obj">jug_21</span>, <span class="args">'MedCentDef'</span>]
-            ])</span>;
+        <p class="chaptrSubSect__p">Elmina el elemento que contiene esa clave</p>
+        <pre class="chaptrSubSect__console wScript">
+          const çjug_11 = &#123; name: 'Éder', pie: 'Izq' &#125;;
+          const çjug_21 = &#123; name: 'Iker', pie: 'Der' &#125;;
 
-            <span class="obj">firstTeam</span><span class="dot">.</span><span class="meth">delete</span><span class="warp">(<span class="obj">jug_21</span>)</span>;
-            
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">firstTeam</span>)</span>;
-            <span class="result">WeakMap &#123;&#123;...&#125; =&gt; 'ExtIzq'&#125;</span></pre>
+          const ·firstTeam = new WeakMap([
+            [çjug_11, 'ExtIzq'],
+            [çjug_21, 'MedCentDef']
+          ]);
+
+          ·firstTeam.ªdelete(çjug_11);
+
+          console.log(·firstTeam.has(çjug_11));       ⋗ /º false º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Casos de uso" codeText="">
       <ChaptrSubSect h4Title="Casos de uso reales" codeText="">
-        <p class="chaptrSubSect__p">El área principal de aplicación de WeakMap es como almacenamiento de datos adicional</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">jug_11</span> <span class="opera">=</span> <span class="warp">&#123;
-            <span class="objProp">name</span>: <span class="args">'Éder'</span>
-          &#125;</span>;
+        <p class="chaptrSubSect__p">El área principal de aplicación de WeakMap es como almacenamiento de datos adicional. Los <code>WeakMap</code> se usan cuando queremos asociar datos a objetos, pero sin impedir que esos objetos sean eliminados por el recolector de basura.</p>
+        <pre class="chaptrSubSect__console wScript">
+          let çjug_11 = &#123; name: 'Éder' &#125;;
 
-          <span class="key">const</span> <span class="var">firstTeam</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">WeakMap</span><span class="warp">()</span>;
+          const ·firstTeam = new WeakMap();
 
-          <span class="obj">firstTeam</span><span class="dot">.</span><span class="meth">set</span><span class="warp">(<span class="obj">jug_11</span>, <span class="args">'ExtIzq'</span>)</span>;
+          ·firstTeam.set(çjug_11, 'ExtIzq');
 
-          <span class="obj">jug_11</span> <span class="opera">=</span> <span class="warp">&#123;&#125;</span>;</pre>
+          console.log(·firstTeam.has(çjug_11));       ⋗ /º true º/
+
+          /*/º Eliminamos la única referencia fuerte al objeto çjug_11 º/*/
+          çjug_11 = null;
+
+          /*/º El objeto çjug_11 puede ser recolectado por el º/*/
+          /*/º recolector de basura, y el par clave/valor en el WeakMap º/*/
+          /*/º también puede ser eliminado automáticamente º/*/
+          console.log(·firstTeam.has(çjug_11));       ⋗ /º false º/</pre>
         <p class="chaptrSubSect__p">Como ha desaparecido el obj <code>jug_11</code> y el <code>WeakMap</code> tiene una <mark>referencia débil</mark> a él, <code>firstTeam</code> será <mark>auto-destruido</mark> por el recolector de basura pero no automáticamente, si no cuando pueda el motor V8</p>
       </ChaptrSubSect>
     </ChaptrSect>
   </LssnArt>
-	<Footer slot="mainFooter" />
+	<Footer slot="mainFooter" prevPage="/lessons/lesson_17" nextPage="/lessons/lesson_19"/>
 </MainLayout>
+
+<!-- 
+&lt;&gt;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+ªmétodos
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li">
+＃
+-->

@@ -11,336 +11,413 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
       <ChaptrSubSect h4Title="Asignar prototipo con" codeText="[[Prototype]]">
         <p class="chaptrSubSect__p">El <code>[[Prototype]]</code> es una referencia interna que cada objeto en JavaScript tiene hacia otro objeto, llamado su "prototipo". Es un enlace que permite que un objeto pueda acceder a las propiedades y métodos de su prototipo si no los encuentra en sí mismo</p>
         <p class="chaptrSubSect__p">En la práctica, puedes acceder a este prototipo utilizando la propiedad <code>__proto__</code> (aunque <mark>no es recomendable</mark> para uso en producción, y deberías preferir el uso de métodos como <code>Object.getPrototypeOf()</code> o <code>Object.create()</code>)</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">animal</span> <span class="opera">=</span> <span class="warp">&#123;
-            <span class="objProp">canWalk</span>: <span class="key">true</span>,
-            <span class="func">speak</span><span class="warp2">()&#123;
-                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Animal sound'</span>)</span>;
-              &#125;</span>
-          &#125;</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const çdog = &#123;
+            hasVacune: true,
+            @bark()&#123;
+                console.log('/º Guau! Guau! º/');
+              &#125;
+          &#125;;
 
-          <span class="key">const</span> <span class="var">dog</span> <span class="opera">=</span> <span class="warp">&#123;
-            <span class="objProp">breed</span>: <span class="args">'BullTerrier'</span>
-          &#125;</span>;
+          const ·myDog = &#123;
+            breed: 'BullTerrier'
+          &#125;;
         
-          <span class="commnt">Enlazamos el prototipo de "dog" con "animal"</span>
-          <span class="obj">dog</span><span class="dot">.</span><span class="meth">__proto__</span> <span class="opera">= <span class="obj">animal</span></span>;
+          /* Enlazamos el prototipo de "myDog" con "dog" */
+          ·myDog.__proto__ = çdog;
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">dog</span><span class="dot">.</span><span class="meth">canWalk</span>)</span>;    <span class="result">true</span> <span class="commnt">heredado de animal</span>
-          <span class="obj">dog</span><span class="dot">.</span><span class="func">speak</span><span class="warp">()</span>;  <span class="result">'Animal sound'</span>  <span class="commnt">heredado de animal</span></pre>
+          console.log(·myDog.•hasVacune);
+          ⋗ ∞true                     /* heredado de dog */
+
+          ·dog.@bark();
+          ⋗ /º 'Guau! Guau! º/        /* heredado de dog*/</pre>
         <p class="chaptrSubSect__p">Todos los objetos en JavaScript pueden tener un prototipo, y estos prototipos son simplemente otros objetos. De hecho, todos los objetos tienen un prototipo, excepto el objeto más alto en la cadena de herencia: <code>Object.prototype</code>, cuyo prototipo es <code>null</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">felino</span> <span class="opera">=</span> <span class="warp">&#123;
-            <span class="objProp">hunt</span>: <span class="key">true</span>,
-          &#125;</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const çfelino = &#123;
+            hunt: true,
+          &#125;;
 
-          <span class="key">const</span> <span class="var">lion</span> <span class="opera">=</span> <span class="warp">&#123;
-            <span class="objProp">__proto__</span>: <span class="obj">felino</span>,
-            <span class="func">ronronea</span><span class="warp2">()&#123;
-                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'rrrrrrrrrrrr'</span>)</span>;
-              &#125;</span>
-          &#125;</span>;
+          const çlion = &#123;
+            __proto__: çfelino,
+            @purr()&#123;
+                console.log('/º mrrr mrrrr º/');
+              &#125;
+          &#125;;
 
-          <span class="key">const</span> <span class="var">cat</span> <span class="opera">=</span> <span class="warp">&#123;
-            <span class="objProp">__proto__</span>: <span class="obj">lion</span>,
-            <span class="func">sound</span><span class="warp2">()&#123;
-                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Miau'</span>)</span>;
-              &#125;</span>
-          &#125;</span>;
+          const çcat = &#123;
+            __proto__: çlion,
+            @maulla()&#123;
+                console.log('/º miau miau º/');
+              &#125;
+          &#125;;
+
+          console.log(çcat.•hunt);
+          ⋗ ∞true                     /* heredado de felino */
+
+          çcat.@purr();
+          ⋗ /º 'mrrr mrrrr' º/        /* heredado de lion */
         
-          <span class="obj">cat</span><span class="dot">.</span><span class="meth">sound</span><span class="warp">()</span>;  <span class="result">'Miau'</span>  <span class="commnt">en el propio objeto cat</span>
-          <span class="obj">cat</span><span class="dot">.</span><span class="meth">ronronea</span><span class="warp">()</span>;  <span class="result">'rrrrrrrrrrrr'</span>  <span class="commnt">heredado de lion</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">cat</span><span class="dot">.</span><span class="meth">hunt</span>)</span>;    <span class="result">true</span> <span class="commnt">heredado de felino</span></pre>
+          çcat.@maulla();
+          ⋗ /º 'miau miau' º/         /* propio de cat */</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Asignar prototipo con" codeText="Object.create()">
         <p class="chaptrSubSect__p">Permite la creación de objetos con prototipos específicos sin la necesidad de definir un constructor, y no requiere la creación de una función constructora. Es el método <mark>recomendado</mark></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">animal</span> <span class="opera">=</span> <span class="warp">&#123;
-            <span class="objProp">eat</span>: <span class="key">true</span>,
-            <span class="func">sleep</span><span class="warp2">()&#123;
-                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'zzzzzzzz'</span>)</span>;
-              &#125;</span>
-          &#125;</span>;
+        <pre class="chaptrSubSect__console wScript">
+          const çfelino = &#123;
+            hunt: true,
+          &#125;;
 
-          <span class="commnt">Creamos el nuevo objeto y le asignamos el prototipo</span>
-          <span class="key">const</span> <span class="var">rabbit</span> <span class="opera">=</span> <span class="obj">Object</span><span class="dot">.</span><span class="meth">create</span><span class="warp">(<span class="obj">animal</span>)</span>;
-        
-          <span class="commnt">Verificamos las propiedades"</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">rabbit</span><span class="dot">.</span><span class="meth">eat</span>)</span>;    <span class="result">true</span>
-          <span class="obj">rabbit</span><span class="dot">.</span><span class="func">sleep</span><span class="warp">()</span>;  <span class="result">'zzzzzzzz'</span></pre>
-        <p class="chaptrSubSect__p"><code>Object.create()</code> es más potente, tiene un segundo argumento opcional: los descriptores de propiedad</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">animal</span> <span class="opera">=</span> <span class="warp">&#123;
-            <span class="objProp">eat</span>: <span class="key">true</span>,
-            <span class="func">sleep</span><span class="warp2">()&#123;
-                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'zzzzzzzz'</span>)</span>;
-              &#125;</span>
-          &#125;</span>;
+          /* Creamos el objeto cat con felino como prototipo */
+          const çcat = Object.ªcreate(çfelino);
 
-          <span class="commnt">Creamos nueva instancia añadiendo una propiedad</span>
-          <span class="key">const</span> <span class="var">rabbit</span> <span class="opera">=</span> <span class="obj">Object</span><span class="dot">.</span><span class="meth">create</span><span class="warp">(<span class="obj">animal</span>, &#123;
-              <span class="objProp">jump</span>: &#123;
-                <span class="key">value</span>: <span class="key">true</span>,
-                <span class="key">writable</span>: <span class="key">false</span>,
-                <span class="key">enumerable</span>: <span class="key">true</span>,
-                <span class="key">configurable</span>: <span class="key">false</span>,
-              &#125;
-          &#125;)</span>;
-        
-          <span class="commnt">Verificamos las propiedades"</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">rabbit</span><span class="dot">.</span><span class="meth">jump</span>)</span>;    <span class="result">true</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">getOwnPropertyDescriptors</span><span class="warp2">(<span class="obj">rabbit</span>)</span>)</span>;
-          <span class="result">&#123;
-              jump: &#123;
-                  value: true,
-                  writable: false,
-                  enumerable: true,
-                  configurable: false
-                &#125;
-            &#125;</span></pre>
+          console.log(çcat.•hunt);
+          ⋗ ∞true                     /* heredado de felino */</pre>
+        <p class="chaptrSubSect__p"><code>Object.create()</code> es más potente, tiene un segundo argumento opcional: los descriptores de propiedad, que te permite definir las propiedades del nuevo objeto con control total sobre sus características (<code>value</code>, <code>writable</code>, <code>enumerable</code>, <code>configurable</code>)</p>
+        <pre class="chaptrSubSect__console wScript">
+          const çfelino = &#123;
+            hunt: true,
+          &#125;;
+
+          /* Creamos el objeto cat con felino como prototipo */
+          const çcat = Object.ªcreate(çfelino, &#123;
+            domesticable: &#123;
+              value: true,
+              writable: false,
+              enumerable: true,
+              configurable: false,
+            &#125;,
+          &#125;);
+
+          console.log(çcat.•hunt);
+          ⋗ ∞true                     /* heredado de felino */
+          console.log(çcat.•domesticable);
+          ⋗ ∞true                     /* propio de cat */
+
+          console.log(Object.•getOwnPropertyDescriptor(çcat, 'domesticable'));
+          ⋗ /º &#123;value: true, writable: false, enumerable: true, configurable: false&#125; º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Asignar prototipo con Contructor y " codeText="new">
-        <p class="chaptrSubSect__p">Permite encapsular la lógica de inicialización en el constructor y puede incluir propiedades y métodos directamente en el objeto instanciado</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">function</span> <span class="func">Animal</span><span class="warp">()&#123;
-            <span class="obj">this</span><span class="dot">.</span><span class="objProp">eat</span> <span class="opera">=</span> <span class="key">true</span>;
-            <span class="obj">this</span><span class="dot">.</span><span class="meth">sleep</span> <span class="opera">=</span> <span class="func">function</span><span class="warp2">()&#123;
-                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'zzzzzzzz'</span>)</span>;
-              &#125;</span>
-          &#125;</span>;
+        <p class="chaptrSubSect__p">Esta forma de crear objetos permite encapsular la lógica de inicialización dentro de una función constructora. Cada vez que se usa el operador <code>new</code>, se crea un nuevo objeto cuyo prototipo es <code>Constructor.prototype</code>, y la función se ejecuta para inicializar sus propiedades.</p>
+        <pre class="chaptrSubSect__console wScript">
+          function çAnimal() &#123;
+            this.•eat = true;
+            this.•sleep = @function() &#123;
+              console.log('zzzzzzzz');
+            &#125;;
+          &#125;
 
-          <span class="commnt">Creamos el nuevo objeto y con Animal como prototipo</span>
-          <span class="key">const</span> <span class="var">rabbit</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Animal</span><span class="warp">()</span>;
-        
-          <span class="commnt">Verificamos las propiedades"</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">rabbit</span><span class="dot">.</span><span class="objProp">eat</span>)</span>;    <span class="result">true</span>
-          <span class="obj">rabbit</span><span class="dot">.</span><span class="meth">sleep</span><span class="warp">()</span>;  <span class="result">'zzzzzzzz'</span></pre>
+          /*/º Creamos un nuevo objeto con Animal.prototype como prototipo º/*/
+          const çrabbit = new çAnimal();
+
+          /* Verificamos las propiedades del nuevo objeto */
+          console.log(çrabbit.•eat);
+          ⋗ /º true º/
+          çrabbit.ªsleep();
+          ⋗ /º 'zzzzzzzz' º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Asignar prototipo con función y " codeText="prototype">
-        <p class="chaptrSubSect__p">Forma de <mark>herencia prototípica</mark> de establecer los prototipos, es la <mark>manera tradicional</mark>, aunque tiene menos funcionalidades y menos legible</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Creamos el objeto prototipo</span>
-          <span class="key">const</span> <span class="func">animal</span> <span class="opera">=</span> <span class="warp">&#123;
-            <span class="objProp">eat</span>: <span class="key">true</span>,
-            <span class="func">sleep</span><span class="warp2">()&#123;
-                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'zzzzzzzz'</span>)</span>;
-              &#125;</span>
-          &#125;</span>;
+        <p class="chaptrSubSect__p">Esta es la forma tradicional de establecer prototipos en JavaScript. Cada función tiene una propiedad especial llamada <code>prototype</code>, que se utiliza cuando se crean objetos con el operador <code>new</code>. El objeto creado tendrá su <code>[[Prototype]]</code> apuntando al valor de esa propiedad. Aunque hoy en día se prefiere usar <code>class</code> o <code>Object.create()</code>, este método sigue siendo importante porque es la base del sistema de herencia en JavaScript</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* Creamos el objeto prototipo */
+          const çanimal = &#123;
+            pulmones: true,
+            sleepNoise: @function() &#123;
+              console.log('zzzzzzzz');
+            &#125;,
+          &#125;;
 
-          <span class="commnt">Creamos la función constructora</span>
-          <span class="key">function</span> <span class="func">Rabbit</span><span class="warp">(<span class="params">patas</span>)&#123;
-              <span class="obj">this</span><span class="dot">.</span><span class="objProp">patas</span> <span class="opera">=</span> <span class="params">patas</span>;
-          &#125;</span>;
+          /* Creamos la función constructora */
+          function çRabbit(#color) &#123;
+            this.•color = #color;
+          &#125;
 
-          <span class="commnt">Asignamos el prototipo al contructor</span>
-          <span class="obj">Rabbit</span><span class="dot">.</span><span class="key">prototype</span> <span class="opera">=</span> <span class="obj">animal</span>;
+          /* Creamos un nuevo objeto que hereda de animal */
+          çRabbit.•prototype = Object.ªcreate(çanimal);
 
-          <span class="commnt">Creamos una instancia</span>
-          <span class="key">const</span> <span class="var">rabbit</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Rabbit</span><span class="warp">(<span class="nums">4</span>)</span>;
+          /* Restauramos el constructor */
+          çRabbit.•prototype.constructor = çRabbit;
+
+          /* Creamos una nueva instancia */
+          const çrabbit = new çRabbit('Blanco');
+
+          /* Verificamos las propiedades del nuevo objeto */
+          console.log(çrabbit.•pulmones);   ⋗ ∞true              /* heredado de animal */
+          console.log(çrabbit.•color);    ⋗ /º 'Blanco' º/            /* propio de rabbit */
+          çrabbit.ªsleepNoise();    ⋗ /º 'zzzzzzzz' º/              /* heredado de animal */
         
-          <span class="commnt">Verificamos las propiedades"</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">rabbit</span><span class="dot">.</span><span class="objProp">eat</span>)</span>;    <span class="result">true</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">rabbit</span><span class="dot">.</span><span class="objProp">patas</span>)</span>;    <span class="result">4</span>
-          <span class="obj">rabbit</span><span class="dot">.</span><span class="objProp">sleep</span><span class="warp">()</span>;  <span class="result">zzzzzzzz</span></pre>
+          /* Verificamos la cadena de prototipos */
+          console.log(çrabbit.__proto__ === çRabbit.•prototype);    ⋗ ∞true
+          console.log(çRabbit.•prototype.__proto__ === çanimal);    ⋗ ∞true
+          console.log(çanimal.__proto__ === Object.•prototype);   ⋗ ∞true
+          console.log(Object.•prototype.__proto__ === null);      ⋗ ∞true
+
+          /* Verificamos el cnstructor */
+          console.log(çrabbit.constructor === çRabbit);   ⋗ ∞true</pre>
+          <p class="chaptrSubSect__p">La cadena de prototipos quedaría así</p>
+          <pre class="chaptrSubSect__console wScript">
+            çrabbit --&gt; çRabbit.•prototype --&gt; çanimal --&gt; Object.•prototype --&gt; null</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Asignar prototipo con clases" codeText="">
         <p class="chaptrSubSect__p">Forma <mark>más clara y legible</mark> de trabajar con prototipos a partir de ECMAScript6</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Definimos la clase</span>
-          <span class="key">class</span> <span class="func">Animal</span> <span class="warp">&#123;
-            <span class="func">constructor</span><span class="warp2">() &#123;
-              <span class="obj">this</span><span class="dot">.</span><span class="objProp">eat</span> <span class="opera">=</span> <span class="key">true</span>
-            &#125;</span>
-            <span class="func">sleep</span><span class="warp2">()&#123;
-                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'zzzzzzzz'</span>)</span>;
-              &#125;</span>
-          &#125;</span>;
+        <pre class="chaptrSubSect__console wScript">
+          /* Definimos la clase Animal */
+          class çAnimal &#123;
+            constructor(#nombre) &#123;
+              this.•nombre = #nombre;
+            &#125;
+            @sound() &#123;
+              console.log('/º Algún sonido... º/');
+            &#125;
+          &#125;
 
-          <span class="commnt">Definimos la clase Rabbit que extiende de Animal</span>
-          <span class="key">class</span> <span class="func">Rabbit</span> <span class="key">extends</span> <span class="func">Animal</span> <span class="warp">&#123;
-            <span class="func">constructor</span><span class="warp2">(<span class="params">patas</span>) &#123;
-              <span class="func">super</span>();
-              <span class="obj">this</span><span class="dot">.</span><span class="objProp">patas</span> <span class="opera">=</span> <span class="params">patas</span>
-            &#125;</span>
-          &#125;</span>;
+          /* Definimos la clase Dog que extiende de Animal */
+          class çDog ¬extends çAnimal &#123;
+            constructor(#nombre, #raza) &#123;
+              @super(#nombre);
+              this.•raza = #raza;
+            &#125;
+            @sound() &#123;
+              console.log('/º Guau! º/');
+            &#125;
+          &#125;
 
-          <span class="commnt">Creamos una instancia</span>
-          <span class="key">const</span> <span class="var">rabbit</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Rabbit</span><span class="warp">(<span class="nums">4</span>)</span>;
-        
-          <span class="commnt">Verificamos las propiedades"</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">rabbit</span><span class="dot">.</span><span class="objProp">eat</span>)</span>;    <span class="result">true</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">rabbit</span><span class="dot">.</span><span class="objProp">patas</span>)</span>;    <span class="result">4</span>
-          <span class="obj">rabbit</span><span class="dot">.</span><span class="objProp">sleep</span><span class="warp">()</span>;  <span class="result">zzzzzzzz</span></pre>
+          /* Creamos una nueva instancia */
+          const çmyDog = new çDog('Max', 'Bulldog');
+
+          /* Verificamos las propiedades */
+          console.log(çmyDog.•nombre);    ⋗ /º 'Max' º/          /* propio de Dog */
+          console.log(çmyDog.•raza);    ⋗ /º 'Bulldog' º/       /* propio de Dog */
+          çmyDog.ªsound();    ⋗ /º "Guau!" º/              /* propio de Dog */</pre>
+        <p class="chaptrSubSect__p">Internamente ocurre esto</p>
+        <pre class="chaptrSubSect__console wScript">
+          çRabbit.•prototype.__proto__ === çAnimal.•prototype;  ⋗ /º true º/</pre>
+        <p class="chaptrSubSect__p">La cadena de prototipos quedaría así</p>
+        <pre class="chaptrSubSect__console wScript">
+          çrabbit --&gt; çRabbit.•prototype --&gt; çAnimal.•prototype --&gt; Object.•prototype --&gt; null</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Info de propiedades heredadas con" codeText="hasOwn()">
-        <p class="chaptrSubSect__p">Forma <mark>más clara y legible</mark> de trabajar con prototipos a partir de ECMAScript6</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Creamos el objeto prototipo</span>
-          <span class="key">const</span> <span class="var">animal</span> <span class="opera">=</span> <span class="warp">&#123;
-            <span class="objProp">eat</span>: <span class="key">true</span>,
-            <span class="func">sleep</span><span class="warp2">()&#123;
-                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'zzzzzzzz'</span>)</span>;
-              &#125;</span>
-          &#125;</span>;
+        <p class="chaptrSubSect__p">Este método verifica si una propiedad pertenece directamente al objeto (no heredada de su prototipo), de forma más clara y moderna que <code>obj.hasOwnProperty()</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          /* Definimos la clase Animal */
+          class çAnimal &#123;
+            constructor(#nombre) &#123;
+              this.•nombre = #nombre;
+            &#125;
+            @sound() &#123;
+              console.log('/º Algún sonido... º/');
+            &#125;
+          &#125;
 
-          <span class="commnt">Creamos nueva instancia añadiendo una propiedad</span>
-          <span class="key">const</span> <span class="var">rabbit</span> <span class="opera">=</span> <span class="obj">Object</span><span class="dot">.</span><span class="meth">create</span><span class="warp">(<span class="obj">animal</span>, &#123;
-              <span class="objProp">patas</span>: <span class="warp2">&#123;
-                <span class="key">value</span>: <span class="nums">4</span>,
-                <span class="key">writable</span>: <span class="key">false</span>,
-                <span class="key">enumerable</span>: <span class="key">true</span>,
-                <span class="key">configurable</span>: <span class="key">false</span>,
-              &#125;</span>
-          &#125;)</span>;
+          /* Definimos la clase Dog que extiende de Animal */
+          class çDog ¬extends çAnimal &#123;
+            constructor(#nombre, #raza) &#123;
+              @super(#nombre);
+              this.•raza = #raza;
+            &#125;
+            @sound() &#123;
+              console.log('/º Guau! º/');
+            &#125;
+          &#125;
 
-          <span class="commnt">Añadimos una propiedad directamente</span>
-          <span class="obj">rabbit</span><span class="dot">.</span><span class="objProp">color</span> <span class="opera">=</span> <span class="args">'White'</span>;
-         
-          <span class="commnt">Recorremos las propiedades del objeto</span>
-          <span class="func">for</span><span class="warp">(<span class="key">let</span> <span class="params">prop</span> <span class="key">in</span> <span class="obj">rabbit</span>)&#123;
-            <span class="func">if</span><span class="warp2">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">hasOwn</span><span class="warp">(<span class="obj">rabbit</span>, <span class="params">prop</span>)</span>)&#123;
-              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`$&#123;<span class="params">prop</span>&#125; -&gt; Es propia`</span>)</span>;
-            &#125; <span class="key">else</span> &#123;
-              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`$&#123;<span class="params">prop</span>&#125; -&gt; Es heredada`</span>)</span>;
-            &#125;</span>
-          &#125;</span>;
+          /* Creamos una nueva instancia */
+          const çmyDog = new çDog('Max', 'Bulldog');
 
-          <span class="result">patas -&gt; Es propia
-            color -&gt; Es propia
-            eat -&gt; Es heredada
-            sleep -&gt; Es heredada</span></pre>
+          /* Verificamos las propiedades */
+          console.log(Object.ªhasOwn(çmyDog, 'nombre'));        ⋗ ∞true
+          console.log(Object.ªhasOwn(çmyDog, 'raza'));          ⋗ ∞true
+          console.log(Object.ªhasOwn(çmyDog, 'sound'));         ⋗ ∞false
+          console.log('sound' ¬in çmyDog);                          ⋗ ∞true</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Crear instancias con constructor y" codeText="prototype">
-        <p class="chaptrSubSect__p">Toda función en JavaScript tiene una propiedad llamada <code>prototype</code>, en la que por defecto trae una única propiedad llamada <code>constructor</code> que apunta a la función misma. Podemos crear una nueva instancia del mismo tipo de un objeto ya creado</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Creamos la función constructora</span>
-          <span class="key">function</span> <span class="func">Animal</span><span class="warp">()&#123;
-            <span class="obj">this</span><span class="dot">.</span><span class="objProp">eat</span> <span class="opera">=</span> <span class="key">true</span>;
-            <span class="obj">this</span><span class="dot">.</span><span class="meth">sleep</span> <span class="opera">=</span> <span class="func">function</span><span class="warp2">()&#123;
-                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'zzzzzzzz'</span>)</span>;
-              &#125;</span>
-          &#125;</span>;
+        <p class="chaptrSubSect__p">Toda función en JavaScript tiene una propiedad llamada <code>prototype</code>, en la que por defecto trae una única propiedad llamada <code>constructor</code> que apunta a la función misma. Esto permite crear nuevas instancias del mismo tipo de un objeto ya existente, sin necesidad de saber explícitamente cuál era el constructor original</p>
+        <pre class="chaptrSubSect__console wScript">
+          /* Creamos la función constructora */
+          function çAnimal() &#123;
+            this.•pulmones = true;
+            this.•sleep = @function() &#123;
+              console.log('zzzzzzzz');
+            &#125;;
+          &#125;
 
-          <span class="commnt">Creamos una instancia de Animal</span>
-          <span class="key">const</span> <span class="var">rabbit</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Animal</span><span class="warp">()</span>;
-          <span class="commnt">Añadimos una propiedad a la nueva instancia</span>
-          <span class="obj">rabbit</span><span class="dot">.</span><span class="objProp">patas</span> <span class="opera">=</span> <span class="nums">4</span>;
+          /* Creamos una instancia de Animal */
+          const çrabbit = new çAnimal();
 
-          <span class="commnt">Creamos otra instancia de rabbit</span>
-          <span class="key">const</span> <span class="var">oldRabbit</span> <span class="opera">=</span> <span class="key">new</span> <span class="obj">rabbit</span><span class="dot">.</span><span class="meth">constructor</span><span class="warp">()</span>;
-          <span class="commnt">Añadimos una propiedad a la nueva instancia</span>
-          <span class="obj">oldRabbit</span><span class="dot">.</span><span class="objProp">edad</span> <span class="opera">=</span> <span class="nums">50</span>;
-        
-          <span class="commnt">Verificamos las instancias creadas</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">rabbit</span>)</span>;
-          <span class="result">Animal &#123;eat: true, patas: 4, sleep: ƒ&#125;</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">oldRabbit</span>)</span>;
-          <span class="result">Animal &#123;eat: true, edad: 50, sleep: ƒ&#125;</span></pre>
-        <p class="chaptrSubSect__p">Por qué no se crea directamente la nueva instancia desde <code>Animal</code>  usando <code>new Animal()</code>?</p>
-        <p class="chaptrSubSect__p">Cuando se ejecuta <code>new rabbit.constructor()</code>, JavaScript usa el constructor que está asociado al objeto <code>rabbit</code>. Dado que <code>rabbit</code> es una instancia de <code>Animal</code>, su propiedad <code>constructor</code> apunta a la función constructora <code>Animal</code>. Por lo tanto, <code>rabbit.constructor()</code> crea una nueva instancia usando el constructor original de <code>Animal</code>.</p>
-        <p class="chaptrSubSect__p">La razón por la que se hace <code>rabbit.constructor()</code> en lugar de directamente <code>new Animal()</code> puede estar relacionada con la flexibilidad y la reutilización. Si en algún momento cambias el constructor de <code>rabbit</code>, el <code>rabbit.constructor()</code> seguirá funcionando y creará una instancia según el nuevo constructor asociado a <code>rabbit</code></p>
+          /* Añadimos una propiedad a la nueva instancia */
+          çrabbit.•color = 'Blanco';
+
+          /* Creamos otra instancia a partir del constructor de rabbit */
+          const çoldRabbit = new çrabbit.constructor();
+
+          /* Añadimos una propiedad a la nueva instancia */
+          çoldRabbit.•color = 'Gris';
+
+          /* Verificamos las instancias creadas */
+          console.log(çrabbit);
+          ⋗ /º Animal &#123; pulmones: true, color: 'Blanco', sleep: ƒ &#125; º/
+
+          console.log(çoldRabbit);
+          ⋗ /º Animal &#123; pulmones: true, color: 'Gris', sleep: ƒ &#125; º/</pre>
+        <p class="chaptrSubSect__p">Por qué no se crea directamente la nueva instancia desde <code>Animal</code>  usando <code>new Animal()</code>? Cuando se ejecuta</p>
+        <pre class="chaptrSubSect__console wScript">
+          const çoldRabbit = new çrabbit.constructor();</pre>
+        <p class="chaptrSubSect__p">JavaScript usa el constructor asociado al objeto <code>rabbit</code>. 
+        Dado que <code>rabbit</code> fue creado con <code>Animal</code>, su propiedad constructor apunta a la función <code>Animal</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          çrabbit.constructor === çAnimal;      ⋗ ∞true</pre>
+        <p class="chaptrSubSect__p">Por lo tanto, <code>new rabbit.constructor()</code> equivale funcionalmente a <code>new Animal()</code>. Sin embargo, usar <code>rabbit.constructor</code> tiene una ventaja importante</p>
+        <p class="chaptrSubSect__p">Permite crear una nueva instancia del mismo tipo que el objeto original, incluso si el constructor cambia más adelante. Esto hace el código más genérico y flexible, especialmente cuando trabajamos con herencia o con constructores personalizados.</p>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Aclaraciones" codeText="">
-        <p class="chaptrSubSect__p"><code>.__proto__</code> es una propiedad que tienen todos los objetos</p>
+        <p class="chaptrSubSect__p"><code>.__proto__</code></p>
         <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Es una propiedad interna que tienen todos los objetos (excepto los creados con <code>Object.create(null)</code>).</li>
           <li class="chaptrSubSectUl__li">Esta propiedad apunta al prototipo <code>prototype</code> del constructor que se usó para crear ese objeto</li>
-          <li class="chaptrSubSectUl__li">Es la cadena de herencia prototípica en JavaScript, es decir, el mecanismo que permite que las instancias hereden métodos y propiedades de su constructor</li>
+          <li class="chaptrSubSectUl__li">Forma parte de la cadena de herencia prototípica, que permite a las instancias acceder a métodos y propiedades heredadas.</li>
         </ul>
-        <p class="chaptrSubSect__p"><code>.prototype</code> es una propiedad de la función constructora que contiene todas las cosas que se heredarán</p>
+        <pre class="chaptrSubSect__console wScript">
+          çobj.__proto__ === çConstructor.•prototype;      ⋗ ∞true</pre>
         <ul class="chaptrSubSect__ul">
-          <li class="chaptrSubSectUl__li">Es una propiedad de las funciones constructoras es decir, las funciones usadas para crear objetos con <code>new</code></li>
-          <li class="chaptrSubSectUl__li">Define los métodos y propiedades que serán heredados por las instancias creadas con esa función</li>
-          <li class="chaptrSubSectUl__li">Las instancias creadas por un constructor tendrán acceso a los métodos y propiedades definidos en el <code>prototype</code> de esa función</li>
+          <li class="chaptrSubSectUl__li">⚠️ Aunque <code>__proto__</code> sigue existiendo y es útil para aprendizaje o depuración, <b>no se recomienda usarlo en producción</b> . En su lugar, usa los métodos oficiales: <code>Object.getPrototypeOf(obj)</code> y <code>Object.setPrototypeOf(obj, proto)</code></li>
         </ul>
-        <p class="chaptrSubSect__p">En principio son lo mismo, pero se accede desde diferentes extremos</p>
+        <p class="chaptrSubSect__p"><code>.prototype</code></p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li">Es una propiedad de las funciones constructoras es decir, las funciones usadas para crear objetos con <code>new</code>.</li>
+          <li class="chaptrSubSectUl__li">Contiene los métodos y propiedades que serán heredados por las instancias creadas con new.</li>
+          <li class="chaptrSubSectUl__li">Las instancias acceden a esas propiedades a través de la cadena de prototipos (<code>__proto__</code>).</li>
+        </ul>
+        <p class="chaptrSubSect__p">Relación entre <code>__proto__</code> y <code>.prototype</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          /* Creamos la función constructora */
+          function çAnimal(#name) &#123; 
+            this.•name = #name;
+          &#125;
 
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Creamos la función constructora</span>
-          <span class="key">function</span> <span class="func">Animal</span><span class="warp">(<span class="params">name</span>)&#123;
-            <span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="params">name</span>;
-          &#125;</span>;
+          /* Añadimos un método al prototipo de Animal */
+          çAnimal.•prototype.•bark = @function() &#123;
+            console.log(`/º $&#123;this.name&#125; dice guau! º/`);
+          &#125;;
 
-          <span class="commnt">Añadimos un método al prototipo de Animal</span>
-          <span class="obj">Animal</span><span class="dot">.</span><span class="meth">prototype</span><span class="dot">.</span><span class="objProp">talk</span> <span class="opera">=</span> <span class="func">function</span><span class="warp">() &#123;
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`$&#123;<span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span>&#125; dice hola!`</span>)</span>;
-          &#125;</span>
+          /* Creamos una instancia */
+          const çdog = new çAnimal('Max');
 
-          <span class="commnt">Creamos una instancia de Animal</span>
-          <span class="key">const</span> <span class="var">dog</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Animal</span><span class="warp">(<span class="args">'Max'</span>)</span>;
+          /* Analizamos */
+          console.log(çdog.__proto__);       ⋗ /º &#123; bark: ƒ &#125; º/
+          console.log(çAnimal.•prototype);    ⋗ /º &#123; bark: ƒ &#125; º/
 
-          <span class="commnt">Analicemos</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">dog</span><span class="dot">.</span><span class="meth">__proto__</span>)</span>;
-          <span class="result">&#123;talk: ƒ&#125;</span>
-          <span class="commnt">Apunta al prototipo de Animal</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Animal</span><span class="dot">.</span><span class="meth">prototype</span>)</span>;
-          <span class="result">&#123;talk: ƒ&#125;</span>
-          <span class="commnt">Este es el prototipo de Animal</span>
+          console.log(çdog.__proto__ === çAnimal.•prototype);      ⋗ ∞true
 
-          <span class="commnt">Ambos son iguales</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">dog</span><span class="dot">.</span><span class="meth">__proto__</span> <span class="opera">===</span> <span class="obj">Animal</span><span class="dot">.</span><span class="meth">prototype</span>)</span>;
-          <span class="result">true</span>
-        
-          <span class="commnt">dog hereda el método talk desde el prototipo</span>
-          <span class="obj">dog</span><span class="dot">.</span><span class="meth">talk</span><span class="warp">()</span>;
-          <span class="result">Max dice hola!</span></pre>
+          /* dog hereda el método bark desde el prototipo */
+          çdog.ªbark();         ⋗ /º "Max dice guau!" º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Métodos modernos para configurar prototipo" codeText="">
-        <p class="chaptrSubSect__p">Obtiene el prototipo de un objeto con <code>Object.getPrototypeOf()</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">animal</span> <span class="opera">=</span> <span class="warp">&#123;
-            <span class="objProp">eat</span>: <span class="key">true</span>,
-            <span class="func">sleep</span><span class="warp2">()&#123;
-                <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'zzzzzzzz'</span>)</span>;
-              &#125;</span>
-          &#125;</span>;
+        <p class="chaptrSubSect__p">Obtiene el prototipo de un objeto con <code>Object.getPrototypeOf()</code>. Este método es la alternativa moderna y segura a <code>rabbit.__proto__</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          const çanimal = &#123;
+            eat: true,
+            @sleep() &#123;
+              console.log('zzzzzzzz');
+            &#125;
+          &#125;;
 
-          <span class="commnt">Creamos el nuevo objeto y le asignamos el prototipo</span>
-          <span class="key">const</span> <span class="var">rabbit</span> <span class="opera">=</span> <span class="obj">Object</span><span class="dot">.</span><span class="meth">create</span><span class="warp">(<span class="obj">animal</span>)</span>;
-        
-          <span class="commnt">Verificamos el prototipo</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">getPrototypeOf</span><span class="warp2">(<span class="obj">rabbit</span>)</span>)</span>;
-          <span class="result">&#123;eat: true, sleep: ƒ&#125;</span>
+          /* Creamos un nuevo objeto y le asignamos el prototipo animal */
+          const çrabbit = Object.ªcreate(çanimal);
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">getPrototypeOf</span><span class="warp2">(<span class="obj">rabbit</span>) <span class="opera">===</span> <span class="obj">animal</span></span>)</span>;
-          <span class="result">true</span></pre>
+          /* Verificamos cual es su prototipo */
+          console.log(Object.ªgetPrototypeOf(çrabbit));
+          ⋗ /º &#123; eat: true, sleep: ƒ &#125; º/
+
+          /*/º Comparamos con el objeto animal (su prototipo) º/*/
+          console.log(Object.ªgetPrototypeOf(çrabbit) === çanimal);
+          ⋗ /º true º/</pre>
         <p class="chaptrSubSect__p">Establece el prototipo de un objeto con <code>Object.setPrototypeOf()</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Creamos el objeto prototipo 1</span>
-          <span class="key">const</span> <span class="var">animal</span> <span class="opera">=</span> <span class="warp">&#123;
-            <span class="objProp">eat</span>: <span class="key">true</span>,
-          &#125;</span>;
+        <pre class="chaptrSubSect__console wScript">
+          /* Creamos el objeto prototipo 1 */
+          const çanimal = &#123;
+            eat: true,
+          &#125;;
 
-          <span class="commnt">Creamos el objeto prototipo 2</span>
-          <span class="key">const</span> <span class="var">alien</span> <span class="opera">=</span> <span class="warp">&#123;
-            <span class="objProp">eat</span>: <span class="key">false</span>,
-          &#125;</span>;
+          /* Creamos el objeto prototipo 2 */
+          const çalien = &#123;
+            eat: false,
+          &#125;;
 
-          <span class="commnt">Creamos nueva instancia con Animal como prototipo</span>
-          <span class="key">const</span> <span class="var">rabbit</span> <span class="opera">=</span> <span class="obj">Object</span><span class="dot">.</span><span class="meth">create</span><span class="warp">(<span class="obj">animal</span>)</span>;
-          <span class="commnt">Verificamos la propiedad del prototipo</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">rabbit</span><span class="dot">.</span><span class="objProp">eat</span>)</span>;
-          <span class="result">true</span>
-          <span class="commnt">Verificamos los prototipos</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">Object</span><span class="dot">.</span><span class="meth">getPrototypeOf</span><span class="warp2">(<span class="obj">rabbit</span>) <span class="opera">===</span> <span class="obj">animal</span></span>)</span>;
-          <span class="result">true</span>
-          <span class="commnt">Establecemos un nuevo prototipo</span>
-          <span class="obj">Object</span><span class="dot">.</span><span class="meth">setPrototypeOf</span><span class="warp">(<span class="obj">rabbit, alien</span>)</span>;
-          <span class="commnt">Verificamos la propiedad del anterior prototipo</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">rabbit</span><span class="dot">.</span><span class="objProp">eat</span>)</span>;
-          <span class="result">false</span></pre>
+          /* Creamos una nueva instancia con Animal como prototipo */
+          const çrabbit = Object.ªcreate(çanimal);
+
+          /* Verificamos la propiedad del prototipo actual */
+          console.log(çrabbit.•eat);      ⋗ ∞true
+          console.log(Object.ªgetPrototypeOf(çrabbit) === çanimal);      ⋗ ∞true
+
+          /* Establecemos un nuevo prototipo */
+          Object.ªsetPrototypeOf(çrabbit, çalien);
+
+          /* Verificamos la propiedad después del cambio */
+          console.log(çrabbit.•eat);        ⋗ ∞false
+          console.log(Object.ªgetPrototypeOf(çrabbit) === çalien);        ⋗ ∞true
+          </pre>
+        <p class="chaptrSubSect__p">Ambos sustituyen el uso directo de <code>__proto__</code>, que aunque sigue existiendo, <b>no se recomienda</b> usarlo en producción</p>
+        <p class="chaptrSubSect__p">⚠️ Aunque <code>Object.setPrototypeOf()</code> es muy útil, no debe usarse frecuentemente en código que se ejecute muchas veces (por ejemplo, dentro de bucles o funciones críticas). Modificar el prototipo dinámicamente en tiempo de ejecución puede afectar el rendimiento del motor JavaScript, ya que invalida ciertas optimizaciones internas</p>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Crear objeto vacio sin prototipo" codeText="">
-        <p class="chaptrSubSect__p">Estos objetos carecen de los métodos nativos que los objetos tienen integrados en si</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">const</span> <span class="var">emtyObject</span> <span class="opera">=</span> <span class="obj">Object</span><span class="dot">.</span><span class="meth">create</span><span class="warp">(<span class="key">null</span>)</span>;
+        <p class="chaptrSubSect__p">En JavaScript, todos los objetos (por defecto) heredan propiedades y métodos de <code>Object.prototype</code>. Esto incluye métodos como</p>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><code>hasOwnProperty()</code>.</li>
+          <li class="chaptrSubSectUl__li"><code>toString()</code>.</li>
+          <li class="chaptrSubSectUl__li"><code>valueOf()</code>.</li>
+          <li class="chaptrSubSectUl__li"><code>constructor</code>.</li>
+          <li class="chaptrSubSectUl__li"><code>__proto__</code>.</li>
+          <li class="chaptrSubSectUl__li"><code>isPrototypeOf()</code>.</li>
+          <li class="chaptrSubSectUl__li"><code>propertyIsEnumerable()</code>.</li>
+        </ul>
+        <p class="chaptrSubSect__p">Sin embargo, a veces puede ser útil crear un objeto totalmente limpio, sin heredar nada. Para ello se usa</p>
+        <pre class="chaptrSubSect__console wScript">
+          const çemptyObject = Object.ªcreate(null);
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">emtyObject</span>)</span>;
-          <span class="result">&#123;&#125; No hay ninguna propiedad</span>
-        
-          <span class="func">alert</span><span class="warp">(<span class="obj">emtyObject</span>)</span>;
-          <span class="result">✘ Cannot convert object to primitive value</span></pre>
+          console.log(çemptyObject); ⋗ /º &#123;&#125; º/
+          console.log(Object.ªgetPrototypeOf(çemptyObject)); ⋗ ∞null</pre>
+        <p class="chaptrSubSect__p">⚠️ Precaución: Un objeto sin prototipo puede romper funciones o librerías que asumen la existencia de métodos como <code>hasOwnProperty()</code></p>
+        <pre class="chaptrSubSect__console wScript">
+          /* Objeto normal */
+          const çnormal = &#123;&#125;;
+          console.log(çnormal.toString());         ⋗ /º "[object Object]" º/
+
+          /* Objeto sin prototipo */
+          const çempty = Object.ªcreate(null);
+          console.log(çempty.toString);        ⋗ ∞undefined
+
+          /* Verificamos su prototipo */
+          console.log(Object.ªgetPrototypeOf(çempty));        ⋗ ∞null
+          console.log(Object.ªgetPrototypeOf(çnormal));         ⋗ /º &#123; ... &#125; (Object.prototype) º/
+        </pre>
       </ChaptrSubSect>
     </ChaptrSect>
   </LssnArt>
-	<Footer slot="mainFooter" />
+	<Footer slot="mainFooter" prevPage="/lessons/lesson_15" nextPage="/lessons/lesson_17"/>
 </MainLayout>
+
+
+
+<!-- 
+&lt;&gt;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+ªmétodos
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li">
+＃
+-->

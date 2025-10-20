@@ -469,6 +469,7 @@ html{
   border-radius: var(--brdrRad_Main);
   box-shadow: var(--bxSdw_Main);
   box-shadow: var(--bxSdw_pre);
+  padding-inline-start: clamp(0.1rem, calc(1.518vw - 1.1143rem), 1.8rem);
   padding-block-start: 1vw;
   padding-block-end: 0.8vw;
   font-family: var(--fntFmly_Console);

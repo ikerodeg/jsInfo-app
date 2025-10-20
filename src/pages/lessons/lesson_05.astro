@@ -9,21 +9,21 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
   <LssnArt artClass="lssn__05" h2Title="Otros operadores" slot="mainContent">
     <ChaptrSect h3Title="Resto" codeText="%">
       <ChaptrSubSect h4Title="Explicación y uso" codeText="">
-        <p class="chaptrSubSect__p">El resultado de <code>a % b</code> es el resto de la división entera de <code>a / b</code></p>
+        <p class="chaptrSubSect__p">El resultado de <code>a % b</code> es el resto de la división entera de <code>a ÷ b</code></p>
         <pre class="chaptrSubSect__console wScript">
-          console.log(5 % 2);
-          ⋗ 1     /*/º 5 / 2 = 2 y resto 1 º/*/
+          console.log(¬5 % ¬2);
+          ⋗ 1     /*/º 5 ÷ 2 = 2 y resto 1 º/*/
 
-          console.log(8 % 2);
-          ⋗ 0     /*/º 8 / 2 = 4 y resto 0 º/*/</pre>
+          console.log(¬8 % ¬2);
+          ⋗ 0     /*/º 8 ÷ 2 = 4 y resto 0 º/*/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Exponenciación" codeText="**">
       <ChaptrSubSect h4Title="Explicación y uso" codeText="">
         <p class="chaptrSubSect__p">El operador exponenciación <code>a ** b</code> eleva <code>a</code> a la potencia de <code>b</code>. En matemáticas de la escuela, lo escribimos como <code>a<sup>b</sup></code></p>
         <pre class="chaptrSubSect__console wScript">
-          console.log(2 ** 4);
-          ⋗ 16</pre>
+          console.log(¬2 ** ¬4);
+          ⋗ /º 16 º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Asignación y modificación" codeText="+">
@@ -65,7 +65,7 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
 
           ·counter--;
           console.log(·counter);
-          ⋗ 3</pre>
+          ⋗ /º 3 º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Sufijo vs prefijo" codeText="">
         <p class="chaptrSubSect__p">La forma <span class="bttn">sufijo</span> va <mark>después</mark> de la variable. Primero se devuelve el valor original de la variable y luego se incrementa. Útil cuando necesitas usar el valor actual antes de incrementarlo, como al contar elementos durante un proceso.</p>
@@ -80,7 +80,7 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
           &#125;);
 
           console.log(·count);
-          ⋗ 2</pre>
+          ⋗ /º 2 º/</pre>
 
           <p class="chaptrSubSect__p">La forma <span class="bttn">prefijo</span> va <mark>antes</mark> de la variable. Primero se incrementa el valor original de la variable y luego se imprime. Útil cuando necesitas incrementar primero y usar el valor incrementado inmediatamente, como al generar identificadores únicos</p>
           <pre class="chaptrSubSect__console wScript">

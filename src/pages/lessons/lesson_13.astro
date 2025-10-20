@@ -10,58 +10,90 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
     <ChaptrSect h3Title="Bi-dimensionales" codeText="">
       <ChaptrSubSect h4Title="Declaración" codeText="">
         <p class="chaptrSubSect__p">Una matriz bidimensional (también conocida como tabla o grid) puede pensarse como un array que contiene varios arrays, y estos arrays internos representan las filas. Cada fila puede contener múltiples valores, que se corresponden con las columnas</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Declaración de la matriz 2D</span>
-          <span class="key">let</span> <span class="var">matriz</span> <span class="opera">=</span> <span class="warp">[
-            [<span class="nums">1, 2, 3</span>],  <span class="commnt">Fila 0</span>
-            [<span class="nums">4, 5, 6</span>],  <span class="commnt">Fila 1</span>
-            [<span class="nums">7, 8, 9</span>]   <span class="commnt">Fila 2</span>
-          ]</span>;
+        <pre class="chaptrSubSect__console wScript">
+          /*/º Declaración de una matriz 2D º/*/
+          let ·matriz = [
+            [¬1, ¬2, ¬3],       /*/º Fila 0 º/*/
+            [¬4, ¬5, ¬6],       /*/º Fila 1 º/*/
+            [¬7, ¬8, ¬9]        /*/º Fila 2 º/*/
+          ];
 
-          <span class="commnt">Acceso a elementos</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span>(<span class="var">matriz</span><span class="warp">[<span class="nums">0</span>][<span class="nums">0</span>]</span>)</span>;   <span class="result">1</span>   <span class="commnt">fila 0, columna 0</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span>(<span class="var">matriz</span><span class="warp">[<span class="nums">1</span>][<span class="nums">2</span>]</span>)</span>;   <span class="result">6</span>   <span class="commnt">fila 1, columna 2</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span>(<span class="var">matriz</span><span class="warp">[<span class="nums">2</span>][<span class="nums">1</span>]</span>)</span>;   <span class="result">8</span>   <span class="commnt">fila 2, columna 1</span></pre>
+          /*/º Acceso a elementos º/*/
+          console.log(·matriz[¬0][¬1]);   ⋗ 2       /*/º Fila 0, Columna 1 º/*/
+          console.log(·matriz[¬2][¬0]);   ⋗ 7       /*/º Fila 2, Columna 0 º/*/
+          console.log(·matriz[¬1][¬2]);   ⋗ 6       /*/º Fila 1, Columna 2 º/*/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Creación dinámicamente" codeText="">
         <p class="chaptrSubSect__p">Puedes crear una matriz 2D de forma dinámica utilizando varios métodos. El más eficiente es con el ciclo <code>for</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Usando bucle for</span>
-          <span class="key">let</span> <span class="var">rows</span> <span class="opera">=</span> <span class="nums">3</span>;
-          <span class="key">let</span> <span class="var">cols</span> <span class="opera">=</span> <span class="nums">4</span>;
-          <span class="key">let</span> <span class="var">matrix</span> <span class="opera">=</span> <span class="key">new</span> <span class="func">Array</span><span class="warp">(<span class="var">rows</span>)</span>;
+        <pre class="chaptrSubSect__console wScript">
+          /*/º Creación dinámica de una matriz 2D º/*/
+          let ·filas = ¬3;
+          let ·columnas = ¬4;
+          let ·matrizDinamica = [];
 
-          <span class="func">for</span> <span class="warp">(<span class="key">let</span> <span class="params">i</span> <span class="opera">=</span> <span class="nums">0</span>; <span class="params">i</span> <span class="opera">&lt;</span> <span class="var">rows</span>; <span class="params">i</span><span class="opera">++</span>) &#123;
-            <span class="var">matrix</span>[<span class="params">i</span>] <span class="opera">=</span> <span class="key">new</span> <span class="func">Array</span>(<span class="var">cols</span>)<span class="dot">.</span><span class="func">fill</span>(<span class="args">'🦊'</span>);   <span class="commnt">Rellena cada fila</span>
-          &#125;</span>;
+          for (let #i = ¬0; #i &lt; ·filas; #i++) &#123;
+            ·matrizDinamica[#i] = [];  /*/º Inicializa cada fila como un array vacío º/*/
+            for (let #j = ¬0; #j &lt; ·columnas; #j++) &#123;
+              ·matrizDinamica[#i][#j] = (#i * ·columnas) + #j + ¬1;  /*/º Asigna un valor basado en la posición º/*/
+            &#125;
+          &#125;
 
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">matrix</span>)</span>;
-          <span class="result">[
-            ['🦊', '🦊', '🦊', '🦊'],
-            ['🦊', '🦊', '🦊', '🦊'],
-            ['🦊', '🦊', '🦊', '🦊']
-          ]</span></pre>
+          console.log(·matrizDinamica);
+          ⋗ /º [ º/
+              /º [0, 1, 2, 3], º/
+              /º [4, 5, 6, 7], º/
+              /º [8, 9, 10, 11] º/
+          /º ] º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
     <ChaptrSect h3Title="Multi-dimensionales" codeText="">
       <ChaptrSubSect h4Title="Declaración" codeText="">
         <p class="chaptrSubSect__p">Una matriz no tiene que ser estrictamente bidimensional; puede ser tridimensional o tener aún más dimensiones. Simplemente sería un array dentro de otro array, y así sucesivamente</p>
-        <pre class="chaptrSubSect__console">
-          <span class="commnt">Declaración de la matriz 3D</span>
-          <span class="key">let</span> <span class="var">matriz3D</span> <span class="opera">=</span> <span class="warp">[
-            [
-              [<span class="nums">1, 2</span>], [<span class="nums">3, 4</span>]
+        <pre class="chaptrSubSect__console wScript">
+          /*/º Declaración de una matriz 3D º/*/
+          let ·matriz3D = [
+            [                       /*/º Capa 0 º/*/
+              [¬1, ¬2],            /*/º Fila 0 º/*/
+              [¬3, ¬4]             /*/º Fila 1 º/*/
             ],
-            [
-              [<span class="nums">5, 6</span>], [<span class="nums">7, 8</span>]
+            [                       /*/º Capa 1 º/*/
+              [¬5, ¬6],            /*/º Fila 0 º/*/
+              [¬7, ¬8]             /*/º Fila 1 º/*/
             ]
-          ]</span>;
+          ];
 
-          <span class="commnt">Acceso a elementos</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span>(<span class="var">matriz3D</span><span class="warp">[<span class="nums">0</span>][<span class="nums">1</span>][<span class="nums">1</span>]</span>)</span>;   <span class="result">4</span>
-          <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span>(<span class="var">matriz3D</span><span class="warp">[<span class="nums">1</span>][<span class="nums">0</span>][<span class="nums">0</span>]</span>)</span>;   <span class="result">5</span></pre>
+          /*/º Acceso a elementos en una matriz 3D º/*/
+          console.log(·matriz3D[¬0][¬1][¬0]);   ⋗ 3       /*/º Capa 0, Fila 1, Columna 0 º/*/
+          console.log(·matriz3D[¬1][¬0][¬1]);   ⋗ 6       /*/º Capa 1, Fila 0, Columna 1 º/*/
+          console.log(·matriz3D[¬1][¬1][¬1]);   ⋗ 8       /*/º Capa 1, Fila 1, Columna 1 º/*/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
   </LssnArt>
-	<Footer slot="mainFooter" />
+	<Footer slot="mainFooter" prevPage="/lessons/lesson_12" nextPage="/lessons/lesson_11"/>
 </MainLayout>
+
+<!-- 
+&lt;&gt;
+&#123;&#125;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<img class="chaptrSubSect__img" src=`${ruta}img13.webp` alt="captura del evento">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li"></li>
+＃
+-->
