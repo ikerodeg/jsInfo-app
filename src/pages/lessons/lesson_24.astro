@@ -9,19 +9,18 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
   <LssnArt artClass="lssn__24" h2Title="Manejo de errores" slot="mainContent">
     <ChaptrSect h3Title="El bloque" codeText="try & catch">
       <ChaptrSubSect h4Title="Sintaxis" codeText="">
-        <p class="chaptrSubSect__p">Sintaxis básica</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">try</span> <span class="warp">&#123;
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Inicio bloque "try" a testear'</span>)</span>;
-            <span class="var">variableNoDefinida</span>;     <span class="commnt">dará error variable no definida</span>
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">variableNoDefinida</span>)</span>;   <span class="commnt">(*) No se ejecutará</span>
-          &#125;</span> <span class="key">catch</span> <span class="warp">&#123;
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'✘ Ocurrio un error'</span>)</span>;
-          &#125;</span>;
+        <p class="chaptrSubSect__p">Cuando un bloque <code>try</code> encuentra un error, el código se detiene saltando directamente al <code>catch</code> y ya no ve lo que hay debajo del error</p>
+        <pre class="chaptrSubSect__console wScript">
+          try &#123;
+            console.log('/º Inicio bloque "try" a testear º/');
+            ·variableNoDefinida;          /*/º variable no definida con let o const º/*/
+            console.log('/º Fin del bloque "try" a testear º/');         /*/º No se ejecutará º/*/
+          &#125; catch &#123;
+            console.log('/º ✘ Ocurrio un error º/');
+          &#125;;
 
-          <span class="result">Inicio bloque "try" a testear</span>
-          <span class="result">✘ Ocurrio un error</span></pre>
-        <p class="chaptrSubSect__p"><code>(*)</code> Este "log" no se ejecuta, ya que cuando el <code>try</code> encuentra un error, el código se detiene saltando directamente al <code>catch</code> y ya no ve lo que hay debajo del error</p>
+          ⋗ /º Inicio bloque "try" a testear º/
+          ⋗ /º ✘ Ocurrio un error º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="El objeto" codeText="Error">
         <p class="chaptrSubSect__p">Cuando se produce un error, JavaScript genera un objeto que contiene los detalles al respecto. El objeto se pasa como argumento para <code>catch</code>. Para todos los errores integrados, el objeto error tiene tres propiedades principales</p>
@@ -30,258 +29,278 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
           <li class="chaptrSubSectUl__li"><code>message</code>: Mensaje de texto sobre detalles del error</li>
           <li class="chaptrSubSectUl__li"><code>stack</code>: Pila de llamadas actual: una cadena con información sobre la secuencia de llamadas anidadas que condujeron al error. Utilizado para fines de depuración</li>
         </ul>
-        <pre class="chaptrSubSect__console">
-          <span class="key">try</span> <span class="warp">&#123;
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">'Inicio bloque "try" a testear'</span>)</span>;
-            <span class="var">variableNoDefinida</span>;     <span class="commnt">dará error variable no definida</span>
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="var">variableNoDefinida</span>)</span>;   <span class="commnt">(*) No se ejecutará</span>
-          &#125;</span> <span class="key">catch</span><span class="warp">(<span class="obj">err</span>) &#123;
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">err</span><span class="dot">.</span><span class="meth">name</span>)</span>;
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">err</span><span class="dot">.</span><span class="meth">message</span>)</span>;
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">err</span><span class="dot">.</span><span class="meth">stack</span>)</span>;
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">err</span>)</span>;
-          &#125;</span>;
+        <pre class="chaptrSubSect__console wScript">
+          try &#123;
+            console.log('/º Inicio bloque "try" a testear º/');
+            ·variableNoDefinida;          /*/º variable no definida con let o const º/*/
+            console.log('/º Fin del bloque "try" a testear º/');         /*/º No se ejecutará º/*/
+          &#125; catch(çerr) &#123;
+            console.log(çerr.•name);
+            console.log(çerr.•message);
+            console.log(çerr.•stack);
+            console.log(çerr);
+          &#125;;
 
-          <span class="result">Inicio bloque "try" a testear</span>
-          <span class="result">Reference error</span>
-          <span class="result">variableNoDefinida is not defined</span>
-          <span class="result">Reference error: variableNoDefinida is not defined</span>
-          <span class="result">Reference error: variableNoDefinida is not defined</span></pre>
+          ⋗ /º Inicio bloque "try" a testear º/
+          ⋗ /º Reference error º/
+          ⋗ /º variableNoDefinida is not defined º/
+          ⋗ /º Reference error: variableNoDefinida is not defined º/
+          ⋗ /º Reference error: variableNoDefinida is not defined º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Lanzando errores propios con" codeText="throw">
         <p class="chaptrSubSect__p">Genera un error, tecnicamente podemos usar cualquier cosa como un objeto <code>error</code>, <mark>primitivo</mark>, <mark>número</mark>, <mark>cadena</mark>, pero es mejor usar objetos con propiedades <code>name</code> y <code>message</code> para mantener compatible con los errores incorporados. JavaScript tiene muchos constructores integrados para manejar errores estándar: <code>Error</code>, <code>SyntaxError</code>, <code>ReferenceError</code>, <code>TypeError</code>, etc. Podemos usarlos para crear objetos de error también</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">let</span> <span class="var">myJSON</span> <span class="opera">=</span> <span class="args">'&#123;"age": 30&#125;'</span>;    <span class="commnt">Recurso incompleto</span>
+        <pre class="chaptrSubSect__console wScript">
+          let ·myJSON = '&#123;"age": 30&#125;';    /*/º Recurso incompleto º/*/
 
-          <span class="key">try</span> <span class="warp">&#123;
-            <span class="key">let</span> <span class="var">user</span> <span class="opera">=</span> <span class="obj">JSON</span><span class="dot">.</span><span class="meth">parse</span><span class="warp2">(<span class="obj">myJSON</span>)</span>;
-            <span class="key">if</span><span class="warp2">(<span class="opera">!</span><span class="obj">user</span><span class="dot">.</span><span class="objProp">name</span>) &#123;
-              <span class="key">throw new</span> <span class="func">SyntaxError</span><span class="warp">(<span class="args">'dato incompleto: sin nombre'</span>)</span>;
-            &#125;</span>
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="obj">user</span><span class="dot">.</span><span class="objProp">name</span>)</span>;   <span class="commnt">(*) No se ejecutará</span>
-          &#125;</span> <span class="key">catch</span><span class="warp">(<span class="obj">err</span>) &#123;
-            <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Error en JSON: $&#123;</span><span class="obj">err</span><span class="dot">.</span><span class="meth">message</span>&#125;`)</span>;
-          &#125;</span>;
+          try &#123;
+            let ·user = çJSON.ªparse(·myJSON);
+            if(!·user.•nombre)&#123;
+              throw new @SyntaxError('/º no existe la propiedad "nombre" º/')
+            &#125;
+            console.log(·user.•nombre);     /*/º no se ejecutará º/*/
+          &#125; catch(çerr) &#123;
+            console.log(`/º Error en JSON: $&#123;err.message&#125;º/`);
+          &#125;;
 
-          <span class="result">Error en JSON: dato incompleto: sin nombre</span></pre>
+          ⋗ /º Error en JSON: no existe la propiedad "nombre" º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Extendiendo" codeText="Error">
         <p class="chaptrSubSect__p">Cuando creas un error personalizado, extiendes la clase <code>Error</code> usando <code>class</code>, añadiendo tu propio <code>name</code> y llamando a <code>super(message)</code> para establecer el mensaje del error. Supongamos que tienes una función que analiza JSON para crear un usuario y deseas lanzar un error específico si falta información importante</p>
         <p class="chaptrSubSect__p"><strong>Paso 1:</strong> Crear una clase de error personalizada</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">class</span> <span class="var">ValidationError</span> <span class="key">extends</span> <span class="obj">Error</span> <span class="warp">&#123;
-            <span class="func">constructor</span><span class="warp2">(<span class="params">message</span>) &#123;
-              <span class="func">super</span><span class="warp2">(<span class="params">message</span>)</span>;  <span class="commnt">(*)</span>
-              <span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="args">"ValidationError"</span> <span class="commnt">(**)</span>
-            &#125;</span>
-          &#125;</span>;</pre>
+        <pre class="chaptrSubSect__console wScript">
+          class çValidationError extends Error &#123;
+            constructor(·message) &#123;
+              @super(·message);       /*/º ➀ º/*/
+              this.•nombre = 'ValidationError';      /*/º ➁ º/*/
+            &#125;
+          &#125;;</pre>
         <ul class="chaptrSubSect__ul">
-          <li class="chaptrSubSectUl__li"><code>(*)</code> Esto llama al constructor de la clase <code>Error</code> y le pasa el mensaje.</li>
-          <li class="chaptrSubSectUl__li"><code>(**)</code> Cambiamos el nombre del error a <code>ValidationError</code> para distinguirlo.</li>
+          <li class="chaptrSubSectUl__li"><strong>➀</strong>: Esto llama al constructor de la clase <code>Error</code> y le pasa el mensaje.</li>
+          <li class="chaptrSubSectUl__li"><strong>➁</strong>: Cambiamos el nombre del error a <code>ValidationError</code> para distinguirlo.</li>
         </ul>
         <p class="chaptrSubSect__p"><strong>Paso 2:</strong> Función que usa el error personalizado</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">function</span> <span class="var">readUser</span><span class="warp">(<span class="params">json</span>) &#123;
-            <span class="key">let</span> <span class="var">user</span> <span class="opera">=</span> <span class="obj">JSON</span><span class="dot">.</span><span class="meth">parse</span><span class="warp2">(<span class="params">json</span>)</span>;
-
-            <span class="func">if</span> <span class="warp2">(<span class="opera">!</span><span class="obj">user</span><span class="dot">.</span><span class="objProp">name</span>) &#123;
-              <span class="key">throw new</span> <span class="func">ValidationError</span><span class="warp">(<span class="args">'Falta el campo: nombre'</span>)</span>;
-            &#125;</span>
-            <span class="func">if</span> <span class="warp2">(<span class="opera">!</span><span class="obj">user</span><span class="dot">.</span><span class="objProp">age</span>) &#123;
-              <span class="key">throw new</span> <span class="func">ValidationError</span><span class="warp">(<span class="args">'Falta el campo: edad'</span>)</span>;
-            &#125;</span>
-
-            <span class="key">return</span> <span class="obj">user</span>;
-          &#125;</span></pre>
+        <pre class="chaptrSubSect__console wScript">
+          function @readUser(·json) &#123;
+            let ·user = çJSON.ªparse(·json);
+            if (!·user.•name) &#123;
+              throw new çValidationError('/º Falta el campo: nombre º/');
+            &#125;
+            return ·user;
+          &#125;</pre>
         <ul class="chaptrSubSect__ul">
           <li class="chaptrSubSectUl__li">Si el JSON no tiene <code>name</code> o <code>age</code>, se lanza un <code>ValidationError</code> con un mensaje específico.</li>
         </ul>
         <p class="chaptrSubSect__p"><strong>Paso 3:</strong> Manejar errores con <code>try..catch</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">try</span> <span class="warp">&#123;
-            <span class="key">let</span> <span class="var">user</span> <span class="opera">=</span> <span class="func">readUser</span><span class="warp2">(<span class="args">'&#123;"age": 30&#125;'</span>)</span>;   <span class="commnt">JSON sin 'name'</span>
-          &#125;</span> <span class="key">catch</span><span class="warp">(<span class="params">err</span>) &#123;
-            <span class="func">if</span> <span class="warp2">(<span class="params">err</span> <span class="key">instanceof</span> <span class="obj">ValidationError</span>) &#123;
-              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Dato inválido: $&#123;<span class="params">err</span><span class="dot">.</span><span class="meth">message</span>&#125;`</span>)</span>;
-            &#125;</span> <span class="func">else if</span> <span class="warp2">(<span class="params">err</span> <span class="key">instanceof</span> <span class="obj">SyntaxError</span>) &#123;
-              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Error de Sintaxis JSON: $&#123;<span class="params">err</span><span class="dot">.</span><span class="meth">message</span>&#125;`</span>)</span>;
-            &#125;</span> <span class="key">else</span> <span class="warp">&#123;
-              <span class="key">throw</span> <span class="params">err</span>;
-            &#125;</span>
-          &#125;</span>;</pre>
+        <pre class="chaptrSubSect__console wScript">
+          try &#123;
+            let ·user = @readUser('/º &#123;"age": 30&#125; º/');       /*/º JSON sin "nombre" º/*/
+          &#125; catch(çerr) &#123;
+            if(çerr instanceof çValidationError)&#123;
+              console.log(`/º Dato inválido: $&#123;err.message&#125;`);
+            &#125; else if (çerr instanceof çSyntaxError)
+            console.log(`/º Error de Sintaxis JSON: $&#123;err.message&#125;º/`);
+          &#125;; else &#123;
+            throw çerr;
+          &#125;
+
+          ⋗ /º Dato inválido: Falta el campo "nombre" º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Herencia adicional" codeText="">
         <p class="chaptrSubSect__p">Podemos hacer nuestra propia clase “error básico” que asigna <code>this.name = this.constructor.name</code>. Y luego herede todos nuestros errores personalizados, pero queremos evitar repetir el código que asigna <code>this.name</code> manualmente en cada clase de error personalizada</p>
         <p class="chaptrSubSect__p"><strong>Paso 1:</strong> Creación de un error base (MyError)</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">class</span> <span class="var">MyError</span> <span class="key">extends</span> <span class="obj">Error</span> <span class="warp">&#123;
-            <span class="func">constructor</span><span class="warp2">(<span class="params">message</span>) &#123;
-              <span class="func">super</span><span class="warp2">(<span class="params">message</span>)</span>;  <span class="commnt">(*)</span>
-              <span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="obj">this</span><span class="dot">.</span><span class="meth">constructor</span><span class="dot">.</span><span class="objProp">name</span>; <span class="commnt">(**)</span>
-            &#125;</span>
-          &#125;</span>;</pre>
+        <pre class="chaptrSubSect__console wScript">
+          class çMyError extends Error &#123;
+            constructor(·message) &#123;
+              @super(·message);       /*/º ➀ º/*/
+              this.•nombre = this.constructor.•nombre;      /*/º ➁ º/*/
+            &#125;
+          &#125;;</pre>
         <ul class="chaptrSubSect__ul">
-          <li class="chaptrSubSectUl__li"><code>(*)</code> Esto llama al constructor de la clase <code>Error</code> y le pasa el mensaje.</li>
-          <li class="chaptrSubSectUl__li"><code>(**)</code> Asignamos el nombre de la clase de error automáticamente.</li>
-          <li class="chaptrSubSectUl__li">Con esta clase, no tenemos que preocuparnos de asignar this.name manualmente en cada error personalizado.</li>
-          <li class="chaptrSubSectUl__li"><code>this.name</code> tomará el nombre de la clase que lo herede, como <code>ValidationError</code> o <code>PropertyRequiredError</code>.</li>
+          <li class="chaptrSubSectUl__li"><strong>➀:</strong> Esto llama al constructor de la clase <code>Error</code> y le pasa el mensaje.</li>
+          <li class="chaptrSubSectUl__li"><strong>➁:</strong> Asignamos el nombre de la clase de error automáticamente.</li>
+          <li class="chaptrSubSectUl__li">Con esta clase, no tenemos que preocuparnos de asignar <code>this.name</code> manualmente en cada error personalizado, tomará el nombre de la clase que lo herede, como <code>ValidationError</code> o <code>PropertyRequiredError</code>.</li>
         </ul>
         <p class="chaptrSubSect__p"><strong>Paso 2:</strong> Creación de <code>ValidationError</code> y <code>PropertyRequiredError</code></p>
         <p class="chaptrSubSect__p">Ahora extendemos esta clase base para crear errores más específicos. Primero creamos <code>ValidationError</code>, y luego <code>PropertyRequiredError</code> que añade información adicional sobre la propiedad que falta</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">class</span> <span class="var">ValidationError</span> <span class="key">extends</span> <span class="obj">MyError</span> <span class="warp">&#123;
-            <span class="commnt">No necesitamos agregar nada aquí, se hereda todo de MyError</span>
-          &#125;</span>;
+        <pre class="chaptrSubSect__console wScript">
+          class çValidationError extends çMyError &#123;
+            /*/º No necesitamos agregar nada aquí, se hereda todo de MyError º/*/
+          &#125;;
         
-          <span class="key">class</span> <span class="var">PropertyRequiredError</span> <span class="key">extends</span> <span class="obj">ValidationError</span> <span class="warp">&#123;
-            <span class="func">constructor</span><span class="warp2">(<span class="params">property</span>) &#123;
-              <span class="func">super</span><span class="warp2">(<span class="args">`Falta la propiedad: $&#123;<span class="params">property</span>&#125;`</span>)</span>;    <span class="commnt">(*)</span>
-              <span class="obj">this</span><span class="dot">.</span><span class="params">property</span> <span class="opera">=</span> <span class="params">property</span>;  <span class="commnt">(**)</span>
-            &#125;</span>
-          &#125;</span>;</pre>
+          class çPropertyRequiredError extends çValidationError &#123;
+            constructor(#property) &#123;
+              @super(`/º Falta la propiedad: $&#123;property&#125; º/`);       /*/º ➀ º/*/
+              this.•property = #property;      /*/º ➁ º/*/
+            &#125;
+          &#125;;</pre>
         <ul class="chaptrSubSect__ul">
-          <li class="chaptrSubSectUl__li"><code>(*)</code> Mensaje personalizado.</li>
-          <li class="chaptrSubSectUl__li"><code>(**)</code> Guardamos la propiedad que falta.</li>
+          <li class="chaptrSubSectUl__li"><strong>➀</strong> Mensaje personalizado.</li>
+          <li class="chaptrSubSectUl__li"><strong>➁</strong> Guardamos la propiedad que falta.</li>
           <li class="chaptrSubSectUl__li"><code>ValidationError:</code> Es una clase genérica de validación que no tiene propiedades adicionales.</li>
           <li class="chaptrSubSectUl__li"><code>PropertyRequiredError:</code> Esta es más específica y lleva información adicional, como el nombre de la propiedad que falta.</li>
         </ul>
         <p class="chaptrSubSect__p"><strong>Paso 3:</strong> Validación de un objeto</p>
         <p class="chaptrSubSect__p">Vamos a crear una función <code>readUser</code> que intenta leer datos de un usuario desde un <code>JSON</code>. Si falta un campo importante, lanzamos un <code>PropertyRequiredError</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">function</span> <span class="func">readUser</span><span class="warp">(<span class="params">json</span>) &#123;
-            <span class="key">let</span> <span class="var">user</span> <span class="opera">=</span> <span class="obj">JSON</span><span class="dot">.</span><span class="meth">parse</span><span class="warp2">(<span class="params">json</span>)</span>;
-            <span class="commnt">Convertimos el JSON a un objeto</span>
-
-            <span class="func">if</span><span class="warp2">(<span class="opera">!</span><span class="obj">user</span><span class="dot">.</span><span class="objProp">name</span>) &#123;
-            <span class="key">throw new</span> <span class="obj">PropertyRequiredError</span><span class="warp">(<span class="args">'name'</span>)</span>;
-            <span class="commnt">Si falta el nombre, lanzamos un error</span>
-            &#125;</span>
-
-            <span class="func">if</span><span class="warp2">(<span class="opera">!</span><span class="obj">user</span><span class="dot">.</span><span class="objProp">age</span>) &#123;
-            <span class="key">throw new</span> <span class="obj">PropertyRequiredError</span><span class="warp">(<span class="args">'age'</span>)</span>;
-            <span class="commnt">Si falta la edad, lanzamos otro error</span>
-            &#125;</span>
-
-            <span class="key">return</span> <span class="obj">user</span>;
-            <span class="commnt">Si todo está bien, devolvemos el objeto usuario</span>
-          &#125;</span>;</pre>
+        <pre class="chaptrSubSect__console wScript">
+          function @readUser(#json) &#123;
+            let ·user = çJSON.ªparse(#json);    /*/º Convertimos el JSON a un objeto º/*/
+            if(!·user.•name) &#123;
+              throw new @PropertyRequiredError('nombre');
+              /*/º Si falta el nombre, lanzamos un error º/*/
+            &#125;
+            return ·user;   /*/º Si todo está bien, devolvemos el objeto usuario º/*/
+          &#125;;</pre>
         <p class="chaptrSubSect__p"><strong>Paso 4:</strong> Manejo de errores</p>
         <p class="chaptrSubSect__p">Usamos <code>try..catch</code> para manejar los errores. Dependiendo del tipo de error, mostramos un mensaje diferente</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">try</span> <span class="warp">&#123;
-            <span class="key">let</span> <span class="var">user</span> <span class="opera">=</span> <span class="func">readUser</span><span class="warp2">(<span class="args">'&#123;"age": 30&#125;'</span>)</span>; <span class="commnt">Falta el campo "name"</span>
-          &#125;</span> <span class="key">catch</span><span class="warp">(<span class="params">err</span>) &#123;
-            <span class="func">if</span><span class="warp2">(<span class="params">err</span> <span class="key">instanceof</span> <span class="obj">ValidationError</span>) &#123;
-              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Dato inválido: $&#123;<span class="params">err</span><span class="dot">.</span><span class="meth">message</span>&#125;`</span>)</span>;
-              <span class="commnt">Falta la propiedad: name</span>
-              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Nombre error: $&#123;<span class="params">err</span><span class="dot">.</span><span class="meth">name</span>&#125;`</span>)</span>;
-              <span class="commnt">Muestra PropertyRequiredError</span>
-              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Falta propiedad: $&#123;<span class="params">err</span><span class="dot">.</span><span class="meth">property</span>&#125;`</span>)</span>;
-              <span class="commnt">Muestra name</span>
-            &#125;</span> <span class="func">else if</span><span class="warp2">(<span class="params">err</span> <span class="key">instanceof</span> <span class="obj">SyntaxError</span>) &#123;
-              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Error de sintaxis JSON: $&#123;<span class="params">err</span><span class="dot">.</span><span class="meth">message</span>&#125;`</span>)</span>;
-              <span class="commnt">JSON mal formado</span>
-            &#125;</span> <span class="key">else</span> <span class="warp2">&#123;
-              <span class="key">throw</span> <span class="params">err</span>; 
-              <span class="commnt">Si no es ninguno de los anteriores, lanzamos el error de nuevo</span>
-            &#125;</span>
-          &#125;</span>;
+        <pre class="chaptrSubSect__console wScript">
+          try &#123;
+            let ·user = @readUser('/º &#123;"age": 30&#125; º/');  /*/º Falta el campo "nombre" º/*/
+          &#125; catch(çerr) &#123;
+            if(çerr instanceof çValidationError) &#123;
+              console.log(`/º Dato inválido: $&#123;err.message&#125; º/`);     /*/º ➀ º/*/
+              console.log(`/º Nombre error: $&#123;err.name&#125; º/`);     /*/º ➁ º/*/
+              console.log(`/º Falta propiedad: $&#123;err.property&#125; º/`);      /*/º ➂ º/*/
+            &#125; else if(çerr instanceof çSyntaxError) &#123;
+              console.log(`/º Error de sintaxis JSON: $&#123;err.message&#125; º/`);
+            &#125; else &#123;
+              throw çerr; 
+              /*/º Si no es ninguno de los anteriores, lanzamos el error de nuevo º/*/
+            &#125;
+          &#125;;
         
-          <span class="result">Dato inválido: Falta la propiedad: name</span>
-          <span class="result">Nombre error: PropertyRequiredError</span>
-          <span class="result">Falta propiedad: name</span></pre>
+          ⋗ /º Dato inválido: Falta la propiedad: nombre º/     /*/º ➀ º/*/
+          ⋗ /º Nombre error: PropertyRequiredError º/     /*/º ➁ º/*/
+          ⋗ /º Falta propiedad: nombre º/     /*/º ➂ º/*/
+        </pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Empacado de Excepciones" codeText="">
         <p class="chaptrSubSect__p">El "empacado de excepciones" es una técnica que te permite manejar múltiples tipos de errores sin tener que preocuparte por cada uno de ellos individualmente. La idea es que si tienes varios errores específicos, como <code>SyntaxError</code> o <code>ValidationError</code>, puedes "empaquetarlos" en un error más general. En lugar de verificar cada tipo de error en cada <code>try...catch</code>, simplemente verificas el error empaquetado (en este caso, ReadError) y luego, si necesitas más detalles, puedes revisar la causa original del error</p>
         <p class="chaptrSubSect__p">Ejemplo: Queremos empaquetar esos errores específicos dentro de un error más general llamado <code>ReadError</code>, que nos indicará simplemente que ocurrió un error al leer los datos. Si necesitamos más información, podemos revisar la propiedad <code>cause</code> del <code>ReadError</code> para ver qué error específico causó el problema</p>
         <p class="chaptrSubSect__p"><strong>Paso 1:</strong> Creación de la clase <code>ReadError</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">class</span> <span class="var">ReadError</span> <span class="key">extends</span> <span class="obj">Error</span> <span class="warp">&#123;
-            <span class="func">constructor</span><span class="warp2">(<span class="params">message, cause</span>) &#123;
-              <span class="func">super</span><span class="warp2">(<span class="params">message</span>)</span>;  <span class="commnt">(*)</span>
-              <span class="obj">this</span><span class="dot">.</span><span class="params">cause</span> <span class="opera">=</span> <span class="params">cause</span>; <span class="commnt">(**)</span>
-              <span class="obj">this</span><span class="dot">.</span><span class="objProp">name</span> <span class="opera">=</span> <span class="args">'ReadError'</span>; <span class="commnt">(***)</span>
-            &#125;</span>
-          &#125;</span>;</pre>
+        <pre class="chaptrSubSect__console wScript">
+          class çReadError extends Error &#123;
+            constructor(#message, #cause) &#123;
+              @super(#message);       /*/º ➀ º/*/
+              this.•cause = #cause;      /*/º ➁ º/*/
+              this.•name = 'ReadError';      /*/º ➂ º/*/
+            &#125;
+          &#125;;</pre>
         <ul class="chaptrSubSect__ul">
-          <li class="chaptrSubSectUl__li"><code>(*)</code> Esto llama al constructor de la clase <code>Error</code> y le pasa el mensaje.</li>
-          <li class="chaptrSubSectUl__li"><code>(**)</code> Guardamos el error original.</li>
-          <li class="chaptrSubSectUl__li">Con esta clase, no tenemos que preocuparnos de asignar this.name manualmente en cada error personalizado.</li>
-          <li class="chaptrSubSectUl__li"><code>(***)</code> Nombramos el error.</li>
+          <li class="chaptrSubSectUl__li"><strong>➀:</strong> Esto llama al constructor de la clase <code>Error</code> y le pasa el mensaje.</li>
+          <li class="chaptrSubSectUl__li"><strong>➁:</strong> Guardamos el error original.</li>
+          <li class="chaptrSubSectUl__li">Con esta clase, no tenemos que preocuparnos de asignar <code>this.name</code> manualmente en cada error personalizado.</li>
+          <li class="chaptrSubSectUl__li"><strong>➂:</strong> Nombramos el error.</li>
           <li class="chaptrSubSectUl__li"><code>message</code> El mensaje general que describe el error de lectura de datos.</li>
           <li class="chaptrSubSectUl__li"><code>cause</code> La causa original del error, como <code>SyntaxError</code> o <code>ValidationError</code>.</li>
         </ul>
         <p class="chaptrSubSect__p"><strong>Paso 2:</strong> Validación de usuario con posibles errores personalizados</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">class</span> <span class="var">ValidationError</span> <span class="key">extends</span> <span class="obj">Error</span> <span class="warp">&#123;&#125;</span>;
+        <pre class="chaptrSubSect__console wScript">
+          class çValidationError extends Error &#123;&#125;;
         
-          <span class="key">class</span> <span class="var">PropertyRequiredError</span> <span class="key">extends</span> <span class="obj">ValidationError</span> <span class="warp">&#123;
-            <span class="func">constructor</span><span class="warp2">(<span class="params">property</span>) &#123;
-              <span class="func">super</span><span class="warp2">(<span class="args">`Falta la propiedad: $&#123;<span class="params">property</span>&#125;`</span>)</span>;
-              <span class="obj">this</span><span class="dot">.</span><span class="params">property</span> <span class="opera">=</span> <span class="params">property</span>;
-            &#125;</span>
-          &#125;</span>;
+          class çPropertyRequiredError extends çValidationError &#123;
+            constructor(#property) &#123;
+              @super(`/º Falta la propiedad: $&#123;property&#125; º/`);
+              this.•property = #property;
+            &#125;
+          &#125;;
         
-          <span class="key">function</span> <span class="func">validateUser</span><span class="warp">(<span class="params">user</span>) &#123;
-            <span class="func">if</span><span class="warp2">(<span class="opera">!</span><span class="obj">user</span><span class="dot">.</span><span class="objProp">name</span>) &#123;
-            <span class="key">throw new</span> <span class="obj">PropertyRequiredError</span><span class="warp">(<span class="args">'name'</span>)</span>;
-            &#125;</span>
-            <span class="func">if</span><span class="warp2">(<span class="opera">!</span><span class="obj">user</span><span class="dot">.</span><span class="objProp">age</span>) &#123;
-            <span class="key">throw new</span> <span class="obj">PropertyRequiredError</span><span class="warp">(<span class="args">'age'</span>)</span>;
-            &#125;</span>
-          &#125;</span>;</pre>
+          function @validateUser(#user) &#123;
+            if(!·user.•name) &#123;
+              throw new @PropertyRequiredError('nombre');
+              /*/º Si falta el nombre, lanzamos un error º/*/
+            &#125;
+            return ·user;   /*/º Si todo está bien, devolvemos el objeto usuario º/*/
+          &#125;;</pre>
         <p class="chaptrSubSect__p"><strong>Paso 3:</strong> Función readUser que empaqueta los errores</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">function</span> <span class="func">readUser</span><span class="warp">(<span class="params">json</span>) &#123;
-            <span class="key">let</span> <span class="var">user</span>;
+        <pre class="chaptrSubSect__console wScript">
+          function @readUser(#json) &#123;
+            let ·user;
 
-            <span class="key">try</span> <span class="warp">&#123;
-              <span class="commnt">Intentamos convertir el JSON</span>
-              <span class="var">user</span> <span class="opera">=</span> <span class="obj">JSON</span><span class="dot">.</span><span class="meth">parse</span><span class="warp2">(<span class="params">json</span>)</span>;
-            &#125;</span> <span class="key">catch</span><span class="warp">(<span class="params">err</span>) &#123;
-              <span class="func">if</span><span class="warp2">(<span class="params">err</span> <span class="key">instanceof</span> <span class="obj">SyntaxError</span>) &#123;
-                <span class="commnt">Empacamos el error de sintaxis</span>
-                <span class="key">throw new</span> <span class="func">ReadError</span><span class="warp">(<span class="args">'Error de sintaxis'</span>, <span class="params">err</span>)</span>;
-              &#125;</span> <span class="key">else</span> <span class="warp2">&#123;
-                <span class="commnt">Otros errores los lanzamos sin empacar</span>
-                <span class="key">throw</span> <span class="params">err</span>; 
-              &#125;</span>
-            &#125;</span>;
+            try &#123;
+              ·user = çJSON.ªparse(#json);                  /*/º ➀ º/*/
+            &#125; catch(çerr) &#123;
+              if(çerr instanceof çSyntaxError) &#123;     /*/º ➁ º/*/
+                throw new @ReadError('/º Error de sintaxis: º/', çerr);
+              &#125; else &#123;
+                throw çerr;                     /*/º ➂ º/*/
+              &#125;
+            &#125;;
 
-            <span class="key">try</span> <span class="warp">&#123;
-              <span class="commnt">Intentamos validar al usuario</span>
-              <span class="func">validateUser</span><span class="warp2">(<span class="var">user</span>)</span>;
-            &#125;</span> <span class="key">catch</span><span class="warp">(<span class="params">err</span>) &#123;
-              <span class="func">if</span><span class="warp2">(<span class="params">err</span> <span class="key">instanceof</span> <span class="obj">ValidationError</span>) &#123;
-                <span class="commnt">Empacamos el error de validación</span>
-                <span class="key">throw new</span> <span class="func">ReadError</span><span class="warp">(<span class="args">'Error de validación'</span>, <span class="params">err</span>)</span>;
-              &#125;</span> <span class="key">else</span> <span class="warp2">&#123;
-                <span class="commnt">Otros errores los lanzamos sin empacar</span>
-                <span class="key">throw</span> <span class="params">err</span>; 
-              &#125;</span>
-            &#125;</span>;
-          &#125;</span>;</pre>
+            try &#123;
+              @validateUser(·user);             /*/º ➃ º/*/
+            &#125; catch(çerr) &#123;
+              if(çerr instanceof çValidationError) &#123;
+                throw new @ReadError('/º Error de validación: º/', çerr);     /*/º ➄ º/*/
+              &#125; else &#123;
+                throw çerr;      /*/º ➅ º/*/
+              &#125;
+            &#125;;
+          &#125;;</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>➀:</strong>  Intentamos convertir el JSON.</li>
+          <li class="chaptrSubSectUl__li"><strong>➁:</strong> Empacamos el error de sintaxis.</li>
+          <li class="chaptrSubSectUl__li"><strong>➂:</strong> Otros errores los lanzamos sin empacar.</li>
+          <li class="chaptrSubSectUl__li"><strong>➃:</strong> Intentamos validar al usuario.</li>
+          <li class="chaptrSubSectUl__li"><strong>➄:</strong> Empacamos el error de validación.</li>
+          <li class="chaptrSubSectUl__li"><strong>➅:</strong>  Otros errores los lanzamos sin empacar.</li>
+        </ul>
         <p class="chaptrSubSect__p"><strong>Paso 4:</strong> Manejo del error empaquetado</p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">try</span> <span class="warp">&#123;
-            <span class="func">readUser</span><span class="warp2">(<span class="args">'&#123;json malo&#125;'</span>)</span>; <span class="commnt">JSON mal formado</span>
-          &#125;</span> <span class="key">catch</span><span class="warp">(<span class="params">err</span>) &#123;
-            <span class="commnt">Verificamos si es un error empaquetado</span>
-            <span class="func">if</span><span class="warp2">(<span class="params">err</span> <span class="key">instanceof</span> <span class="obj">ReadError</span>) &#123;
-              <span class="commnt">Mensaje general del error</span>
-              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="params">err</span><span class="dot">.</span><span class="meth">message</span>)</span>;
-              <span class="commnt">Detalles del error original</span>
-              <span class="obj">console</span><span class="dot">.</span><span class="meth">log</span><span class="warp">(<span class="args">`Error original: $&#123;<span class="params">err</span><span class="dot">.</span><span class="meth">cause</span>&#125;`</span>)</span>;
-            &#125;</span> <span class="key">else</span> <span class="warp2">&#123;
-              <span class="key">throw</span> <span class="params">err</span>; 
-              <span class="commnt">Otros errores los volvemos a lanzar</span>
-            &#125;</span>
-          &#125;</span>;
+        <pre class="chaptrSubSect__console wScript">
+          try &#123;
+            @readUser('/º &#123;jF$·F$·Y·$TDSG&#125; º/');         /*/º ➀ º/*/
+          &#125; catch(çerr) &#123;
+            if(çerr instanceof çReadError) &#123;       /*/º ➁ º/*/
+              console.log(çerr.•message);       /*/º ➂ º/*/
+              console.log(`/º Error original: $&#123;err.cause&#125; º/`);        /*/º ➃ º/*/
+            &#125; else &#123;
+              throw çerr;         /*/º ➄ º/*/
+            &#125;
+          &#125;;
         
-          <span class="result">Error de sintaxis</span>
-          <span class="result">Error original: SyntaxError: Expected property name</span></pre>
+          ⋗ /º Error de sintaxis º/
+          ⋗ /º Error original: SyntaxError: Unexpected token j in JSON at position 1 º/</pre>
+        <ul class="chaptrSubSect__ul">
+          <li class="chaptrSubSectUl__li"><strong>➀:</strong> JSON mal formado.</li>
+          <li class="chaptrSubSectUl__li"><strong>➁:</strong> Verificamos si es un error empaquetado.</li>
+          <li class="chaptrSubSectUl__li"><strong>➂:</strong> Mensaje general del error.</li>
+          <li class="chaptrSubSectUl__li"><strong>➃:</strong> Detalles del error original.</li>
+          <li class="chaptrSubSectUl__li"><strong>➄:</strong> Otros errores los volvemos a lanzar.</li>
+        </ul>
       </ChaptrSubSect>
     </ChaptrSect>
   </LssnArt>
-	<Footer slot="mainFooter" />
+	<Footer slot="mainFooter" prevPage="/lessons/lesson_28" nextPage="/lessons/lesson_29"/>
 </MainLayout>
+
+
+
+
+
+
+
+<!-- 
+&lt;&gt;
+&#123;&#125;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+ªmétodos
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li">
+＃
+﹘
+-->

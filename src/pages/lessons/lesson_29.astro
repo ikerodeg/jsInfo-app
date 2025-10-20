@@ -12,10 +12,11 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
       <ChaptrSubSect h4Title="Funciones generadoras" codeText="">
         <p class="chaptrSubSect__p">Las funciones generadoras en JavaScript son funciones especiales que permiten pausar y reanudar su ejecución, devolviendo valores intermedios en el proceso. Esto es útil cuando queremos producir una serie de valores bajo demanda, sin generar todos a la vez, como una secuencia infinita de números o un flujo de datos que llega en partes</p>
         <p class="chaptrSubSect__p">Una función generadora se define con el símbolo <code>*</code> después de la palabra <code>function</code></p>
-        <pre class="chaptrSubSect__console">
-          <span class="key">function</span><span class="opera">*</span> <span class="func">generatorName</span><span class="warp">() &#123;
-            <span class="commnt">cuerpo de la función</span>
-          &#125;</span>;</pre>
+        <pre class="chaptrSubSect__console wScript">
+          function @nombreFuncionGeneradora() &#123;
+            /*/º cuerpo de la función º/*/
+          &#125;;
+        </pre>
         <p class="chaptrSubSect__p">Dentro de estas funciones, utilizamos la palabra clave <code>yield</code> en lugar de <code>return</code> para devolver <mark>valores intermedios</mark>. Cada vez que la función "cede" un valor con <code>yield</code>, su ejecución se pausa en ese punto</p>
         <pre class="chaptrSubSect__console">
           <span class="key">function</span><span class="opera">*</span> <span class="func">generatorSequence</span><span class="warp">() &#123;
@@ -288,5 +289,36 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
       </ChaptrSubSect>
     </ChaptrSect>
   </LssnArt>
-	<Footer slot="mainFooter" />
+	<Footer slot="mainFooter" prevPage="/lessons/lesson_24" nextPage="/lessons/lesson_30"/>
 </MainLayout>
+
+
+
+
+
+<!-- 
+&lt;&gt;
+&#123;&#125;
+()&#123;&#125;
+﹛﹜    Llaves no estiladas
+﹕     2 puntos no estilizados
+ªmétodos
+•parametro
+·variable
+#variable en Func/if/for
+çObjetos
+⋗ ∞Resultado
+@funcion()
+¬numbers
+objProperty:
+ºobjProperty
+/* comentario */
+'/º modo texto quita span º/'
+<p class="chaptrSubSect__p">
+<pre class="chaptrSubSect__console wScript">
+<table class="chaptrSubSect__table">
+<ul class="chaptrSubSect__ul">
+<li class="chaptrSubSectUl__li">
+＃
+﹘
+-->

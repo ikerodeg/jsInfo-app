@@ -557,15 +557,14 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
               &#125;);
             &#125;);
           
-          /*/º Resultados: [ º/*/
-            /*/º &#123; status: 'fulfilled', value: 5 &#125;, º/*/
-            /*/º &#123; status: 'fulfilled', value: 10 &#125;, º/*/
-            /*/º &#123; status: 'rejected', reason: º/ /ºError : Falló la promesa 3 &#125; º/*/
-          /*/º ] º/*/
-          /*/º fulfilled º/*/
-          /*/º fulfilled º/*/
-          /*/º rejected º/*/
-          </pre>
+          ⋗ /º Resultados: [ º/
+            /º &#123; status: 'fulfilled', value: 5 &#125;, º/
+            /º &#123; status: 'fulfilled', value: 10 &#125;, º/
+            /º &#123; status: 'rejected', reason: º/ /ºError : Falló la promesa 3 &#125; º/
+          /º ] º/
+          ⋗ /º fulfilled º/
+          ⋗ /º fulfilled º/
+          ⋗ /º rejected º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Promise API" codeText="Promise.race">
         <p class="chaptrSubSect__p">Devuelve una promesa que se resuelve o se rechaza con el resultado de la primera promesa que termine (ya sea con éxito o error)</p>
@@ -588,7 +587,7 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
               console.ªerror(`/º Error : $&#123;error.message&#125; º/`);
             &#125;);
 
-          /*/º Ganadora: 5 º/*/</pre>
+          ⋗ /º Ganadora: 5 º/</pre>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Promise API" codeText="Promise.any">
         <p class="chaptrSubSect__p">Similar a <code>Promise.race</code>, solo se resuelve cuando al menos una de las promesas se resuelve correctamente, ignorando cualquier promesa que falle. Si todas las promesas fallan, entonces devuelve un error</p>
@@ -613,7 +612,7 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
               console.ªerror(`/º Error : $&#123;error.message&#125; º/`);
             &#125;);
 
-          /*/º 1ª Promesa cumplida: Promesa 3 cumplida! 🎉 º/*/</pre>
+          ⋗ /º 1ª Promesa cumplida: Promesa 3 cumplida! 🎉 º/</pre>
       </ChaptrSubSect>
     </ChaptrSect>
   </LssnArt>
