@@ -17,13 +17,14 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
         
           @myFunction();
           ⋗ /º" Hola mundo!" º/</pre>
+        <p class="chaptrSubSect__p">En JavaScript, el punto y coma (;) solo es necesario para <strong>finalizar expresiones</strong>, <strong>no declaraciones</strong>. Esto está especificado formalmente en la ECMAScript Language Specification</p>
       </ChaptrSubSect>
       <ChaptrSubSect h4Title="Expresión de función" codeText="">
         <p class="chaptrSubSect__p">Asignar una función a una variable. Puede no tener un nombre (<strong>anónima</strong>) o tener un nombre para referencia interna. No son <mark>hoisted</mark>, esto significa que no se pueden invocar antes de que se definan</p>
         <pre class="chaptrSubSect__console wScript">
           let ·sayHi = @function() &#123;
             console.log('/º Hola mundo! º/');
-          &#125;;
+          &#125;;             /*/º Aquí si se necesita ;  º/*/
 
           @sayHi()
           ⋗ /º" Hola mundo!" º/</pre>
@@ -62,7 +63,7 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
         <pre class="chaptrSubSect__console wScript">
           function @suma(#param1, #param2) &#123;
             return #param1 + #param2;
-          &#125;;
+          &#125;
         
           let ·result = @suma(¬10, ¬40);
           console.log(·result);
@@ -78,7 +79,7 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
         <pre class="chaptrSubSect__console wScript">
           function @suma(#param1, #param2) &#123;
             return #param1 + #param2;
-          &#125;;
+          &#125;
         
           console.log(@suma(•argumento1, •argumento2);)</pre>
       </ChaptrSubSect>
@@ -89,7 +90,7 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
           function @calculations(#a, #b, #c) &#123;       /* o dinámicamente */
             let #operation = #arguments[¬0] + #arguments[¬2] - #arguments[¬1];
             console.log(#operation)
-          &#125;;
+          &#125;
         
           @calculations(¬5, ¬3, ¬6);
           ⋗ 8</pre>
@@ -101,7 +102,7 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
             console.log(#numbers)
             console.log(#numbers[¬0]);
             console.log(#numbers[¬2]);
-          &#125;;
+          &#125;
         
           @printNumbers(¬2, ¬4, ¬6, ¬8);
           ⋗ 2, 4, 6, 8
@@ -113,7 +114,7 @@ import ChaptrSubSect from "@/components/ChaptrSubSect.astro"
         <pre class="chaptrSubSect__console wScript">
           function @showMessage(from, #text = 'Guest') &#123;
             console.log(`/º $&#123;from&#125;: $&#123;text&#125; º/`);
-          &#125;;
+          &#125;
         
           @showMessage('Eder', 'Member');
           ⋗ /º "Eder: Member" º/
